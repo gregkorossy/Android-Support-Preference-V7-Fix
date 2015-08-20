@@ -8,7 +8,7 @@ https://code.google.com/p/android/issues/detail?id=183376
 This demo / bugfix is set to work on API level 16+.
 
 # License notes #
-You can do whatever you want except where noted, especially the following files downloaded from the Android framework (these are also modified):
+You can do whatever you want except where noted, especially the following files downloaded from the [Android framework base](https://github.com/android/platform_frameworks_base/tree/master/core/res/res/layout) (these are also modified):
  - preference_category_material.xml
  - preference_dialog_edittext_material.xml
  - preference_information_material.xml
