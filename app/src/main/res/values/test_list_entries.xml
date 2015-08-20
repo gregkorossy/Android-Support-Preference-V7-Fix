@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_list_entries">
+        <item>Alpha</item>
+        <item>Bravo</item>
+        <item>Charlie</item>
+    </string-array>
+    <string-array name="pref_list_values">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+    </string-array>
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="First category">
+        <Preference
+            android:persistent="false"
+            android:summary="This is just a normal preference"
+            android:title="Preference" />
+        <Preference
+            android:enabled="false"
+            android:persistent="false"
+            android:summary="This is just a disabled preference"
+            android:title="Preference 2" />
+        <CheckBoxPreference
+            android:persistent="false"
+            android:summary="It's a checkbox"
+            android:title="CheckBoxPreference" />
+        <SwitchPreferenceCompat
+            android:persistent="false"
+            android:summary="It's a switch"
+            android:title="SwitchPreference" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Another category">
+        <EditTextPreference
+            android:key="edit_text_test"
+            android:persistent="false"
+            android:summary="It's an input"
+            android:title="EditTextPreference" />
+        <ListPreference
+            android:dialogTitle="ListPreference dialog"
+            android:entries="@array/pref_list_entries"
+            android:entryValues="@array/pref_list_values"
+            android:key="pref_syncConnectionType"
+            android:persistent="false"
+            android:title="ListPreference" />
+    </PreferenceCategory>
+</PreferenceScreen>
