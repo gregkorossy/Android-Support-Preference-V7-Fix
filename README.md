@@ -1,9 +1,11 @@
-# The issue has been fixed, this project should not be used anymore as a workaround!
+# The issue has NOT been fixed yet despite what the changelog says
 **According to the latest support library, revision 23.0.1**
 
 > Changes for v7 and v14 Preference Support library:
 
 > - Added the material design layout and style files. ([Issue 183376](https://code.google.com/p/android/issues/detail?id=183376))
+
+But in v7 it still looks ugly...
 
 # Android-Support-Preference-V7-Fix
 Android preference-v7 support library doesn't contain material design layout files so the preferences screen look bad on API 21+. This is a temporary fix until Google fixes it.
