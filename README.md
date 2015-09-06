@@ -34,13 +34,13 @@ This also means that even though you are using only v7, you have to include the 
 </style>
 ```
 
-**And one more bug** is that `PreferenceThemeOverlay.v14.Material` has no correct background selector on pre-Lollipop platforms. To overcome this, you should add the following line to your main theme style:
+**And one more bug** is that `PreferenceThemeOverlay.v14.Material` has no correct background selector. To overcome this, you should add the following line to your main theme style:
 
 ```xml
 <item name="android:activatedBackgroundIndicator">?android:attr/selectableItemBackground</item>
 ```
 
-*Note that I did not test it extensively so it might mess up other parts of your app. This is just a temporary (i.e. experimental) bugfix until Google releases either a less buggy version of the lib or the source code so we could fix it.*
+*Note that I did not test this background-fixer solution extensively so it might mess up other parts of your app. This is just a temporary (i.e. experimental) bugfix until Google releases either a less buggy version of the lib or the source code so we could fix it.*
 
 # Android-Support-Preference-V7-Fix
 Android preference-v7 support library doesn't contain material design layout files so the preferences screen look bad on API 21+. This is a temporary fix until Google fixes it.
