@@ -22,34 +22,34 @@
     </style>
 
     <style name="PreferenceTheme.Preference" parent="@style/Preference">
-        <item name="layout">@layout/preference_material</item>
+        <item name="layout">@layout/preference_material_custom</item>
     </style>
 
     <style name="PreferenceTheme.Category" parent="@style/Preference.Category">
-        <item name="layout">@layout/preference_category_material</item>
+        <item name="layout">@layout/preference_category_material_custom</item>
         <!-- The title should not dim if the category is disabled, instead only the preference children should dim. -->
         <item name="shouldDisableView">false</item>
         <item name="selectable">false</item>
     </style>
 
     <style name="PreferenceTheme.CheckBoxPreference" parent="@style/Preference.CheckBoxPreference">
-        <item name="layout">@layout/preference_material</item>
+        <item name="layout">@layout/preference_material_custom</item>
     </style>
 
     <style name="PreferenceTheme.SwitchPreferenceCompat" parent="@style/Preference.SwitchPreferenceCompat">
-        <item name="layout">@layout/preference_material</item>
+        <item name="layout">@layout/preference_material_custom</item>
     </style>
 
     <style name="PreferenceTheme.Information" parent="@style/Preference.Information">
-        <item name="layout">@layout/preference_information_material</item>
+        <item name="layout">@layout/preference_information_material_custom</item>
     </style>
 
     <style name="PreferenceTheme.DialogPreference" parent="@style/Preference.DialogPreference">
-        <item name="layout">@layout/preference_material</item>
+        <item name="layout">@layout/preference_material_custom</item>
     </style>
 
     <style name="PreferenceTheme.DialogPreference.EditTextPreference" parent="@style/Preference.DialogPreference.EditTextPreference">
-        <item name="layout">@layout/preference_material</item>
-        <item name="dialogLayout">@layout/preference_dialog_edittext_material</item>
+        <item name="layout">@layout/preference_material_custom</item>
+        <item name="dialogLayout">@layout/preference_dialog_edittext_material_custom</item>
     </style>
 </resources>

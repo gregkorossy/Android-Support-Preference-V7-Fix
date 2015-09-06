@@ -10,6 +10,11 @@
             android:persistent="false"
             android:summary="This is just a disabled preference"
             android:title="Preference 2" />
+        <Preference
+            android:icon="@drawable/ic_battery_std_black_24dp"
+            android:persistent="false"
+            android:summary="This is a preference with icon"
+            android:title="Preference 3" />
         <CheckBoxPreference
             android:persistent="false"
             android:summary="It's a checkbox"
