@@ -43,7 +43,9 @@ This also means that even though you are using only v7, you have to include the 
 *Note that I did not test this background-fixer solution extensively so it might mess up other parts of your app. This is just a temporary (i.e. experimental) bugfix until Google releases either a less buggy version of the lib or the source code so we could fix it.*
 
 # Android-Support-Preference-V7-Fix
-Android preference-v7 support library doesn't contain material design layout files so the preferences screen look bad on API 21+. This is a temporary fix until Google fixes it.
+~~Android preference-v7 support library doesn't contain material design layout files so the preferences screen looks bad on API 21+. This is a temporary fix until Google fixes it.~~
+
+The latest (23.0.1) preference-v7 support library has some other issues, see above.
 
 The issue has been reported, you can find it here:
 https://code.google.com/p/android/issues/detail?id=183376
@@ -53,7 +55,7 @@ This demo / bugfix is set to work on API level 16+.
 
 # License notes #
 You can do whatever you want except where noted, especially the following files downloaded from the [Android framework base](https://github.com/android/platform_frameworks_base/tree/master/core/res/res/layout) (these are also modified):
- - preference_category_material.xml
- - preference_dialog_edittext_material.xml
- - preference_information_material.xml
- - preference_material.xml
+ - preference_category_material_custom.xml
+ - preference_dialog_edittext_material_custom.xml
+ - preference_information_material_custom.xml
+ - preference_material_custom.xml
