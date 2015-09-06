@@ -9,6 +9,7 @@
         <item name="toolbarStyle">@style/Theme.MyTheme.Toolbar</item>
         <item name="dialogTheme">@style/Theme.MyTheme.Dialog</item>
         <item name="alertDialogTheme">@style/Theme.MyTheme.Dialog.Alert</item>
+        <item name="android:activatedBackgroundIndicator">?android:attr/selectableItemBackground</item>
     </style>
 
     <style name="Theme.MyTheme.DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
