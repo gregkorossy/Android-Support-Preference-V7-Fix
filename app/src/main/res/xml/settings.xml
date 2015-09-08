@@ -38,4 +38,13 @@
             android:persistent="false"
             android:title="ListPreference" />
     </PreferenceCategory>
+    <PreferenceCategory
+        android:key="pref_categ"
+        android:title="Dynamic category">
+        <Preference
+            android:key="pref_add"
+            android:persistent="false"
+            android:summary="Add preference"
+            android:title="Preference" />
+    </PreferenceCategory>
 </PreferenceScreen>
