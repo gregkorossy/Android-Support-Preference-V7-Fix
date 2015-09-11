@@ -42,6 +42,8 @@ This also means that even though you are using only v7, you have to include the 
 
 *Note that I did not test this background-fixer solution extensively so it might mess up other parts of your app. This is just a temporary (i.e. experimental) bugfix until Google releases either a less buggy version of the lib or the source code so we could fix it.*
 
+**And another bug (*officially it isn't*)** is that you cannot set any `EditText`-related attributes (e.g. `inputType`) to your `EditTextPreference`. If you still want to do that, scroll down a little, the workaround is in the **Interesting things** part.
+
 # Interesting things
 These are not considered bugs but they can give you a headache.
 
@@ -55,6 +57,43 @@ Preference preference = new Preference(ctx);
 // setup your preference and add it to a category or the preference screen
 ```
 And voilà, now your `preference` instance is material styled (*or whatever style you set as your `preferenceTheme`'s `preferenceStyle`*).
+
+### Setting `InputType` and other `EditText`-related arguments on EditTextPreference
+`EditTextPreference` doesn't forward XML attributes that should influence the input type or other aspects of the shown `EditText`. The [official statement](https://code.google.com/p/android/issues/detail?id=185164) is that this is *not a bug*, but I think it's a serious design flaw. Anyways, after a few hours getting through the decompiled source, I came up with a solution that works for now.
+
+I introduced 3 new (*fix*) classes:
+
+- **`EditTextPreferenceFix`** replacing `EditTextPreference` (in your XML too)
+- **`EditTextPreferenceDialogFragmentCompatFix`** replacing `EditTextPreferenceDialogFragmentCompat`, you won't interact with it, just needed for the fixed experience
+- **`PreferenceFragmentCompatFix`** replacing `PreferenceFragmentCompat` as the base class of `MyPreferenceFragment`
+
+You need a few updates to utilize this fix.
+
+Update `MyPreferenceFragment`'s base class to `PreferenceFragmentCompatFix` (*note the **Fix** ending*):
+```java
+public class MyPreferenceFragment extends PreferenceFragmentCompatFix { /* ... */ }
+```
+
+In your preference XML, use `EditTextPreferenceFix` instead of `EditTextPreference` (*again, note the **Fix** ending*):
+```xml
+<EditTextPreferenceFix
+    android:inputType="phone"
+    android:key="edit_text_fix_test"
+    android:persistent="false"
+    android:summary="It's an input for phone numbers only"
+    android:title="EditTextPreferenceFix" />
+```
+
+*I recommend using the normal `EditTextPreference` version first as it provides auto-complete for the attributes, and adding the **Fix** ending when you're testing / releasing the app.*
+
+If you use `EditTextPreferenceFix`, you can also access the shown `EditText` by calling the preference's `getEditText()` method. Example:
+```java
+EditTextPreferenceFix etPref = (EditTextPreferenceFix) findPreference("edit_text_fix_test");
+int inputType = etPref.getEditText().getInputType();
+```
+
+# Known bugs that cannot be fixed
+- When a Preference's dialog is showing and the device's orientation changes, the app crashes.
 
 # Android-Support-Preference-V7-Fix
 ~~Android preference-v7 support library doesn't contain material design layout files so the preferences screen looks bad on API 21+. This is a temporary fix until Google fixes it.~~

@@ -2,20 +2,24 @@ package com.takisoft.preferencefix;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.preference.EditTextPreferenceFix;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceCategory;
-import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.preference.PreferenceFragmentCompatFix;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MyPreferenceFragment extends PreferenceFragmentCompat {
+public class MyPreferenceFragment extends PreferenceFragmentCompatFix {
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
         addPreferencesFromResource(R.xml.settings);
 
         testDynamicPrefs();
+
+        EditTextPreferenceFix etPref = (EditTextPreferenceFix) findPreference("edit_text_fix_test");
+        int inputType = etPref.getEditText().getInputType();
     }
 
     private void testDynamicPrefs() {

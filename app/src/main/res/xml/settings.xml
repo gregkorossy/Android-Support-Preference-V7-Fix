@@ -30,6 +30,12 @@
             android:persistent="false"
             android:summary="It's an input"
             android:title="EditTextPreference" />
+        <EditTextPreferenceFix
+            android:inputType="phone"
+            android:key="edit_text_fix_test"
+            android:persistent="false"
+            android:summary="It's an input for phone numbers only"
+            android:title="EditTextPreferenceFix" />
         <ListPreference
             android:dialogTitle="ListPreference dialog"
             android:entries="@array/pref_list_entries"
