@@ -69,12 +69,12 @@ I introduced 3 new (*fix*) classes:
 
 You need a few updates to utilize this fix.
 
-Update `MyPreferenceFragment`'s base class to `PreferenceFragmentCompatFix` (*note the **Fix** ending*):
+Update `MyPreferenceFragment`'s base class to `PreferenceFragmentCompatFix` (*note the __Fix__ ending*):
 ```java
 public class MyPreferenceFragment extends PreferenceFragmentCompatFix { /* ... */ }
 ```
 
-In your preference XML, use `EditTextPreferenceFix` instead of `EditTextPreference` (*again, note the **Fix** ending*):
+In your preference XML, use `EditTextPreferenceFix` instead of `EditTextPreference` (*again, note the __Fix__ ending*):
 ```xml
 <EditTextPreferenceFix
     android:inputType="phone"
