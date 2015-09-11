@@ -58,7 +58,7 @@ Preference preference = new Preference(ctx);
 ```
 And voilà, now your `preference` instance is material styled (*or whatever style you set as your `preferenceTheme`'s `preferenceStyle`*).
 
-### Setting `InputType` and other `EditText`-related arguments on EditTextPreference
+### Setting `InputType` and other `EditText`-related attributes on EditTextPreference
 `EditTextPreference` doesn't forward XML attributes that should influence the input type or other aspects of the shown `EditText`. The [official statement](https://code.google.com/p/android/issues/detail?id=185164) is that this is *not a bug*, but I think it's a serious design flaw. Anyways, after a few hours getting through the decompiled source, I came up with a solution that works for now.
 
 I introduced 3 new (*fix*) classes:
@@ -93,7 +93,7 @@ int inputType = etPref.getEditText().getInputType();
 ```
 
 # Known bugs that cannot be fixed
-- When a Preference's dialog is showing and the device's orientation changes, the app crashes.
+- When a Preference's dialog is showing and the device's orientation changes, the app crashes. [Bug report](https://code.google.com/p/android/issues/detail?id=186160)
 
 # Android-Support-Preference-V7-Fix
 ~~Android preference-v7 support library doesn't contain material design layout files so the preferences screen looks bad on API 21+. This is a temporary fix until Google fixes it.~~
