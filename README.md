@@ -84,7 +84,7 @@ In your preference XML, use `EditTextPreferenceFix` instead of `EditTextPreferen
     android:title="EditTextPreferenceFix" />
 ```
 
-*I recommend using the normal `EditTextPreference` version first as it provides auto-complete for the attributes, and adding the **Fix** ending when you're testing / releasing the app.*
+*I recommend using the normal `EditTextPreference` version first as it provides auto-complete for the attributes, and adding the __Fix__ ending when you're testing / releasing the app.*
 
 If you use `EditTextPreferenceFix`, you can also access the shown `EditText` by calling the preference's `getEditText()` method. Example:
 ```java
