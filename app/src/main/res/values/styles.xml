@@ -11,6 +11,8 @@
         <item name="alertDialogTheme">@style/Theme.MyTheme.Dialog.Alert</item>
         <!-- No-selector-background bugfix -->
         <item name="android:activatedBackgroundIndicator">?android:attr/selectableItemBackground</item>
+        <!-- Too-big-preference-titles bugfix -->
+        <item name="android:textAppearanceListItem">@style/TextAppearance.AppCompat.Subhead</item>
     </style>
 
     <style name="Theme.MyTheme.DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
