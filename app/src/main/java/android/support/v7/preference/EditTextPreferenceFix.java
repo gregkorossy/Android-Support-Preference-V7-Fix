@@ -1,6 +1,7 @@
 package android.support.v7.preference;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
@@ -21,7 +22,7 @@ public class EditTextPreferenceFix extends EditTextPreference {
 
     public EditTextPreferenceFix(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        editText = new EditText(context, attrs);
+        editText = new AppCompatEditText(context, attrs);
         editText.setId(android.R.id.edit);
     }
 
