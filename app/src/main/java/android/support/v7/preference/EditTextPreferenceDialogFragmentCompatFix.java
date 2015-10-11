@@ -21,6 +21,7 @@
 package android.support.v7.preference;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -45,6 +46,11 @@ public class EditTextPreferenceDialogFragmentCompatFix extends PreferenceDialogF
 
         this.mEditText = getEditTextPreference().getEditText();
         this.mEditText.setText(this.getEditTextPreference().getText());
+
+        Editable text = mEditText.getText();
+        if (text != null) {
+            mEditText.setSelection(text.length(), text.length());
+        }
 
         ViewParent oldParent = this.mEditText.getParent();
         if (oldParent != view) {
