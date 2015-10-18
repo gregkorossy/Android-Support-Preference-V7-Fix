@@ -1,4 +1,4 @@
-# Currently this is the available bugfix (*support library rev. 23.0.1*)
+# Currently this is the available bugfix (*support library rev. 23.1.0*)
 So, Google gives us a solution which I think is not ideal but works. According to this, instead of using
 
 ```xml
@@ -11,7 +11,7 @@ one should use
 <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
 ```
 
-This also means that even though you are using only v7, you have to include the v14 lib as well because the said `PreferenceThemeOverlay.v14.Material` is only available in it.
+This also means that even though you are using only v7, you have to include the v14 lib as well because the said `PreferenceThemeOverlay.v14.Material` is only available in it. Since v14 requires your min SDK to be set to 14 or higher, you can't use this workaround if you are also targeting devices below this level.
 
 **Another bug** is that on API levels below 21 the PreferenceCategory elements' text color is not the accent color you define in your style. To set it to your accent color, you have to define a `preference_fallback_accent_color` color value in any of your resources files. Example:
 
@@ -23,7 +23,7 @@ This also means that even though you are using only v7, you have to include the 
 </resources>
 ```
 
-**And another bug** is that the PreferenceCategory's text style is *italic* instead of **bold**. In order to fix this, you have to re-define a so-called `Preference_TextAppearanceMaterialBody2` style (this is used by the PreferenceCategory below API level 21) in any of your styles file:
+**And another bug** is that the PreferenceCategory's text style ~~is *italic* instead of **bold**~~ is not bold. In order to fix this, you have to re-define a so-called `Preference_TextAppearanceMaterialBody2` style (this is used by the PreferenceCategory below API level 21) in any of your styles file:
 
 ```xml
 <style name="Preference_TextAppearanceMaterialBody2">
@@ -33,22 +33,6 @@ This also means that even though you are using only v7, you have to include the 
     <item name="android:textColor">?android:attr/textColorPrimary</item>
 </style>
 ```
-
-**And one more bug** is that `PreferenceThemeOverlay.v14.Material` has no correct background selector. To overcome this, you should add the following line to your main theme style:
-
-```xml
-<item name="android:activatedBackgroundIndicator">?android:attr/selectableItemBackground</item>
-```
-
-*Note that I did not test this background-fixer solution extensively so it might mess up other parts of your app. This is just a temporary (i.e. experimental) bugfix until Google releases either a less buggy version of the lib or the source code so we could fix it.*
-
-**And one more bug** is that on pre-lollipop devices the Preference items' title is just too big (*compared to the ones seen on API 21+*). To fix this problem, add the following line to your main theme style:
-
-```xml
-<item name="android:textAppearanceListItem">@style/TextAppearance.AppCompat.Subhead</item>
-```
-
-*Note that this could mess up other parts of your app because the `textAppearanceListItem` is a global attribute, so you should test your app thoroughly after applying this fix.*
 
 **And another bug (*officially it isn't*)** is that you cannot set any `EditText`-related attributes (e.g. `inputType`) to your `EditTextPreference`. If you still want to do that, scroll down a little, the workaround is in the **Interesting things** part.
 
@@ -103,10 +87,32 @@ int inputType = etPref.getEditText().getInputType();
 # Known bugs that cannot be fixed
 - When a Preference's dialog is showing and the device's orientation changes, the app crashes. [Bug report](https://code.google.com/p/android/issues/detail?id=186160)
 
+# Fixed bugs
+
+**And one more bug** is that `PreferenceThemeOverlay.v14.Material` has no correct background selector. To overcome this, you should add the following line to your main theme style:
+
+```xml
+<item name="android:activatedBackgroundIndicator">?android:attr/selectableItemBackground</item>
+```
+
+*Note that I did not test this background-fixer solution extensively so it might mess up other parts of your app. This is just a temporary (i.e. experimental) bugfix until Google releases either a less buggy version of the lib or the source code so we could fix it.*
+> since 23.1.0
+
+---
+
+**And one more bug** is that on pre-lollipop devices the Preference items' title is just too big (*compared to the ones seen on API 21+*). To fix this problem, add the following line to your main theme style:
+
+```xml
+<item name="android:textAppearanceListItem">@style/TextAppearance.AppCompat.Subhead</item>
+```
+
+*Note that this could mess up other parts of your app because the `textAppearanceListItem` is a global attribute, so you should test your app thoroughly after applying this fix.*
+> since 23.1.0
+
 # Android-Support-Preference-V7-Fix
 ~~Android preference-v7 support library doesn't contain material design layout files so the preferences screen looks bad on API 21+. This is a temporary fix until Google fixes it.~~
 
-The latest (23.0.1) preference-v7 support library has some other issues, see above.
+The latest (23.1.0) preference-v7 support library has some other issues, see above.
 
 The issue has been reported, you can find it here:
 https://code.google.com/p/android/issues/detail?id=183376

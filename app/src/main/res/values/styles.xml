@@ -9,10 +9,6 @@
         <item name="toolbarStyle">@style/Theme.MyTheme.Toolbar</item>
         <item name="dialogTheme">@style/Theme.MyTheme.Dialog</item>
         <item name="alertDialogTheme">@style/Theme.MyTheme.Dialog.Alert</item>
-        <!-- No-selector-background bugfix -->
-        <item name="android:activatedBackgroundIndicator">?android:attr/selectableItemBackground</item>
-        <!-- Too-big-preference-titles bugfix -->
-        <item name="android:textAppearanceListItem">@style/TextAppearance.AppCompat.Subhead</item>
     </style>
 
     <style name="Theme.MyTheme.DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
@@ -46,7 +42,7 @@
         <item name="colorAccent">@color/accent</item>
     </style>
 
-    <!-- This is needed because the default PreferenceCategory appearance uses italic style -->
+    <!-- This is needed because the default PreferenceCategory appearance doesn't use bold text style -->
     <style name="Preference_TextAppearanceMaterialBody2">
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">sans-serif-medium</item>

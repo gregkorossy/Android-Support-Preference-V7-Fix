@@ -71,11 +71,15 @@ public class EditTextPreferenceDialogFragmentCompatFix extends PreferenceDialogF
     }
 
     protected void onAddEditTextToDialogView(View dialogView, EditText editText) {
-        ViewGroup container = (ViewGroup) dialogView.findViewById(android.support.v7.preference.R.id.edittext_container);
-        if (container != null) {
-            container.addView(editText, -1, -2);
+        //ViewGroup container = (ViewGroup) dialogView.findViewById(android.support.v7.preference.R.id.edittext_container);
+        View oldEditText = dialogView.findViewById(android.R.id.edit);
+        if (oldEditText != null) {
+            ViewGroup container = (ViewGroup) (oldEditText.getParent());
+            if (container != null) {
+                container.removeView(oldEditText);
+                container.addView(editText, -1, -2);
+            }
         }
-
     }
 
     public void onDialogClosed(boolean positiveResult) {
