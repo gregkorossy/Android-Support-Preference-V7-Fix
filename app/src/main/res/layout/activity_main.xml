@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/preferences">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -11,10 +12,4 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
         android:visibility="visible" />
-
-    <fragment
-        android:id="@+id/fragment"
-        android:name="com.takisoft.preferencefix.MyPreferenceFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 </LinearLayout>

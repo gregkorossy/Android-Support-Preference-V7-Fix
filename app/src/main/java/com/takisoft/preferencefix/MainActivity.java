@@ -12,5 +12,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+
+        if (savedInstanceState != null) return;
+
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.preferences, new MyPreferenceFragment(), null)
+                .commit();
     }
 }
