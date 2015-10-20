@@ -173,7 +173,7 @@ The issue has been reported, you can find it here:
 https://code.google.com/p/android/issues/detail?id=183376
 
 # Prerequisites #
-This demo / bugfix is set to work on API level 16+.
+This demo / bugfix is set to work on API level 7+.
 
 # License notes #
 You can do whatever you want except where noted, especially the following files downloaded from the [Android framework base](https://github.com/android/platform_frameworks_base/tree/master/core/res/res/layout) (these are also modified):
