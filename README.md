@@ -11,7 +11,62 @@ one should use
 <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
 ```
 
-This also means that even though you are using only v7, you have to include the v14 lib as well because the said `PreferenceThemeOverlay.v14.Material` is only available in it. Since v14 requires your min SDK to be set to 14 or higher, you can't use this workaround if you are also targeting devices below this level.
+This also means that even though you are using only v7, you have to include the v14 lib as well because the said `PreferenceThemeOverlay.v14.Material` is only available in it. ~~Since v14 requires your min SDK to be set to 14 or higher, you can't use this workaround if you are also targeting devices below this level.~~
+
+### Quick fix to enable the lib on devices below 14
+
+First of all, create a separate `styles.xml` for devices 7+ and another one for 14+ (*and probably you can create for 21+, etc.*).
+
+The v14 (and up) will still use the v14 material themed preference theme (`@style/PreferenceThemeOverlay.v14.Material`) with the method shown above.
+
+For the v7, we have to set the preference theme to the original one:
+```xml
+<item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+```
+
+This way the normal (*actually a little materialized*) preference theme will be used on devices 7-13 and the material one on devices 14 and up. Since the v14 lib requires the min SDK to be set to 14 or higher, we have to use an **Android Studio recommended hack**: we will override the library's requirements. To do this, you have to add the following line to your manifest:
+
+```xml
+<uses-sdk xmlns:tools="http://schemas.android.com/tools"
+        tools:overrideLibrary="android.support.v14.preference" />
+```
+
+Now the build will succeed. If you check the design on a 7+ device, you'll probably see that the preference categories' design looks really bad. To fix this, include the following lines in your default (*or v7, whichever you chose*) `styles.xml`:
+
+```xml
+<style name="Theme.MyTheme.ListSeparatorTextView">
+    <item name="android:textSize">14sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textColor">@color/accent_selector</item>
+    <item name="android:paddingTop">16dp</item>
+    <item name="android:layout_marginBottom">16dp</item>
+</style>
+```
+
+Of course, you'll need the **`accent_selector.xml`** in your *color* directory to make it work, which is just a workaround since the `android:textColor` attribute must provide a color state list, not just a single color:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/accent" />
+</selector>
+```
+
+Then apply the just created style to your main theme by adding the following line to it:
+
+```xml
+<item name="android:listSeparatorTextViewStyle">@style/Theme.MyTheme.ListSeparatorTextView</item>
+```
+
+Basically it overrides the built-in `listSeparatorTextViewStyle`, which is the style of the preference category's `TextView`, to make it better looking.
+
+#### That's it, now you can use the support lib on API 7+ without sacrificing the material styles on devices on or above level 14.
+
+> **There are some bugs(?) though:**
+ - The whole preference list has a left-right padding which could be removed by effectively overriding all the preference layouts with custom ones that contain the padding inside the layouts instead of applying it on the list itself.
+ - The text sizes (especially the titles') look too big. To overcome this, you can override the `android:textAppearanceLarge` (*titles*) and `android:textAppearanceSmall` (*summaries*) in your theme file but if you do so, you might make other parts of your app look bad, so test it thoroughly.
+
+---
 
 **Another bug** is that on API levels below 21 the PreferenceCategory elements' text color is not the accent color you define in your style. To set it to your accent color, you have to define a `preference_fallback_accent_color` color value in any of your resources files. Example:
 
