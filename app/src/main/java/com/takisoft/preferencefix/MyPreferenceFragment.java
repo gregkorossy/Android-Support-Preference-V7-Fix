@@ -18,6 +18,8 @@ public class MyPreferenceFragment extends PreferenceFragmentCompatFix {
 
         testDynamicPrefs();
 
+        // enableDividers(false); // uncomment this line if you want to remove the dividers
+
         EditTextPreferenceFix etPref = (EditTextPreferenceFix) findPreference("edit_text_fix_test");
         int inputType = etPref.getEditText().getInputType();
     }

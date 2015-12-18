@@ -164,6 +164,11 @@ int inputType = etPref.getEditText().getInputType();
 *Note that this could mess up other parts of your app because the `textAppearanceListItem` is a global attribute, so you should test your app thoroughly after applying this fix.*
 > since 23.1.0
 
+---
+
+**No dividers bugfix** is now available. Dividers are enabled by default. If you want to disable them, call `enableDividers(false)` from your code. (*I added this new method to `PreferenceFragmentCompatFix` so make sure you use that instead of `PreferenceFragmentCompat`.*)
+> since 23.1.1
+
 # Android-Support-Preference-V7-Fix
 ~~Android preference-v7 support library doesn't contain material design layout files so the preferences screen looks bad on API 21+. This is a temporary fix until Google fixes it.~~
 
