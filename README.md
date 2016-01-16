@@ -37,19 +37,10 @@ Now the build will succeed. If you check the design on a 7+ device, you'll proba
 <style name="Theme.MyTheme.ListSeparatorTextView">
     <item name="android:textSize">14sp</item>
     <item name="android:textStyle">bold</item>
-    <item name="android:textColor">@color/accent_selector</item>
+    <item name="android:textColor">@color/accent</item>
     <item name="android:paddingTop">16dp</item>
     <item name="android:layout_marginBottom">16dp</item>
 </style>
-```
-
-Of course, you'll need the **`accent_selector.xml`** in your *color* directory to make it work, which is just a workaround since the `android:textColor` attribute must provide a color state list, not just a single color:
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="@color/accent" />
-</selector>
 ```
 
 Then apply the just created style to your main theme by adding the following line to it:
