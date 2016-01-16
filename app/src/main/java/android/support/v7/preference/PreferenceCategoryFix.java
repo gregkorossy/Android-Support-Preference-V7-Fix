@@ -6,6 +6,13 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
+/**
+ * PreferenceCategory fix which allows one to use multiple themes. The original
+ * "preference_fallback_accent_color" override would not allow this as it is not modifiable during
+ * runtime.
+ * If you use this class in your preference XML, you don't have to redefine
+ * "preference_fallback_accent_color". Read the README.md for more info.
+ */
 public class PreferenceCategoryFix extends PreferenceCategory {
     private static final int[] COLOR_ACCENT_ID = new int[]{android.support.v7.appcompat.R.attr.colorAccent};
 
@@ -37,11 +44,12 @@ public class PreferenceCategoryFix extends PreferenceCategory {
         if (titleView != null) {
             final TypedArray typedArray = getContext().obtainStyledAttributes(COLOR_ACCENT_ID);
 
-            if (typedArray != null) {
-                int accentColor = typedArray.getColor(0, 0);
+            if (typedArray.length() > 0) {
+                final int accentColor = typedArray.getColor(0, 0xff4081); // defaults to pink
                 titleView.setTextColor(accentColor);
-                typedArray.recycle();
             }
+
+            typedArray.recycle();
         }
     }
 }
