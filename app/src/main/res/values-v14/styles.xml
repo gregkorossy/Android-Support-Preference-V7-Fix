@@ -45,6 +45,8 @@
     <!-- This is needed because the default PreferenceCategory appearance doesn't use bold text style -->
     <style name="Preference_TextAppearanceMaterialBody2">
         <item name="android:textSize">14sp</item>
+        <!-- fontFamily is only supported from API level 16, using typeFace on 14-15 -->
+        <item name="android:typeface">sans</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
