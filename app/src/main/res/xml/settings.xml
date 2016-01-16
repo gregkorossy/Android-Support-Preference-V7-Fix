@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="First category">
+    <PreferenceCategoryFix android:title="First category">
         <Preference
             android:persistent="false"
             android:summary="This is just a normal preference"
@@ -23,8 +23,11 @@
             android:persistent="false"
             android:summary="It's a switch"
             android:title="SwitchPreference" />
+    </PreferenceCategoryFix>
+    <PreferenceCategory android:title="PreferenceCategory using preference_fallback_accent_color below API 21">
+
     </PreferenceCategory>
-    <PreferenceCategory android:title="Another category">
+    <PreferenceCategoryFix android:title="Another category">
         <EditTextPreference
             android:inputType="phone"
             android:key="edit_text_test"
@@ -44,8 +47,8 @@
             android:key="pref_syncConnectionType"
             android:persistent="false"
             android:title="ListPreference" />
-    </PreferenceCategory>
-    <PreferenceCategory
+    </PreferenceCategoryFix>
+    <PreferenceCategoryFix
         android:key="pref_categ"
         android:title="Dynamic category">
         <Preference
@@ -53,5 +56,5 @@
             android:persistent="false"
             android:summary="Add preference"
             android:title="Preference" />
-    </PreferenceCategory>
+    </PreferenceCategoryFix>
 </PreferenceScreen>

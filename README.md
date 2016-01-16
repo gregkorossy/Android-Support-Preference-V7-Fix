@@ -69,6 +69,8 @@ Basically it overrides the built-in `listSeparatorTextViewStyle`, which is the s
 </resources>
 ```
 
+> **NOTE** that this solution only provides a fix if you need only one color (e.g. you don't have multiple themes with different colors). In case you want to define more themes, head to the **Interesting things** part where you can find a solution for this problem.
+
 **And another bug** is that the PreferenceCategory's text style ~~is *italic* instead of **bold**~~ is not bold. In order to fix this, you have to re-define a so-called `Preference_TextAppearanceMaterialBody2` style (this is used by the PreferenceCategory below API level 21) in any of your styles file:
 
 ```xml
@@ -129,6 +131,24 @@ If you use `EditTextPreferenceFix`, you can also access the shown `EditText` by 
 EditTextPreferenceFix etPref = (EditTextPreferenceFix) findPreference("edit_text_fix_test");
 int inputType = etPref.getEditText().getInputType();
 ```
+
+### Using multiple themes and set the categories' accent color
+As I mentioned in the bugs section, setting the `preference_fallback_accent_color` is good only if you need just a single theme.
+
+This is not ideal for some programmers, so I created a new `PreferenceCategoryFix` class which overcomes this *accent color problem* by retrieving the `colorAccent` attribute from the theme and applying it to the `TextView` which is used in the category. This class is located in the `android.support.v7.preference` package in order to make it easier to use in your settings.xml (*or whatever you call it*).
+
+In your preference XML, use `PreferenceCategoryFix` instead of `PreferenceCategory` (*again, note the __Fix__ ending*):
+```xml
+<PreferenceCategoryFix android:title="EditTextPreferenceFix">
+        <!-- your preferences go here -->
+</PreferenceCategoryFix>
+```
+
+*I recommend using the normal `PreferenceCategory` version first as it provides auto-complete for the attributes, and adding the __Fix__ ending when you're testing / releasing the app.*
+
+> **NOTE** that you have to use the AppCompat theme (`Theme.AppCompat`, `Theme.AppCompat.Light`, etc.) as your theme's parent, otherwise you will get a runtime error.
+
+> **DON'T FORGET** to add the `PreferenceCategoryFix` class to your ProGuard file otherwise it may strip it.
 
 # Known bugs that cannot be fixed
 - When a Preference's dialog is showing and the device's orientation changes, the app crashes. [Bug report](https://code.google.com/p/android/issues/detail?id=186160)
