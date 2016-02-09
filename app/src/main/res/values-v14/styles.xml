@@ -1,7 +1,7 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Theme.MyTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="preferenceTheme">@style/Theme.MyTheme.PreferenceThemeOverlay</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
@@ -50,6 +50,14 @@
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="Theme.MyTheme.PreferenceThemeOverlay" parent="@style/PreferenceThemeOverlay.v14.Material">
+        <item name="preferenceFragmentListStyle">@style/Theme.MyTheme.PreferenceFragmentList</item>
+    </style>
+    <style name="Theme.MyTheme.PreferenceFragmentList" parent="@style/PreferenceFragmentList.Material">
+        <item name="android:fadeScrollbars">true</item>
+        <item name="android:scrollbars">vertical</item>
     </style>
 
 </resources>

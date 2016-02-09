@@ -21,6 +21,12 @@ public abstract class PreferenceFragmentCompatFix extends PreferenceFragmentComp
     private boolean dividersEnabled = true;
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getListView().scrollBy(0, 0);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         try {
             return super.onCreateView(inflater, container, savedInstanceState);
