@@ -1,4 +1,4 @@
-# Currently this is the available bugfix (*support library rev. 23.1.1*)
+# Currently this is the available bugfix (*support library rev. 23.2.0*)
 So, Google gives us a solution which I think is not ideal but works. According to this, instead of using
 
 ```xml
@@ -150,9 +150,6 @@ In your preference XML, use `PreferenceCategoryFix` instead of `PreferenceCatego
 
 > **DON'T FORGET** to add the `PreferenceCategoryFix` class to your ProGuard file otherwise it may strip it.
 
-# Known bugs that cannot be fixed
-- When a Preference's dialog is showing and the device's orientation changes, the app crashes. [Bug report](https://code.google.com/p/android/issues/detail?id=186160)
-
 # Fixed bugs
 
 **And one more bug** is that `PreferenceThemeOverlay.v14.Material` has no correct background selector. To overcome this, you should add the following line to your main theme style:
@@ -177,13 +174,19 @@ In your preference XML, use `PreferenceCategoryFix` instead of `PreferenceCatego
 
 ---
 
-**No dividers bugfix** is now available. Dividers are enabled by default. If you want to disable them, call `enableDividers(false)` from your code. (*I added this new method to `PreferenceFragmentCompatFix` so make sure you use that instead of `PreferenceFragmentCompat`.*)
+**No dividers bugfix** is now available. Dividers are enabled by default since support library v23.2.0.
+~~If you want to disable them, call `enableDividers(false)` from your code. (*I added this new method to `PreferenceFragmentCompatFix` so make sure you use that instead of `PreferenceFragmentCompat`.*)~~
 > since 23.1.1
+
+---
+
+**A new bugfix** is that the app won't crash anymore if a Preference's dialog is showing and the device's orientation changes.
+> since 23.2.0
 
 # Android-Support-Preference-V7-Fix
 ~~Android preference-v7 support library doesn't contain material design layout files so the preferences screen looks bad on API 21+. This is a temporary fix until Google fixes it.~~
 
-The latest (23.1.0) preference-v7 support library has some other issues, see above.
+The latest (23.2.0) preference-v7 support library has some other issues, see above.
 
 The issue has been reported, you can find it here:
 https://code.google.com/p/android/issues/detail?id=183376
@@ -192,8 +195,4 @@ https://code.google.com/p/android/issues/detail?id=183376
 This demo / bugfix is set to work on API level 7+.
 
 # License notes #
-You can do whatever you want except where noted, especially the following files downloaded from the [Android framework base](https://github.com/android/platform_frameworks_base/tree/master/core/res/res/layout) (these are also modified):
- - preference_category_material_custom.xml
- - preference_dialog_edittext_material_custom.xml
- - preference_information_material_custom.xml
- - preference_material_custom.xml
+You can do whatever you want except where noted.

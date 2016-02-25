@@ -20,14 +20,11 @@
 
 package android.support.v7.preference;
 
-import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import android.view.WindowManager;
 import android.widget.EditText;
 
 public class EditTextPreferenceDialogFragmentCompatFix extends PreferenceDialogFragmentCompat {
@@ -65,22 +62,6 @@ public class EditTextPreferenceDialogFragmentCompatFix extends PreferenceDialogF
         }
     }
 
-    private void showKeyboard(Dialog dialog) {
-        if (!needInputMethod())
-            return;
-
-        mEditText.requestFocus();
-        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-    }
-
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-        showKeyboard(dialog);
-        return dialog;
-    }
-
     private EditTextPreferenceFix getEditTextPreference() {
         return (EditTextPreferenceFix) this.getPreference();
     }
@@ -96,7 +77,7 @@ public class EditTextPreferenceDialogFragmentCompatFix extends PreferenceDialogF
             ViewGroup container = (ViewGroup) (oldEditText.getParent());
             if (container != null) {
                 container.removeView(oldEditText);
-                container.addView(editText, -1, -2);
+                container.addView(editText, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             }
         }
     }
