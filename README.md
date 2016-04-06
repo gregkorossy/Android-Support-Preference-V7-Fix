@@ -1,4 +1,4 @@
-# Currently this is the available bugfix (*support library rev. 23.2.0*)
+# Currently this is the available bugfix (*support library rev. 23.2.1*)
 So, Google gives us a solution which I think is not ideal but works. According to this, instead of using
 
 ```xml
@@ -186,10 +186,13 @@ In your preference XML, use `PreferenceCategoryFix` instead of `PreferenceCatego
 # Android-Support-Preference-V7-Fix
 ~~Android preference-v7 support library doesn't contain material design layout files so the preferences screen looks bad on API 21+. This is a temporary fix until Google fixes it.~~
 
-The latest (23.2.0) preference-v7 support library has some other issues, see above.
+The latest (23.2.1) preference-v7 support library has some other issues, see above.
 
 The issue has been reported, you can find it here:
-https://code.google.com/p/android/issues/detail?id=183376
+~~https://code.google.com/p/android/issues/detail?id=183376~~
+
+The new report is here:
+https://code.google.com/p/android/issues/detail?id=205161
 
 # Prerequisites #
 This demo / bugfix is set to work on API level 7+.
