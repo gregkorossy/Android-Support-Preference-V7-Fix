@@ -11,6 +11,12 @@ public abstract class PreferenceFragmentCompatFix extends PreferenceFragmentComp
     private static final String FRAGMENT_DIALOG_TAG = "android.support.v7.preference.PreferenceFragment.DIALOG";
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getListView().scrollBy(0, 0);
+    }
+
+    @Override
     public void onDisplayPreferenceDialog(Preference preference) {
         if (this.getFragmentManager().findFragmentByTag(FRAGMENT_DIALOG_TAG) == null) {
             Object f = null;
