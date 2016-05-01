@@ -4,6 +4,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
 import android.support.v4.view.ViewCompat;
@@ -248,6 +249,7 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
 
                 for (int i = first; i <= last; i++) {
                     int top;
+                    final int baseY;
 
                     final int viewLeft;
                     final int viewRight;
@@ -273,14 +275,21 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
                         types[(typePointer + 1) % 2] = TYPE_UNKNOWN;
                     }
 
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+                        // ViewCompat.getY(view) returns 0 below API level 11
+                        baseY = view.getTop();
+                    } else {
+                        baseY = (int) ViewCompat.getY(view);
+                    }
+
                     if (i == 0 && hasDividerAbove(types[typePointer])) {
-                        top = (int) ViewCompat.getY(view);
+                        top = baseY;
                         divider.setBounds(viewLeft, top, viewRight, top + this.dividerHeight);
                         divider.draw(c);
                     }
 
                     if (hasDividerBelow(types[typePointer], types[(typePointer + 1) % 2])) {
-                        top = (int) ViewCompat.getY(view) + view.getHeight() + view.getPaddingBottom() + view.getPaddingTop();
+                        top = baseY + view.getHeight() + view.getPaddingBottom() + view.getPaddingTop();
                         divider.setBounds(viewLeft, top, viewRight, top + this.dividerHeight);
                         divider.draw(c);
                     }
