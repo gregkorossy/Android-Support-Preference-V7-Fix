@@ -84,6 +84,15 @@ Basically it overrides the built-in `listSeparatorTextViewStyle`, which is the s
 
 **And another bug (*officially it isn't*)** is that you cannot set any `EditText`-related attributes (e.g. `inputType`) to your `EditTextPreference`. If you still want to do that, scroll down a little, the workaround is in the **Interesting things** part.
 
+# Customizations
+
+### Divider positioning
+> **This is still in preview!** Certain changes will possibly happen that could break your code.
+
+The default implementation puts dividers between preferences but not between categories. The solution provided here features a fully customizable divider positioning system using flags.
+
+In order to use it, extend `PreferenceFragmentCompatDividers` instead of `PreferenceFragmentCompatFix`. This way you'll *not* lose any fixes since it extends the original fix as well. It as a new method `setDividerPreferences(int flags)` which can be called from `onCreatePreferences(...)` with certain flags (*you can find the possible values either in the description of the method or in the class file, these start with `DIVIDER`*).
+
 # Interesting things
 These are not considered bugs but they can give you a headache.
 
