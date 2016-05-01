@@ -1,4 +1,4 @@
-# Currently this is the available bugfix (*support library rev. 23.2.1*)
+# Currently this is the available bugfix (*support library rev. 23.3.0*)
 So, Google gives us a solution which I think is not ideal but works. According to this, instead of using
 
 ```xml
