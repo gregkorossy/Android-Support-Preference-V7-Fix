@@ -1,11 +1,16 @@
 # Currently this is the available bugfix (*support library rev. 23.3.0*)
 
 ## NEW! The bugfix is available as a gradle dependency
-Now one can use the library as easy as putting the following line in the application module's gradle file:
+First, remove the unnecessary lines of preference-v7 and preference-v14 from your gradle file as the bugfix contains both of them:
+```gradle
+compile 'com.android.support:preference-v7:23.3.0'
+compile 'com.android.support:preference-v14:23.3.0'
+```
+And add this single line to your gradle file:
 ```gradle
 compile 'com.takisoft.fix:preference-v7:23.3.0.3'
 ```
-> Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates.
+> Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
 ### How to use the library?
 
