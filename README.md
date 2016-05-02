@@ -13,7 +13,8 @@ compile 'com.takisoft.fix:preference-v7:23.3.0.2'
 > You need:
 - `PreferenceFixTheme` or one of its extension to be set as the theme
 - `preference_accent` set to your accent color - this is going to be used as the preferences' accent color
-- use the available classes ending in *`Fix`* in your preferences XML file: `EditTextPreferenceFix`, `PreferenceCategoryFix` and `PreferenceFragmentCompatFix` (or `PreferenceFragmentCompatDividers`, if you want to customize the divider's position)
+- use the available classes ending in *`Fix`* in your preferences XML file: `EditTextPreferenceFix`, `PreferenceCategoryFix`
+- use `PreferenceFragmentCompatFix` (or `PreferenceFragmentCompatDividers`, if you want to customize the divider's position) as the preference fragment
 
 ##### Explained
 
