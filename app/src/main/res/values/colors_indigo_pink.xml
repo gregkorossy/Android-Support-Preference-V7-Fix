@@ -4,9 +4,7 @@
     <color name="primary_dark">#303F9F</color>
     <color name="primary_light">#C5CAE9</color>
     <color name="accent">#FF4081</color>
-    <!-- this is needed as preference_category_material layout is using this color as the text color -->
-    <!-- read the README.md if you need more than one color (e.g. you have multiple themes) -->
-    <color name="preference_fallback_accent_color">@color/accent</color>
+    <color name="preference_accent">@color/accent</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#727272</color>
     <color name="icons">#FFFFFF</color>

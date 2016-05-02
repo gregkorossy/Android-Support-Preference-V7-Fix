@@ -1,0 +1,107 @@
+<resources>
+    <!-- Base -->
+    <style name="PreferenceFixTheme" parent="@style/Theme.AppCompat">
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="colorAccent">@color/preference_accent</item>
+        <item name="dialogTheme">@style/PreferenceFixTheme.Dialog</item>
+        <item name="alertDialogTheme">@style/PreferenceFixTheme.Dialog.Alert</item>
+        <!-- Overriding the category views as they don't look good -->
+        <item name="android:listSeparatorTextViewStyle">
+            @style/PreferenceFixTheme.ListSeparatorTextView
+        </item>
+        <item name="android:textAppearanceLarge">@style/PreferenceFixTheme.TextAppearanceLarge
+        </item>
+        <item name="android:textAppearanceSmall">@style/PreferenceFixTheme.TextAppearanceSmall
+        </item>
+    </style>
+
+    <style name="PreferenceFixTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="PreferenceFixTheme.Dialog" parent="@style/Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/preference_accent</item>
+    </style>
+
+    <style name="PreferenceFixTheme.Dialog.Alert" parent="@style/Theme.AppCompat.Dialog.Alert">
+        <item name="colorAccent">@color/preference_accent</item>
+    </style>
+
+    <!-- Light -->
+    <style name="PreferenceFixTheme.Light" parent="@style/Theme.AppCompat.Light">
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="colorAccent">@color/preference_accent</item>
+        <item name="dialogTheme">@style/PreferenceFixTheme.Light.Dialog</item>
+        <item name="alertDialogTheme">@style/PreferenceFixTheme.Light.Dialog.Alert</item>
+        <!-- Overriding the category views as they don't look good -->
+        <item name="android:listSeparatorTextViewStyle">
+            @style/PreferenceFixTheme.ListSeparatorTextView
+        </item>
+        <item name="android:textAppearanceLarge">@style/PreferenceFixTheme.TextAppearanceLarge
+        </item>
+        <item name="android:textAppearanceSmall">@style/PreferenceFixTheme.TextAppearanceSmall
+        </item>
+    </style>
+
+    <style name="PreferenceFixTheme.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="PreferenceFixTheme.Light.Dialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/preference_accent</item>
+    </style>
+
+    <style name="PreferenceFixTheme.Light.Dialog.Alert" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/preference_accent</item>
+    </style>
+
+    <!-- DayNight -->
+    <style name="PreferenceFixTheme.DayNight" parent="@style/Theme.AppCompat.DayNight">
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="colorAccent">@color/preference_accent</item>
+        <item name="dialogTheme">@style/PreferenceFixTheme.DayNight.Dialog</item>
+        <item name="alertDialogTheme">@style/PreferenceFixTheme.DayNight.Dialog.Alert</item>
+        <!-- Overriding the category views as they don't look good -->
+        <item name="android:listSeparatorTextViewStyle">
+            @style/PreferenceFixTheme.ListSeparatorTextView
+        </item>
+        <item name="android:textAppearanceLarge">@style/PreferenceFixTheme.TextAppearanceLarge
+        </item>
+        <item name="android:textAppearanceSmall">@style/PreferenceFixTheme.TextAppearanceSmall
+        </item>
+    </style>
+
+    <style name="PreferenceFixTheme.DayNight.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="PreferenceFixTheme.DayNight.Dialog" parent="@style/Theme.AppCompat.DayNight.Dialog">
+        <item name="colorAccent">@color/preference_accent</item>
+    </style>
+
+    <style name="PreferenceFixTheme.DayNight.Dialog.Alert" parent="@style/Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="colorAccent">@color/preference_accent</item>
+    </style>
+
+    <!-- The default category looks bad, so overriding its appearance now -->
+    <style name="PreferenceFixTheme.ListSeparatorTextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+    </style>
+
+    <style name="PreferenceFixTheme.TextAppearanceLarge">
+        <item name="android:textSize">16sp</item>
+        <item name="android:typeface">sans</item>
+    </style>
+
+    <style name="PreferenceFixTheme.TextAppearanceSmall">
+        <item name="android:textSize">14sp</item>
+        <item name="android:typeface">sans</item>
+    </style>
+</resources>

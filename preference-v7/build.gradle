@@ -1,0 +1,52 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        minSdkVersion 7
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'com.takisoft.fix'
+
+    publishedGroupId = 'com.takisoft.fix'
+    libraryName = 'Preference v7 - Fix'
+    artifact = 'preference-v7'
+
+    libraryDescription = 'Android Support Library Preference v7 is full of bugs. This library tries to overcome some of the basic problems. The original Support Library files are under Apache 2.0, the fixes are unlicensed.'
+
+    siteUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix'
+    gitUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix.git'
+
+    libraryVersion = '23.3.0.2'
+
+    developerId = 'gericop'
+    developerName = 'Gergely Kőrössy'
+    developerEmail = 'korossyg@takisoft.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0", "Unlicense"]
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:preference-v7:23.3.0'
+    compile 'com.android.support:preference-v14:23.3.0'
+}
+
+apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
+apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/bintrayv.gradle'

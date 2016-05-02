@@ -1,4 +1,42 @@
 # Currently this is the available bugfix (*support library rev. 23.3.0*)
+
+## NEW! The bugfix is available as a gradle dependency
+Now one can use the library as easy as putting the following line in the application module's gradle file:
+```gradle
+compile 'com.takisoft.fix:preference-v7:23.3.0.2'
+```
+> Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates.
+
+### How to use the library?
+
+##### Quick
+> You need:
+- `PreferenceFixTheme` or one of its extension to be set as the theme
+- `preference_accent` set to your accent color - this is going to be used as the preferences' accent color
+- use the available classes ending in *`Fix`* in your preferences XML file: `EditTextPreferenceFix`, `PreferenceCategoryFix` and `PreferenceFragmentCompatFix` (or `PreferenceFragmentCompatDividers`, if you want to customize the divider's position)
+
+##### Explained
+
+Instead of creating a ton of styles for individual cases, now a single style can be used as base: `@style/PreferenceFixTheme`. This has the usual `Light` and `DayNight` variants as well as the `NoActionBar` extension. It is only needed in a normal `styles.xml` (*or whatever you call it*), no need for API level qualifiers anymore.
+
+Due to some restrictions, you also should define an accent color called `preference_accent` in your color resources list (it is *not* enough to set one for the theme). This is going to be used as the accent color in the `PreferenceFixTheme` as well, so you don't need to define it there, only in your colors XML. Here's an example (the color `accent` is just there to show you how easy it is to define the preference one using the original):
+
+```xml
+<color name="accent">#FF4081</color>
+<color name="preference_accent">@color/accent</color>
+```
+
+The different fixed classes are here:
+- `EditTextPreferenceFix`: Forwards the XML attributes (like inputType) to the EditText, just like the original preference did.
+- `PreferenceCategoryFix`: The basic category doesn't use the normally set accent color, instead if falls back to `preference_fallback_accent_color`. The library overrides this value by you overriding `preference_accent`, which means, you don't necessarily need to use this class, it's up to you.
+- `PreferenceFragmentCompatFix`: It's needed in order to use `EditTextPreferenceFix`. Also, it's dividers variant (`PreferenceFragmentCompatDividers`) can be used to customize the position of the dividers by using its `setDividerPreferences(...)` method with the flags that start with `DIVIDER_`.
+
+Feel free to ask / suggest anything on this page by creating a ticket (*issues*)!
+
+---
+
+# If you want to still look into the files, the (old) details are below
+
 So, Google gives us a solution which I think is not ideal but works. According to this, instead of using
 
 ```xml

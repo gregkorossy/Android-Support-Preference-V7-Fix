@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -103,7 +104,7 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
     @DividerPrefBase
     private int divPrefFlags = DIVIDER_DEFAULT;
 
-    private DividerDecoration divItemDecoration;
+    private DividerItemDecoration divItemDecoration;
 
     /**
      * Sets the divider decoration flags. The values can be either
@@ -146,6 +147,8 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
         divPrefFlags = flags;
         divPrefInvalid = false;
 
+        boolean viewCompatFixNeeded = isViewCompatMessedUp();
+
         if (flags == DIVIDER_NONE) {
             setDivider(null);
 
@@ -153,7 +156,7 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
                 recyclerView.removeItemDecoration(divItemDecoration);
                 divItemDecoration = null;
             }
-        } else if (flags == DIVIDER_DEFAULT) {
+        } else if (flags == DIVIDER_DEFAULT && !viewCompatFixNeeded) {
             Drawable divider = getDividerDrawable();
             setDivider(divider);
 
@@ -164,8 +167,12 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
         } else {
             super.setDivider(null);
 
+            if (flags == DIVIDER_DEFAULT) {
+                divPrefFlags = DIVIDER_PREFERENCE_BETWEEN;
+            }
+
             if (divItemDecoration == null) {
-                divItemDecoration = new DividerDecoration(getDividerDrawable());
+                divItemDecoration = new DividerItemDecoration(getDividerDrawable());
                 recyclerView.addItemDecoration(divItemDecoration);
             }
         }
@@ -174,25 +181,28 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
     }
 
     protected Drawable getDividerDrawable() {
-        TypedArray a = getPreferenceManager().getContext().obtainStyledAttributes(null, android.support.v7.preference.R.styleable.PreferenceFragmentCompat, android.support.v7.preference.R.attr.preferenceFragmentCompatStyle, 0);
-        Drawable divider = a.getDrawable(android.support.v7.preference.R.styleable.PreferenceFragmentCompat_android_divider);
+        TypedArray a = getPreferenceManager().getContext().obtainStyledAttributes(null, R.styleable.PreferenceFragmentCompat, R.attr.preferenceFragmentCompatStyle, 0);
+        Drawable divider = a.getDrawable(R.styleable.PreferenceFragmentCompat_android_divider);
         a.recycle();
 
         return divider;
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        if (divPrefInvalid) {
-            setDividerPreferences(divPrefFlags);
+        if (isViewCompatMessedUp()) {
+            divPrefInvalid = true;
         }
+
+        setDividerPreferences(divPrefFlags);
     }
 
     @Override
     public void setDivider(Drawable divider) {
         super.setDivider(divider);
+
         if (divItemDecoration != null) {
             divItemDecoration.setDivider(divider);
         }
@@ -207,7 +217,11 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
         }
     }
 
-    protected class DividerDecoration extends RecyclerView.ItemDecoration {
+    private static boolean isViewCompatMessedUp() {
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB;
+    }
+
+    protected class DividerItemDecoration extends RecyclerView.ItemDecoration {
         private static final byte TYPE_CATEGORY = 0;
         private static final byte TYPE_PREFERENCE = 1;
         private static final byte TYPE_UNKNOWN = -1;
@@ -215,7 +229,7 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
         private Drawable divider;
         private int dividerHeight;
 
-        private DividerDecoration(Drawable divider) {
+        private DividerItemDecoration(Drawable divider) {
             this.divider = divider;
 
             if (divider != null) {
@@ -241,8 +255,6 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
                     left = 0;
                     right = parent.getWidth();
                 }
-
-                //RecyclerView.Adapter adapter = parent.getAdapter();
 
                 final byte[] types = new byte[]{TYPE_UNKNOWN, TYPE_UNKNOWN};
                 int typePointer = 0;
@@ -275,7 +287,7 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
                         types[(typePointer + 1) % 2] = TYPE_UNKNOWN;
                     }
 
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+                    if (isViewCompatMessedUp()) {
                         // ViewCompat.getY(view) returns 0 below API level 11
                         baseY = view.getTop();
                     } else {
