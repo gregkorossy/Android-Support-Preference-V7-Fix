@@ -143,7 +143,7 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
         applyDividerPreference(recyclerView, flags);
     }
 
-    protected void applyDividerPreference(final RecyclerView recyclerView, @DividerPrefFlags @DividerPrefBase final int flags) {
+    void applyDividerPreference(final RecyclerView recyclerView, @DividerPrefFlags @DividerPrefBase final int flags) {
         divPrefFlags = flags;
         divPrefInvalid = false;
 
@@ -180,7 +180,7 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
         recyclerView.invalidateItemDecorations();
     }
 
-    protected Drawable getDividerDrawable() {
+    Drawable getDividerDrawable() {
         TypedArray a = getPreferenceManager().getContext().obtainStyledAttributes(null, R.styleable.PreferenceFragmentCompat, R.attr.preferenceFragmentCompatStyle, 0);
         Drawable divider = a.getDrawable(R.styleable.PreferenceFragmentCompat_android_divider);
         a.recycle();
@@ -217,7 +217,7 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
         }
     }
 
-    private static boolean isViewCompatMessedUp() {
+    static boolean isViewCompatMessedUp() {
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB;
     }
 

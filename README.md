@@ -3,7 +3,7 @@
 ## NEW! The bugfix is available as a gradle dependency
 Now one can use the library as easy as putting the following line in the application module's gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:23.3.0.2'
+compile 'com.takisoft.fix:preference-v7:23.3.0.3'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates.
 
