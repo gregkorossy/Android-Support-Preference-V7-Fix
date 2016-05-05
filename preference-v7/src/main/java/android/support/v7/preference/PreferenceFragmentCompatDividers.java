@@ -18,9 +18,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
+ * @deprecated Use {@link com.takisoft.fix.support.v7.preference.PreferenceFragmentCompatDividers} instead.
+ * <p/>
  * As a user requested, here's a variant of PreferenceFragmentCompatFix that allows one to fully
  * customize the dividers between categories and items.
  */
+@Deprecated
 abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmentCompatFix {
     /**
      * Draws the default divider implementation.

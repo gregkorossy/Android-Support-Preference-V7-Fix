@@ -1,6 +1,12 @@
 # Currently this is the available bugfix (*support library rev. 23.3.0*)
 
 ## NEW! The bugfix is available as a gradle dependency
+
+### Version
+The current version is **23.3.0.4-beta**.
+There's an important change in this version: you won't need to use the `Fix` suffix anymore in your preferences XML file! Also, use `PreferenceFragmentCompat` instead of `PreferenceFragmentCompatFix` (but you have to use the custom package name, see details below in the *Quick* section).
+
+### How to use the library?
 First, **remove** the unnecessary lines of preference-v7 and preference-v14 from your gradle file as the bugfix contains both of them:
 ```gradle
 compile 'com.android.support:preference-v7:23.3.0'
@@ -8,20 +14,19 @@ compile 'com.android.support:preference-v14:23.3.0'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:23.3.0.3'
+compile 'com.takisoft.fix:preference-v7:23.3.0.4-beta'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
-### How to use the library?
+### Explanations
 
 ##### Quick
 > You need:
 - `PreferenceFixTheme` or one of its extension to be set as the theme
 - `preference_accent` set to your accent color - this is going to be used as the preferences' accent color
-- use the available classes ending in *`Fix`* in your preferences XML file: `EditTextPreferenceFix`, `PreferenceCategoryFix`
-- use `PreferenceFragmentCompatFix` (or `PreferenceFragmentCompatDividers`, if you want to customize the divider's position) as the preference fragment
+- use `PreferenceFragmentCompat` (or `PreferenceFragmentCompatDividers`, if you want to customize the divider's position) from the `com.takisoft.fix.support.v7.preference` package as the preference fragment
 
-##### Explained
+##### Detailed
 
 Instead of creating a ton of styles for individual cases, now a single style can be used as base: `@style/PreferenceFixTheme`. This has the usual `Light` and `DayNight` variants as well as the `NoActionBar` extension. It is only needed in a normal `styles.xml` (*or whatever you call it*), no need for API level qualifiers anymore.
 
@@ -33,9 +38,11 @@ Due to some restrictions, you also should define an accent color called `prefere
 ```
 
 The different fixed classes are here:
-- `EditTextPreferenceFix`: Forwards the XML attributes (like inputType) to the EditText, just like the original preference did.
-- `PreferenceCategoryFix`: The basic category doesn't use the normally set accent color, instead if falls back to `preference_fallback_accent_color`. The library overrides this value by you overriding `preference_accent`, which means, you don't necessarily need to use this class, it's up to you.
-- `PreferenceFragmentCompatFix`: It's needed in order to use `EditTextPreferenceFix`. Also, it's dividers variant (`PreferenceFragmentCompatDividers`) can be used to customize the position of the dividers by using its `setDividerPreferences(...)` method with the flags that start with `DIVIDER_`.
+- `EditTextPreference`: Forwards the XML attributes (like inputType) to the EditText, just like the original preference did.
+- `PreferenceCategory`: The basic category doesn't use the normally set accent color, instead if falls back to `preference_fallback_accent_color`. The library overrides this value by you overriding `preference_accent`, which means, you don't necessarily need to use this class, it's up to you.
+- `PreferenceFragmentCompat`: It's found in `com.takisoft.fix.support.v7.preference` (*notice the difference from the original package name!*) and is needed in order to use this library. This handles the fixes basically. Also, it's dividers variant (`PreferenceFragmentCompatDividers`) can be used to customize the position of the dividers by using its `setDividerPreferences(...)` method with the flags that start with `DIVIDER_`.
+
+> I recommend using the `PreferenceFragmentCompatDividers` version because on API levels below 11 the dividers are messed up and this variant can be used to customize the dividers' position.
 
 Feel free to ask / suggest anything on this page by creating a ticket (*issues*)!
 

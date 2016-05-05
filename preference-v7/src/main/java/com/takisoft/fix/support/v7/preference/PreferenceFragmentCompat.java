@@ -8,6 +8,7 @@ import android.support.v7.preference.EditTextPreferenceFix;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.preference.PreferenceManagerFix;
+import android.support.v7.preference.PreferenceScreen;
 
 import java.lang.reflect.Field;
 
@@ -52,17 +53,23 @@ public abstract class PreferenceFragmentCompat extends android.support.v7.prefer
     }
 
     /**
-     * @param bundle
-     * @param s
+     * @param savedInstanceState If the fragment is being re-created from a previous saved state, this is the state.
+     * @param rootKey            If non-null, this preference fragment should be rooted at the PreferenceScreen with this key.
      * @deprecated Use {@link #onCreatePreferencesFix(Bundle, String)} instead.
      */
     @Override
     @Deprecated
-    public void onCreatePreferences(Bundle bundle, String s) {
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
 
     }
 
-    public abstract void onCreatePreferencesFix(Bundle bundle, String s);
+    /**
+     * Called during {@link #onCreate(Bundle)} to supply the preferences for this fragment. Subclasses are expected to call {@link #setPreferenceScreen(PreferenceScreen)} either directly or via helper methods such as {@link #addPreferencesFromResource(int)}.
+     *
+     * @param savedInstanceState If the fragment is being re-created from a previous saved state, this is the state.
+     * @param rootKey            If non-null, this preference fragment should be rooted at the PreferenceScreen with this key.
+     */
+    public abstract void onCreatePreferencesFix(Bundle savedInstanceState, String rootKey);
 
     @Override
     public void onDisplayPreferenceDialog(Preference preference) {

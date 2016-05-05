@@ -5,6 +5,10 @@ import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
+/**
+ * Use {@link com.takisoft.fix.support.v7.preference.EditTextPreference} instead.
+ */
+@Deprecated
 public class EditTextPreferenceFix extends EditTextPreference {
     private EditText editText;
 

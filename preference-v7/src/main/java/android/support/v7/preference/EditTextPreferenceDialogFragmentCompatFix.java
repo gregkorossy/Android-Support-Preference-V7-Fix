@@ -27,6 +27,10 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.EditText;
 
+/**
+ * @deprecated Use {@link com.takisoft.fix.support.v7.preference.EditTextPreferenceDialogFragmentCompat} instead.
+ */
+@Deprecated
 public class EditTextPreferenceDialogFragmentCompatFix extends PreferenceDialogFragmentCompat {
     private EditText mEditText;
 
