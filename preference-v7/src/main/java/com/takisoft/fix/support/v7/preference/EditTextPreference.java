@@ -3,7 +3,6 @@ package com.takisoft.fix.support.v7.preference;
 import android.content.Context;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.EditText;
 
 public class EditTextPreference extends android.support.v7.preference.EditTextPreference {

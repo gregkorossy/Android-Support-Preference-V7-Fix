@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 /**
  * @deprecated Use {@link com.takisoft.fix.support.v7.preference.PreferenceCategory} instead.
- * <p/>
  * PreferenceCategory fix which allows one to use multiple themes. The original
  * "preference_fallback_accent_color" override would not allow this as it is not modifiable during
  * runtime.

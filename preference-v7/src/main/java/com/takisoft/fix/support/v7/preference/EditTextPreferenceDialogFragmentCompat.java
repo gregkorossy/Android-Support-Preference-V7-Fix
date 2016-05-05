@@ -14,8 +14,8 @@
  * limitations under the License.
  *
  * MODIFICATIONS:
- * - getEditTextPreference() returns EditTextPreferenceFix instead of EditTextPreference
- * - onBindDialogView(View view) retrieves the EditText from EditTextPreferenceFix
+ * - getEditTextPreference() returns com.takisoft.fix.support.v7.preference.EditTextPreference instead of android.support.v7.preference.EditTextPreference
+ * - onBindDialogView(View view) retrieves the EditText from com.takisoft.fix.support.v7.preference.EditTextPreference
  */
 
 package com.takisoft.fix.support.v7.preference;
