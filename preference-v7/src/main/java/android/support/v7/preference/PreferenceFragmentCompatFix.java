@@ -2,6 +2,10 @@ package android.support.v7.preference;
 
 import android.support.v4.app.DialogFragment;
 
+/**
+ * @deprecated Use {@link com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat} instead.
+ */
+@Deprecated
 public abstract class PreferenceFragmentCompatFix extends PreferenceFragmentCompat {
     private static final String FRAGMENT_DIALOG_TAG = "android.support.v7.preference.PreferenceFragment.DIALOG";
 

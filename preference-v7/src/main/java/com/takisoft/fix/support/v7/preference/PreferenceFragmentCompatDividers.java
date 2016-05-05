@@ -1,4 +1,4 @@
-package android.support.v7.preference;
+package com.takisoft.fix.support.v7.preference;
 
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -18,12 +18,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * @deprecated Use {@link com.takisoft.fix.support.v7.preference.PreferenceFragmentCompatDividers} instead.
  * As a user requested, here's a variant of PreferenceFragmentCompatFix that allows one to fully
  * customize the dividers between categories and items.
  */
-@Deprecated
-abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmentCompatFix {
+abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmentCompat {
     /**
      * Draws the default divider implementation.
      */
@@ -183,8 +181,8 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
     }
 
     Drawable getDividerDrawable() {
-        TypedArray a = getPreferenceManager().getContext().obtainStyledAttributes(null, R.styleable.PreferenceFragmentCompat, R.attr.preferenceFragmentCompatStyle, 0);
-        Drawable divider = a.getDrawable(R.styleable.PreferenceFragmentCompat_android_divider);
+        TypedArray a = getPreferenceManager().getContext().obtainStyledAttributes(null, android.support.v7.preference.R.styleable.PreferenceFragmentCompat, android.support.v7.preference.R.attr.preferenceFragmentCompatStyle, 0);
+        Drawable divider = a.getDrawable(android.support.v7.preference.R.styleable.PreferenceFragmentCompat_android_divider);
         a.recycle();
 
         return divider;

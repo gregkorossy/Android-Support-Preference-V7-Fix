@@ -14,31 +14,28 @@
  * limitations under the License.
  *
  * MODIFICATIONS:
- * - getEditTextPreference() returns EditTextPreferenceFix instead of EditTextPreference
- * - onBindDialogView(View view) retrieves the EditText from EditTextPreferenceFix
+ * - getEditTextPreference() returns com.takisoft.fix.support.v7.preference.EditTextPreference instead of android.support.v7.preference.EditTextPreference
+ * - onBindDialogView(View view) retrieves the EditText from com.takisoft.fix.support.v7.preference.EditTextPreference
  */
 
-package android.support.v7.preference;
+package com.takisoft.fix.support.v7.preference;
 
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceDialogFragmentCompat;
 import android.text.Editable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.EditText;
 
-/**
- * @deprecated Use {@link com.takisoft.fix.support.v7.preference.EditTextPreferenceDialogFragmentCompat} instead.
- */
-@Deprecated
-public class EditTextPreferenceDialogFragmentCompatFix extends PreferenceDialogFragmentCompat {
+public class EditTextPreferenceDialogFragmentCompat extends PreferenceDialogFragmentCompat {
     private EditText mEditText;
 
-    public EditTextPreferenceDialogFragmentCompatFix() {
+    public EditTextPreferenceDialogFragmentCompat() {
     }
 
-    public static EditTextPreferenceDialogFragmentCompatFix newInstance(String key) {
-        EditTextPreferenceDialogFragmentCompatFix fragment = new EditTextPreferenceDialogFragmentCompatFix();
+    public static EditTextPreferenceDialogFragmentCompat newInstance(String key) {
+        EditTextPreferenceDialogFragmentCompat fragment = new EditTextPreferenceDialogFragmentCompat();
         Bundle b = new Bundle(1);
         b.putString("key", key);
         fragment.setArguments(b);
@@ -66,8 +63,8 @@ public class EditTextPreferenceDialogFragmentCompatFix extends PreferenceDialogF
         }
     }
 
-    private EditTextPreferenceFix getEditTextPreference() {
-        return (EditTextPreferenceFix) this.getPreference();
+    private EditTextPreference getEditTextPreference() {
+        return (EditTextPreference) this.getPreference();
     }
 
     protected boolean needInputMethod() {

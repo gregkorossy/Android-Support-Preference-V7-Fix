@@ -2,10 +2,11 @@ package com.takisoft.preferencefix;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.preference.EditTextPreferenceFix;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceCategory;
-import android.support.v7.preference.PreferenceFragmentCompatDividers;
+
+import com.takisoft.fix.support.v7.preference.EditTextPreference;
+import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompatDividers;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -13,12 +14,12 @@ import android.support.v7.preference.PreferenceFragmentCompatDividers;
 public class MyPreferenceFragment extends PreferenceFragmentCompatDividers {
 
     @Override
-    public void onCreatePreferences(Bundle bundle, String s) {
+    public void onCreatePreferencesFix(Bundle bundle, String s) {
         addPreferencesFromResource(R.xml.settings);
 
         testDynamicPrefs();
 
-        EditTextPreferenceFix etPref = (EditTextPreferenceFix) findPreference("edit_text_fix_test");
+        EditTextPreference etPref = (EditTextPreference) findPreference("edit_text_fix_test");
         int inputType = etPref.getEditText().getInputType();
 
         // Uncomment this if you want to change the dividers' style

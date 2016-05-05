@@ -1,36 +1,35 @@
-package android.support.v7.preference;
+package com.takisoft.fix.support.v7.preference;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
+import android.support.v7.preference.PreferenceViewHolder;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
 /**
- * @deprecated Use {@link com.takisoft.fix.support.v7.preference.PreferenceCategory} instead.
  * PreferenceCategory fix which allows one to use multiple themes. The original
  * "preference_fallback_accent_color" override would not allow this as it is not modifiable during
  * runtime.
  * If you use this class in your preference XML, you don't have to redefine
  * "preference_fallback_accent_color". Read the README.md for more info.
  */
-@Deprecated
-public class PreferenceCategoryFix extends PreferenceCategory {
+public class PreferenceCategory extends android.support.v7.preference.PreferenceCategory {
     private static final int[] COLOR_ACCENT_ID = new int[]{android.support.v7.appcompat.R.attr.colorAccent};
 
-    public PreferenceCategoryFix(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public PreferenceCategory(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    public PreferenceCategoryFix(Context context, AttributeSet attrs, int defStyleAttr) {
+    public PreferenceCategory(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public PreferenceCategoryFix(Context context, AttributeSet attrs) {
+    public PreferenceCategory(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public PreferenceCategoryFix(Context context) {
+    public PreferenceCategory(Context context) {
         super(context);
     }
 
