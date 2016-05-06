@@ -2,6 +2,7 @@ package com.takisoft.preferencefix;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.preference.EditTextPreferenceFix;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceCategory;
 
@@ -19,7 +20,7 @@ public class MyPreferenceFragment extends PreferenceFragmentCompatDividers {
 
         testDynamicPrefs();
 
-        EditTextPreference etPref = (EditTextPreference) findPreference("edit_text_fix_test");
+        EditTextPreferenceFix etPref = (EditTextPreferenceFix) findPreference("edit_text_fix_test");
         int inputType = etPref.getEditText().getInputType();
 
         // Uncomment this if you want to change the dividers' style
