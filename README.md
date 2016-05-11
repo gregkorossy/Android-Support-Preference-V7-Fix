@@ -1,20 +1,20 @@
-# Currently this is the available bugfix (*support library rev. 23.3.0*)
+# Currently this is the available bugfix (*support library rev. 23.4.0*)
 
 ## NEW! The bugfix is available as a gradle dependency
 
 ### Version
-The current version is **23.3.0.4-beta**.
+The current version is **23.4.0.1**.
 There's an important change in this version: you won't need to use the `Fix` suffix anymore in your preferences XML file! Also, use `PreferenceFragmentCompat` instead of `PreferenceFragmentCompatFix` (but you have to use the custom package name, see details below in the *Quick* section).
 
 ### How to use the library?
 First, **remove** the unnecessary lines of preference-v7 and preference-v14 from your gradle file as the bugfix contains both of them:
 ```gradle
-compile 'com.android.support:preference-v7:23.3.0'
-compile 'com.android.support:preference-v14:23.3.0'
+compile 'com.android.support:preference-v7:23.4.0'
+compile 'com.android.support:preference-v14:23.4.0'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:23.3.0.4-beta'
+compile 'com.takisoft.fix:preference-v7:23.4.0.1'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
@@ -23,7 +23,7 @@ compile 'com.takisoft.fix:preference-v7:23.3.0.4-beta'
 ##### Quick
 > You need:
 - `PreferenceFixTheme` or one of its extension to be set as the theme
-- `preference_accent` set to your accent color - this is going to be used as the preferences' accent color
+- `preference_accent` set to your accent color - this is going to be used as the preferences' accent color (*expect it to be removed in the future and make sure your theme's accent color is set in your style*)
 - use `PreferenceFragmentCompat` (or `PreferenceFragmentCompatDividers`, if you want to customize the divider's position) from the `com.takisoft.fix.support.v7.preference` package as the preference fragment
 
 ##### Detailed

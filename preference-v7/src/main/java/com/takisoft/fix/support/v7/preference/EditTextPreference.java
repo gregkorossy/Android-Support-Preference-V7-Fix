@@ -13,7 +13,7 @@ public class EditTextPreference extends android.support.v7.preference.EditTextPr
     }
 
     public EditTextPreference(Context context, AttributeSet attrs) {
-        this(context, attrs, android.support.v7.preference.R.attr.editTextPreferenceStyle);
+        this(context, attrs, R.attr.editTextPreferenceStyle);
     }
 
     public EditTextPreference(Context context, AttributeSet attrs, int defStyleAttr) {

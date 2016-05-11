@@ -15,7 +15,7 @@ import android.widget.TextView;
  * "preference_fallback_accent_color". Read the README.md for more info.
  */
 public class PreferenceCategory extends android.support.v7.preference.PreferenceCategory {
-    private static final int[] COLOR_ACCENT_ID = new int[]{android.support.v7.appcompat.R.attr.colorAccent};
+    private static final int[] COLOR_ACCENT_ID = new int[]{R.attr.colorAccent};
 
     public PreferenceCategory(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);

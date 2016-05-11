@@ -17,7 +17,7 @@ public class EditTextPreferenceFix extends EditTextPreference {
     }
 
     public EditTextPreferenceFix(Context context, AttributeSet attrs) {
-        this(context, attrs, R.attr.editTextPreferenceStyle);
+        this(context, attrs, com.takisoft.fix.support.v7.preference.R.attr.editTextPreferenceStyle);
     }
 
     public EditTextPreferenceFix(Context context, AttributeSet attrs, int defStyleAttr) {
