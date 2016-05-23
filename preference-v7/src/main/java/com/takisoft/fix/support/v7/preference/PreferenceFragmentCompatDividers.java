@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -131,6 +132,7 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
         final RecyclerView recyclerView = getListView();
 
         if (recyclerView == null) {
+            Log.w("PreferenceFragmentFix", "Warning: setDividerPreferences(flags) was called before the list was constructed. Please, move the method to onCreateView(...) after the super.onCreateView(...) call!");
             divPrefFlags = flags;
             divPrefInvalid = true;
             return;

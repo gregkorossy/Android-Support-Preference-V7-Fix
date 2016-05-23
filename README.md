@@ -3,7 +3,7 @@
 ## NEW! The bugfix is available as a gradle dependency
 
 ### Version
-The current version is **23.4.0.1**.
+The current version is **23.4.0.2**.
 There's an important change in this version: you won't need to use the `Fix` suffix anymore in your preferences XML file! Also, use `PreferenceFragmentCompat` instead of `PreferenceFragmentCompatFix` (but you have to use the custom package name, see details below in the *Quick* section).
 
 ### How to use the library?
@@ -14,7 +14,7 @@ compile 'com.android.support:preference-v14:23.4.0'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:23.4.0.1'
+compile 'com.takisoft.fix:preference-v7:23.4.0.2'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
@@ -142,7 +142,8 @@ Basically it overrides the built-in `listSeparatorTextViewStyle`, which is the s
 
 The default implementation puts dividers between preferences but not between categories. The solution provided here features a fully customizable divider positioning system using flags.
 
-In order to use it, extend `PreferenceFragmentCompatDividers` instead of `PreferenceFragmentCompatFix`. This way you'll *not* lose any fixes since it extends the original fix as well. It as a new method `setDividerPreferences(int flags)` which can be called from `onCreatePreferences(...)` with certain flags (*you can find the possible values either in the description of the method or in the class file, these start with `DIVIDER`*).
+In order to use it, extend `PreferenceFragmentCompatDividers` instead of `PreferenceFragmentCompatFix`. This way you'll *not* lose any fixes since it extends the original fix as well. It as a new method `setDividerPreferences(int flags)` which can be called from ~~`onCreatePreferences(...)`~~ `onCreateView(...)` (*after* the `super` call) with certain flags (*you can find the possible values either in the description of the method or in the class file, these start with `DIVIDER`*).
+> Note that the other divider customizer methods (`setDivider(...)` and `setDividerHeight(...)`) should also be called from `onCreateView(...)` instead of `onCreatePreferences(...)`. If you use `setDividerPreferences(...)` to customize the position of the dividers, make sure you call it *before* the other two methods.
 
 # Interesting things
 These are not considered bugs but they can give you a headache.

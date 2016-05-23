@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.preference.EditTextPreferenceFix;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceCategory;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import com.takisoft.fix.support.v7.preference.EditTextPreference;
 import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompatDividers;
 
 /**
@@ -22,9 +24,16 @@ public class MyPreferenceFragment extends PreferenceFragmentCompatDividers {
 
         EditTextPreferenceFix etPref = (EditTextPreferenceFix) findPreference("edit_text_fix_test");
         int inputType = etPref.getEditText().getInputType();
+    }
 
-        // Uncomment this if you want to change the dividers' style
-        // setDividerPreferences(DIVIDER_PADDING_CHILD | DIVIDER_CATEGORY_AFTER_LAST | DIVIDER_CATEGORY_BETWEEN);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        try {
+            return super.onCreateView(inflater, container, savedInstanceState);
+        } finally {
+            // Uncomment this if you want to change the dividers' style
+            // setDividerPreferences(DIVIDER_PADDING_CHILD | DIVIDER_CATEGORY_AFTER_LAST | DIVIDER_CATEGORY_BETWEEN);
+        }
     }
 
     private void testDynamicPrefs() {
