@@ -1,13 +1,13 @@
 package com.takisoft.fix.support.v7.preference;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.v7.preference.PreferenceViewHolder;
 import android.support.v7.preference.PreferenceViewHolderFix;
 import android.support.v7.widget.SwitchCompat;
 import android.util.AttributeSet;
 
 public class SwitchPreferenceCompat extends android.support.v7.preference.SwitchPreferenceCompat {
-    //private boolean mCheckedSet;
 
     public SwitchPreferenceCompat(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -38,9 +38,9 @@ public class SwitchPreferenceCompat extends android.support.v7.preference.Switch
         super.onBindViewHolder(new PreferenceViewHolderFix(holder));
         //this.syncSwitchView(switchView);
         switchCompat = (SwitchCompat) holder.findViewById(R.id.switchWidget);
-        /*if (switchCompat != null) {
-            (switchCompat).setChecked(this.mChecked);
-        }*/
+        if (switchCompat != null && switchCompat.isChecked() != this.mChecked) {
+            switchCompat.setChecked(this.mChecked);
+        }
         //this.syncSummaryView(holder);
     }
 
@@ -64,7 +64,9 @@ public class SwitchPreferenceCompat extends android.support.v7.preference.Switch
         Log.d("SwitchPreferenceCompat", "isLaidOut: " + ViewCompat.isLaidOut(switchCompat));
         Log.d("SwitchPreferenceCompat", "isShown: " + switchCompat.isShown());*/
 
-        switchCompat.setChecked(checked);
+        if (switchCompat != null && switchCompat.isChecked() != checked) {
+            switchCompat.setChecked(checked);
+        }
 
 
 
