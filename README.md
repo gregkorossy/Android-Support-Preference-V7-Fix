@@ -38,6 +38,7 @@ Due to some restrictions, you also should define an accent color called `prefere
 ```
 
 The different fixed classes are here:
+- `SwitchPreferenceCompat`: Changing the switch's *checked* status is now being animated instead of popping from one state to another.
 - `EditTextPreference`: Forwards the XML attributes (like inputType) to the EditText, just like the original preference did.
 - `PreferenceCategory`: The basic category doesn't use the normally set accent color, instead if falls back to `preference_fallback_accent_color`. The library overrides this value by you overriding `preference_accent`, which means, you don't necessarily need to use this class, it's up to you.
 - `PreferenceFragmentCompat`: It's found in `com.takisoft.fix.support.v7.preference` (*notice the difference from the original package name!*) and is needed in order to use this library. This handles the fixes basically. Also, it's dividers variant (`PreferenceFragmentCompatDividers`) can be used to customize the position of the dividers by using its `setDividerPreferences(...)` method with the flags that start with `DIVIDER_`.
