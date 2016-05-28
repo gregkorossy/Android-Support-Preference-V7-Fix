@@ -2,6 +2,8 @@
 
 ## NEW! The bugfix is available as a gradle dependency
 
+[ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix/_latestVersion)
+
 ### Version
 The current version is **23.4.0.4**.
 There's an important change in this version: you won't need to use the `Fix` suffix anymore in your preferences XML file! Also, use `PreferenceFragmentCompat` instead of `PreferenceFragmentCompatFix` (but you have to use the custom package name, see details below in the *Quick* section).
