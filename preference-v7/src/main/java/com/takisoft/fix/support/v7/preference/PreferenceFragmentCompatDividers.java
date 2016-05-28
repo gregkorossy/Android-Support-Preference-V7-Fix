@@ -183,8 +183,8 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
     }
 
     Drawable getDividerDrawable() {
-        TypedArray a = getPreferenceManager().getContext().obtainStyledAttributes(null, android.support.v7.preference.R.styleable.PreferenceFragmentCompat, android.support.v7.preference.R.attr.preferenceFragmentCompatStyle, 0);
-        Drawable divider = a.getDrawable(android.support.v7.preference.R.styleable.PreferenceFragmentCompat_android_divider);
+        TypedArray a = getPreferenceManager().getContext().obtainStyledAttributes(null, R.styleable.PreferenceFragmentCompat, R.attr.preferenceFragmentCompatStyle, 0);
+        Drawable divider = a.getDrawable(R.styleable.PreferenceFragmentCompat_android_divider);
         a.recycle();
 
         return divider;
