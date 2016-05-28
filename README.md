@@ -3,7 +3,7 @@
 ## NEW! The bugfix is available as a gradle dependency
 
 ### Version
-The current version is **23.4.0.3**.
+The current version is **23.4.0.4**.
 There's an important change in this version: you won't need to use the `Fix` suffix anymore in your preferences XML file! Also, use `PreferenceFragmentCompat` instead of `PreferenceFragmentCompatFix` (but you have to use the custom package name, see details below in the *Quick* section).
 
 ### How to use the library?
@@ -14,7 +14,7 @@ compile 'com.android.support:preference-v14:23.4.0'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:23.4.0.3'
+compile 'com.takisoft.fix:preference-v7:23.4.0.4'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
