@@ -9,6 +9,7 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.preference.PreferenceManagerFix;
 import android.support.v7.preference.PreferenceScreen;
+import android.support.v7.widget.RecyclerView;
 
 import java.lang.reflect.Field;
 
@@ -50,6 +51,11 @@ public abstract class PreferenceFragmentCompat extends android.support.v7.prefer
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected RecyclerView.Adapter onCreateAdapter(PreferenceScreen preferenceScreen) {
+        return new PreferenceGroupAdapter(preferenceScreen);
     }
 
     /**
