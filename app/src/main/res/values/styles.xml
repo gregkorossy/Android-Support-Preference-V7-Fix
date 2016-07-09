@@ -5,6 +5,8 @@
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="drawerArrowStyle">@style/Theme.MyTheme.DrawerArrowStyle</item>
         <item name="toolbarStyle">@style/Theme.MyTheme.Toolbar</item>
+        <!-- If you find the preference categories' bottom margin too big, uncomment this -->
+        <!--<item name="preferenceCategory_marginBottom">0dp</item>-->
     </style>
 
     <style name="Theme.MyTheme.DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">

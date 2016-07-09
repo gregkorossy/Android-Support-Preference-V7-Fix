@@ -1,6 +1,5 @@
 package com.takisoft.fix.support.v7.preference;
 
-import android.annotation.TargetApi;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -9,7 +8,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.preference.PreferenceGroup;
 import android.support.v7.preference.PreferenceViewHolder;
 import android.support.v7.preference.PreferenceViewHolderProxy;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +29,6 @@ class PreferenceGroupAdapter extends android.support.v7.preference.PreferenceGro
             Field preferenceLayoutsField = android.support.v7.preference.PreferenceGroupAdapter.class.getDeclaredField("mPreferenceLayouts");
             preferenceLayoutsField.setAccessible(true);
             mPreferenceLayouts = (List) preferenceLayoutsField.get(this);
-            Log.d("Reflection", "list: " + mPreferenceLayouts);
 
             Class<?>[] classes = android.support.v7.preference.PreferenceGroupAdapter.class.getDeclaredClasses();
             for (Class<?> aClass : classes) {
@@ -101,33 +98,5 @@ class PreferenceGroupAdapter extends android.support.v7.preference.PreferenceGro
         }
 
         return new PreferenceViewHolderProxy(view);
-
-        // TODO the bug is in super.onCreateViewHolder(...): view.setBackgroundDrawable(background); resets the padding
-
-        //Log.d("PreferenceViewHolder", "viewType: " + viewType);
-
-        /*LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        LayoutInflater inflater2 = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        View view = inflater.inflate(R.layout.preference_material, parent, false);
-        View view2 = inflater2.inflate(R.layout.preference_material, parent, false);
-
-        final PreferenceViewHolder preferenceViewHolder = super.onCreateViewHolder(parent, viewType);
-
-        final TypedArray typedArray2 = parent.getContext().getTheme().obtainStyledAttributes(new int[]{R.attr.listPreferredItemPaddingLeft, R.attr.listPreferredItemPaddingRight});
-        if (typedArray2.length() > 0) {
-            int pLeft = typedArray2.getDimensionPixelSize(0, -1);
-            int pRight = typedArray2.getDimensionPixelSize(1, -1);
-
-            Log.d("PreferenceCategory", "pLeft: " + pLeft + ", pRight: " + pRight + ", oLeft: " + preferenceViewHolder.itemView.getPaddingLeft() + ", parent: " + parent);
-            //preferenceViewHolder.itemView.setPadding(pLeft, preferenceViewHolder.itemView.getPaddingTop(), pRight, preferenceViewHolder.itemView.getPaddingBottom());
-        }
-
-        Log.d("VIEW", "pLeft: " + view.getPaddingLeft());
-        Log.d("VIEW2", "pLeft: " + view2.getPaddingLeft());
-        Log.d("VIEW_orig", "pLeft: " + preferenceViewHolder.itemView.getPaddingLeft());
-        Log.d("PreferenceCategory", "---------");
-
-        return preferenceViewHolder;*/
     }
 }

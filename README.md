@@ -1,12 +1,16 @@
 # Currently this is the available bugfix (*support library rev. 24.0.0*)
 
-## NEW! The bugfix is available as a gradle dependency
-
+Gradle dependency:
 [ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix/_latestVersion)
 
 ### Version
-The current version is **24.0.0.0-beta**.
-There's an important change in this version: you won't need to use the `Fix` suffix anymore in your preferences XML file! Also, use `PreferenceFragmentCompat` instead of `PreferenceFragmentCompatFix` (but you have to use the custom package name, see details below in the *Quick* section).
+The current version is **24.0.0.1**.
+
+### Changelog (2016-07-09)
+
+- some found the preference category's bottom margin too big, so now you can change it from the styles by setting the `preferenceCategory_marginBottom` value in your theme, for example: `<item name="preferenceCategory_marginBottom">0dp</item>`
+- removed some unnecessary code
+- the sample app has been updated with an inner `PreferenceScreen` so the behavior can be tested against it as well
 
 ### How to use the library?
 First, **remove** the unnecessary lines of preference-v7 and preference-v14 from your gradle file as the bugfix contains both of them:
@@ -16,7 +20,7 @@ compile 'com.android.support:preference-v14:24.0.0'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:24.0.0.0-beta'
+compile 'com.takisoft.fix:preference-v7:24.0.0.1'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
@@ -138,6 +142,23 @@ Basically it overrides the built-in `listSeparatorTextViewStyle`, which is the s
 
 **And another bug (*officially it isn't*)** is that you cannot set any `EditText`-related attributes (e.g. `inputType`) to your `EditTextPreference`. If you still want to do that, scroll down a little, the workaround is in the **Interesting things** part.
 
+**Another bug** (*[issue 213297](https://code.google.com/p/android/issues/detail?id=213297)*) is that in the new v24.0.0 library the paddings are non-existent on API levels below 21. This happens, because the original `PreferenceGroupAdapter`'s `onCreateViewHolder(...)` (*this is responsible for inflating the preferences' layouts*) contains the following code:
+```java
+view.setBackgroundDrawable(background);
+```
+where `view` is the preference's inflated layout and `background` is the selector. I guess this way of background implementation has been introduced in order to overcome the problem that on older APIs there was no background. The problem with this is that the `setBackgroundDrawable(...)` method resets the padding if the drawable is a 9-patch, as per [Romain Guy](http://www.mail-archive.com/android-developers@googlegroups.com/msg09595.html): "The reason why setting an image resets the padding is because 9-patch images can encode padding.".
+The patch is simple, one just have to save the padding before setting the background, then reapply it. This is done like this:
+```java
+// ...
+View view = inflater.inflate(pl.resId, parent, false);
+
+// BEGINNING of the bugfix
+int[] padding = {ViewCompat.getPaddingStart(view), view.getPaddingTop(), ViewCompat.getPaddingEnd(view), view.getPaddingBottom()};
+view.setBackgroundDrawable(background);
+ViewCompat.setPaddingRelative(view, padding[0], padding[1], padding[2], padding[3]);
+// END of the bugfix
+```
+
 # Customizations
 
 ### Divider positioning
@@ -147,6 +168,12 @@ The default implementation puts dividers between preferences but not between cat
 
 In order to use it, extend `PreferenceFragmentCompatDividers` instead of `PreferenceFragmentCompatFix`. This way you'll *not* lose any fixes since it extends the original fix as well. It as a new method `setDividerPreferences(int flags)` which can be called from ~~`onCreatePreferences(...)`~~ `onCreateView(...)` (*after* the `super` call) with certain flags (*you can find the possible values either in the description of the method or in the class file, these start with `DIVIDER`*).
 > Note that the other divider customizer methods (`setDivider(...)` and `setDividerHeight(...)`) should also be called from `onCreateView(...)` instead of `onCreatePreferences(...)`. If you use `setDividerPreferences(...)` to customize the position of the dividers, make sure you call it *before* the other two methods.
+
+### PreferenceCategory's bottom margin reduce
+Some people found the preference category's bottom margin too big, so now you can change it from the styles by setting the `preferenceCategory_marginBottom` value in your theme, for example:
+```xml
+<item name="preferenceCategory_marginBottom">0dp</item>
+```
 
 # Interesting things
 These are not considered bugs but they can give you a headache.

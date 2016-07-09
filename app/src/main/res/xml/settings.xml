@@ -47,6 +47,18 @@
             android:key="pref_syncConnectionType"
             android:persistent="false"
             android:title="ListPreference" />
+        <PreferenceScreen
+            android:key="preference_screen_test"
+            android:persistent="false"
+            android:title="PreferenceScreen test">
+            <Preference
+                android:persistent="false"
+                android:title="A preference" />
+            <SwitchPreferenceCompat
+                android:persistent="false"
+                android:summary="But this is a SwitchPreferenceCompat"
+                android:title="Another one" />
+        </PreferenceScreen>
     </PreferenceCategory>
     <PreferenceCategory
         android:key="pref_categ"

@@ -17,13 +17,15 @@ import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompatDividers;
 public class MyPreferenceFragment extends PreferenceFragmentCompatDividers {
 
     @Override
-    public void onCreatePreferencesFix(Bundle bundle, String s) {
-        addPreferencesFromResource(R.xml.settings);
+    public void onCreatePreferencesFix(Bundle savedInstanceState, String rootKey) {
+        setPreferencesFromResource(R.xml.settings, rootKey);
 
         testDynamicPrefs();
 
         EditTextPreferenceFix etPref = (EditTextPreferenceFix) findPreference("edit_text_fix_test");
-        int inputType = etPref.getEditText().getInputType();
+        if (etPref != null) {
+            int inputType = etPref.getEditText().getInputType();
+        }
     }
 
     @Override
@@ -42,19 +44,23 @@ public class MyPreferenceFragment extends PreferenceFragmentCompatDividers {
         final PreferenceCategory dynamicCategory = (PreferenceCategory) findPreference("pref_categ");
 
         Preference prefAdd = findPreference("pref_add");
-        prefAdd.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            private int n = 0;
+        if (prefAdd != null) {
+            prefAdd.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                private int n = 0;
 
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                Preference newPreference = new Preference(ctx);
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Preference newPreference = new Preference(ctx);
 
-                newPreference.setTitle("New preference " + n++);
-                newPreference.setSummary(Long.toString(System.currentTimeMillis()));
+                    newPreference.setTitle("New preference " + n++);
+                    newPreference.setSummary(Long.toString(System.currentTimeMillis()));
 
-                dynamicCategory.addPreference(newPreference);
-                return true;
-            }
-        });
+                    if (dynamicCategory != null) {
+                        dynamicCategory.addPreference(newPreference);
+                    }
+                    return true;
+                }
+            });
+        }
     }
 }

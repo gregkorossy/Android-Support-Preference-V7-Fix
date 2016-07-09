@@ -12,9 +12,8 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
         android:visibility="visible" />
 
-    <fragment
+    <FrameLayout
         android:id="@+id/fragment"
-        android:name="com.takisoft.preferencefix.MyPreferenceFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

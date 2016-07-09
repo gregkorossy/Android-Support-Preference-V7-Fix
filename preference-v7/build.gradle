@@ -31,7 +31,7 @@ ext {
     siteUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix'
     gitUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix.git'
 
-    libraryVersion = '24.0.0.0-beta'
+    libraryVersion = '24.0.0.1'
 
     developerId = 'gericop'
     developerName = 'Gergely Kőrössy'
