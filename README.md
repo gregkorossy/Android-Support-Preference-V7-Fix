@@ -1,12 +1,18 @@
-# Currently this is the available bugfix (*support library rev. 24.0.0*)
+# Currently this is the available bugfix (*support library rev. 24.1.0*)
 
 Gradle dependency:
 [ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix/_latestVersion)
 
 ### Version
-The current version is **24.0.0.1**.
+The current version is **24.1.0.0**.
 
-### Changelog (2016-07-09)
+### Changelog
+
+**2016-07-19**
+
+Updated the preference libs to 24.1.0 from 24.0.0. No further changes.
+
+**2016-07-09**
 
 - some found the preference category's bottom margin too big, so now you can change it from the styles by setting the `preferenceCategory_marginBottom` value in your theme, for example: `<item name="preferenceCategory_marginBottom">0dp</item>`
 - removed some unnecessary code
@@ -15,12 +21,12 @@ The current version is **24.0.0.1**.
 ### How to use the library?
 First, **remove** the unnecessary lines of preference-v7 and preference-v14 from your gradle file as the bugfix contains both of them:
 ```gradle
-compile 'com.android.support:preference-v7:24.0.0'
-compile 'com.android.support:preference-v14:24.0.0'
+compile 'com.android.support:preference-v7:24.1.0'
+compile 'com.android.support:preference-v14:24.1.0'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:24.0.0.1'
+compile 'com.takisoft.fix:preference-v7:24.1.0.0'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
