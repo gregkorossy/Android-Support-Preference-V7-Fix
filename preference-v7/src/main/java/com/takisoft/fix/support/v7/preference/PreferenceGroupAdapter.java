@@ -30,6 +30,14 @@ class PreferenceGroupAdapter extends android.support.v7.preference.PreferenceGro
             preferenceLayoutsField.setAccessible(true);
             mPreferenceLayouts = (List) preferenceLayoutsField.get(this);
 
+            getReflectionFields();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getReflectionFields() {
+        try {
             Class<?>[] classes = android.support.v7.preference.PreferenceGroupAdapter.class.getDeclaredClasses();
             for (Class<?> aClass : classes) {
                 if ("PreferenceLayout".equals(aClass.getSimpleName())) {
@@ -50,6 +58,10 @@ class PreferenceGroupAdapter extends android.support.v7.preference.PreferenceGro
     @NonNull
     private int[] getReflectedIds(Object pl) {
         int[] ids = new int[2];
+
+        if (fieldResId == null || fieldWidgetResId == null) {
+            getReflectionFields(); // try to resolve them again if it didn't happen so far
+        }
 
         try {
             ids[0] = (int) fieldResId.get(pl);
