@@ -4,9 +4,13 @@ Gradle dependency:
 [ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix/_latestVersion)
 
 ### Version
-The current version is **24.1.0.0**.
+The current version is **24.1.0.1**.
 
 ### Changelog
+
+**2016-07-21**
+
+There was a reflection related bug on a device and 24.1.0.1 tries to overcome this, but the bugfix is not confirmed yet.
 
 **2016-07-19**
 
@@ -26,7 +30,7 @@ compile 'com.android.support:preference-v14:24.1.0'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:24.1.0.0'
+compile 'com.takisoft.fix:preference-v7:24.1.0.1'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
