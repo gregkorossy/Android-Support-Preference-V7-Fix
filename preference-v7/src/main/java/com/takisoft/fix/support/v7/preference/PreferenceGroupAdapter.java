@@ -68,6 +68,10 @@ class PreferenceGroupAdapter extends android.support.v7.preference.PreferenceGro
             ids[1] = (int) fieldWidgetResId.get(pl);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            // ugly but should work
+            ids[0] = 0;
+            ids[1] = 0;
         }
 
         return ids;
@@ -81,6 +85,11 @@ class PreferenceGroupAdapter extends android.support.v7.preference.PreferenceGro
 
         final Object pl = this.mPreferenceLayouts.get(viewType);
         final int[] reflIds = getReflectedIds(pl);
+
+        // quickfix if the reflected fields couldn't be resolved
+        if (reflIds[0] == 0 && reflIds[1] == 0) {
+            return super.onCreateViewHolder(parent, viewType);
+        }
 
         int resId = reflIds[0], widgetResId = reflIds[1];
 

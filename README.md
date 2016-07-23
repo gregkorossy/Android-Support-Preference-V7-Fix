@@ -1,12 +1,17 @@
-# Currently this is the available bugfix (*support library rev. 24.1.0*)
+# Currently this is the available bugfix (*support library rev. 24.1.1*)
 
 Gradle dependency:
 [ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix/_latestVersion)
 
 ### Version
-The current version is **24.1.0.1**.
+The current version is **24.1.1.0**.
 
 ### Changelog
+
+**2016-07-23**
+
+- Updated the preference libs to 24.1.1 from 24.1.0.
+- The previous bugfix didn't work, so in case the reflection would not work, it just falls back to the original implementation. This means that if the fallback happens, the padding fix will not be available (only devices below API 21 are affected by the padding bug). This `NullPointerException` causing *bug* was reported only once on a device that had Xposed on it, but couldn't reproduce it using the same make and model of that device, thus most users will still see the bugfixed (i.e. the padding fixed) version of the preferences.
 
 **2016-07-21**
 
@@ -25,12 +30,12 @@ Updated the preference libs to 24.1.0 from 24.0.0. No further changes.
 ### How to use the library?
 First, **remove** the unnecessary lines of preference-v7 and preference-v14 from your gradle file as the bugfix contains both of them:
 ```gradle
-compile 'com.android.support:preference-v7:24.1.0'
-compile 'com.android.support:preference-v14:24.1.0'
+compile 'com.android.support:preference-v7:24.1.1'
+compile 'com.android.support:preference-v14:24.1.1'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:24.1.0.1'
+compile 'com.takisoft.fix:preference-v7:24.1.1.0'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
