@@ -37,7 +37,7 @@ public class EditTextPreferenceDialogFragmentCompat extends PreferenceDialogFrag
     public static EditTextPreferenceDialogFragmentCompat newInstance(String key) {
         EditTextPreferenceDialogFragmentCompat fragment = new EditTextPreferenceDialogFragmentCompat();
         Bundle b = new Bundle(1);
-        b.putString("key", key);
+        b.putString(ARG_KEY, key);
         fragment.setArguments(b);
         return fragment;
     }

@@ -146,6 +146,8 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
     }
 
     void applyDividerPreference(final RecyclerView recyclerView, @DividerPrefFlags @DividerPrefBase final int flags) {
+        boolean decoratorRecreateNeeded = flags != divPrefFlags || divPrefInvalid;
+
         divPrefFlags = flags;
         divPrefInvalid = false;
 
@@ -171,6 +173,11 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
 
             if (flags == DIVIDER_DEFAULT) {
                 divPrefFlags = DIVIDER_PREFERENCE_BETWEEN;
+            }
+
+            if (divItemDecoration != null && decoratorRecreateNeeded) {
+                recyclerView.removeItemDecoration(divItemDecoration);
+                divItemDecoration = null;
             }
 
             if (divItemDecoration == null) {
@@ -199,6 +206,13 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
         }
 
         setDividerPreferences(divPrefFlags);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        divPrefInvalid = true;
     }
 
     @Override
