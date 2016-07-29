@@ -4,9 +4,13 @@ Gradle dependency:
 [ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix/_latestVersion)
 
 ### Version
-The current version is **24.1.1.0**.
+The current version is **24.1.1.1**.
 
 ### Changelog
+
+**2016-07-29**
+
+Bugfix for divider settings reset ([issue #34](https://github.com/Gericop/Android-Support-Preference-V7-Fix/issues/34)).
 
 **2016-07-23**
 
@@ -35,7 +39,7 @@ compile 'com.android.support:preference-v14:24.1.1'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:24.1.1.0'
+compile 'com.takisoft.fix:preference-v7:24.1.1.1'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
