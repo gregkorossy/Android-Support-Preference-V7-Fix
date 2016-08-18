@@ -2,7 +2,8 @@
     package="com.takisoft.fix.support.v7.preference">
 
     <uses-sdk xmlns:tools="http://schemas.android.com/tools"
-        tools:overrideLibrary="android.support.v14.preference" />
+        tools:overrideLibrary="android.support.v14.preference,android.support.v7.appcompat,android.support.v7.preference,android.support.graphics.drawable,android.support.compat,android.support.v4,android.support.coreutils,android.support.mediacompat,android.support.coreui,android.support.fragment,android.support.v7.recyclerview"
+        />
 
     <!--<application android:allowBackup="true" android:label="@string/app_name"
         android:supportsRtl="true">
