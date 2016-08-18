@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="preference_accent">#ff80cbc4</color>
-    <!-- this is needed as preference_category_material layout is using this color as the text color -->
-    <!-- read the README.md if you need more than one color (e.g. you have multiple themes) -->
-    <color name="preference_fallback_accent_color">@color/preference_accent</color>
-</resources>
