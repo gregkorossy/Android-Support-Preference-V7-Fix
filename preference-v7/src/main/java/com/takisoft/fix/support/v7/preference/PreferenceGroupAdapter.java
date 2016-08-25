@@ -98,9 +98,11 @@ class PreferenceGroupAdapter extends android.support.v7.preference.PreferenceGro
         View view = inflater.inflate(resId, parent, false);
 
         // BEGINNING of the bugfix
-        int[] padding = {ViewCompat.getPaddingStart(view), view.getPaddingTop(), ViewCompat.getPaddingEnd(view), view.getPaddingBottom()};
-        view.setBackgroundDrawable(background);
-        ViewCompat.setPaddingRelative(view, padding[0], padding[1], padding[2], padding[3]);
+        if (view.getBackground() == null) {
+            int[] padding = {ViewCompat.getPaddingStart(view), view.getPaddingTop(), ViewCompat.getPaddingEnd(view), view.getPaddingBottom()};
+            view.setBackgroundDrawable(background);
+            ViewCompat.setPaddingRelative(view, padding[0], padding[1], padding[2], padding[3]);
+        }
         // END of bugfix
 
         ViewGroup widgetFrame = (ViewGroup) view.findViewById(/*16908312*/android.R.id.widget_frame);

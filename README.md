@@ -1,45 +1,43 @@
-# Currently this is the available bugfix (*support library rev. 24.1.1*)
+# Currently this is the available bugfix (*support library rev. 24.2.0*)
 
 Gradle dependency:
 [ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix/_latestVersion)
 
 ### Version
-The current version is **24.1.1.1**.
+The current version is **24.2.0.0**.
+
+> IMPORTANT If you are providing legacy support for users on API 7-8 you should know that the new official support library v24.2.0 dropped support of API 7-8 as it set the minSdk version to 9. This *restriction* is overridden by the library, but you also have to override it by adding these to your application's manifest:
+```xml
+<uses-sdk xmlns:tools="http://schemas.android.com/tools"
+        tools:overrideLibrary="android.support.v14.preference,android.support.v7.appcompat,android.support.v7.preference,android.support.graphics.drawable,android.support.compat,android.support.v4,android.support.coreutils,android.support.mediacompat,android.support.coreui,android.support.fragment,android.support.v7.recyclerview" />
+```
+*The library was tested on API 10 and since this is basically a hack, __it's not guaranteed that the library will work on API 7-8__! I kept support of minSdk 7 due to the package name `v7` of the whole support library.*
 
 ### Changelog
 
-**2016-07-29**
+**2016-08-18**
 
-Bugfix for divider settings reset ([issue #34](https://github.com/Gericop/Android-Support-Preference-V7-Fix/issues/34)).
+Wow! The Google guys worked so hard, they finally released bugfix-like things! Here's the list of things were modified by them:
 
-**2016-07-23**
+- No more need for `preference_accent`, just define your `colorAccent` attribute in your theme and that's it! This also means that from now on you can set different accent colors for different theme variations.
+- The `ListPreference`'s items use the accent color on all API levels, so the bug is gone finally (there's a small quirk on API 10 and probably all levels below 14 are affected by it: the first time the user opens the dialog, the first item's radio button is not colored properly, but it goes away after the user selects an option).
+- If you are targeting API 14+ but still using the v7 for compatibility reasons, `MultiSelectListPreference` is now available for use! (*It won't work on API 7-13!*)
 
-- Updated the preference libs to 24.1.1 from 24.1.0.
-- The previous bugfix didn't work, so in case the reflection would not work, it just falls back to the original implementation. This means that if the fallback happens, the padding fix will not be available (only devices below API 21 are affected by the padding bug). This `NullPointerException` causing *bug* was reported only once on a device that had Xposed on it, but couldn't reproduce it using the same make and model of that device, thus most users will still see the bugfixed (i.e. the padding fixed) version of the preferences.
+And these are the support lib fix changes:
+- As it was mentioned before, `preference_accent` is not used anymore. If you relied solely on this value's behavior, now you'll have to define the `colorAccent` attribute in your theme.
+- Several unnecessary styles (`Dialog` and `AlertDialog` related) has been removed. It shouldn't affect anyone, unless these styles were used as parents of custom styles. In this case simply use `@style/Theme.AppCompat.Dialog` and/or `@style/Theme.AppCompat.Dialog.Alert` as the custom styles' parents.
 
-**2016-07-21**
-
-There was a reflection related bug on a device and 24.1.0.1 tries to overcome this, but the bugfix is not confirmed yet.
-
-**2016-07-19**
-
-Updated the preference libs to 24.1.0 from 24.0.0. No further changes.
-
-**2016-07-09**
-
-- some found the preference category's bottom margin too big, so now you can change it from the styles by setting the `preferenceCategory_marginBottom` value in your theme, for example: `<item name="preferenceCategory_marginBottom">0dp</item>`
-- removed some unnecessary code
-- the sample app has been updated with an inner `PreferenceScreen` so the behavior can be tested against it as well
+> For older changelogs, check out the new [CHANGELOG](CHANGELOG.md) file.
 
 ### How to use the library?
 First, **remove** the unnecessary lines of preference-v7 and preference-v14 from your gradle file as the bugfix contains both of them:
 ```gradle
-compile 'com.android.support:preference-v7:24.1.1'
-compile 'com.android.support:preference-v14:24.1.1'
+compile 'com.android.support:preference-v7:24.2.0'
+compile 'com.android.support:preference-v14:24.2.0'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:24.1.1.1'
+compile 'com.takisoft.fix:preference-v7:24.2.0.0'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
@@ -48,19 +46,11 @@ compile 'com.takisoft.fix:preference-v7:24.1.1.1'
 ##### Quick
 > You need:
 - `PreferenceFixTheme` or one of its extension to be set as the theme
-- `preference_accent` set to your accent color - this is going to be used as the preferences' accent color (*expect it to be removed in the future and make sure your theme's accent color is set in your style*)
 - use `PreferenceFragmentCompat` (or `PreferenceFragmentCompatDividers`, if you want to customize the divider's position) from the `com.takisoft.fix.support.v7.preference` package as the preference fragment
 
 ##### Detailed
 
 Instead of creating a ton of styles for individual cases, now a single style can be used as base: `@style/PreferenceFixTheme`. This has the usual `Light` and `DayNight` variants as well as the `NoActionBar` extension. It is only needed in a normal `styles.xml` (*or whatever you call it*), no need for API level qualifiers anymore.
-
-Due to some restrictions, you also should define an accent color called `preference_accent` in your color resources list (it is *not* enough to set one for the theme). This is going to be used as the accent color in the `PreferenceFixTheme` as well, so you don't need to define it there, only in your colors XML. Here's an example (the color `accent` is just there to show you how easy it is to define the preference one using the original):
-
-```xml
-<color name="accent">#FF4081</color>
-<color name="preference_accent">@color/accent</color>
-```
 
 The different fixed classes are here:
 - `SwitchPreferenceCompat`: Changing the switch's *checked* status is now being animated instead of popping from one state to another.

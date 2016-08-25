@@ -2,9 +2,6 @@
     <!-- Base -->
     <style name="PreferenceFixTheme" parent="@style/Theme.AppCompat">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
-        <item name="colorAccent">@color/preference_accent</item>
-        <item name="dialogTheme">@style/PreferenceFixTheme.Dialog</item>
-        <item name="alertDialogTheme">@style/PreferenceFixTheme.Dialog.Alert</item>
         <!-- Overriding the category views as they don't look good -->
         <item name="android:listSeparatorTextViewStyle">
             @style/PreferenceFixTheme.ListSeparatorTextView
@@ -20,20 +17,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="PreferenceFixTheme.Dialog" parent="@style/Theme.AppCompat.Dialog">
-        <item name="colorAccent">@color/preference_accent</item>
-    </style>
-
-    <style name="PreferenceFixTheme.Dialog.Alert" parent="@style/Theme.AppCompat.Dialog.Alert">
-        <item name="colorAccent">@color/preference_accent</item>
-    </style>
-
     <!-- Light -->
     <style name="PreferenceFixTheme.Light" parent="@style/Theme.AppCompat.Light">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
-        <item name="colorAccent">@color/preference_accent</item>
-        <item name="dialogTheme">@style/PreferenceFixTheme.Light.Dialog</item>
-        <item name="alertDialogTheme">@style/PreferenceFixTheme.Light.Dialog.Alert</item>
         <!-- Overriding the category views as they don't look good -->
         <item name="android:listSeparatorTextViewStyle">
             @style/PreferenceFixTheme.ListSeparatorTextView
@@ -51,9 +37,6 @@
 
     <style name="PreferenceFixTheme.Light.DarkActionBar" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
-        <item name="colorAccent">@color/preference_accent</item>
-        <item name="dialogTheme">@style/PreferenceFixTheme.Light.Dialog</item>
-        <item name="alertDialogTheme">@style/PreferenceFixTheme.Light.Dialog.Alert</item>
         <!-- Overriding the category views as they don't look good -->
         <item name="android:listSeparatorTextViewStyle">
             @style/PreferenceFixTheme.ListSeparatorTextView
@@ -64,20 +47,9 @@
         </item>
     </style>
 
-    <style name="PreferenceFixTheme.Light.Dialog" parent="@style/Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">@color/preference_accent</item>
-    </style>
-
-    <style name="PreferenceFixTheme.Light.Dialog.Alert" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorAccent">@color/preference_accent</item>
-    </style>
-
     <!-- DayNight -->
     <style name="PreferenceFixTheme.DayNight" parent="@style/Theme.AppCompat.DayNight">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
-        <item name="colorAccent">@color/preference_accent</item>
-        <item name="dialogTheme">@style/PreferenceFixTheme.DayNight.Dialog</item>
-        <item name="alertDialogTheme">@style/PreferenceFixTheme.DayNight.Dialog.Alert</item>
         <!-- Overriding the category views as they don't look good -->
         <item name="android:listSeparatorTextViewStyle">
             @style/PreferenceFixTheme.ListSeparatorTextView
@@ -95,9 +67,6 @@
 
     <style name="PreferenceFixTheme.DayNight.DarkActionBar" parent="@style/Theme.AppCompat.DayNight.DarkActionBar">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
-        <item name="colorAccent">@color/preference_accent</item>
-        <item name="dialogTheme">@style/PreferenceFixTheme.DayNight.Dialog</item>
-        <item name="alertDialogTheme">@style/PreferenceFixTheme.DayNight.Dialog.Alert</item>
         <!-- Overriding the category views as they don't look good -->
         <item name="android:listSeparatorTextViewStyle">
             @style/PreferenceFixTheme.ListSeparatorTextView
@@ -106,14 +75,6 @@
         </item>
         <item name="android:textAppearanceSmall">@style/PreferenceFixTheme.TextAppearanceSmall
         </item>
-    </style>
-
-    <style name="PreferenceFixTheme.DayNight.Dialog" parent="@style/Theme.AppCompat.DayNight.Dialog">
-        <item name="colorAccent">@color/preference_accent</item>
-    </style>
-
-    <style name="PreferenceFixTheme.DayNight.Dialog.Alert" parent="@style/Theme.AppCompat.DayNight.Dialog.Alert">
-        <item name="colorAccent">@color/preference_accent</item>
     </style>
 
     <!-- The default category looks bad, so overriding its appearance now -->
