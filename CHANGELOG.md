@@ -1,5 +1,9 @@
 # Changelog
 
+**2016-09-25**
+
+No support preferences v7 related changes in v24.2.1.
+
 **2016-08-18**
 
 Wow! The Google guys worked so hard, they finally released bugfix-like things! Here's the list of things were modified by them:

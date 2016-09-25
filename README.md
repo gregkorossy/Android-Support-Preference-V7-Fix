@@ -1,10 +1,10 @@
-# Currently this is the available bugfix (*support library rev. 24.2.0*)
+# Currently this is the available bugfix (*support library rev. 24.2.1*)
 
 Gradle dependency:
 [ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix/_latestVersion)
 
 ### Version
-The current version is **24.2.0.0**.
+The current version is **24.2.1.0**.
 
 > IMPORTANT If you are providing legacy support for users on API 7-8 you should know that the new official support library v24.2.0 dropped support of API 7-8 as it set the minSdk version to 9. This *restriction* is overridden by the library, but you also have to override it by adding these to your application's manifest:
 ```xml
@@ -14,6 +14,10 @@ The current version is **24.2.0.0**.
 *The library was tested on API 10 and since this is basically a hack, __it's not guaranteed that the library will work on API 7-8__! I kept support of minSdk 7 due to the package name `v7` of the whole support library.*
 
 ### Changelog
+
+**2016-09-25**
+
+No support preferences v7 related changes in v24.2.1.
 
 **2016-08-18**
 
@@ -32,12 +36,12 @@ And these are the support lib fix changes:
 ### How to use the library?
 First, **remove** the unnecessary lines of preference-v7 and preference-v14 from your gradle file as the bugfix contains both of them:
 ```gradle
-compile 'com.android.support:preference-v7:24.2.0'
-compile 'com.android.support:preference-v14:24.2.0'
+compile 'com.android.support:preference-v7:24.2.1'
+compile 'com.android.support:preference-v14:24.2.1'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:24.2.0.0'
+compile 'com.takisoft.fix:preference-v7:24.2.1.0'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
