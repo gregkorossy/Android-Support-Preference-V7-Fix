@@ -1,5 +1,9 @@
 # Changelog
 
+**2016-10-23**
+
+No support preferences v7 related changes in v25.0.0.
+
 **2016-09-25**
 
 No support preferences v7 related changes in v24.2.1.
