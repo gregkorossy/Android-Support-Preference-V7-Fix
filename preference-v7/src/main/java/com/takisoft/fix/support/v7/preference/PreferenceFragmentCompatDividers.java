@@ -216,7 +216,7 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
     }
 
     @Override
-    public void setDivider(Drawable divider) {
+    public void setDivider(@Nullable Drawable divider) {
         super.setDivider(divider);
 
         if (divItemDecoration != null) {
@@ -390,7 +390,7 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
             return (view instanceof ViewGroup) ? TYPE_PREFERENCE : TYPE_CATEGORY;
         }
 
-        public void setDivider(Drawable divider) {
+        public void setDivider(@Nullable Drawable divider) {
             if (divider != null) {
                 dividerHeight = divider.getIntrinsicHeight();
             } else {

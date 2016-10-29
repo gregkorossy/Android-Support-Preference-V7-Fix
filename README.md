@@ -4,7 +4,7 @@ Gradle dependency:
 [ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix/_latestVersion)
 
 ### Version
-The current version is **24.2.1.0**.
+The current version is **24.2.1.1**.
 
 > IMPORTANT If you are providing legacy support for users on API 7-8 you should know that the new official support library v24.2.0 dropped support of API 7-8 as it set the minSdk version to 9. This *restriction* is overridden by the library, but you also have to override it by adding these to your application's manifest:
 ```xml
@@ -15,21 +15,9 @@ The current version is **24.2.1.0**.
 
 ### Changelog
 
-**2016-09-25**
+**2016-10-29**
 
-No support preferences v7 related changes in v24.2.1.
-
-**2016-08-18**
-
-Wow! The Google guys worked so hard, they finally released bugfix-like things! Here's the list of things were modified by them:
-
-- No more need for `preference_accent`, just define your `colorAccent` attribute in your theme and that's it! This also means that from now on you can set different accent colors for different theme variations.
-- The `ListPreference`'s items use the accent color on all API levels, so the bug is gone finally (there's a small quirk on API 10 and probably all levels below 14 are affected by it: the first time the user opens the dialog, the first item's radio button is not colored properly, but it goes away after the user selects an option).
-- If you are targeting API 14+ but still using the v7 for compatibility reasons, `MultiSelectListPreference` is now available for use! (*It won't work on API 7-13!*)
-
-And these are the support lib fix changes:
-- As it was mentioned before, `preference_accent` is not used anymore. If you relied solely on this value's behavior, now you'll have to define the `colorAccent` attribute in your theme.
-- Several unnecessary styles (`Dialog` and `AlertDialog` related) has been removed. It shouldn't affect anyone, unless these styles were used as parents of custom styles. In this case simply use `@style/Theme.AppCompat.Dialog` and/or `@style/Theme.AppCompat.Dialog.Alert` as the custom styles' parents.
+Annotated some methods' params with `@Nullable` in order to allow people usage of the lib in Kotlin.
 
 > For older changelogs, check out the new [CHANGELOG](CHANGELOG.md) file.
 
@@ -41,7 +29,7 @@ compile 'com.android.support:preference-v14:24.2.1'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:24.2.1.0'
+compile 'com.takisoft.fix:preference-v7:24.2.1.1'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 

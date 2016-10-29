@@ -1,5 +1,9 @@
 # Changelog
 
+**2016-10-29**
+
+Annotated some methods' params with `@Nullable` in order to allow people usage of the lib in Kotlin.
+
 **2016-09-25**
 
 No support preferences v7 related changes in v24.2.1.
