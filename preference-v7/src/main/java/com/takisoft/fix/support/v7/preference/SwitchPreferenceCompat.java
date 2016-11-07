@@ -24,7 +24,17 @@ public class SwitchPreferenceCompat extends android.support.v7.preference.Switch
         super(context);
     }
 
-    SwitchCompat switchCompat;
+    protected SwitchCompat switchCompat;
+
+    @Override
+    protected void onClick() {
+        //super.onClick();
+
+        final boolean newValue = !isChecked();
+        if (callChangeListener(newValue)) {
+            setCheckedAnimated(newValue);
+        }
+    }
 
     public void onBindViewHolder(PreferenceViewHolder holder) {
         super.onBindViewHolder(new SwitchPreferenceCompatViewHolder(holder));
@@ -35,8 +45,7 @@ public class SwitchPreferenceCompat extends android.support.v7.preference.Switch
         }
     }
 
-    @Override
-    public void setChecked(boolean checked) {
+    public void setCheckedAnimated(boolean checked) {
         super.setChecked(checked);
 
         if (switchCompat != null && switchCompat.isChecked() != checked) {

@@ -1,5 +1,9 @@
 # Changelog
 
+**2016-11-07**
+New version: 25.0.0.1
+Possible fix for issue #44. The `SwitchPreferenceCompat` now has got a new method called `setCheckedAnimated(boolean)` instead of overriding the default `setChecked(boolean)` behavior. This can be called to animate the `Switch`'s state change.
+
 **2016-10-29**
 
 Annotated some methods' params with `@Nullable` in order to allow people usage of the lib in Kotlin.
