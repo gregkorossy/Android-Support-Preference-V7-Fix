@@ -1,6 +1,11 @@
 # Changelog
 
+**2016-11-15**
+
+No support preferences v7 related changes in v25.0.1.
+
 **2016-11-07**
+
 New version: 25.0.0.1
 Possible fix for issue #44. The `SwitchPreferenceCompat` now has got a new method called `setCheckedAnimated(boolean)` instead of overriding the default `setChecked(boolean)` behavior. This can be called to animate the `Switch`'s state change.
 
