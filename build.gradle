@@ -2,7 +2,7 @@
 project.ext.buildToolsVersion = '25.0.0'
 project.ext.minSdkVersion = 7
 project.ext.sdkVersion = 25
-project.ext.supportLibraryVersion = '25.0.0'
+project.ext.supportLibraryVersion = '25.0.1'
 
 buildscript {
     repositories {
