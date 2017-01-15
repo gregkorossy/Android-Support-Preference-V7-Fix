@@ -50,10 +50,18 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/pref_seekbar_fix_negative"
+        android:layout_marginLeft="@dimen/pref_seekbar_fix_negative"
+        android:layout_marginRight="@dimen/pref_seekbar_fix_negative"
+        android:layout_marginStart="@dimen/pref_seekbar_fix_negative"
         android:layout_weight="1"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:paddingBottom="8dp"
+        android:paddingEnd="@dimen/pref_seekbar_fix_positive"
+        android:paddingLeft="@dimen/pref_seekbar_fix_positive"
+        android:paddingRight="@dimen/pref_seekbar_fix_positive"
+        android:paddingStart="@dimen/pref_seekbar_fix_positive"
         android:paddingTop="16dp">
 
         <TextView
@@ -85,6 +93,10 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@android:id/title"
             android:layout_below="@android:id/summary"
+            android:layout_marginEnd="@dimen/pref_seekbar_fix_negative"
+            android:layout_marginLeft="@dimen/pref_seekbar_fix_negative"
+            android:layout_marginRight="@dimen/pref_seekbar_fix_negative"
+            android:layout_marginStart="@dimen/pref_seekbar_fix_negative"
             android:clipChildren="false"
             android:clipToPadding="false">
 
@@ -96,15 +108,19 @@
                 android:background="@null"
                 android:clickable="false"
                 android:focusable="false"
-                android:paddingLeft="@dimen/preference_seekbar_padding_start"
-                android:paddingStart="@dimen/preference_seekbar_padding_start"
-                android:paddingRight="@dimen/preference_seekbar_padding_end"
-                android:paddingEnd="@dimen/preference_seekbar_padding_end" />
+                android:paddingEnd="@dimen/pref_seekbar_fix_positive"
+                android:paddingLeft="@dimen/pref_seekbar_fix_positive"
+                android:paddingRight="@dimen/pref_seekbar_fix_positive"
+                android:paddingStart="@dimen/pref_seekbar_fix_positive" />
 
             <TextView
                 android:id="@+id/seekbar_value"
                 android:layout_width="@dimen/preference_seekbar_value_width"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/pref_seekbar_fix_positive"
+                android:layout_marginLeft="@dimen/preference_seekbar_padding_end"
+                android:layout_marginRight="@dimen/pref_seekbar_fix_positive"
+                android:layout_marginStart="@dimen/preference_seekbar_padding_end"
                 android:ellipsize="marquee"
                 android:fadingEdge="horizontal"
                 android:gravity="end|center_vertical"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory android:title="First category">
         <Preference
             android:persistent="false"
@@ -27,6 +28,11 @@
             android:persistent="false"
             android:summary="It's a seek bar"
             android:title="SeekBarPreference" />
+        <SeekBarPreference
+            android:persistent="false"
+            android:summary="It's a seek bar without value"
+            android:title="SeekBarPreference"
+            app:showSeekBarValue="false" />
     </PreferenceCategory>
     <PreferenceCategory android:title="PreferenceCategory using preference_fallback_accent_color below API 21">
 
