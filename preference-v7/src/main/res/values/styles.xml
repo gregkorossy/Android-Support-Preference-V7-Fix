@@ -95,4 +95,13 @@
         <item name="android:textSize">14sp</item>
         <item name="android:typeface">sans</item>
     </style>
+
+    <!-- Temporary SeekBarPreference fixes, don't rely on these -->
+    <style name="PreferenceThemeOverlay.v14.Material.Fix">
+        <item name="seekBarPreferenceStyle">@style/Preference.SeekBarPreference.Fix</item>
+    </style>
+
+    <style name="Preference.SeekBarPreference.Fix">
+        <item name="android:layout">@layout/preference_widget_seekbar_material</item>
+    </style>
 </resources>
