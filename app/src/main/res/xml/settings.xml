@@ -23,6 +23,10 @@
             android:persistent="false"
             android:summary="It's a switch"
             android:title="SwitchPreference" />
+        <SeekBarPreference
+            android:persistent="false"
+            android:summary="It's a seek bar"
+            android:title="SeekBarPreference" />
     </PreferenceCategory>
     <PreferenceCategory android:title="PreferenceCategory using preference_fallback_accent_color below API 21">
 
