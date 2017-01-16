@@ -4,7 +4,7 @@ Gradle dependency:
 [ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix/_latestVersion)
 
 ### Version
-The current version is **25.1.0.0**.
+The current version is **25.1.0.1**.
 
 > IMPORTANT If you are providing legacy support for users on API 7-8 you should know that the new official support library v24.2.0 dropped support of API 7-8 as it set the minSdk version to 9. This *restriction* is overridden by the library, but you also have to override it by adding these to your application's manifest:
 ```xml
@@ -14,6 +14,12 @@ The current version is **25.1.0.0**.
 *The library was tested on API 10 and since this is basically a hack, __it's not guaranteed that the library will work on API 7-8__! I kept support of minSdk 7 due to the package name `v7` of the whole support library.*
 
 ### Changelog
+
+**2017-01-16**
+
+New version: 25.1.0.1 (based on v25.1.0)
+
+Fixed the message style in the dialog of `EditTextPreference`. It is customizable, make sure you check out the guide in [Customizations](#customizations).
 
 **2017-01-15**
 
@@ -31,7 +37,7 @@ compile 'com.android.support:preference-v14:25.1.0'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:25.1.0.0'
+compile 'com.takisoft.fix:preference-v7:25.1.0.1'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
@@ -178,6 +184,11 @@ Some people found the preference category's bottom margin too big, so now you ca
 <item name="preferenceCategory_marginBottom">0dp</item>
 ```
 
+### Preference dialog's message style
+The original implementation uses `?attr/textAppearanceSmall` as the message style in the popup dialog (the one you find when clicking on an `EditTextPreference` with a set `android:dialogMessage` attribute), but it seems really small and might be hard to read. In order to fix that, a new attribute has been introduced to the `PreferenceFixTheme`: `preferenceDialog_messageAppearance`. This attribute controls the appearance of the message in the dialog and is set to `@style/TextAppearance.AppCompat.Subhead` by default. If you wish to change this, you'll just have to add the following line to your theme:
+```xml
+<item name="preferenceDialog_messageAppearance">@style/YourTextAppearance</item>
+```
 # Interesting things
 These are not considered bugs but they can give you a headache.
 

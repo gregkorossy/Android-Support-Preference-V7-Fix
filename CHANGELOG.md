@@ -1,5 +1,11 @@
 # Changelog
 
+**2017-01-16**
+
+New version: 25.1.0.1 (based on v25.1.0)
+
+Fixed the message style in the dialog of `EditTextPreference`. It is customizable, make sure you check out the guide in **Customizations**.
+
 **2017-01-15**
 
 New version: 25.1.0.0 (based on v25.1.0)

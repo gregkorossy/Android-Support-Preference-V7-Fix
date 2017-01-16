@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="PreferenceFixTheme">
         <attr name="preferenceCategory_marginBottom" format="dimension" />
+        <attr name="preferenceDialog_messageAppearance" format="reference" />
     </declare-styleable>
 </resources>

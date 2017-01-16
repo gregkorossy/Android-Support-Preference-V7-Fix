@@ -43,12 +43,14 @@
             android:key="edit_text_test"
             android:persistent="false"
             android:summary="It should be a phone input (it is now!)"
+            android:dialogMessage="This is the dialog\'s message"
             android:title="EditTextPreference" />
         <EditTextPreferenceFix
             android:inputType="phone"
             android:key="edit_text_fix_test"
             android:persistent="false"
             android:summary="It's an input for phone numbers only"
+            android:dialogMessage="This is the dialog\'s message"
             android:title="EditTextPreferenceFix" />
         <ListPreference
             android:dialogTitle="ListPreference dialog"
