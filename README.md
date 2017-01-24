@@ -1,10 +1,10 @@
-# Currently this is the available bugfix (*support library rev. 24.2.0*)
+# Currently this is the available bugfix (*support library rev. 25.1.0*)
 
 Gradle dependency:
 [ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix/_latestVersion)
 
 ### Version
-The current version is **24.2.0.0**.
+The current version is **25.1.0.1**.
 
 > IMPORTANT If you are providing legacy support for users on API 7-8 you should know that the new official support library v24.2.0 dropped support of API 7-8 as it set the minSdk version to 9. This *restriction* is overridden by the library, but you also have to override it by adding these to your application's manifest:
 ```xml
@@ -15,29 +15,29 @@ The current version is **24.2.0.0**.
 
 ### Changelog
 
-**2016-08-18**
+**2017-01-16**
 
-Wow! The Google guys worked so hard, they finally released bugfix-like things! Here's the list of things were modified by them:
+New version: 25.1.0.1 (based on v25.1.0)
 
-- No more need for `preference_accent`, just define your `colorAccent` attribute in your theme and that's it! This also means that from now on you can set different accent colors for different theme variations.
-- The `ListPreference`'s items use the accent color on all API levels, so the bug is gone finally (there's a small quirk on API 10 and probably all levels below 14 are affected by it: the first time the user opens the dialog, the first item's radio button is not colored properly, but it goes away after the user selects an option).
-- If you are targeting API 14+ but still using the v7 for compatibility reasons, `MultiSelectListPreference` is now available for use! (*It won't work on API 7-13!*)
+Fixed the message style in the dialog of `EditTextPreference`. It is customizable, make sure you check out the guide in [Customizations](#customizations).
 
-And these are the support lib fix changes:
-- As it was mentioned before, `preference_accent` is not used anymore. If you relied solely on this value's behavior, now you'll have to define the `colorAccent` attribute in your theme.
-- Several unnecessary styles (`Dialog` and `AlertDialog` related) has been removed. It shouldn't affect anyone, unless these styles were used as parents of custom styles. In this case simply use `@style/Theme.AppCompat.Dialog` and/or `@style/Theme.AppCompat.Dialog.Alert` as the custom styles' parents.
+**2017-01-15**
+
+New version: 25.1.0.0 (based on v25.1.0)
+
+Google added [`SeekBarPreference`](https://developer.android.com/reference/android/support/v7/preference/SeekBarPreference.html) to the mix but it has some design related issues ([issue 230920](https://code.google.com/p/android/issues/detail?id=230920), [issue 230922](https://code.google.com/p/android/issues/detail?id=230922)). This library fixes its design flaws on all supported devices. *A minor issue is present on API 7-13 devices since the fragment list has padding instead of the elements, which means the seek bar cannot be aligned to the title text as it would clip the thumb, but it's still fully functional as of now.*
 
 > For older changelogs, check out the new [CHANGELOG](CHANGELOG.md) file.
 
 ### How to use the library?
 First, **remove** the unnecessary lines of preference-v7 and preference-v14 from your gradle file as the bugfix contains both of them:
 ```gradle
-compile 'com.android.support:preference-v7:24.2.0'
-compile 'com.android.support:preference-v14:24.2.0'
+compile 'com.android.support:preference-v7:25.1.0'
+compile 'com.android.support:preference-v14:25.1.0'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:24.2.0.0'
+compile 'com.takisoft.fix:preference-v7:25.1.0.1'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
@@ -184,6 +184,11 @@ Some people found the preference category's bottom margin too big, so now you ca
 <item name="preferenceCategory_marginBottom">0dp</item>
 ```
 
+### Preference dialog's message style
+The original implementation uses `?attr/textAppearanceSmall` as the message style in the popup dialog (the one you find when clicking on an `EditTextPreference` with a set `android:dialogMessage` attribute), but it seems really small and might be hard to read. In order to fix that, a new attribute has been introduced to the `PreferenceFixTheme`: `preferenceDialog_messageAppearance`. This attribute controls the appearance of the message in the dialog and is set to `@style/TextAppearance.AppCompat.Subhead` by default. If you wish to change this, you'll just have to add the following line to your theme:
+```xml
+<item name="preferenceDialog_messageAppearance">@style/YourTextAppearance</item>
+```
 # Interesting things
 These are not considered bugs but they can give you a headache.
 

@@ -2,6 +2,7 @@ package com.takisoft.preferencefix;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.preference.EditTextPreferenceFix;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceCategory;
@@ -17,7 +18,7 @@ import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompatDividers;
 public class MyPreferenceFragment extends PreferenceFragmentCompatDividers {
 
     @Override
-    public void onCreatePreferencesFix(Bundle savedInstanceState, String rootKey) {
+    public void onCreatePreferencesFix(@Nullable Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.settings, rootKey);
 
         testDynamicPrefs();
@@ -29,7 +30,7 @@ public class MyPreferenceFragment extends PreferenceFragmentCompatDividers {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, @Nullable Bundle savedInstanceState) {
         try {
             return super.onCreateView(inflater, container, savedInstanceState);
         } finally {

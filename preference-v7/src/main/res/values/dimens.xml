@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="pref_seekbar_fix_positive">12dp</dimen>
+    <dimen name="pref_seekbar_fix_negative">-12dp</dimen>
+</resources>

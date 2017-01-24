@@ -1,12 +1,12 @@
-apply plugin: 'com.android.library'
+¡apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    compileSdkVersion rootProject.sdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 7
-        targetSdkVersion 24
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.sdkVersion
         versionCode 1
         versionName "1.0.0"
     }
@@ -31,7 +31,7 @@ ext {
     siteUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix'
     gitUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix.git'
 
-    libraryVersion = '24.2.0.2'
+    libraryVersion = "${rootProject.supportLibraryVersion}.1"
 
     developerId = 'gericop'
     developerName = 'Gergely Kőrössy'
@@ -43,9 +43,8 @@ ext {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:preference-v7:24.2.0'
-    compile 'com.android.support:preference-v14:24.2.0'
+    compile "com.android.support:preference-v7:${rootProject.supportLibraryVersion}"
+    compile "com.android.support:preference-v14:${rootProject.supportLibraryVersion}"
 }
 
 apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'

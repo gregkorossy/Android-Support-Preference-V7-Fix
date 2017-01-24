@@ -1,5 +1,35 @@
 # Changelog
 
+**2017-01-16**
+
+New version: 25.1.0.1 (based on v25.1.0)
+
+Fixed the message style in the dialog of `EditTextPreference`. It is customizable, make sure you check out the guide in **Customizations**.
+
+**2017-01-15**
+
+New version: 25.1.0.0 (based on v25.1.0)
+
+Google added [`SeekBarPreference`](https://developer.android.com/reference/android/support/v7/preference/SeekBarPreference.html) to the mix but it has some design related issues ([issue 230920](https://code.google.com/p/android/issues/detail?id=230920), [issue 230922](https://code.google.com/p/android/issues/detail?id=230922)). This library fixes its design flaws on all supported devices. *A minor issue is present on API 7-13 devices since the fragment list has padding instead of the elements which means the seek bar cannot be aligned to the title text as it would clip the thumb, but it's still fully functional now.*
+
+**2016-11-15**
+
+No support preferences v7 related changes in v25.0.1.
+
+**2016-11-07**
+
+New version: 25.0.0.1
+Possible fix for issue #44. The `SwitchPreferenceCompat` now has got a new method called `setCheckedAnimated(boolean)` instead of overriding the default `setChecked(boolean)` behavior. This can be called to animate the `Switch`'s state change.
+
+**2016-10-29**
+
+Annotated some methods' params with `@Nullable` in order to allow people usage of the lib in Kotlin.
+No support preferences v7 related changes in v25.0.0.
+
+**2016-09-25**
+
+No support preferences v7 related changes in v24.2.1.
+
 **2016-08-18**
 
 Wow! The Google guys worked so hard, they finally released bugfix-like things! Here's the list of things were modified by them:

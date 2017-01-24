@@ -19,7 +19,7 @@ public class SwitchPreferenceCompatViewHolder extends PreferenceViewHolder {
             return null;
         }
 
-        return super.findViewById(id);
+        return v;
     }
 
     @Override

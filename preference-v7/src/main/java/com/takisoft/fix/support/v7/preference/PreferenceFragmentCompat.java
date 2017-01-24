@@ -2,6 +2,7 @@ package com.takisoft.fix.support.v7.preference;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.preference.EditTextPreferenceDialogFragmentCompatFix;
 import android.support.v7.preference.EditTextPreferenceFix;
@@ -29,7 +30,7 @@ public abstract class PreferenceFragmentCompat extends android.support.v7.prefer
         }
     }
 
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
             Context styledContext = getPreferenceManager().getContext();
@@ -65,7 +66,7 @@ public abstract class PreferenceFragmentCompat extends android.support.v7.prefer
      */
     @Override
     @Deprecated
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+    public void onCreatePreferences(@Nullable Bundle savedInstanceState, String rootKey) {
 
     }
 
@@ -75,7 +76,7 @@ public abstract class PreferenceFragmentCompat extends android.support.v7.prefer
      * @param savedInstanceState If the fragment is being re-created from a previous saved state, this is the state.
      * @param rootKey            If non-null, this preference fragment should be rooted at the PreferenceScreen with this key.
      */
-    public abstract void onCreatePreferencesFix(Bundle savedInstanceState, String rootKey);
+    public abstract void onCreatePreferencesFix(@Nullable Bundle savedInstanceState, String rootKey);
 
     @Override
     public void onDisplayPreferenceDialog(Preference preference) {
