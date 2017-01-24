@@ -82,6 +82,7 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
     public static final int DIVIDER_PADDING_PARENT = 1 << 9;
 
     @IntDef(flag = true, value = {
+            DIVIDER_DEFAULT, DIVIDER_NONE,
             DIVIDER_CATEGORY_BETWEEN,
             DIVIDER_CATEGORY_BEFORE_FIRST,
             DIVIDER_CATEGORY_AFTER_LAST,
@@ -95,14 +96,8 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
     protected @interface DividerPrefFlags {
     }
 
-    @IntDef({DIVIDER_DEFAULT, DIVIDER_NONE})
-    @Retention(RetentionPolicy.SOURCE)
-    protected @interface DividerPrefBase {
-    }
-
     private boolean divPrefInvalid = false;
     @DividerPrefFlags
-    @DividerPrefBase
     private int divPrefFlags = DIVIDER_DEFAULT;
 
     private DividerItemDecoration divItemDecoration;
@@ -125,10 +120,13 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
      * </ul>
      * </li>
      * </ul>
+     * <p>
+     * Note that you <em>should not</em> combine {@linkplain #DIVIDER_DEFAULT} and {@linkplain #DIVIDER_NONE} with
+     * each other nor the other flags mentioned above.
      *
      * @param flags The preferred divider drawing flags. Check {@link PreferenceFragmentCompatDividers} for possible values.
      */
-    protected void setDividerPreferences(@DividerPrefFlags @DividerPrefBase final int flags) {
+    protected void setDividerPreferences(@DividerPrefFlags final int flags) {
         final RecyclerView recyclerView = getListView();
 
         if (recyclerView == null) {
@@ -145,7 +143,7 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
         applyDividerPreference(recyclerView, flags);
     }
 
-    void applyDividerPreference(final RecyclerView recyclerView, @DividerPrefFlags @DividerPrefBase final int flags) {
+    void applyDividerPreference(final RecyclerView recyclerView, @DividerPrefFlags final int flags) {
         boolean decoratorRecreateNeeded = flags != divPrefFlags || divPrefInvalid;
 
         divPrefFlags = flags;
