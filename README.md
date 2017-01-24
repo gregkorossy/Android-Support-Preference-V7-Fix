@@ -15,6 +15,15 @@ The current version is **25.1.0.1**.
 
 ### Changelog
 
+**2017-01-24**
+
+New version: 25.1.0.2 (based on v25.1.0)
+
+Two bugfixes:
+
+- added proguard files
+- bugfix for duplicate annotations (*issue #40 - [Android Studio] Crash IDE due to duplicate annotation*)
+
 **2017-01-16**
 
 New version: 25.1.0.1 (based on v25.1.0)
