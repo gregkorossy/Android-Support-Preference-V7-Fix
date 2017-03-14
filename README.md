@@ -1,10 +1,10 @@
-# Currently this is the available bugfix (*support library rev. 25.2.0*)
+# Currently this is the available bugfix (*support library rev. 25.3.0*)
 
 Gradle dependency:
 [ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix/_latestVersion)
 
 ### Version
-The current version is **25.2.0.0**.
+The current version is **25.3.0.0**.
 
 > IMPORTANT If you are providing legacy support for users on API 7-8 you should know that the new official support library v24.2.0 dropped support of API 7-8 as it set the minSdk version to 9. This *restriction* is overridden by the library, but you also have to override it by adding these to your application's manifest:
 ```xml
@@ -15,6 +15,12 @@ The current version is **25.2.0.0**.
 
 ### Changelog
 
+**2017-03-14**
+
+New version: 25.3.0.0 (based on v25.3.0)
+
+- No support preferences v7 related changes.
+
 **2017-02-23**
 
 New version: 25.2.0.0 (based on v25.2.0)
@@ -23,7 +29,7 @@ New version: 25.2.0.0 (based on v25.2.0)
 
 **2017-01-31**
 
-New version: 25.2.0.0 (based on v25.2.0)
+New version: 25.1.1.0 (based on v25.1.1)
 
 - No support preferences v7 related changes.
 
@@ -32,12 +38,12 @@ New version: 25.2.0.0 (based on v25.2.0)
 ### How to use the library?
 First, **remove** the unnecessary lines of preference-v7 and preference-v14 from your gradle file as the bugfix contains both of them:
 ```gradle
-compile 'com.android.support:preference-v7:25.2.0'
-compile 'com.android.support:preference-v14:25.2.0'
+compile 'com.android.support:preference-v7:25.3.0'
+compile 'com.android.support:preference-v14:25.3.0'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:25.2.0.0'
+compile 'com.takisoft.fix:preference-v7:25.3.0.0'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
