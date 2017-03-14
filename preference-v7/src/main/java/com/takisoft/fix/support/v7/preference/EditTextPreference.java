@@ -29,4 +29,13 @@ public class EditTextPreference extends android.support.v7.preference.EditTextPr
     public EditText getEditText() {
         return editText;
     }
+
+    @Override
+    public void setText(String text) {
+        String oldText = getText();
+        super.setText(text);
+        if (!TextUtils.equals(text, oldText)) {
+            notifyChanged();
+        }
+    }
 }
