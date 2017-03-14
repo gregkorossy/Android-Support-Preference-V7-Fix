@@ -2,6 +2,7 @@ package com.takisoft.fix.support.v7.preference;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
