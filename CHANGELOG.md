@@ -1,5 +1,11 @@
 # Changelog
 
+**2017-03-29**
+
+New version: 25.3.1.0 (based on v25.3.1)
+
+- `SwitchPreferenceCompat` is available on API 9-13 devices again.
+
 **2017-03-14**
 
 New version: 25.3.0.0 (based on v25.3.0)
