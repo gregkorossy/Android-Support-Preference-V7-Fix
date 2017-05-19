@@ -1,5 +1,11 @@
 # Changelog
 
+**2017-05-19**
+
+New version: 25.3.1.1 (based on v25.3.1)
+
+- Removed old, deprecated classes from the `android.support.v7.preference` package: `EditTextPreferenceDialogFragmentCompatFix`, `EditTextPreferenceFix`, `PreferenceCategoryFix`, `PreferenceFragmentCompatDividers` (note that this is from the old package, not the _new_ one), `PreferenceFragmentCompatFix`
+
 **2017-03-29**
 
 New version: 25.3.1.0 (based on v25.3.1)

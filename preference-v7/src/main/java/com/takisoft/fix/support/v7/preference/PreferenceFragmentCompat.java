@@ -4,8 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.preference.EditTextPreferenceDialogFragmentCompatFix;
-import android.support.v7.preference.EditTextPreferenceFix;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.preference.PreferenceManagerFix;
@@ -83,9 +81,7 @@ public abstract class PreferenceFragmentCompat extends android.support.v7.prefer
         if (this.getFragmentManager().findFragmentByTag(FRAGMENT_DIALOG_TAG) == null) {
             Object f = null;
 
-            if (preference instanceof EditTextPreferenceFix) {
-                f = EditTextPreferenceDialogFragmentCompatFix.newInstance(preference.getKey());
-            } else if (preference instanceof EditTextPreference) {
+            if (preference instanceof EditTextPreference) {
                 f = EditTextPreferenceDialogFragmentCompat.newInstance(preference.getKey());
             } else {
                 super.onDisplayPreferenceDialog(preference);
