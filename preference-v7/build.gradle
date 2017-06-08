@@ -31,7 +31,7 @@ ext {
     siteUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix'
     gitUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix.git'
 
-    libraryVersion = "${rootProject.supportLibraryVersion}.1"
+    libraryVersion = "${rootProject.supportLibraryVersion}.0"
 
     developerId = 'gericop'
     developerName = 'Gergely Kőrössy'
@@ -43,8 +43,8 @@ ext {
 }
 
 dependencies {
-    compile "com.android.support:preference-v7:${rootProject.supportLibraryVersion}"
-    compile "com.android.support:preference-v14:${rootProject.supportLibraryVersion}"
+    api "com.android.support:preference-v7:${rootProject.supportLibraryVersion}"
+    api "com.android.support:preference-v14:${rootProject.supportLibraryVersion}"
 }
 
 apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'

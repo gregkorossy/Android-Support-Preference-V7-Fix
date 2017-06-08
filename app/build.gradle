@@ -20,6 +20,6 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:appcompat-v7:${rootProject.supportLibraryVersion}"
-    compile project(':preference-v7')
+    implementation "com.android.support:appcompat-v7:${rootProject.supportLibraryVersion}"
+    implementation project(':preference-v7')
 }

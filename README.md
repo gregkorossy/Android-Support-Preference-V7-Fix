@@ -1,13 +1,13 @@
 > ## Important notice
-> The upcoming version of the support library (26.0.0) drops support for devices with API 13 or lower. If your application supports those devices, you'll not be able to upgrade to 26.0.0 (and thus, 26.0.0.0 of this library) unless you drop support, too.
+> The new version of the support library (v25.4.0) does not provide support for the `SwitchCompat` widget below API 14. This also means that `SwitchPreferenceCompat` will not be available either. If you want target pre-14 devices and use `SwitchPreferenceCompat`, do not upgrade! When this bug (because 25.x.x is supposed to be compatible with pre-14 devices) is fixed ([again](https://issuetracker.google.com/issues/37139255)), the lib fix will be updated to include the bugfix.
 
-# Currently this is the available bugfix (*support library rev. 25.3.1*)
+# Currently this is the available bugfix (*support library rev. 25.4.0*)
 
 Gradle dependency:
 [ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix/_latestVersion)
 
 ### Version
-The current version is **25.3.1.1**.
+The current version is **25.4.0.0**.
 
 > IMPORTANT If you are providing legacy support for users on API 7-8 you should know that the new official support library v24.2.0 dropped support of API 7-8 as it set the minSdk version to 9. This *restriction* is overridden by the library, but you also have to override it by adding these to your application's manifest:
 ```xml
@@ -18,23 +18,23 @@ The current version is **25.3.1.1**.
 
 ### Changelog
 
-**2017-05-19**
+**2017-06-09**
 
-New version: 25.3.1.1 (based on v25.3.1)
+New version: 25.4.0.0 (based on v25.4.0)
 
-- Removed old, deprecated classes from the `android.support.v7.preference` package: `EditTextPreferenceDialogFragmentCompatFix`, `EditTextPreferenceFix`, `PreferenceCategoryFix`, `PreferenceFragmentCompatDividers` (note that this is from the old package, not the _new_ one), `PreferenceFragmentCompatFix`
+- No support preferences v7 related changes.
 
 > For older changelogs, check out the new [CHANGELOG](CHANGELOG.md) file.
 
 ### How to use the library?
 First, **remove** the unnecessary lines of preference-v7 and preference-v14 from your gradle file as the bugfix contains both of them:
 ```gradle
-compile 'com.android.support:preference-v7:25.3.1'
-compile 'com.android.support:preference-v14:25.3.1'
+compile 'com.android.support:preference-v7:25.4.0'
+compile 'com.android.support:preference-v14:25.4.0'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:25.3.1.1'
+compile 'com.takisoft.fix:preference-v7:25.4.0.0'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 

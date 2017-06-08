@@ -1,5 +1,11 @@
 # Changelog
 
+**2017-06-09**
+
+New version: 25.4.0.0 (based on v25.4.0)
+
+- No support preferences v7 related changes.
+
 **2017-05-19**
 
 New version: 25.3.1.1 (based on v25.3.1)

@@ -18,19 +18,19 @@
             android:title="Preference 3" />
         <CheckBoxPreference
             android:persistent="false"
-            android:summary="It's a checkbox"
+            android:summary="It\'s a checkbox"
             android:title="CheckBoxPreference" />
         <SwitchPreferenceCompat
             android:persistent="false"
-            android:summary="It's a switch"
+            android:summary="It\'s a switch"
             android:title="SwitchPreference" />
         <SeekBarPreference
             android:persistent="false"
-            android:summary="It's a seek bar"
+            android:summary="It\'s a seek bar"
             android:title="SeekBarPreference" />
         <SeekBarPreference
             android:persistent="false"
-            android:summary="It's a seek bar without value"
+            android:summary="It\'s a seek bar without value"
             android:title="SeekBarPreference"
             app:showSeekBarValue="false" />
     </PreferenceCategory>
