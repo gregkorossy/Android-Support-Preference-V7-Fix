@@ -2,7 +2,8 @@
 
 **2017-06-09**
 
-New version: 25.4.0.0 (based on v25.4.0)
+New version: 25.4.0.3 (based on v25.4.0)
+*25.4.0.0 - 25.4.0.2 wouldn't work due to a bug in the used artifact creator*
 
 - No support preferences v7 related changes.
 
