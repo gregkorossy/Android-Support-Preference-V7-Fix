@@ -101,6 +101,8 @@ if (etPref != null) {
 ```
 > **Note!** Watch out for the correct package name when importing `EditTextPreference`, it should come from `com.takisoft.fix.support.v7.preference`. If you import from the wrong package (i.e. `android.support.v7.preference`), the `getEditText()` method will not be available, however, the XML attributes will still be forwarded and processed by the `EditText`.
 
+---
+
 ## Version
 The current version is **26.0.0.0-beta2**.
 
