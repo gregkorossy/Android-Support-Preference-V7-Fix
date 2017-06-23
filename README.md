@@ -9,6 +9,10 @@ Gradle dependency:
 ### Version
 The current version is **25.4.0.3**.
 
+The new major version of the support library is still in beta but it's available on the [v26-beta](https://github.com/Gericop/Android-Support-Preference-V7-Fix/tree/v26-beta) branch. If your target API level is set to 26, you should use the bugfix available there. See the [v26 README](https://github.com/Gericop/Android-Support-Preference-V7-Fix/blob/v26-beta/README.md) for more info.
+
+---
+
 > IMPORTANT If you are providing legacy support for users on API 7-8 you should know that the new official support library v24.2.0 dropped support of API 7-8 as it set the minSdk version to 9. This *restriction* is overridden by the library, but you also have to override it by adding these to your application's manifest:
 ```xml
 <uses-sdk xmlns:tools="http://schemas.android.com/tools"
