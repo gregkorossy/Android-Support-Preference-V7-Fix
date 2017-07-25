@@ -1,17 +1,17 @@
 # Android Support library - preference v7 bugfix
 
-[ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix/images/download.svg?version=26.0.0.0-beta2) ](https://bintray.com/gericop/maven/com.takisoft.fix/26.0.0.0-beta2/link)
+[ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix/_latestVersion)
 
 ## How to use the library?
 ### 1. Add gradle dependency
 First, **remove** the unnecessary lines of preference-v7 and preference-v14 from your gradle file as the bugfix contains both of them:
 ```gradle
-compile 'com.android.support:preference-v7:26.0.0-beta2'
-compile 'com.android.support:preference-v14:26.0.0-beta2'
+compile 'com.android.support:preference-v7:26.0.0'
+compile 'com.android.support:preference-v14:26.0.0'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:26.0.0.0-beta2'
+compile 'com.takisoft.fix:preference-v7:26.0.0.0'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
@@ -104,18 +104,18 @@ if (etPref != null) {
 ---
 
 ## Version
-The current version is **26.0.0.0-beta2**.
+The current version is **26.0.0.0**.
 
 ## Notes #
 This demo / bugfix is set to work on API level 14+.
 
 ### Changelog
 
-**2017-06-14**
+**2017-07-25**
 
-New version: 26.0.0.0-beta2 (based on v26.0.0-beta2)
+New version: 26.0.0.0 (based on v26.0.0)
 
-- Support preferences v7 has some new interesting features, such as [icon space reservation](https://developer.android.com/reference/android/support/v7/preference/Preference.html#attr_android:iconSpaceReserved), [single line titles](https://developer.android.com/reference/android/support/v7/preference/Preference.html#attr_android:singleLineTitle), and the [`PreferenceDataStore`](https://developer.android.com/reference/android/support/v7/preference/PreferenceDataStore.html) interface. For details, check out the [25.4.0 -> 26.0.0-beta2 diff specification](https://developer.android.com/sdk/support_api_diff/26.0.0-beta2/changes/pkg_android.support.v7.preference.html).
+- This is the new release based on the now final v26.0.0 support library.
 
 > For older changelogs, check out the [CHANGELOG](CHANGELOG.md) file.
 

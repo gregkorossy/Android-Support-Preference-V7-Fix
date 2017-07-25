@@ -1,5 +1,11 @@
 # Changelog
 
+**2017-07-25**
+
+New version: 26.0.0.0 (based on v26.0.0)
+
+- This is the new release based on the now final v26.0.0 support library.
+
 **2017-06-14**
 
 New version: 26.0.0.0-beta2 (based on v26.0.0-beta2)
