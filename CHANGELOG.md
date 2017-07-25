@@ -1,5 +1,17 @@
 # Changelog
 
+**2017-07-25**
+
+New version: 26.0.0.0 (based on v26.0.0)
+
+- This is the new release based on the now final v26.0.0 support library.
+
+**2017-06-14**
+
+New version: 26.0.0.0-beta2 (based on v26.0.0-beta2)
+
+- Support preferences v7 has some new interesting features, such as [icon space reservation](https://developer.android.com/reference/android/support/v7/preference/Preference.html#attr_android:iconSpaceReserved), [single line titles](https://developer.android.com/reference/android/support/v7/preference/Preference.html#attr_android:singleLineTitle), and the [`PreferenceDataStore`](https://developer.android.com/reference/android/support/v7/preference/PreferenceDataStore.html) interface. For details, check out the [25.4.0 -> 26.0.0-beta2 diff specification](https://developer.android.com/sdk/support_api_diff/26.0.0-beta2/changes/pkg_android.support.v7.preference.html).
+
 **2017-06-09**
 
 New version: 25.4.0.3 (based on v25.4.0)

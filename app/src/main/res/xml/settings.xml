@@ -16,6 +16,11 @@
             android:persistent="false"
             android:summary="This is a preference with icon"
             android:title="Preference 3" />
+        <Preference
+            android:persistent="false"
+            android:summary="This is just a preference with its icon space reserved"
+            android:title="Preference 4"
+            app:iconSpaceReserved="true" />
         <CheckBoxPreference
             android:persistent="false"
             android:summary="It\'s a checkbox"
@@ -39,11 +44,11 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="Another category">
         <EditTextPreference
+            android:dialogMessage="This is the dialog\'s message"
             android:inputType="phone"
             android:key="edit_text_test"
             android:persistent="false"
             android:summary="It should be a phone input (it is now!)"
-            android:dialogMessage="This is the dialog\'s message"
             android:title="EditTextPreference" />
         <ListPreference
             android:dialogTitle="ListPreference dialog"
@@ -51,7 +56,15 @@
             android:entryValues="@array/pref_list_values"
             android:key="pref_syncConnectionType"
             android:persistent="false"
+            android:summary="%s"
             android:title="ListPreference" />
+        <DropDownPreference
+            android:dialogTitle="DropDownPreference dialog"
+            android:entries="@array/pref_list_entries"
+            android:entryValues="@array/pref_list_values"
+            android:persistent="false"
+            android:summary="%s"
+            android:title="DropDownPreference" />
         <PreferenceScreen
             android:key="preference_screen_test"
             android:persistent="false"
