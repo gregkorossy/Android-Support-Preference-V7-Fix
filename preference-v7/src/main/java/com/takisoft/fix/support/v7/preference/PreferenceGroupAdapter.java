@@ -91,7 +91,8 @@ class PreferenceGroupAdapter extends android.support.v7.preference.PreferenceGro
         TypedArray a = parent.getContext().obtainStyledAttributes(null, R.styleable.BackgroundStyle);
         Drawable background = a.getDrawable(R.styleable.BackgroundStyle_android_selectableItemBackground);
         if (background == null) {
-            background = parent.getContext().getResources().getDrawable(/*17301602*/android.R.drawable.list_selector_background);
+            //noinspection deprecation
+            background = parent.getContext().getResources().getDrawable(android.R.drawable.list_selector_background);
         }
 
         a.recycle();
@@ -100,12 +101,17 @@ class PreferenceGroupAdapter extends android.support.v7.preference.PreferenceGro
         // BEGINNING of the bugfix
         if (view.getBackground() == null) {
             int[] padding = {ViewCompat.getPaddingStart(view), view.getPaddingTop(), ViewCompat.getPaddingEnd(view), view.getPaddingBottom()};
-            view.setBackgroundDrawable(background);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                //noinspection deprecation
+                view.setBackgroundDrawable(background);
+            } else {
+                view.setBackground(background);
+            }
             ViewCompat.setPaddingRelative(view, padding[0], padding[1], padding[2], padding[3]);
         }
         // END of bugfix
 
-        ViewGroup widgetFrame = (ViewGroup) view.findViewById(/*16908312*/android.R.id.widget_frame);
+        ViewGroup widgetFrame = view.findViewById(android.R.id.widget_frame);
         if (widgetFrame != null) {
             if (widgetResId != 0) {
                 inflater.inflate(widgetResId, widgetFrame);
