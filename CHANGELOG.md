@@ -1,10 +1,16 @@
 # Changelog
 
+**2017-08-09**
+
+New version: 26.0.1.0 (based on v26.0.1)
+
+- No support preferences related changes.
+
 **2017-08-04**
 
 New version: 26.0.0.1 (based on v26.0.0)
 
-- ˙Bug fix for "Cannot call this method while RecyclerView is computing a layout or scrolling" in caused by `SwitchPreferenceCompat`:
+- Bug fix for "Cannot call this method while RecyclerView is computing a layout or scrolling" in caused by `SwitchPreferenceCompat`:
   - removed `SwitchPreferenceCompat` because the official implementation fixed the problem of not animating the toggle on older platforms
   - removed `SwitchPreferenceCompatViewHolder` as it's not needed anymore
 

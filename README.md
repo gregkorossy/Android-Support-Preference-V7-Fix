@@ -6,12 +6,12 @@
 ### 1. Add gradle dependency
 First, **remove** the unnecessary lines of preference-v7 and preference-v14 from your gradle file as the bugfix contains both of them:
 ```gradle
-compile 'com.android.support:preference-v7:26.0.0'
-compile 'com.android.support:preference-v14:26.0.0'
+compile 'com.android.support:preference-v7:26.0.1'
+compile 'com.android.support:preference-v14:26.0.1'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:26.0.0.1'
+compile 'com.takisoft.fix:preference-v7:26.0.1.0'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
@@ -104,18 +104,24 @@ if (etPref != null) {
 ---
 
 ## Version
-The current version is **26.0.0.1**.
+The current version is **26.0.1.0**.
 
 ## Notes #
 This demo / bugfix is set to work on API level 14+.
 
 ### Changelog
 
+**2017-08-09**
+
+New version: 26.0.1.0 (based on v26.0.1)
+
+- No support preferences related changes.
+
 **2017-08-04**
 
 New version: 26.0.0.1 (based on v26.0.0)
 
-- ˙Bug fix for "Cannot call this method while RecyclerView is computing a layout or scrolling" in caused by `SwitchPreferenceCompat`:
+- Bug fix for "Cannot call this method while RecyclerView is computing a layout or scrolling" in caused by `SwitchPreferenceCompat`:
   - removed `SwitchPreferenceCompat` because the official implementation fixed the problem of not animating the toggle on older platforms
   - removed `SwitchPreferenceCompatViewHolder` as it's not needed anymore
 
