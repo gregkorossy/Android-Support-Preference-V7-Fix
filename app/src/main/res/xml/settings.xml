@@ -79,6 +79,18 @@
         </PreferenceScreen>
     </PreferenceCategory>
     <PreferenceCategory
+        android:key="pref_extras"
+        android:title="Extra preferences (available separately)">
+        <RingtonePreference
+            android:key="pref_ringtone"
+            android:persistent="false"
+            android:ringtoneType="ringtone"
+            android:showDefault="true"
+            android:showSilent="true"
+            android:summary="Select a nice ringtone"
+            android:title="RingtonePreference" />
+    </PreferenceCategory>
+    <PreferenceCategory
         android:key="pref_categ"
         android:title="Dynamic category">
         <Preference

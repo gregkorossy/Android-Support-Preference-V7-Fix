@@ -1,6 +1,6 @@
 # Android Support library - preference v7 bugfix
 
-[ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix.support.v7.preference/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix.support.v7.preference/_latestVersion)
 
 ## How to use the library?
 ### 1. Add gradle dependency
@@ -101,10 +101,23 @@ if (etPref != null) {
 ```
 > **Note!** Watch out for the correct package name when importing `EditTextPreference`, it should come from `com.takisoft.fix.support.v7.preference`. If you import from the wrong package (i.e. `android.support.v7.preference`), the `getEditText()` method will not be available, however, the XML attributes will still be forwarded and processed by the `EditText`.
 
+
+### PreferenceCategory's bottom margin reduce
+Some people found the preference category's bottom margin too big, so now you can change it from the styles by setting the `preferenceCategory_marginBottom` value in your theme, for example:
+```xml
+<item name="preferenceCategory_marginBottom">0dp</item>
+```
+
+### Preference dialog's message style
+The original implementation uses `?attr/textAppearanceSmall` as the message style in the popup dialog (the one you find when clicking on an `EditTextPreference` with a set `android:dialogMessage` attribute), but it seems really small and might be hard to read. In order to fix that, a new attribute has been introduced to the `PreferenceFixTheme`: `preferenceDialog_messageAppearance`. This attribute controls the appearance of the message in the dialog and is set to `@style/TextAppearance.AppCompat.Subhead` by default. If you wish to change this, you'll just have to add the following line to your theme:
+```xml
+<item name="preferenceDialog_messageAppearance">@style/YourTextAppearance</item>
+```
+
 ---
 
 ## Version
-The current version is **26.0.1.0**.
+The current stable version is **26.0.1.0**.
 
 ## Notes #
 This demo / bugfix is set to work on API level 14+.

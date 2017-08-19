@@ -4,13 +4,17 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v7.preference.DialogPreference;
 import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceDialogFragmentCompat;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.preference.PreferenceManagerFix;
 import android.support.v7.preference.PreferenceScreen;
 import android.support.v7.widget.RecyclerView;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 
 public abstract class PreferenceFragmentCompat extends android.support.v7.preference.PreferenceFragmentCompat {
     private static final String FRAGMENT_DIALOG_TAG = "android.support.v7.preference.PreferenceFragment.DIALOG";
@@ -76,6 +80,7 @@ public abstract class PreferenceFragmentCompat extends android.support.v7.prefer
      */
     public abstract void onCreatePreferencesFix(@Nullable Bundle savedInstanceState, String rootKey);
 
+    @SuppressWarnings("SuspiciousMethodCalls")
     @Override
     public void onDisplayPreferenceDialog(Preference preference) {
         if (this.getFragmentManager().findFragmentByTag(FRAGMENT_DIALOG_TAG) == null) {
@@ -83,6 +88,19 @@ public abstract class PreferenceFragmentCompat extends android.support.v7.prefer
 
             if (preference instanceof EditTextPreference) {
                 f = EditTextPreferenceDialogFragmentCompat.newInstance(preference.getKey());
+            } else if (dialogPreferences.containsKey(preference.getClass())) {
+                try {
+                    Fragment fragment = dialogPreferences.get(preference.getClass()).newInstance();
+                    Bundle b = new Bundle(1);
+                    b.putString("key", preference.getKey());
+                    fragment.setArguments(b);
+
+                    f = fragment;
+                } catch (java.lang.InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             } else {
                 super.onDisplayPreferenceDialog(preference);
             }
@@ -92,5 +110,11 @@ public abstract class PreferenceFragmentCompat extends android.support.v7.prefer
                 ((DialogFragment) f).show(this.getFragmentManager(), FRAGMENT_DIALOG_TAG);
             }
         }
+    }
+
+    private static HashMap<Class<? extends DialogPreference>, Class<? extends PreferenceDialogFragmentCompat>> dialogPreferences = new HashMap<>();
+
+    public static void addDialogPreference(Class<? extends DialogPreference> dialogPrefClass, Class<? extends PreferenceDialogFragmentCompat> dialogFragmentClass) {
+        dialogPreferences.put(dialogPrefClass, dialogFragmentClass);
     }
 }
