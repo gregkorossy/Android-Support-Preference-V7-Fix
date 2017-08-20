@@ -82,6 +82,7 @@
         android:key="pref_extras"
         android:title="Extra preferences (available separately)">
         <RingtonePreference
+            android:dialogTitle="@string/ringtone_picker_title"
             android:key="pref_ringtone"
             android:persistent="false"
             android:ringtoneType="ringtone"
@@ -89,6 +90,15 @@
             android:showSilent="true"
             android:summary="Select a nice ringtone"
             android:title="RingtonePreference" />
+        <TimePickerPreference
+            android:key="pref_time"
+            android:persistent="false"
+            android:summary="Selected time: %s"
+            android:title="TimePickerPreference"
+            app:hour="21"
+            app:is24HourView="true"
+            app:minute="14"
+            app:useSystemFormat="true" />
     </PreferenceCategory>
     <PreferenceCategory
         android:key="pref_categ"

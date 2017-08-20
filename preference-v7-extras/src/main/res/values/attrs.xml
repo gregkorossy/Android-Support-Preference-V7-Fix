@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TimePickerPreference">
+        <attr name="hour" format="integer|reference" />
+        <attr name="minute" format="integer|reference" />
+        <attr name="is24HourView" format="boolean" />
+        <attr name="useSystemFormat" format="boolean" />
+    </declare-styleable>
+</resources>
