@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">Privzeta melodija zvonjenja</string>
+    <string name="ringtone_silent">Brez</string>
+    <string name="ringtone_picker_title">Melodije zvonjenja</string>
+    <string name="notification_sound_default">Privzeti zvok obvestila</string>
+    <string name="alarm_sound_default">Privzeti zvok alarma</string>
+</resources>

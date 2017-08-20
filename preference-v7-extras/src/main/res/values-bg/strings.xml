@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">Стандартна мелодия</string>
+    <string name="ringtone_silent">Без</string>
+    <string name="ringtone_picker_title">Мелодии</string>
+    <string name="notification_sound_default">Стандартен звук за известяване</string>
+    <string name="alarm_sound_default">Стандартен звук за будилника</string>
+</resources>

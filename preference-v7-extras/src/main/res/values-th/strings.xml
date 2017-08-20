@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">เสียงเรียกเข้าเริ่มต้น</string>
+    <string name="ringtone_silent">ไม่มี</string>
+    <string name="ringtone_picker_title">เสียงเรียกเข้า</string>
+    <string name="notification_sound_default">เสียงแจ้งเตือนเริ่มต้น</string>
+    <string name="alarm_sound_default">เสียงปลุกเริ่มต้น</string>
+</resources>

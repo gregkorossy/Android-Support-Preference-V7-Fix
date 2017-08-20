@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">默认铃声</string>
+    <string name="ringtone_silent">无</string>
+    <string name="ringtone_picker_title">铃声</string>
+    <string name="notification_sound_default">默认通知提示音</string>
+    <string name="alarm_sound_default">默认闹钟铃声</string>
+</resources>

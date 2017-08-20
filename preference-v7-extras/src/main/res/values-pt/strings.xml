@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">Toque padrão</string>
+    <string name="ringtone_silent">Nenhum</string>
+    <string name="ringtone_picker_title">Toques</string>
+    <string name="notification_sound_default">Som de notificação padrão</string>
+    <string name="alarm_sound_default">Som de alarme padrão</string>
+</resources>

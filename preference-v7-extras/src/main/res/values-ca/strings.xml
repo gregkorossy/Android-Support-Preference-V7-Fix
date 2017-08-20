@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">So predeterminat</string>
+    <string name="ringtone_silent">Cap</string>
+    <string name="ringtone_picker_title">Sons</string>
+    <string name="notification_sound_default">So de notificació predeterminat</string>
+    <string name="alarm_sound_default">So d\'alarma predeterminat</string>
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">Nada dering default</string>
+    <string name="ringtone_silent">Tidak Ada</string>
+    <string name="ringtone_picker_title">Nada dering</string>
+    <string name="notification_sound_default">Suara notifikasi default</string>
+    <string name="alarm_sound_default">Suara alarm default</string>
+</resources>

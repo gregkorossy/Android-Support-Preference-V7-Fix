@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">Alapértelmezett csengőhang</string>
+    <string name="ringtone_silent">Egyik sem</string>
+    <string name="ringtone_picker_title">Csengőhangok</string>
+    <string name="notification_sound_default">Alapértelmezett értesítési hang</string>
+    <string name="alarm_sound_default">Alapértelmezett ébresztési hang</string>
+</resources>

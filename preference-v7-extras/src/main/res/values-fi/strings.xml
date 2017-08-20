@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">Oletussoittoääni</string>
+    <string name="ringtone_silent">Ei mitään</string>
+    <string name="ringtone_picker_title">Soittoäänet</string>
+    <string name="notification_sound_default">Ilmoituksen oletusääni</string>
+    <string name="alarm_sound_default">Herätyksen oletusääni</string>
+</resources>

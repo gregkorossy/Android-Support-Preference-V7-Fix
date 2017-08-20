@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">Sonnerie par défaut</string>
+    <string name="ringtone_silent">Aucune</string>
+    <string name="ringtone_picker_title">Sonneries</string>
+    <string name="notification_sound_default">Son de notification par défaut</string>
+    <string name="alarm_sound_default">Son de l\'alarme par défaut</string>
+</resources>

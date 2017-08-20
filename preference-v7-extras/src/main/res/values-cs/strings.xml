@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">Výchozí vyzváněcí tón</string>
+    <string name="ringtone_silent">Žádný</string>
+    <string name="ringtone_picker_title">Vyzváněcí tóny</string>
+    <string name="notification_sound_default">Výchozí zvuk oznámení</string>
+    <string name="alarm_sound_default">Výchozí zvuk budíku</string>
+</resources>

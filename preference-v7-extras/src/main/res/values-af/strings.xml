@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">Verstekluitoon</string>
+    <string name="ringtone_silent">Geen</string>
+    <string name="ringtone_picker_title">Luitone</string>
+    <string name="notification_sound_default">Verstekkennisgewing-klank</string>
+    <string name="alarm_sound_default">Verstekwekkerklank</string>
+</resources>

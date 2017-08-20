@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">Standardringetone</string>
+    <string name="ringtone_silent">Ingen</string>
+    <string name="ringtone_picker_title">Ringetoner</string>
+    <string name="notification_sound_default">Standardlyd for underretninger</string>
+    <string name="alarm_sound_default">Standardlyd for alarmer</string>
+</resources>

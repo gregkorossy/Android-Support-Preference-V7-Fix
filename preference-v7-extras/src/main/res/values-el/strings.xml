@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">Προεπιλεγμένος ήχος κλήσης</string>
+    <string name="ringtone_silent">Κανένας</string>
+    <string name="ringtone_picker_title">Ήχοι κλήσης</string>
+    <string name="notification_sound_default">Προεπιλεγμένος ήχος ειδοποίησης</string>
+    <string name="alarm_sound_default">Προεπιλεγμένος ήχος ειδοποίησης</string>
+</resources>

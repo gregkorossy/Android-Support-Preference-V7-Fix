@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">기본 벨소리</string>
+    <string name="ringtone_silent">없음</string>
+    <string name="ringtone_picker_title">벨소리</string>
+    <string name="notification_sound_default">기본 알림 소리</string>
+    <string name="alarm_sound_default">기본 알람 소리</string>
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">မူရင်းမြည်သံ</string>
+    <string name="ringtone_silent">တစ်ခုမှမဟုတ်</string>
+    <string name="ringtone_picker_title">မြည်သံများ</string>
+    <string name="notification_sound_default">မူရင်းအကြောင်းကြားသံ</string>
+    <string name="alarm_sound_default">မူရင်းနှိုးစက်သံ</string>
+</resources>

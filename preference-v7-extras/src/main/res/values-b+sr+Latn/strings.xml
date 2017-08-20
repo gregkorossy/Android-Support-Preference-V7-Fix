@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">Podrazumevani zvuk zvona</string>
+    <string name="ringtone_silent">Bez zvuka</string>
+    <string name="ringtone_picker_title">Zvukovi zvona</string>
+    <string name="notification_sound_default">Podrazumevani zvuk obaveštenja</string>
+    <string name="alarm_sound_default">Podrazumevani zvuk alarma</string>
+</resources>

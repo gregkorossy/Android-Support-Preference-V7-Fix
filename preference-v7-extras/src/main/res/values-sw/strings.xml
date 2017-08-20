@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">Mlio chaguo-msingi</string>
+    <string name="ringtone_silent">Hamna</string>
+    <string name="ringtone_picker_title">Toni za mlio</string>
+    <string name="notification_sound_default">Sauti chaguo-msingi ya arifa</string>
+    <string name="alarm_sound_default">Sauti chaguo-msingi ya kengele</string>
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">ડિફોલ્ટ રિંગટોન</string>
+    <string name="ringtone_silent">કોઈ નહીં</string>
+    <string name="ringtone_picker_title">રિંગટોન્સ</string>
+    <string name="notification_sound_default">ડિફોલ્ટ સૂચના માટે ધ્વનિ</string>
+    <string name="alarm_sound_default">ડિફોલ્ટ એલાર્મ ધ્વનિ</string>
+</resources>

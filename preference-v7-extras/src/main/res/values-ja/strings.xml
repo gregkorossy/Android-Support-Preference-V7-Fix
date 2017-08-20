@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">プリセット着信音</string>
+    <string name="ringtone_silent">なし</string>
+    <string name="ringtone_picker_title">着信音</string>
+    <string name="notification_sound_default">デフォルトの通知音</string>
+    <string name="alarm_sound_default">デフォルトの警告音</string>
+</resources>

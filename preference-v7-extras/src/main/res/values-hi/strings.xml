@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">डिफ़ॉल्‍ट रिंगटोन</string>
+    <string name="ringtone_silent">कोई नहीं</string>
+    <string name="ringtone_picker_title">रिंगटोन</string>
+    <string name="notification_sound_default">डिफ़ॉल्ट नोटिफ़िकेशन ध्वनि</string>
+    <string name="alarm_sound_default">डिफ़ॉल्ट अलार्म ध्वनि</string>
+</resources>

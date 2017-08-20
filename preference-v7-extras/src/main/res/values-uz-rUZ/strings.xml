@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">Standart rington</string>
+    <string name="ringtone_silent">Yo‘q</string>
+    <string name="ringtone_picker_title">Ringtonlar</string>
+    <string name="notification_sound_default">Standart bildirishnoma signali</string>
+    <string name="alarm_sound_default">Standart signal</string>
+</resources>

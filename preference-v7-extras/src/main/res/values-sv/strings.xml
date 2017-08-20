@@ -1,0 +1,7 @@
+<resources>
+    <string name="ringtone_default">Standardringsignal</string>
+    <string name="ringtone_silent">Ingen</string>
+    <string name="ringtone_picker_title">Ringsignaler</string>
+    <string name="notification_sound_default">Standardljud för aviseringar</string>
+    <string name="alarm_sound_default">Standardljud för alarm</string>
+</resources>
