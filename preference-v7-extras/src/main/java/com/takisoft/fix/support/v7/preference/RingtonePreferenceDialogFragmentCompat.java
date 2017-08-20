@@ -144,7 +144,7 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
                         RingtonePreferenceDialogFragmentCompat.this.onDismiss(dialogInterface);
                     }
                 })
-                .setTitle(R.string.ringtone_picker_title)
+                //.setTitle(R.string.ringtone_picker_title)
                 .setNegativeButton(android.R.string.cancel, this)
                 .setPositiveButton(android.R.string.ok, this);
     }
