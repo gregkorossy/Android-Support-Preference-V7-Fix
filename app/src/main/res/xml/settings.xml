@@ -99,6 +99,12 @@
             app:is24HourView="true"
             app:minute="14"
             app:useSystemFormat="true" />
+        <DatePickerPreference
+            android:key="pref_date"
+            android:persistent="false"
+            android:summary="Selected date: %s"
+            android:title="DatePickerPreference"
+            app:summaryNotPicked="Select a date" />
     </PreferenceCategory>
     <PreferenceCategory
         android:key="pref_categ"

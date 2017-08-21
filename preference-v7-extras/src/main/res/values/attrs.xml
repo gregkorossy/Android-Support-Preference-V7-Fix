@@ -6,4 +6,11 @@
         <attr name="is24HourView" format="boolean" />
         <attr name="useSystemFormat" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="DatePickerPreference">
+        <attr name="year" format="integer|reference" />
+        <attr name="month" format="integer|reference" />
+        <attr name="day" format="integer|reference" />
+        <attr name="summaryPattern" format="string|reference" />
+        <attr name="summaryNotPicked" format="string|reference" />
+    </declare-styleable>
 </resources>
