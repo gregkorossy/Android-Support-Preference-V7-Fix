@@ -21,7 +21,23 @@ public class TimePickerPreferenceDialogFragmentCompat extends PreferenceDialogFr
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         TimePickerPreference preference = getTimePickerPreference();
-        return new TimePickerDialog(getActivity(), this, preference.getHourOfDay(), preference.getMinute(), preference.is24HourView());
+        TimePickerDialog dialog = new TimePickerDialog(getActivity(), this, preference.getHourOfDay(), preference.getMinute(), preference.is24HourView());
+
+        //dialog.setTitle(preference.getDialogTitle()); // this does not work in landscape
+        //dialog.setIcon(preference.getDialogIcon());
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, preference.getPositiveButtonText(), this);
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, preference.getNegativeButtonText(), this);
+
+        return dialog;
+    }
+
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        super.onClick(dialog, which);
+
+        if (which == DialogInterface.BUTTON_POSITIVE) {
+            ((TimePickerDialog) getDialog()).onClick(dialog, which);
+        }
     }
 
     @Override
@@ -38,6 +54,6 @@ public class TimePickerPreferenceDialogFragmentCompat extends PreferenceDialogFr
         pickedHour = hourOfDay;
         pickedMinute = minute;
 
-        onClick(getDialog(), DialogInterface.BUTTON_POSITIVE);
+        //onClick(getDialog(), DialogInterface.BUTTON_POSITIVE);
     }
 }

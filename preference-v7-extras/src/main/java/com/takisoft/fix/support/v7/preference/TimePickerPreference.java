@@ -2,8 +2,10 @@ package com.takisoft.fix.support.v7.preference;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.IntRange;
 import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.preference.DialogPreference;
+import android.support.v7.preference.Preference;
 import android.util.AttributeSet;
 
 import java.text.DateFormat;
@@ -11,6 +13,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+/**
+ * A {@link Preference} that displays a time picker as a dialog.
+ * <p>
+ * This preference will store an integer into the SharedPreferences. This integer will be calculated
+ * from the picked time using the following formula: {@code hourOfDay * 60 + minute}.
+ */
 public class TimePickerPreference extends DialogPreference {
     private boolean is24HourView;
     private boolean useSystemFormat;
@@ -49,38 +57,80 @@ public class TimePickerPreference extends DialogPreference {
         this(context, null);
     }
 
+    /**
+     * Returns whether to use the 24-hour clock in the picker. The default value is set by the
+     * system locale.
+     *
+     * @return Whether to use the 24-hour clock in the picker.
+     */
     public boolean is24HourView() {
         return is24HourView;
     }
 
+    /**
+     * Sets whether to use the 24-hour clock in the picker. The default value is set by the
+     * system locale.
+     *
+     * @param is24HourView Whether to use the 24-hour clock in the picker.
+     */
     public void set24HourView(boolean is24HourView) {
         this.is24HourView = is24HourView;
     }
 
+    /**
+     * Returns whether to use the system format in the summary. The default behavior is to use the
+     * value provided by {@link #is24HourView()}.
+     *
+     * @return Whether to use the system format in the summary.
+     */
     public boolean isUseSystemFormat() {
         return useSystemFormat;
     }
 
+    /**
+     * Sets whether to use the system format in the summary. The default behavior is to use the
+     * value provided by {@link #is24HourView()}.
+     *
+     * @param useSystemFormat Whether to use the system format in the summary or not.
+     */
     public void setUseSystemFormat(boolean useSystemFormat) {
         this.useSystemFormat = useSystemFormat;
     }
 
+    /**
+     * Returns the hour of the day (a.k.a. 24-hour clock version). The range is 0-23.
+     *
+     * @return The hour of the day (a.k.a. 24-hour clock version). The range is 0-23.
+     */
+    @IntRange(from = 0, to = 23)
     public int getHourOfDay() {
         return hourOfDay;
     }
 
+    /**
+     * Returns the minute of the hour. The range is 0-59.
+     *
+     * @return The minute of the hour. The range is 0-59.
+     */
+    @IntRange(from = 0, to = 59)
     public int getMinute() {
         return minute;
     }
 
-    public void setTime(int hourOfDay, int minute) {
+    /**
+     * Sets the picked time of the preference.
+     *
+     * @param hourOfDay The hour of the day (a.k.a. 24-hour clock version). The valid range is 0-23.
+     * @param minute    The minute of the hour. The valid range is 0-59.
+     */
+    public void setTime(@IntRange(from = 0, to = 23) int hourOfDay, @IntRange(from = 0, to = 59) int minute) {
         setInternalTime(hourOfDay * 60 + minute, false);
     }
 
     private void setInternalTime(int totalMinutes, boolean force) {
-        int oldUri = getPersistedInt(this.hourOfDay * 60 + this.minute);
+        int oldTime = getPersistedInt(this.hourOfDay * 60 + this.minute);
 
-        final boolean changed = oldUri != totalMinutes;
+        final boolean changed = oldTime != totalMinutes;
 
         if (changed || force) {
             hourOfDay = totalMinutes / 60;
@@ -92,6 +142,14 @@ public class TimePickerPreference extends DialogPreference {
         }
     }
 
+    /**
+     * Returns the summary of this ListPreference. If the summary
+     * has a {@linkplain java.lang.String#format String formatting}
+     * marker in it (i.e. "%s" or "%1$s"), then the current formatted
+     * time will be substituted in its place.
+     *
+     * @return The summary with appropriate string substitution.
+     */
     @Override
     public CharSequence getSummary() {
         if (mSummary == null) {
@@ -113,6 +171,15 @@ public class TimePickerPreference extends DialogPreference {
         }
     }
 
+    /**
+     * Sets the summary for this Preference with a CharSequence.
+     * If the summary has a
+     * {@linkplain java.lang.String#format String formatting}
+     * marker in it (i.e. "%s" or "%1$s"), then the current formatted
+     * time will be substituted in its place when it's retrieved.
+     *
+     * @param summary The summary for the preference.
+     */
     @Override
     public void setSummary(CharSequence summary) {
         super.setSummary(summary);
@@ -132,6 +199,5 @@ public class TimePickerPreference extends DialogPreference {
     protected void onSetInitialValue(boolean restoreValue, Object defaultValueObj) {
         final Integer defaultValue = (Integer) defaultValueObj;
         setInternalTime(restoreValue ? getPersistedInt(hourOfDay * 60 + minute) : (defaultValue == null ? 0 : defaultValue), true);
-        //setInternalRingtone(restoreValue ? onRestoreRingtone() : (!TextUtils.isEmpty(defaultValue) ? Uri.parse(defaultValue) : null), true);
     }
 }
