@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.preference.PreferenceDialogFragmentCompat;
 
-import com.takisoft.fix.support.v7.preference.extras.R;
+import com.takisoft.fix.support.v7.preference.ringtone.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
     public static RingtonePreferenceDialogFragmentCompat newInstance(String key) {
         RingtonePreferenceDialogFragmentCompat fragment = new RingtonePreferenceDialogFragmentCompat();
         Bundle b = new Bundle(1);
-        b.putString(ARG_KEY, key);
+        b.putString(PreferenceDialogFragmentCompat.ARG_KEY, key);
         fragment.setArguments(b);
         return fragment;
     }

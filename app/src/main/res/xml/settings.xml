@@ -96,9 +96,8 @@
             android:summary="Selected time: %s"
             android:title="TimePickerPreference"
             app:hour="21"
-            app:is24HourView="true"
-            app:minute="14"
-            app:useSystemFormat="true" />
+            app:hourFormat="auto"
+            app:minute="14" />
         <DatePickerPreference
             android:key="pref_date"
             android:persistent="false"

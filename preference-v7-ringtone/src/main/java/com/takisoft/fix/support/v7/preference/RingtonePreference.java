@@ -1,5 +1,6 @@
 package com.takisoft.fix.support.v7.preference;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.media.RingtoneManager;
@@ -11,7 +12,7 @@ import android.support.v7.preference.DialogPreference;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
-import com.takisoft.fix.support.v7.preference.extras.R;
+import com.takisoft.fix.support.v7.preference.ringtone.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -57,6 +58,7 @@ public class RingtonePreference extends DialogPreference {
         this(context, attrs, defStyleAttr, 0);
     }
 
+    @SuppressLint("RestrictedApi")
     public RingtonePreference(Context context, AttributeSet attrs) {
         this(context, attrs, TypedArrayUtils.getAttr(context, R.attr.dialogPreferenceStyle,
                 android.R.attr.dialogPreferenceStyle));

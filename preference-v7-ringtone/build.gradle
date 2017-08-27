@@ -20,13 +20,13 @@ android {
 
 ext {
     bintrayRepo = 'maven'
-    bintrayName = 'com.takisoft.fix:preference-v7-extras'
+    bintrayName = 'com.takisoft.fix:preference-v7-ringtone'
 
     publishedGroupId = 'com.takisoft.fix'
-    libraryName = 'Preference v7 - Fix'
-    artifact = 'preference-v7-extras'
+    libraryName = 'Preference v7 - RingtonePreference'
+    artifact = 'preference-v7-ringtone'
 
-    libraryDescription = 'Android Support Library Preference v7 extra preference types . The original Support Library files are under Apache 2.0, the fixes and extras are unlicensed.'
+    libraryDescription = 'Android Support Library Preference v7 - RingtonePreference. The original Support Library files are under Apache 2.0, the fixes and extras are unlicensed.'
 
     siteUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix'
     gitUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix.git'
@@ -43,12 +43,9 @@ ext {
 }
 
 dependencies {
+    implementation project(':preference-v7')
     implementation "com.android.support:preference-v7:${rootProject.supportLibraryVersion}"
     implementation "com.android.support:preference-v14:${rootProject.supportLibraryVersion}"
-    implementation project(':preference-v7')
-
-    compile project(':preference-v7-datetimepicker')
-    compile project(':preference-v7-ringtone')
 }
 
 apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'

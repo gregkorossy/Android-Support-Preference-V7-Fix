@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="TimePickerPreference">
+        <!-- The hour to be used by the picker if no saved value is present. This is in 24-hour format. -->
         <attr name="hour" format="integer|reference" />
+
+        <!-- The minute to be used by the picker if no saved value is present. -->
         <attr name="minute" format="integer|reference" />
-        <attr name="is24HourView" format="boolean" />
-        <attr name="useSystemFormat" format="boolean" />
+
+        <!-- The hour format to be used. By default it's set to auto.-->
+        <attr name="hourFormat" format="enum">
+            <enum name="auto" value="0" />
+            <enum name="h12" value="1" />
+            <enum name="h24" value="2" />
+        </attr>
+
+        <!--
+            The time format to be used in the summary. Should at least contain 'H' (or 'h' in case of
+            12-hour format) and 'm' to represent a meaningful value.
+        -->
+        <attr name="summaryTimePattern" format="string|reference" />
     </declare-styleable>
+
     <declare-styleable name="DatePickerPreference">
         <attr name="year" format="integer|reference" />
         <attr name="month" format="integer|reference" />
         <attr name="day" format="integer|reference" />
-        <attr name="summaryPattern" format="string|reference" />
+        <attr name="summaryDatePattern" format="string|reference" />
         <attr name="summaryNotPicked" format="string|reference" />
     </declare-styleable>
 </resources>

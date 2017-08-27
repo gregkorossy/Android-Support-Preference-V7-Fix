@@ -21,14 +21,14 @@ import java.util.Locale;
 
 public class DatePickerPreference extends DialogPreference {
     /**
-     * The pattern that is generally recognized in the Android ecosystem.
+     * The pattern that is used for parsing the default value.
      */
     public static final String PATTERN = "MM/dd/yyyy";
 
     /**
      * The date format that can be used to convert the saved value to {@link Date} objects.
      */
-    public static final SimpleDateFormat FORMAT = new SimpleDateFormat(PATTERN, Locale.getDefault());
+    public static final SimpleDateFormat FORMAT = new SimpleDateFormat(PATTERN, Locale.US);
 
     static {
         PreferenceFragmentCompat.addDialogPreference(DatePickerPreference.class, DatePickerPreferenceDialogFragmentCompat.class);
@@ -51,7 +51,7 @@ public class DatePickerPreference extends DialogPreference {
         year = a.getInt(R.styleable.DatePickerPreference_year, calendar.get(Calendar.YEAR)); // FIXME not good like this because we don't display the values now
         month = a.getInt(R.styleable.DatePickerPreference_month, calendar.get(Calendar.MONTH)); // FIXME
         day = a.getInt(R.styleable.DatePickerPreference_day, calendar.get(Calendar.DATE)); // FIXME
-        summaryPattern = a.getString(R.styleable.DatePickerPreference_summaryPattern);
+        summaryPattern = a.getString(R.styleable.DatePickerPreference_summaryDatePattern);
         summaryNotPicked = a.getText(R.styleable.DatePickerPreference_summaryNotPicked);
         a.recycle();
 
