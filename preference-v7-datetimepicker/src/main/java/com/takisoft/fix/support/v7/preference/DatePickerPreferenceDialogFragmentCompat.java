@@ -1,12 +1,13 @@
 package com.takisoft.fix.support.v7.preference;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.preference.PreferenceDialogFragmentCompat;
-import android.widget.DatePicker;
+
+import com.takisoft.datetimepicker.DatePickerDialog;
+import com.takisoft.datetimepicker.widget.DatePicker;
 
 public class DatePickerPreferenceDialogFragmentCompat extends PreferenceDialogFragmentCompat implements DatePickerDialog.OnDateSetListener {
 
@@ -55,5 +56,7 @@ public class DatePickerPreferenceDialogFragmentCompat extends PreferenceDialogFr
         pickedYear = year;
         pickedMonth = month;
         pickedDay = day;
+
+        super.onClick(getDialog(), DialogInterface.BUTTON_POSITIVE);
     }
 }

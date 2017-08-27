@@ -50,3 +50,7 @@ dependencies {
 
 apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
 apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/bintrayv.gradle'
+
+javadoc.doFirst {
+    failOnError false
+}

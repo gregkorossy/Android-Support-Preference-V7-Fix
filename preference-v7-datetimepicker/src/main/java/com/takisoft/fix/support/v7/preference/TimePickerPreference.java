@@ -1,5 +1,6 @@
 package com.takisoft.fix.support.v7.preference;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.IntRange;
@@ -7,6 +8,8 @@ import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.preference.DialogPreference;
 import android.support.v7.preference.Preference;
 import android.util.AttributeSet;
+
+import com.takisoft.fix.support.v7.preference.datetimepicker.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -20,25 +23,24 @@ import java.util.Locale;
  * from the picked time using the following formula: {@code hourOfDay * 60 + minute}.
  */
 public class TimePickerPreference extends DialogPreference {
-    private boolean is24HourView;
-    private boolean useSystemFormat;
-    private int hourOfDay;
-    private int minute;
-
-    private CharSequence mSummary;
-
     static {
         PreferenceFragmentCompat.addDialogPreference(TimePickerPreference.class, TimePickerPreferenceDialogFragmentCompat.class);
     }
 
+    private boolean is24HourView;
+    private boolean useSystemFormat;
+    private int hourOfDay;
+    private int minute;
+    private CharSequence mSummary;
+
     public TimePickerPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
-        TypedArray a = context.obtainStyledAttributes(attrs, com.takisoft.fix.support.v7.preference.extras.R.styleable.TimePickerPreference, defStyleAttr, 0);
-        is24HourView = a.getBoolean(com.takisoft.fix.support.v7.preference.extras.R.styleable.TimePickerPreference_is24HourView, android.text.format.DateFormat.is24HourFormat(context));
-        useSystemFormat = a.getBoolean(com.takisoft.fix.support.v7.preference.extras.R.styleable.TimePickerPreference_useSystemFormat, false);
-        hourOfDay = a.getInt(com.takisoft.fix.support.v7.preference.extras.R.styleable.TimePickerPreference_hour, 0);
-        minute = a.getInt(com.takisoft.fix.support.v7.preference.extras.R.styleable.TimePickerPreference_minute, 0);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TimePickerPreference, defStyleAttr, 0);
+        is24HourView = a.getBoolean(R.styleable.TimePickerPreference_is24HourView, android.text.format.DateFormat.is24HourFormat(context));
+        useSystemFormat = a.getBoolean(R.styleable.TimePickerPreference_useSystemFormat, false);
+        hourOfDay = a.getInt(R.styleable.TimePickerPreference_hour, 0);
+        minute = a.getInt(R.styleable.TimePickerPreference_minute, 0);
         a.recycle();
 
         mSummary = super.getSummary();
@@ -48,6 +50,7 @@ public class TimePickerPreference extends DialogPreference {
         this(context, attrs, defStyleAttr, 0);
     }
 
+    @SuppressLint("RestrictedApi")
     public TimePickerPreference(Context context, AttributeSet attrs) {
         this(context, attrs, TypedArrayUtils.getAttr(context, R.attr.dialogPreferenceStyle,
                 android.R.attr.dialogPreferenceStyle));

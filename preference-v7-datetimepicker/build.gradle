@@ -20,18 +20,18 @@ android {
 
 ext {
     bintrayRepo = 'maven'
-    bintrayName = 'com.takisoft.fix.support.v7.preference'
+    bintrayName = 'com.takisoft.fix:preference-v7-datetimepicker'
 
     publishedGroupId = 'com.takisoft.fix'
-    libraryName = 'Preference v7 - Fix'
-    artifact = 'preference-v7'
+    libraryName = 'Preference v7 - DateTimePickers'
+    artifact = 'preference-v7-datetimepicker'
 
-    libraryDescription = 'Android Support Library Preference v7 is full of bugs. This library tries to overcome some of the basic problems. The original Support Library files are under Apache 2.0, the fixes are unlicensed.'
+    libraryDescription = 'Android Support Library Preference v7 - DatePickerPreference and TimePickerPreference. The original Support Library files are under Apache 2.0, the fixes and extras are unlicensed.'
 
     siteUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix'
     gitUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix.git'
 
-    libraryVersion = "${rootProject.supportLibraryVersionPrefix}.${fixLibraryVersion}${rootProject.supportLibraryVersionSuffix}"
+    libraryVersion = "${rootProject.supportLibraryVersionPrefix}.${fixLibraryVersion}${rootProject.supportLibraryVersionSuffix}${rootProject.extrasLibraryVersionSuffix}"
 
     developerId = 'gericop'
     developerName = 'Gergely Kőrössy'
@@ -43,8 +43,10 @@ ext {
 }
 
 dependencies {
-    compile "com.android.support:preference-v7:${rootProject.supportLibraryVersion}"
-    compile "com.android.support:preference-v14:${rootProject.supportLibraryVersion}"
+    implementation project(':preference-v7')
+    implementation "com.android.support:preference-v7:${rootProject.supportLibraryVersion}"
+    implementation "com.android.support:preference-v14:${rootProject.supportLibraryVersion}"
+    compile 'com.takisoft.fix:datetimepicker:1.0.0' // I know 'compile' is deprecated, but the plugin doesn't know 'implementation'
 }
 
 apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'

@@ -1,1 +1,1 @@
-include ':app', ':preference-v7', ':preference-v7-extras'
+include ':app', ':preference-v7', ':preference-v7-extras', ':preference-v7-datetimepicker'

@@ -1,5 +1,6 @@
 package com.takisoft.fix.support.v7.preference;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.IntRange;
@@ -9,6 +10,8 @@ import android.support.v7.preference.DialogPreference;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
+import com.takisoft.fix.support.v7.preference.datetimepicker.R;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,34 +20,39 @@ import java.util.Date;
 import java.util.Locale;
 
 public class DatePickerPreference extends DialogPreference {
-    private static final String PATTERN = "yyyy-MM-dd";
-    private static final SimpleDateFormat FORMAT = new SimpleDateFormat(PATTERN, Locale.getDefault());
+    /**
+     * The pattern that is generally recognized in the Android ecosystem.
+     */
+    public static final String PATTERN = "MM/dd/yyyy";
 
-    private String pickedDate;
-
-    private int year;
-    private int month;
-    private int day;
-    private String summaryPattern;
-
-    private CharSequence summaryNotPicked;
-    private CharSequence summary;
+    /**
+     * The date format that can be used to convert the saved value to {@link Date} objects.
+     */
+    public static final SimpleDateFormat FORMAT = new SimpleDateFormat(PATTERN, Locale.getDefault());
 
     static {
         PreferenceFragmentCompat.addDialogPreference(DatePickerPreference.class, DatePickerPreferenceDialogFragmentCompat.class);
     }
+
+    private String pickedDate;
+    private int year;
+    private int month;
+    private int day;
+    private String summaryPattern;
+    private CharSequence summaryNotPicked;
+    private CharSequence summary;
 
     public DatePickerPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
         Calendar calendar = Calendar.getInstance();
 
-        TypedArray a = context.obtainStyledAttributes(attrs, com.takisoft.fix.support.v7.preference.extras.R.styleable.DatePickerPreference, defStyleAttr, 0);
-        year = a.getInt(com.takisoft.fix.support.v7.preference.extras.R.styleable.DatePickerPreference_year, calendar.get(Calendar.YEAR)); // FIXME not good like this because we don't display the values now
-        month = a.getInt(com.takisoft.fix.support.v7.preference.extras.R.styleable.DatePickerPreference_month, calendar.get(Calendar.MONTH)); // FIXME
-        day = a.getInt(com.takisoft.fix.support.v7.preference.extras.R.styleable.DatePickerPreference_day, calendar.get(Calendar.DATE)); // FIXME
-        summaryPattern = a.getString(com.takisoft.fix.support.v7.preference.extras.R.styleable.DatePickerPreference_summaryPattern);
-        summaryNotPicked = a.getText(com.takisoft.fix.support.v7.preference.extras.R.styleable.DatePickerPreference_summaryNotPicked);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DatePickerPreference, defStyleAttr, 0);
+        year = a.getInt(R.styleable.DatePickerPreference_year, calendar.get(Calendar.YEAR)); // FIXME not good like this because we don't display the values now
+        month = a.getInt(R.styleable.DatePickerPreference_month, calendar.get(Calendar.MONTH)); // FIXME
+        day = a.getInt(R.styleable.DatePickerPreference_day, calendar.get(Calendar.DATE)); // FIXME
+        summaryPattern = a.getString(R.styleable.DatePickerPreference_summaryPattern);
+        summaryNotPicked = a.getText(R.styleable.DatePickerPreference_summaryNotPicked);
         a.recycle();
 
         summary = super.getSummary();
@@ -54,6 +62,7 @@ public class DatePickerPreference extends DialogPreference {
         this(context, attrs, defStyleAttr, 0);
     }
 
+    @SuppressLint("RestrictedApi")
     public DatePickerPreference(Context context, AttributeSet attrs) {
         this(context, attrs, TypedArrayUtils.getAttr(context, R.attr.dialogPreferenceStyle,
                 android.R.attr.dialogPreferenceStyle));

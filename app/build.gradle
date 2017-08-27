@@ -23,4 +23,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:${rootProject.supportLibraryVersion}"
     implementation project(':preference-v7')
     implementation project(':preference-v7-extras')
+
+    // this will not be needed if the projects are properly set
+    implementation project(':preference-v7-datetimepicker')
 }

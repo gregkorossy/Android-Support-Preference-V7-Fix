@@ -1,12 +1,13 @@
 package com.takisoft.fix.support.v7.preference;
 
 import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.preference.PreferenceDialogFragmentCompat;
-import android.widget.TimePicker;
+
+import com.takisoft.datetimepicker.TimePickerDialog;
+import com.takisoft.datetimepicker.widget.TimePicker;
 
 public class TimePickerPreferenceDialogFragmentCompat extends PreferenceDialogFragmentCompat implements TimePickerDialog.OnTimeSetListener {
 
@@ -55,5 +56,6 @@ public class TimePickerPreferenceDialogFragmentCompat extends PreferenceDialogFr
         pickedMinute = minute;
 
         //onClick(getDialog(), DialogInterface.BUTTON_POSITIVE);
+        super.onClick(getDialog(), DialogInterface.BUTTON_POSITIVE);
     }
 }
