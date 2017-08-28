@@ -1,6 +1,6 @@
 # Android Support library - preference v7 bugfix
 
-[ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix.support.v7.preference/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix.support.v7.preference/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix%3Apreference-v7/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix%3Apreference-v7/_latestVersion)
 
 ## How to use the library?
 ### 1. Add gradle dependency
