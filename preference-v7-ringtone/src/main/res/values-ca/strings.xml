@@ -4,4 +4,6 @@
     <string name="ringtone_picker_title">Sons</string>
     <string name="notification_sound_default">So de notificació predeterminat</string>
     <string name="alarm_sound_default">So d\'alarma predeterminat</string>
+    <string name="add_ringtone_text">Afegeix un so de trucada</string>
+    <string name="unable_to_add_ringtone">No es pot afegir el so de trucada personalitzat</string>
 </resources>

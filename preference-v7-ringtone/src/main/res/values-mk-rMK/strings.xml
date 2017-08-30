@@ -1,7 +1,0 @@
-<resources>
-    <string name="ringtone_default">Стандардна мелодија</string>
-    <string name="ringtone_silent">Ниедна</string>
-    <string name="ringtone_picker_title">Мелодии</string>
-    <string name="notification_sound_default">Стандарден звук за известување</string>
-    <string name="alarm_sound_default">Стандарден звук за аларм</string>
-</resources>

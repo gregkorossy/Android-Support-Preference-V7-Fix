@@ -4,4 +4,6 @@
     <string name="ringtone_picker_title">Toni za mlio</string>
     <string name="notification_sound_default">Sauti chaguo-msingi ya arifa</string>
     <string name="alarm_sound_default">Sauti chaguo-msingi ya kengele</string>
+    <string name="add_ringtone_text">Ongeza mlio wa simu</string>
+    <string name="unable_to_add_ringtone">Imeshindwa kuongeza mlio maalum wa simu</string>
 </resources>

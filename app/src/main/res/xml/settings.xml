@@ -89,16 +89,17 @@
             android:showDefault="true"
             android:showSilent="true"
             android:summary="Select a nice ringtone"
-            android:title="RingtonePreference" />
+            android:title="RingtonePreference"
+            app:showAdd="true" />
         <TimePickerPreference
             android:key="pref_time"
             android:persistent="false"
             android:summary="Selected time: %s"
             android:title="TimePickerPreference"
-            app:summaryNoTime="Select the perfect time"
             app:hour="21"
             app:hourFormat="auto"
-            app:minute="14" />
+            app:minute="14"
+            app:summaryNoTime="Select the perfect time" />
         <DatePickerPreference
             android:key="pref_date"
             android:persistent="false"

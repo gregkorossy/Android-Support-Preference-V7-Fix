@@ -1,7 +1,0 @@
-<resources>
-    <string name="ringtone_default">Vaikehelin</string>
-    <string name="ringtone_silent">Puudub</string>
-    <string name="ringtone_picker_title">Helinad</string>
-    <string name="notification_sound_default">Märguande vaikeheli</string>
-    <string name="alarm_sound_default">Äratuse vaikeheli</string>
-</resources>

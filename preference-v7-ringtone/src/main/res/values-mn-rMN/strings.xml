@@ -1,7 +1,0 @@
-<resources>
-    <string name="ringtone_default">Үндсэн хонхны ая</string>
-    <string name="ringtone_silent">Алийг нь ч биш</string>
-    <string name="ringtone_picker_title">Хонхны ая</string>
-    <string name="notification_sound_default">Мэдэгдлийн үндсэн ая</string>
-    <string name="alarm_sound_default">Сэрүүлгийн өгөгдмөл дуу</string>
-</resources>

@@ -1,7 +1,0 @@
-<resources>
-    <string name="ringtone_default">இயல்புநிலை ரிங்டோன்</string>
-    <string name="ringtone_silent">ஏதுமில்லை</string>
-    <string name="ringtone_picker_title">ரிங்டோன்கள்</string>
-    <string name="notification_sound_default">இயல்பு அறிவிப்பு ஒலி</string>
-    <string name="alarm_sound_default">இயல்பு அலார ஒலி</string>
-</resources>

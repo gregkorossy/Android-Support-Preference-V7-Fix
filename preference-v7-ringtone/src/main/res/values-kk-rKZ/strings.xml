@@ -1,7 +1,0 @@
-<resources>
-    <string name="ringtone_default">Әдепкі рингтон</string>
-    <string name="ringtone_silent">Ешқандай</string>
-    <string name="ringtone_picker_title">Қоңырау әуендері</string>
-    <string name="notification_sound_default">Әдепкі хабарландыру дыбысы</string>
-    <string name="alarm_sound_default">Әдепкі дабыл дыбысы</string>
-</resources>

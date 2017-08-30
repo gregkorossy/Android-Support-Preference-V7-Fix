@@ -1,7 +1,0 @@
-<resources>
-    <string name="ringtone_default">Կանխադրված զանգերանգ</string>
-    <string name="ringtone_silent">Ոչ մեկը</string>
-    <string name="ringtone_picker_title">Զանգերանգներ</string>
-    <string name="notification_sound_default">Ծանուցման կանխադրված ձայնը</string>
-    <string name="alarm_sound_default">Զարթուցիչի կանխադրված ձայնը</string>
-</resources>

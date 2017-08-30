@@ -1,7 +1,0 @@
-<resources>
-    <string name="ringtone_default">Sjálfgefinn hringitónn</string>
-    <string name="ringtone_silent">Ekkert</string>
-    <string name="ringtone_picker_title">Hringitónar</string>
-    <string name="notification_sound_default">Sjálfgefið hljóð tilkynninga</string>
-    <string name="alarm_sound_default">Sjálfgefið hljóð í vekjara</string>
-</resources>
