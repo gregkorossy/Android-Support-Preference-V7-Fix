@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
+import android.support.annotation.StringRes;
 import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.preference.DialogPreference;
 import android.support.v7.preference.Preference;
@@ -14,6 +15,7 @@ import android.util.AttributeSet;
 import com.takisoft.fix.support.v7.preference.datetimepicker.R;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,9 +24,13 @@ import java.util.Locale;
 /**
  * A {@link Preference} that displays a time picker as a dialog.
  * <p>
- * This preference will store an integer into the SharedPreferences. This integer will be calculated
- * from the picked time using the following formula: {@code hourOfDay * 60 + minute}.
+ * This preference will save the picked time as a string into the SharedPreferences.
+ * This string uses the 24-hour clock formatted using {@link #FORMAT}.
+ *
+ * @see #PATTERN
+ * @see #FORMAT
  */
+@SuppressWarnings("WeakerAccess")
 public class TimePickerPreference extends DialogPreference {
     /**
      * The pattern that is used for parsing the default value.
@@ -48,11 +54,13 @@ public class TimePickerPreference extends DialogPreference {
     @interface HourFormat {
     }
 
+    private String pickedTime;
     private int hourFormat;
     private int hourOfDay;
     private int minute;
     private String summaryPattern;
-    private CharSequence mSummary;
+    private CharSequence summaryNotPicked;
+    private CharSequence summary;
 
     public TimePickerPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -60,11 +68,12 @@ public class TimePickerPreference extends DialogPreference {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TimePickerPreference, defStyleAttr, 0);
         hourFormat = a.getInt(R.styleable.TimePickerPreference_hourFormat, FORMAT_AUTO);
         summaryPattern = a.getString(R.styleable.TimePickerPreference_summaryTimePattern);
+        summaryNotPicked = a.getText(R.styleable.TimePickerPreference_summaryNoTime);
         hourOfDay = a.getInt(R.styleable.TimePickerPreference_hour, 0);
         minute = a.getInt(R.styleable.TimePickerPreference_minute, 0);
         a.recycle();
 
-        mSummary = super.getSummary();
+        summary = super.getSummary();
     }
 
     public TimePickerPreference(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -157,19 +166,30 @@ public class TimePickerPreference extends DialogPreference {
      * @param minute    The minute of the hour. The valid range is 0-59.
      */
     public void setTime(@IntRange(from = 0, to = 23) int hourOfDay, @IntRange(from = 0, to = 59) int minute) {
-        setInternalTime(hourOfDay * 60 + minute, false);
+        setInternalTime(String.format(Locale.US, "%02d:%02d", hourOfDay, minute), false);
     }
 
-    private void setInternalTime(int totalMinutes, boolean force) {
-        int oldTime = getPersistedInt(this.hourOfDay * 60 + this.minute);
+    private void setInternalTime(String time, boolean force) {
+        String oldTime = getPersistedString(null);
 
-        final boolean changed = oldTime != totalMinutes;
+        final boolean changed = (oldTime != null && !oldTime.equals(time)) || (time != null && !time.equals(oldTime));
 
         if (changed || force) {
-            hourOfDay = totalMinutes / 60;
-            minute = totalMinutes - (hourOfDay * 60);
+            if (!TextUtils.isEmpty(time)) {
+                try {
+                    Date parsed = FORMAT.parse(time);
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(parsed);
 
-            persistInt(totalMinutes);
+                    hourOfDay = cal.get(Calendar.HOUR_OF_DAY);
+                    minute = cal.get(Calendar.MINUTE);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            pickedTime = time;
+            persistString(time == null ? "" : time);
 
             notifyChanged();
         }
@@ -185,22 +205,26 @@ public class TimePickerPreference extends DialogPreference {
      */
     @Override
     public CharSequence getSummary() {
-        if (mSummary == null) {
+        if (summary == null) {
             return super.getSummary();
         } else {
-            DateFormat simpleDateFormat;
-
-            if (TextUtils.isEmpty(summaryPattern)) {
-                simpleDateFormat = android.text.format.DateFormat.getTimeFormat(getContext());
+            if (TextUtils.isEmpty(pickedTime)) {
+                return summaryNotPicked;
             } else {
-                simpleDateFormat = new SimpleDateFormat(summaryPattern, Locale.getDefault());
+                DateFormat simpleDateFormat;
+
+                if (summaryPattern == null) {
+                    simpleDateFormat = android.text.format.DateFormat.getTimeFormat(getContext());
+                } else {
+                    simpleDateFormat = new SimpleDateFormat(summaryPattern, Locale.getDefault());
+                }
+
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                cal.set(Calendar.MINUTE, minute);
+
+                return String.format(summary.toString(), simpleDateFormat.format(cal.getTime()));
             }
-
-            Calendar cal = Calendar.getInstance();
-            cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            cal.set(Calendar.MINUTE, minute);
-
-            return String.format(mSummary.toString(), simpleDateFormat.format(cal.getTime()));
         }
     }
 
@@ -216,21 +240,55 @@ public class TimePickerPreference extends DialogPreference {
     @Override
     public void setSummary(CharSequence summary) {
         super.setSummary(summary);
-        if (summary == null && mSummary != null) {
-            mSummary = null;
-        } else if (summary != null && !summary.equals(mSummary)) {
-            mSummary = summary.toString();
+        if (summary == null && this.summary != null) {
+            this.summary = null;
+        } else if (summary != null && !summary.equals(this.summary)) {
+            this.summary = summary.toString();
         }
+    }
+
+    public CharSequence getSummaryNotPicked() {
+        return summaryNotPicked;
+    }
+
+    /**
+     * Sets the not-picked summary for this Preference with a resource ID. This will be displayed if
+     * the preference has no persisted value yet and the default value is not set.
+     *
+     * @param resId The summary as a resource.
+     * @see #setSummaryNotPicked(CharSequence)
+     */
+    public void setSummaryNotPicked(@StringRes int resId) {
+        setSummaryNotPicked(getContext().getString(resId));
+    }
+
+    /**
+     * Sets the not-picked summary for this Preference with a CharSequence. This will be displayed
+     * if the preference has no persisted value yet and the default value is not set.
+     * If the summary has a {@linkplain java.lang.String#format String formatting}
+     * marker in it (i.e. "%s" or "%1$s"), then the current formatted
+     * date will be substituted in its place when it's retrieved.
+     *
+     * @param summaryNotPicked The summary for the preference.
+     */
+    public void setSummaryNotPicked(CharSequence summaryNotPicked) {
+        if (summaryNotPicked == null && this.summaryNotPicked != null) {
+            this.summaryNotPicked = null;
+        } else if (summaryNotPicked != null && !summaryNotPicked.equals(this.summaryNotPicked)) {
+            this.summaryNotPicked = summaryNotPicked.toString();
+        }
+
+        notifyChanged();
     }
 
     @Override
     protected Object onGetDefaultValue(TypedArray a, int index) {
-        return a.getInt(index, 0);
+        return a.getString(index);
     }
 
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValueObj) {
-        final Integer defaultValue = (Integer) defaultValueObj;
-        setInternalTime(restoreValue ? getPersistedInt(hourOfDay * 60 + minute) : (defaultValue == null ? 0 : defaultValue), true);
+        final String defaultValue = (String) defaultValueObj;
+        setInternalTime(restoreValue ? getPersistedString(null) : (!TextUtils.isEmpty(defaultValue) ? defaultValue : null), true);
     }
 }

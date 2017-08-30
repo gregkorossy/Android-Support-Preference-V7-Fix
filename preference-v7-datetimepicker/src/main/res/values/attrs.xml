@@ -19,6 +19,9 @@
             12-hour format) and 'm' to represent a meaningful value.
         -->
         <attr name="summaryTimePattern" format="string|reference" />
+
+        <!-- The summary to show if no time is selected -->
+        <attr name="summaryNoTime" format="string|reference" />
     </declare-styleable>
 
     <declare-styleable name="DatePickerPreference">
@@ -26,6 +29,8 @@
         <attr name="month" format="integer|reference" />
         <attr name="day" format="integer|reference" />
         <attr name="summaryDatePattern" format="string|reference" />
-        <attr name="summaryNotPicked" format="string|reference" />
+
+        <!-- The summary to show if no date is selected -->
+        <attr name="summaryNoDate" format="string|reference" />
     </declare-styleable>
 </resources>

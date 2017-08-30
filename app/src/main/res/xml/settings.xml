@@ -95,6 +95,7 @@
             android:persistent="false"
             android:summary="Selected time: %s"
             android:title="TimePickerPreference"
+            app:summaryNoTime="Select the perfect time"
             app:hour="21"
             app:hourFormat="auto"
             app:minute="14" />
@@ -103,7 +104,7 @@
             android:persistent="false"
             android:summary="Selected date: %s"
             android:title="DatePickerPreference"
-            app:summaryNotPicked="Select a date" />
+            app:summaryNoDate="Select a date" />
     </PreferenceCategory>
     <PreferenceCategory
         android:key="pref_categ"

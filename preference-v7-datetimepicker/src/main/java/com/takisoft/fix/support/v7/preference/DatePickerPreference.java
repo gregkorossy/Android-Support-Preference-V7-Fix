@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+@SuppressWarnings("WeakerAccess")
 public class DatePickerPreference extends DialogPreference {
     /**
      * The pattern that is used for parsing the default value.
@@ -48,11 +49,11 @@ public class DatePickerPreference extends DialogPreference {
         Calendar calendar = Calendar.getInstance();
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DatePickerPreference, defStyleAttr, 0);
-        year = a.getInt(R.styleable.DatePickerPreference_year, calendar.get(Calendar.YEAR)); // FIXME not good like this because we don't display the values now
-        month = a.getInt(R.styleable.DatePickerPreference_month, calendar.get(Calendar.MONTH)); // FIXME
-        day = a.getInt(R.styleable.DatePickerPreference_day, calendar.get(Calendar.DATE)); // FIXME
+        year = a.getInt(R.styleable.DatePickerPreference_year, calendar.get(Calendar.YEAR));
+        month = a.getInt(R.styleable.DatePickerPreference_month, calendar.get(Calendar.MONTH));
+        day = a.getInt(R.styleable.DatePickerPreference_day, calendar.get(Calendar.DATE));
         summaryPattern = a.getString(R.styleable.DatePickerPreference_summaryDatePattern);
-        summaryNotPicked = a.getText(R.styleable.DatePickerPreference_summaryNotPicked);
+        summaryNotPicked = a.getText(R.styleable.DatePickerPreference_summaryNoDate);
         a.recycle();
 
         summary = super.getSummary();
