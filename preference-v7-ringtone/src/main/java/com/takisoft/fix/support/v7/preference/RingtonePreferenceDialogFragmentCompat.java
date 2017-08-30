@@ -9,11 +9,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.CursorWrapper;
+import android.database.MatrixCursor;
+import android.database.MergeCursor;
 import android.media.MediaScannerConnection;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.OpenableColumns;
@@ -28,7 +32,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.MimeTypeMap;
-import android.widget.CheckedTextView;
+import android.widget.CursorAdapter;
+import android.widget.HeaderViewListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -43,7 +48,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import static android.app.Activity.RESULT_OK;
@@ -54,10 +58,14 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
     private static final int CUSTOM_RINGTONE_REQUEST_CODE = 0x9000;
     private static final int WRITE_FILES_PERMISSION_REQUEST_CODE = 0x9001;
 
-    private RingtoneManager ringtoneManager;
-    private int selectedIndex = -1;
+    private static final String CURSOR_DEFAULT_ID = "-2";
+    private static final String CURSOR_NONE_ID = "-1";
 
-    private boolean prepared;
+    private int selectedIndex = -1;
+    private Cursor cursor;
+
+    private RingtoneManager ringtoneManager;
+    private Ringtone defaultRingtone;
 
     public static RingtonePreferenceDialogFragmentCompat newInstance(String key) {
         RingtonePreferenceDialogFragmentCompat fragment = new RingtonePreferenceDialogFragmentCompat();
@@ -74,11 +82,26 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        ringtoneManager = new RingtoneManager(context);
-        prepared = false;
+        //ringtoneManager = new RingtoneManager(context);
     }
 
-    private Ringtone defaultRingtone;
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        stopPlaying();
+    }
+
+
+    private void stopPlaying() {
+        if (defaultRingtone != null) {
+            defaultRingtone.stop();
+        }
+
+        if (ringtoneManager != null) {
+            ringtoneManager.stopPreviousRingtone();
+        }
+    }
 
     @Override
     protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
@@ -86,101 +109,49 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
 
         RingtonePreference ringtonePreference = getRingtonePreference();
 
-        if (!prepared) {
-            ringtoneManager.setType(ringtonePreference.getRingtoneType());
-        }
-        ringtoneManager.setStopPreviousRingtone(true);
+        createCursor(ringtonePreference.getRingtone());
 
-        prepared = true;
-
-        Cursor cursor = ringtoneManager.getCursor();
-
-        final List<String> ringtoneList = new ArrayList<>(cursor.getCount());
+        String colTitle = cursor.getColumnName(RingtoneManager.TITLE_COLUMN_INDEX);
 
         final Context context = getContext();
-
-        final Uri ringtoneUri = ringtonePreference.getRingtone();
 
         final int ringtoneType = ringtonePreference.getRingtoneType();
         final boolean showDefault = ringtonePreference.getShowDefault();
         final boolean showSilent = ringtonePreference.getShowSilent();
-        final boolean showAdd = true; // TODO from ringtonePreference
         final Uri defaultUri;
 
         if (showDefault) {
             defaultUri = RingtoneManager.getDefaultUri(ringtoneType);
-            switch (ringtoneType) {
-                case RingtoneManager.TYPE_ALARM:
-                    ringtoneList.add(getString(R.string.alarm_sound_default));
-                    break;
-                case RingtoneManager.TYPE_NOTIFICATION:
-                    ringtoneList.add(getString(R.string.notification_sound_default));
-                    break;
-                case RingtoneManager.TYPE_RINGTONE:
-                case RingtoneManager.TYPE_ALL:
-                default:
-                    ringtoneList.add(getString(R.string.ringtone_default));
-                    break;
-            }
         } else {
             defaultUri = null;
         }
 
-        if (showSilent) {
-            ringtoneList.add(getString(R.string.ringtone_silent));
-        }
-
-        if (cursor.moveToFirst()) {
-            do {
-                ringtoneList.add(cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX));
-            } while (cursor.moveToNext());
-        }
-
-        selectedIndex = ringtoneManager.getRingtonePosition(ringtoneUri);
-        if (selectedIndex >= 0) {
-            selectedIndex += (showDefault ? 1 : 0) + (showSilent ? 1 : 0);
-        }
-
-        if (selectedIndex < 0 && showDefault) {
-            if (RingtoneManager.getDefaultType(ringtoneUri) != -1) {
-                selectedIndex = 0;
-            }
-        }
-
-        if (selectedIndex < 0 && showSilent) {
-            selectedIndex = showDefault ? 1 : 0;
-        }
-
-        final int listSize = ringtoneList.size() + (showAdd ? 1 : 0);
-
         builder
-                .setSingleChoiceItems(ringtoneList.toArray(new String[0]), selectedIndex, new DialogInterface.OnClickListener() {
+                .setSingleChoiceItems(cursor, selectedIndex, colTitle, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        selectedIndex = i;
+                        if (i < cursor.getCount()) {
+                            selectedIndex = i;
 
-                        int realIdx = i - (showDefault ? 1 : 0) - (showSilent ? 1 : 0);
+                            int realIdx = i - (showDefault ? 1 : 0) - (showSilent ? 1 : 0);
 
-                        if (defaultRingtone != null) {
-                            defaultRingtone.stop();
-                        }
+                            stopPlaying();
 
-                        ringtoneManager.stopPreviousRingtone();
-
-                        if (showDefault && i == 0) {
-                            if (defaultRingtone != null) {
-                                defaultRingtone.play();
+                            if (showDefault && i == 0) {
+                                if (defaultRingtone != null) {
+                                    defaultRingtone.play();
+                                } else {
+                                    defaultRingtone = RingtoneManager.getRingtone(context, defaultUri);
+                                    defaultRingtone.play();
+                                }
+                            } else if (((showDefault && i == 1) || (!showDefault && i == 0)) && showSilent) {
+                                ringtoneManager.stopPreviousRingtone(); // "playing" silence
                             } else {
-                                defaultRingtone = RingtoneManager.getRingtone(context, defaultUri);
-                                defaultRingtone.play();
+                                Ringtone ringtone = ringtoneManager.getRingtone(realIdx);
+                                ringtone.play();
                             }
-                        } else if (((showDefault && i == 1) || (!showDefault && i == 0)) && showSilent) {
-                            ringtoneManager.stopPreviousRingtone(); // "playing" silence
-                        } else if (showAdd && i == listSize - 1) {
-                            newRingtone();
                         } else {
-                            Ringtone ringtone = ringtoneManager.getRingtone(realIdx);
-                            ringtone.play();
+                            newRingtone();
                         }
                     }
                 })
@@ -204,9 +175,11 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog dialog = (AlertDialog) super.onCreateDialog(savedInstanceState);
 
-        ListView listView = dialog.getListView();
-        View addRingtoneView = LayoutInflater.from(listView.getContext()).inflate(R.layout.add_ringtone_item, listView, false);
-        listView.addFooterView(addRingtoneView);
+        if (getRingtonePreference().getShowAdd()) {
+            ListView listView = dialog.getListView();
+            View addRingtoneView = LayoutInflater.from(listView.getContext()).inflate(R.layout.add_ringtone_item, listView, false);
+            listView.addFooterView(addRingtoneView);
+        }
 
         return dialog;
     }
@@ -244,54 +217,113 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
         }
     }
 
+    @NonNull
+    private Cursor createCursor(Uri ringtoneUri) {
+        RingtonePreference ringtonePreference = getRingtonePreference();
+        ringtoneManager = new RingtoneManager(getActivity());
+
+        ringtoneManager.setType(ringtonePreference.getRingtoneType());
+        ringtoneManager.setStopPreviousRingtone(true);
+
+        Cursor ringtoneCursor = ringtoneManager.getCursor();
+
+        String colId = ringtoneCursor.getColumnName(RingtoneManager.ID_COLUMN_INDEX);
+        String colTitle = ringtoneCursor.getColumnName(RingtoneManager.TITLE_COLUMN_INDEX);
+
+        MatrixCursor extras = new MatrixCursor(new String[]{colId, colTitle});
+
+        final int ringtoneType = ringtonePreference.getRingtoneType();
+        final boolean showDefault = ringtonePreference.getShowDefault();
+        final boolean showSilent = ringtonePreference.getShowSilent();
+
+        if (showDefault) {
+            switch (ringtoneType) {
+                case RingtoneManager.TYPE_ALARM:
+                    extras.addRow(new String[]{CURSOR_DEFAULT_ID, getString(R.string.alarm_sound_default)});
+                    break;
+                case RingtoneManager.TYPE_NOTIFICATION:
+                    extras.addRow(new String[]{CURSOR_DEFAULT_ID, getString(R.string.notification_sound_default)});
+                    break;
+                case RingtoneManager.TYPE_RINGTONE:
+                case RingtoneManager.TYPE_ALL:
+                default:
+                    extras.addRow(new String[]{CURSOR_DEFAULT_ID, getString(R.string.ringtone_default)});
+                    break;
+            }
+        }
+
+        if (showSilent) {
+            extras.addRow(new String[]{CURSOR_NONE_ID, getString(R.string.ringtone_silent)});
+        }
+
+        selectedIndex = ringtoneManager.getRingtonePosition(ringtoneUri);
+        if (selectedIndex >= 0) {
+            selectedIndex += (showDefault ? 1 : 0) + (showSilent ? 1 : 0);
+        }
+
+        if (selectedIndex < 0 && showDefault) {
+            if (RingtoneManager.getDefaultType(ringtoneUri) != -1) {
+                selectedIndex = 0;
+            }
+        }
+
+        if (selectedIndex < 0 && showSilent) {
+            selectedIndex = showDefault ? 1 : 0;
+        }
+
+        Cursor[] cursors = {extras, ringtoneCursor};
+        return this.cursor = new MergeCursor(cursors);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CUSTOM_RINGTONE_REQUEST_CODE && resultCode == RESULT_OK) {
-            final Uri fileUri = data.getData();
-            final Context context = getContext();
+        if (requestCode == CUSTOM_RINGTONE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                final Uri fileUri = data.getData();
+                final Context context = getContext();
 
-            final RingtonePreference ringtonePreference = getRingtonePreference();
-            final int ringtoneType = ringtonePreference.getRingtoneType();
+                final RingtonePreference ringtonePreference = getRingtonePreference();
+                final int ringtoneType = ringtonePreference.getRingtoneType();
 
-            // FIXME static field leak
-            @SuppressLint("StaticFieldLeak") final AsyncTask<Uri, Void, Uri> installTask = new AsyncTask<Uri, Void, Uri>() {
-                @Override
-                protected Uri doInBackground(Uri... params) {
-                    try {
-                        Log.d(TAG, "Adding ringtone: " + params[0]);
-                        return addCustomExternalRingtone(context, params[0], ringtoneType);
-                    } catch (IOException | IllegalArgumentException e) {
-                        Log.e(TAG, "Unable to add new ringtone", e);
+                // FIXME static field leak
+                @SuppressLint("StaticFieldLeak") final AsyncTask<Uri, Void, Uri> installTask = new AsyncTask<Uri, Void, Uri>() {
+                    @Override
+                    protected Uri doInBackground(Uri... params) {
+                        try {
+                            Log.d(TAG, "Adding ringtone: " + params[0]);
+                            Uri newUri = addCustomExternalRingtone(context, params[0], ringtoneType);
+
+                            ListView listView = ((AlertDialog) getDialog()).getListView();
+                            //((CursorAdapter) ((HeaderViewListAdapter) listView.getAdapter()).getWrappedAdapter()).changeCursor(createCursor(newUri));
+
+                            return newUri;
+                        } catch (IOException | IllegalArgumentException e) {
+                            Log.e(TAG, "Unable to add new ringtone", e);
+                        }
+                        return null;
                     }
-                    return null;
-                }
 
-                @Override
-                protected void onPostExecute(Uri ringtoneUri) {
-                    if (ringtoneUri != null) {
-                        // TODO requeryForAdapter();
+                    @Override
+                    protected void onPostExecute(final Uri ringtoneUri) {
+                        if (ringtoneUri != null) {
+                            final ListView listView = ((AlertDialog) getDialog()).getListView();
+                            final CursorAdapter adapter = ((CursorAdapter) ((HeaderViewListAdapter) listView.getAdapter()).getWrappedAdapter());
 
-                        /*ListView listView = ((AlertDialog) getDialog()).getListView();
-                        View addRingtoneView = LayoutInflater.from(listView.getContext()).inflate(android.support.v7.appcompat.R.layout.select_dialog_singlechoice_material, listView, false);
-                        listView.addFooterView(addRingtoneView);*/
-
-                        //((AlertDialog) getDialog()).getListView().addFooterView();
-
-                        Log.d(TAG, "Ringtone added: " + ringtoneUri);
-                    } else {
-                        // Ringtone was not added, display error Toast
-                        Toast.makeText(context, ":(", Toast.LENGTH_SHORT).show();
+                            adapter.changeCursor(createCursor(ringtoneUri));
+                            listView.setItemChecked(selectedIndex, true);
+                            listView.setSelection(selectedIndex);
+                            listView.clearFocus();
+                        } else {
+                            // Ringtone was not added, display error Toast
+                            Toast.makeText(context, ":(", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-            };
-            installTask.execute(fileUri);
-
-            /*try {
-                Uri uri = addCustomExternalRingtone(context, fileUri, ringtoneType);
-                Log.d(TAG, "custom uri: " + uri);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
+                };
+                installTask.execute(fileUri);
+            } else {
+                ListView listView = ((AlertDialog) getDialog()).getListView();
+                listView.setItemChecked(selectedIndex, true);
+            }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -310,13 +342,12 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
         boolean hasPerm = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
         Log.d(TAG, "has WRITE permission: " + hasPerm);
 
-        ListView listView = ((AlertDialog) getDialog()).getListView();
-        View addRingtoneView = LayoutInflater.from(listView.getContext()).inflate(android.support.v7.appcompat.R.layout.select_dialog_singlechoice_material, listView, false);
+        /*View addRingtoneView = LayoutInflater.from(listView.getContext()).inflate(android.support.v7.appcompat.R.layout.select_dialog_singlechoice_material, listView, false);
         CheckedTextView tv = addRingtoneView.findViewById(android.R.id.text1);
         tv.setText("Test " + System.currentTimeMillis());
-        listView.addFooterView(addRingtoneView);
+        listView.addFooterView(addRingtoneView);*/
 
-        /*if (hasPerm) {
+        if (hasPerm) {
             final Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
             chooseFile.setType("audio/*");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -325,18 +356,34 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
             startActivityForResult(chooseFile, CUSTOM_RINGTONE_REQUEST_CODE);
         } else {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_FILES_PERMISSION_REQUEST_CODE);
-        }*/
+        }
     }
 
     @WorkerThread
-    public Uri addCustomExternalRingtone(Context context, @NonNull final Uri fileUri, final int type)
+    public Uri addCustomExternalRingtone(Context context, @NonNull Uri fileUri, final int type)
             throws IOException {
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             throw new IOException("External storage is not mounted. Unable to install ringtones.");
         }
 
         // Sanity-check: are we actually being asked to install an audio file?
-        final String mimeType = context.getContentResolver().getType(fileUri);
+        Log.d(TAG, "addCustomExternalRingtone - uri: " + fileUri);
+
+        if (ContentResolver.SCHEME_FILE.equals(fileUri.getScheme())) {
+            fileUri = Uri.fromFile(new File(fileUri.getPath()));
+            Log.d(TAG, "addCustomExternalRingtone - new: " + fileUri);
+        }
+
+        String mimeType = context.getContentResolver().getType(fileUri);
+
+        if (mimeType == null) {
+            Log.d(TAG, "addCustomExternalRingtone - mimeType fallback");
+            String fileExtension = MimeTypeMap.getFileExtensionFromUrl(fileUri
+                    .toString());
+            mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+                    fileExtension.toLowerCase());
+        }
+
         if (mimeType == null || !(mimeType.startsWith("audio/") || mimeType.equals("application/ogg"))) {
             throw new IllegalArgumentException("Ringtone file must have MIME type \"audio/*\"."
                     + " Given file has MIME type \"" + mimeType + "\"");
@@ -563,6 +610,75 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
 
         private Uri take() throws InterruptedException {
             return mQueue.take();
+        }
+    }
+
+    private class MyCursor extends CursorWrapper {
+        public static final String TAG = "MyCursor";
+        private RingtonePreference ringtonePreference;
+
+        private final int headOffset;
+        private final int tailOffset;
+
+        private final boolean showDefault;
+        private final boolean showSilent;
+        private final boolean showAdd;
+
+        private ArrayList<String> headElems;
+
+        private MyCursor(Cursor cursor) {
+            super(cursor);
+            ringtonePreference = getRingtonePreference();
+
+            final int ringtoneType = ringtonePreference.getRingtoneType();
+            showDefault = ringtonePreference.getShowDefault();
+            showSilent = ringtonePreference.getShowSilent();
+            showAdd = ringtonePreference.getShowAdd();
+            final Uri defaultUri;
+
+            headOffset = (showSilent ? 1 : 0) + (showDefault ? 1 : 0);
+            tailOffset = (showAdd ? 1 : 0);
+
+            headElems = new ArrayList<>(headOffset);
+
+            if (showDefault) {
+                defaultUri = RingtoneManager.getDefaultUri(ringtoneType);
+                switch (ringtoneType) {
+                    case RingtoneManager.TYPE_ALARM:
+                        headElems.add(RingtonePreferenceDialogFragmentCompat.this.getString(R.string.alarm_sound_default));
+                        break;
+                    case RingtoneManager.TYPE_NOTIFICATION:
+                        headElems.add(RingtonePreferenceDialogFragmentCompat.this.getString(R.string.notification_sound_default));
+                        break;
+                    case RingtoneManager.TYPE_RINGTONE:
+                    case RingtoneManager.TYPE_ALL:
+                    default:
+                        headElems.add(RingtonePreferenceDialogFragmentCompat.this.getString(R.string.ringtone_default));
+                        break;
+                }
+            } else {
+                defaultUri = null;
+            }
+
+            if (showSilent) {
+                headElems.add(RingtonePreferenceDialogFragmentCompat.this.getString(R.string.ringtone_silent));
+            }
+        }
+
+        @Override
+        public String getString(int columnIndex) {
+            int pos = getPosition();
+
+            if (pos < headOffset) {
+                headElems.get(pos);
+            }
+
+            return super.getString(columnIndex);
+        }
+
+        @Override
+        public int getCount() {
+            return super.getCount();// + headOffset;
         }
     }
 }
