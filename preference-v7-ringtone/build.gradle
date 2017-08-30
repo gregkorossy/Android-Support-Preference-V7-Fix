@@ -9,6 +9,8 @@ android {
         targetSdkVersion rootProject.sdkVersion
         versionCode 1
         versionName "1.0.0"
+
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -46,6 +48,7 @@ dependencies {
     implementation project(':preference-v7')
     implementation "com.android.support:preference-v7:${rootProject.supportLibraryVersion}"
     implementation "com.android.support:preference-v14:${rootProject.supportLibraryVersion}"
+    implementation "com.android.support:appcompat-v7:${rootProject.supportLibraryVersion}"
 }
 
 apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
