@@ -1,7 +1,10 @@
 package com.takisoft.fix.support.v7.preference;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -21,6 +24,7 @@ public class RingtonePreference extends DialogPreference {
     private int ringtoneType;
     private boolean showDefault;
     private boolean showSilent;
+    private boolean showAdd;
 
     private Uri ringtoneUri;
 
@@ -52,6 +56,10 @@ public class RingtonePreference extends DialogPreference {
         ringtoneType = proxyPreference.getRingtoneType();
         showDefault = proxyPreference.getShowDefault();
         showSilent = proxyPreference.getShowSilent();
+
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RingtonePreference, defStyleAttr, 0);
+        showAdd = a.getBoolean(R.styleable.RingtonePreference_showAdd, true);
+        a.recycle();
     }
 
     public RingtonePreference(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -124,6 +132,48 @@ public class RingtonePreference extends DialogPreference {
      */
     public void setShowSilent(boolean showSilent) {
         this.showSilent = showSilent;
+    }
+
+    /**
+     * Returns whether to a show an item for 'Add new ringtone'.
+     * <p>
+     * Note that this requires {@link android.Manifest.permission#WRITE_EXTERNAL_STORAGE}. If it's
+     * not supplied in the manifest, the item won't be displayed.
+     *
+     * @return Whether to show an item for 'Add new ringtone'.
+     */
+    public boolean getShowAdd() {
+        return showAdd;
+    }
+
+    boolean shouldShowAdd() {
+        if (showAdd) {
+            try {
+                PackageInfo pInfo = getContext().getPackageManager().getPackageInfo(getContext().getPackageName(), PackageManager.GET_PERMISSIONS);
+                String[] permissions = pInfo.requestedPermissions;
+                for (String permission : permissions) {
+                    if (Manifest.permission.WRITE_EXTERNAL_STORAGE.equals(permission)) {
+                        return true;
+                    }
+                }
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Sets whether to show an item for 'Add new ringtone'.
+     * <p>
+     * Note that this requires {@link android.Manifest.permission#WRITE_EXTERNAL_STORAGE}. If it's
+     * not supplied in the manifest, the item won't be displayed.
+     *
+     * @param showAdd Whether to show 'Add new ringtone'.
+     */
+    public void setShowAdd(boolean showAdd) {
+        this.showAdd = showAdd;
     }
 
     public Uri getRingtone() {
