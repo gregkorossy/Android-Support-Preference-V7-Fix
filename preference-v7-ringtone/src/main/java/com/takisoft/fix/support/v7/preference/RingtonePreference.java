@@ -3,6 +3,7 @@ package com.takisoft.fix.support.v7.preference;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
@@ -21,12 +22,18 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 public class RingtonePreference extends DialogPreference {
+    private static final int CUSTOM_RINGTONE_REQUEST_CODE = 0x9000;
+    private static final int WRITE_FILES_PERMISSION_REQUEST_CODE = 0x9001;
+
     private int ringtoneType;
     private boolean showDefault;
     private boolean showSilent;
     private boolean showAdd;
 
     private Uri ringtoneUri;
+
+    private int miscCustomRingtoneRequestCode = CUSTOM_RINGTONE_REQUEST_CODE;
+    private int miscPermissionRequestCode = WRITE_FILES_PERMISSION_REQUEST_CODE;
 
     @IntDef({
             RingtoneManager.TYPE_ALL,
@@ -174,6 +181,60 @@ public class RingtonePreference extends DialogPreference {
      */
     public void setShowAdd(boolean showAdd) {
         this.showAdd = showAdd;
+    }
+
+    /**
+     * This request code that will be used to start the file picker activity that the user can use
+     * to add new ringtones. The new ringtone will be delivered to
+     * {@link RingtonePreferenceDialogFragmentCompat#onActivityResult(int, int, Intent)}.
+     * <p>
+     * The default value equals to {@link #CUSTOM_RINGTONE_REQUEST_CODE}
+     * ({@value CUSTOM_RINGTONE_REQUEST_CODE}).
+     */
+    public int getCustomRingtoneRequestCode() {
+        return miscCustomRingtoneRequestCode;
+    }
+
+    /**
+     * This request code that will be used to start the file picker activity that the user can use
+     * to add new ringtones. The new ringtone will be delivered to
+     * {@link RingtonePreferenceDialogFragmentCompat#onActivityResult(int, int, Intent)}.
+     * <p>
+     * The default value equals to {@link #CUSTOM_RINGTONE_REQUEST_CODE}
+     * ({@value CUSTOM_RINGTONE_REQUEST_CODE}).
+     *
+     * @param customRingtoneRequestCode the request code for the file picker
+     */
+    public void setCustomRingtoneRequestCode(int customRingtoneRequestCode) {
+        this.miscCustomRingtoneRequestCode = customRingtoneRequestCode;
+    }
+
+    /**
+     * This request code that will be used to ask for user permission to save (write) new ringtone
+     * to one of the public external storage directories (only applies to API 23+). The result will
+     * be delivered to
+     * {@link RingtonePreferenceDialogFragmentCompat#onRequestPermissionsResult(int, String[], int[])}.
+     * <p>
+     * The default value equals to {@link #WRITE_FILES_PERMISSION_REQUEST_CODE}
+     * ({@value WRITE_FILES_PERMISSION_REQUEST_CODE}).
+     */
+    public int getPermissionRequestCode() {
+        return miscPermissionRequestCode;
+    }
+
+    /**
+     * This request code that will be used to ask for user permission to save (write) new ringtone
+     * to one of the public external storage directories (only applies to API 23+). The result will
+     * be delivered to
+     * {@link RingtonePreferenceDialogFragmentCompat#onRequestPermissionsResult(int, String[], int[])}.
+     * <p>
+     * The default value equals to {@link #WRITE_FILES_PERMISSION_REQUEST_CODE}
+     * ({@value WRITE_FILES_PERMISSION_REQUEST_CODE}).
+     *
+     * @param permissionRequestCode the request code for the file picker
+     */
+    public void setPermissionRequestCode(int permissionRequestCode) {
+        this.miscPermissionRequestCode = permissionRequestCode;
     }
 
     public Uri getRingtone() {

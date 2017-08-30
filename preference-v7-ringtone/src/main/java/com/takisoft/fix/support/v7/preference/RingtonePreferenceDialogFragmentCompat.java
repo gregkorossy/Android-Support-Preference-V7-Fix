@@ -53,9 +53,6 @@ import static android.app.Activity.RESULT_OK;
 public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFragmentCompat {
     private static final String TAG = "RingtonePrefDialog";
 
-    private static final int CUSTOM_RINGTONE_REQUEST_CODE = 0x9000;
-    private static final int WRITE_FILES_PERMISSION_REQUEST_CODE = 0x9001;
-
     private static final String CURSOR_DEFAULT_ID = "-2";
     private static final String CURSOR_NONE_ID = "-1";
 
@@ -80,7 +77,6 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        //ringtoneManager = new RingtoneManager(context);
     }
 
     @Override
@@ -163,7 +159,6 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
                         RingtonePreferenceDialogFragmentCompat.this.onDismiss(dialogInterface);
                     }
                 })
-                //.setTitle(R.string.ringtone_picker_title)
                 .setNegativeButton(android.R.string.cancel, this)
                 .setPositiveButton(android.R.string.ok, this);
     }
@@ -269,7 +264,7 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CUSTOM_RINGTONE_REQUEST_CODE) {
+        if (requestCode == getRingtonePreference().getCustomRingtoneRequestCode()) {
             if (resultCode == RESULT_OK) {
                 final Uri fileUri = data.getData();
                 final Context context = getContext();
@@ -282,15 +277,11 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
                     @Override
                     protected Cursor doInBackground(Uri... params) {
                         try {
-                            Log.d(TAG, "Adding ringtone: " + params[0]);
                             Uri newUri = addCustomExternalRingtone(context, params[0], ringtoneType);
-
-                            ListView listView = ((AlertDialog) getDialog()).getListView();
-                            //((CursorAdapter) ((HeaderViewListAdapter) listView.getAdapter()).getWrappedAdapter()).changeCursor(createCursor(newUri));
 
                             return createCursor(newUri);
                         } catch (IOException | IllegalArgumentException e) {
-                            Log.e(TAG, "Unable to add new ringtone", e);
+                            Log.e(TAG, "Unable to add new ringtone: ", e);
                         }
                         return null;
                     }
@@ -322,7 +313,7 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == WRITE_FILES_PERMISSION_REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == getRingtonePreference().getPermissionRequestCode() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             newRingtone();
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -337,14 +328,14 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 chooseFile.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"audio/*", "application/ogg"});
             }
-            startActivityForResult(chooseFile, CUSTOM_RINGTONE_REQUEST_CODE);
+            startActivityForResult(chooseFile, getRingtonePreference().getCustomRingtoneRequestCode());
         } else {
-            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_FILES_PERMISSION_REQUEST_CODE);
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, getRingtonePreference().getPermissionRequestCode());
         }
     }
 
     @WorkerThread
-    public Uri addCustomExternalRingtone(Context context, @NonNull Uri fileUri, final int type)
+    public static Uri addCustomExternalRingtone(Context context, @NonNull Uri fileUri, final int type)
             throws IOException {
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             throw new IOException("External storage is not mounted. Unable to install ringtones.");
@@ -390,7 +381,7 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
 
             NewRingtoneScanner scanner = null;
             try {
-                scanner = new NewRingtoneScanner(outFile);
+                scanner = new NewRingtoneScanner(context, outFile);
                 return scanner.take();
             } catch (InterruptedException e) {
                 throw new IOException("Audio file failed to scan as a ringtone", e);
@@ -546,14 +537,14 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
      * It uses a {@link java.util.concurrent.LinkedBlockingQueue} so that the caller can block until
      * the scan is completed.
      */
-    private class NewRingtoneScanner implements Closeable, MediaScannerConnection.MediaScannerConnectionClient {
+    private static class NewRingtoneScanner implements Closeable, MediaScannerConnection.MediaScannerConnectionClient {
         private MediaScannerConnection mMediaScannerConnection;
         private File mFile;
         private LinkedBlockingQueue<Uri> mQueue = new LinkedBlockingQueue<>(1);
 
-        private NewRingtoneScanner(File file) {
+        private NewRingtoneScanner(Context context, File file) {
             mFile = file;
-            mMediaScannerConnection = new MediaScannerConnection(getContext(), this);
+            mMediaScannerConnection = new MediaScannerConnection(context, this);
             mMediaScannerConnection.connect();
         }
 
