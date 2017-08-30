@@ -184,24 +184,24 @@ public class RingtonePreference extends DialogPreference {
     }
 
     /**
-     * This request code that will be used to start the file picker activity that the user can use
+     * This request code will be used to start the file picker activity that the user can use
      * to add new ringtones. The new ringtone will be delivered to
      * {@link RingtonePreferenceDialogFragmentCompat#onActivityResult(int, int, Intent)}.
      * <p>
      * The default value equals to {@link #CUSTOM_RINGTONE_REQUEST_CODE}
-     * ({@value CUSTOM_RINGTONE_REQUEST_CODE}).
+     * ({@value #CUSTOM_RINGTONE_REQUEST_CODE}).
      */
     public int getCustomRingtoneRequestCode() {
         return miscCustomRingtoneRequestCode;
     }
 
     /**
-     * This request code that will be used to start the file picker activity that the user can use
-     * to add new ringtones. The new ringtone will be delivered to
+     * Sets the request code that will be used to start the file picker activity that the user can
+     * use to add new ringtones. The new ringtone will be delivered to
      * {@link RingtonePreferenceDialogFragmentCompat#onActivityResult(int, int, Intent)}.
      * <p>
      * The default value equals to {@link #CUSTOM_RINGTONE_REQUEST_CODE}
-     * ({@value CUSTOM_RINGTONE_REQUEST_CODE}).
+     * ({@value #CUSTOM_RINGTONE_REQUEST_CODE}).
      *
      * @param customRingtoneRequestCode the request code for the file picker
      */
@@ -210,26 +210,26 @@ public class RingtonePreference extends DialogPreference {
     }
 
     /**
-     * This request code that will be used to ask for user permission to save (write) new ringtone
+     * This request code will be used to ask for user permission to save (write) new ringtone
      * to one of the public external storage directories (only applies to API 23+). The result will
      * be delivered to
      * {@link RingtonePreferenceDialogFragmentCompat#onRequestPermissionsResult(int, String[], int[])}.
      * <p>
      * The default value equals to {@link #WRITE_FILES_PERMISSION_REQUEST_CODE}
-     * ({@value WRITE_FILES_PERMISSION_REQUEST_CODE}).
+     * ({@value #WRITE_FILES_PERMISSION_REQUEST_CODE}).
      */
     public int getPermissionRequestCode() {
         return miscPermissionRequestCode;
     }
 
     /**
-     * This request code that will be used to ask for user permission to save (write) new ringtone
-     * to one of the public external storage directories (only applies to API 23+). The result will
-     * be delivered to
+     * Sets the request code that will be used to ask for user permission to save (write) new
+     * ringtone to one of the public external storage directories (only applies to API 23+). The
+     * result will be delivered to
      * {@link RingtonePreferenceDialogFragmentCompat#onRequestPermissionsResult(int, String[], int[])}.
      * <p>
      * The default value equals to {@link #WRITE_FILES_PERMISSION_REQUEST_CODE}
-     * ({@value WRITE_FILES_PERMISSION_REQUEST_CODE}).
+     * ({@value #WRITE_FILES_PERMISSION_REQUEST_CODE}).
      *
      * @param permissionRequestCode the request code for the file picker
      */
