@@ -105,6 +105,7 @@
             android:persistent="false"
             android:summary="Selected date: %s"
             android:title="DatePickerPreference"
+            app:minDate="08/31/2017"
             app:summaryNoDate="Select a date" />
     </PreferenceCategory>
     <PreferenceCategory

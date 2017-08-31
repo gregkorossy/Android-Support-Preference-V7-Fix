@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.IntRange;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.preference.DialogPreference;
@@ -35,23 +36,46 @@ public class DatePickerPreference extends DialogPreference {
         PreferenceFragmentCompat.addDialogPreference(DatePickerPreference.class, DatePickerPreferenceDialogFragmentCompat.class);
     }
 
-    private String pickedDate;
-    private int year;
-    private int month;
-    private int day;
     private String summaryPattern;
     private CharSequence summaryNotPicked;
     private CharSequence summary;
 
+    private Date date;
+    private Date pickerDate, minDate, maxDate;
+
     public DatePickerPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
-        Calendar calendar = Calendar.getInstance();
-
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DatePickerPreference, defStyleAttr, 0);
-        year = a.getInt(R.styleable.DatePickerPreference_year, calendar.get(Calendar.YEAR));
-        month = a.getInt(R.styleable.DatePickerPreference_month, calendar.get(Calendar.MONTH));
-        day = a.getInt(R.styleable.DatePickerPreference_day, calendar.get(Calendar.DATE));
+
+        String pickerDate = a.getString(R.styleable.DatePickerPreference_pickerDate);
+        String minDate = a.getString(R.styleable.DatePickerPreference_minDate);
+        String maxDate = a.getString(R.styleable.DatePickerPreference_maxDate);
+
+        if (!TextUtils.isEmpty(pickerDate)) {
+            try {
+                this.pickerDate = FORMAT.parse(pickerDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (!TextUtils.isEmpty(minDate)) {
+            try {
+                this.minDate = FORMAT.parse(minDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (!TextUtils.isEmpty(maxDate)) {
+            try {
+                this.maxDate = FORMAT.parse(maxDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
         summaryPattern = a.getString(R.styleable.DatePickerPreference_summaryDatePattern);
         summaryNotPicked = a.getText(R.styleable.DatePickerPreference_summaryNoDate);
         a.recycle();
@@ -73,18 +97,20 @@ public class DatePickerPreference extends DialogPreference {
         this(context, null);
     }
 
-    public int getYear() {
-        return year;
+    @Nullable
+    public Date getDate() {
+        return date;
     }
 
-    @IntRange(from = 0)
-    public int getMonth() {
-        return month;
-    }
+    public void setDate(@Nullable Date date) {
+        if (date == null) {
+            setInternalDate(null, false);
+        } else {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
 
-    @IntRange(from = 1, to = 31)
-    public int getDay() {
-        return day;
+            setInternalDate(FORMAT.format(cal.getTime()), false);
+        }
     }
 
     public void setDate(int year, @IntRange(from = 0) int month, @IntRange(from = 1, to = 31) int day) {
@@ -96,7 +122,31 @@ public class DatePickerPreference extends DialogPreference {
         setInternalDate(FORMAT.format(cal.getTime()), false);
     }
 
-    private void setInternalDate(String date, boolean force) {
+    public Date getPickerDate() {
+        return pickerDate;
+    }
+
+    public void setPickerDate(Date pickerDate) {
+        this.pickerDate = pickerDate;
+    }
+
+    public Date getMinDate() {
+        return minDate;
+    }
+
+    public void setMinDate(Date minDate) {
+        this.minDate = minDate;
+    }
+
+    public Date getMaxDate() {
+        return maxDate;
+    }
+
+    public void setMaxDate(Date maxDate) {
+        this.maxDate = maxDate;
+    }
+
+    private void setInternalDate(@Nullable String date, boolean force) {
         String oldDate = getPersistedString(null);
 
         final boolean changed = (oldDate != null && !oldDate.equals(date)) || (date != null && !date.equals(oldDate));
@@ -104,19 +154,16 @@ public class DatePickerPreference extends DialogPreference {
         if (changed || force) {
             if (!TextUtils.isEmpty(date)) {
                 try {
-                    Date parsed = FORMAT.parse(date);
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(parsed);
-
-                    year = cal.get(Calendar.YEAR);
-                    month = cal.get(Calendar.MONTH);
-                    day = cal.get(Calendar.DATE);
+                    this.date = FORMAT.parse(date);
                 } catch (ParseException e) {
                     e.printStackTrace();
+                    this.date = null;
+                    date = null;
                 }
+            } else {
+                this.date = null;
             }
 
-            pickedDate = date;
             persistString(date == null ? "" : date);
 
             notifyChanged();
@@ -136,7 +183,7 @@ public class DatePickerPreference extends DialogPreference {
         if (summary == null) {
             return super.getSummary();
         } else {
-            if (TextUtils.isEmpty(pickedDate)) {
+            if (date == null) {
                 return summaryNotPicked;
             } else {
                 DateFormat simpleDateFormat;
@@ -148,9 +195,7 @@ public class DatePickerPreference extends DialogPreference {
                 }
 
                 Calendar cal = Calendar.getInstance();
-                cal.set(Calendar.YEAR, year);
-                cal.set(Calendar.MONTH, month);
-                cal.set(Calendar.DATE, day);
+                cal.setTime(date);
 
                 return String.format(summary.toString(), simpleDateFormat.format(cal.getTime()));
             }

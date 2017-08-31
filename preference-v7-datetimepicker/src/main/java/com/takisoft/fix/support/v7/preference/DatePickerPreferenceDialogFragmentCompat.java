@@ -9,6 +9,9 @@ import android.support.v7.preference.PreferenceDialogFragmentCompat;
 import com.takisoft.datetimepicker.DatePickerDialog;
 import com.takisoft.datetimepicker.widget.DatePicker;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class DatePickerPreferenceDialogFragmentCompat extends PreferenceDialogFragmentCompat implements DatePickerDialog.OnDateSetListener {
 
     private int pickedYear;
@@ -23,7 +26,33 @@ public class DatePickerPreferenceDialogFragmentCompat extends PreferenceDialogFr
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         DatePickerPreference preference = getDatePickerPreference();
-        DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, preference.getYear(), preference.getMonth(), preference.getDay());
+
+        Calendar cal = Calendar.getInstance();
+
+        Date date = preference.getDate();
+        Date pickerDate = preference.getPickerDate();
+        Date minDate = preference.getMinDate();
+        Date maxDate = preference.getMaxDate();
+
+        if (date != null) {
+            cal.setTime(date);
+        } else if (pickerDate != null) {
+            cal.setTime(pickerDate);
+        }
+
+        DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
+
+        DatePicker picker = dialog.getDatePicker();
+
+        if (minDate != null) {
+            cal.setTime(minDate);
+            picker.setMinDate(cal.getTimeInMillis());
+        }
+
+        if (maxDate != null) {
+            cal.setTime(maxDate);
+            picker.setMaxDate(cal.getTimeInMillis());
+        }
 
         //dialog.setTitle(preference.getDialogTitle()); // this does not work in landscape
         //dialog.setIcon(preference.getDialogIcon());

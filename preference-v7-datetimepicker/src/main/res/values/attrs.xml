@@ -25,9 +25,10 @@
     </declare-styleable>
 
     <declare-styleable name="DatePickerPreference">
-        <attr name="year" format="integer|reference" />
-        <attr name="month" format="integer|reference" />
-        <attr name="day" format="integer|reference" />
+        <attr name="pickerDate" format="string|reference" />
+        <attr name="minDate" />
+        <attr name="maxDate" />
+
         <attr name="summaryDatePattern" format="string|reference" />
 
         <!-- The summary to show if no date is selected -->
