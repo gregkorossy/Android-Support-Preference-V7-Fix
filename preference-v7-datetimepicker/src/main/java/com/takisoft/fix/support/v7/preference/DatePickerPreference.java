@@ -97,11 +97,21 @@ public class DatePickerPreference extends DialogPreference {
         this(context, null);
     }
 
+    /**
+     * Returns the selected date.
+     *
+     * @return The selected date.
+     */
     @Nullable
     public Date getDate() {
         return date;
     }
 
+    /**
+     * Sets and persists the selected date.
+     *
+     * @param date The selected date.
+     */
     public void setDate(@Nullable Date date) {
         if (date == null) {
             setInternalDate(null, false);
@@ -113,6 +123,13 @@ public class DatePickerPreference extends DialogPreference {
         }
     }
 
+    /**
+     * Sets and persists the selected date.
+     *
+     * @param year  the year
+     * @param month the month (starts from 0; see {@link Calendar#MONTH} for details)
+     * @param day   the day
+     */
     public void setDate(int year, @IntRange(from = 0) int month, @IntRange(from = 1, to = 31) int day) {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, year);
@@ -122,27 +139,64 @@ public class DatePickerPreference extends DialogPreference {
         setInternalDate(FORMAT.format(cal.getTime()), false);
     }
 
+    /**
+     * Returns the default picker date that should be used if no persisted value exists and no
+     * default date is set.
+     *
+     * @return The default picker date that should be used if no persisted value exists and no
+     * default date is set.
+     */
+    @Nullable
     public Date getPickerDate() {
         return pickerDate;
     }
 
-    public void setPickerDate(Date pickerDate) {
+    /**
+     * Sets the default picker date that should be used if no persisted value exists and no default
+     * date is set.
+     *
+     * @param pickerDate The default picker date that should be used if no persisted value exists
+     *                   and no default date is set.
+     */
+    public void setPickerDate(@Nullable Date pickerDate) {
         this.pickerDate = pickerDate;
     }
 
+    /**
+     * Returns the minimal date shown by this picker.
+     *
+     * @return The minimal date shown by this picker.
+     */
+    @Nullable
     public Date getMinDate() {
         return minDate;
     }
 
-    public void setMinDate(Date minDate) {
+    /**
+     * Sets the minimal date shown by this picker.
+     *
+     * @param minDate The minimal date shown by this picker.
+     */
+    public void setMinDate(@Nullable Date minDate) {
         this.minDate = minDate;
     }
 
+    /**
+     * Returns the maximal date shown by this picker.
+     *
+     * @return The maximal date shown by this picker.
+     */
+    @Nullable
     public Date getMaxDate() {
         return maxDate;
     }
 
-    public void setMaxDate(Date maxDate) {
+    /**
+     * Sets the maximal date shown by this picker.
+     *
+     * @param maxDate The maximal date shown by this picker.
+     */
+    public void setMaxDate(@Nullable Date maxDate) {
         this.maxDate = maxDate;
     }
 
@@ -222,6 +276,40 @@ public class DatePickerPreference extends DialogPreference {
     }
 
     /**
+     * Returns the date pattern that will be used in the summary to format the selected date. If not
+     * set, the default format will be used based on the current locale. It can contain the usual
+     * formatting characters. See {@link SimpleDateFormat} for more details.
+     *
+     * @return The date pattern that will be used in the summary to format the selected date.
+     */
+    public String getSummaryPattern() {
+        return summaryPattern;
+    }
+
+    /**
+     * Sets the date pattern that will be used in the summary to format the selected date. If not
+     * set, the default format will be used based on the current locale. It can contain the usual
+     * formatting characters. See {@link SimpleDateFormat} for more details.
+     *
+     * @param summaryPattern The date pattern that will be used in the summary to format the
+     *                       selected date.
+     */
+    public void setSummaryPattern(String summaryPattern) {
+        this.summaryPattern = summaryPattern;
+    }
+
+    /**
+     * Returns the not-picked summary for this Preference. This will be displayed if the preference
+     * has no persisted value yet and the default value is not set.
+     *
+     * @return The not-picked summary.
+     */
+    @Nullable
+    public CharSequence getSummaryNotPicked() {
+        return summaryNotPicked;
+    }
+
+    /**
      * Sets the not-picked summary for this Preference with a resource ID. This will be displayed if
      * the preference has no persisted value yet and the default value is not set.
      *
@@ -241,7 +329,7 @@ public class DatePickerPreference extends DialogPreference {
      *
      * @param summaryNotPicked The summary for the preference.
      */
-    public void setSummaryNotPicked(CharSequence summaryNotPicked) {
+    public void setSummaryNotPicked(@Nullable CharSequence summaryNotPicked) {
         if (summaryNotPicked == null && this.summaryNotPicked != null) {
             this.summaryNotPicked = null;
         } else if (summaryNotPicked != null && !summaryNotPicked.equals(this.summaryNotPicked)) {

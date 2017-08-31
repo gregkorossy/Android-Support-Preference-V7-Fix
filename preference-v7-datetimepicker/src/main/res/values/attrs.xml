@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="TimePickerPreference">
-        <!-- The hour to be used by the picker if no saved value is present. This is in 24-hour format. -->
-        <attr name="hour" format="integer|reference" />
-
-        <!-- The minute to be used by the picker if no saved value is present. -->
-        <attr name="minute" format="integer|reference" />
+        <!-- The time to be used by the picker if no saved value is present, in 24-hour format.-->
+        <attr name="pickerTime" format="string|reference" />
 
         <!-- The hour format to be used. By default it's set to auto.-->
         <attr name="hourFormat" format="enum">

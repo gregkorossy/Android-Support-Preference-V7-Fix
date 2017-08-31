@@ -9,6 +9,9 @@ import android.support.v7.preference.PreferenceDialogFragmentCompat;
 import com.takisoft.datetimepicker.TimePickerDialog;
 import com.takisoft.datetimepicker.widget.TimePicker;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class TimePickerPreferenceDialogFragmentCompat extends PreferenceDialogFragmentCompat implements TimePickerDialog.OnTimeSetListener {
 
     private int pickedHour;
@@ -22,10 +25,19 @@ public class TimePickerPreferenceDialogFragmentCompat extends PreferenceDialogFr
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         TimePickerPreference preference = getTimePickerPreference();
-        TimePickerDialog dialog = new TimePickerDialog(getActivity(), this, preference.getHourOfDay(), preference.getMinute(), preference.is24HourView());
 
-        //dialog.setTitle(preference.getDialogTitle()); // this does not work in landscape
-        //dialog.setIcon(preference.getDialogIcon());
+        Calendar cal = Calendar.getInstance();
+
+        Date time = preference.getTime();
+        Date pickerTime = preference.getPickerTime();
+
+        if (time != null) {
+            cal.setTime(time);
+        } else if (pickerTime != null) {
+            cal.setTime(pickerTime);
+        }
+
+        TimePickerDialog dialog = new TimePickerDialog(getActivity(), this, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), preference.is24HourView());
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, preference.getPositiveButtonText(), this);
         dialog.setButton(DialogInterface.BUTTON_NEGATIVE, preference.getNegativeButtonText(), this);
 

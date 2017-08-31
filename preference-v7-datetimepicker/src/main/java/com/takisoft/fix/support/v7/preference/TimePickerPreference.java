@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.preference.DialogPreference;
@@ -54,10 +55,10 @@ public class TimePickerPreference extends DialogPreference {
     @interface HourFormat {
     }
 
-    private String pickedTime;
+    private Date time;
+    private Date pickerTime;
+
     private int hourFormat;
-    private int hourOfDay;
-    private int minute;
     private String summaryPattern;
     private CharSequence summaryNotPicked;
     private CharSequence summary;
@@ -69,8 +70,17 @@ public class TimePickerPreference extends DialogPreference {
         hourFormat = a.getInt(R.styleable.TimePickerPreference_hourFormat, FORMAT_AUTO);
         summaryPattern = a.getString(R.styleable.TimePickerPreference_summaryTimePattern);
         summaryNotPicked = a.getText(R.styleable.TimePickerPreference_summaryNoTime);
-        hourOfDay = a.getInt(R.styleable.TimePickerPreference_hour, 0);
-        minute = a.getInt(R.styleable.TimePickerPreference_minute, 0);
+
+        String pickerTime = a.getString(R.styleable.TimePickerPreference_pickerTime);
+
+        if (!TextUtils.isEmpty(pickerTime)) {
+            try {
+                this.pickerTime = FORMAT.parse(pickerTime);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
         a.recycle();
 
         summary = super.getSummary();
@@ -122,51 +132,91 @@ public class TimePickerPreference extends DialogPreference {
     }
 
     /**
-     * Returns the format pattern to be used in the summary.
+     * Returns the hour of the day (a.k.a. 24-hour clock version). The range is 0-23, or -1 if the
+     * time is not set.
      *
-     * @return The format pattern to be used in the summary.
+     * @return The hour of the day (a.k.a. 24-hour clock version). The range is 0-23, or -1 if the
+     * time is not set.
      */
-    public String getSummaryPattern() {
-        return summaryPattern;
-    }
-
-    /**
-     * Sets the format pattern to be used in the summary.
-     *
-     * @param summaryPattern The format pattern to be used in the summary.
-     */
-    public void setSummaryPattern(String summaryPattern) {
-        this.summaryPattern = summaryPattern;
-    }
-
-    /**
-     * Returns the hour of the day (a.k.a. 24-hour clock version). The range is 0-23.
-     *
-     * @return The hour of the day (a.k.a. 24-hour clock version). The range is 0-23.
-     */
-    @IntRange(from = 0, to = 23)
+    @IntRange(from = -1, to = 23)
     public int getHourOfDay() {
-        return hourOfDay;
+        if (time != null) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(time);
+            return cal.get(Calendar.HOUR_OF_DAY);
+        }
+
+        return -1;
     }
 
     /**
-     * Returns the minute of the hour. The range is 0-59.
+     * Returns the minute of the hour. The range is 0-59, or -1 if the
+     * time is not set.
      *
-     * @return The minute of the hour. The range is 0-59.
+     * @return The minute of the hour. The range is 0-59, or -1 if the
+     * time is not set.
      */
-    @IntRange(from = 0, to = 59)
+    @IntRange(from = -1, to = 59)
     public int getMinute() {
-        return minute;
+        if (time != null) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(time);
+            return cal.get(Calendar.MINUTE);
+        }
+
+        return -1;
     }
 
     /**
-     * Sets the picked time of the preference.
+     * Returns the selected time.
+     *
+     * @return The selected time.
+     */
+    @Nullable
+    public Date getTime() {
+        return time;
+    }
+
+    /**
+     * Sets and persists the selected time.
+     *
+     * @param time The selected time.
+     */
+    public void setTime(@Nullable Date time) {
+        this.time = time;
+    }
+
+    /**
+     * Sets and persists the picked time of the preference.
      *
      * @param hourOfDay The hour of the day (a.k.a. 24-hour clock version). The valid range is 0-23.
      * @param minute    The minute of the hour. The valid range is 0-59.
      */
     public void setTime(@IntRange(from = 0, to = 23) int hourOfDay, @IntRange(from = 0, to = 59) int minute) {
         setInternalTime(String.format(Locale.US, "%02d:%02d", hourOfDay, minute), false);
+    }
+
+    /**
+     * Returns the default picker time that should be used if no persisted value exists and no
+     * default time is set.
+     *
+     * @return The default picker time that should be used if no persisted value exists and no
+     * default time is set.
+     */
+    @Nullable
+    public Date getPickerTime() {
+        return pickerTime;
+    }
+
+    /**
+     * Sets the default picker time that should be used if no persisted value exists and no default
+     * time is set.
+     *
+     * @param pickerTime The default picker time that should be used if no persisted value exists
+     *                   and no default time is set.
+     */
+    public void setPickerTime(@Nullable Date pickerTime) {
+        this.pickerTime = pickerTime;
     }
 
     private void setInternalTime(String time, boolean force) {
@@ -177,18 +227,13 @@ public class TimePickerPreference extends DialogPreference {
         if (changed || force) {
             if (!TextUtils.isEmpty(time)) {
                 try {
-                    Date parsed = FORMAT.parse(time);
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(parsed);
-
-                    hourOfDay = cal.get(Calendar.HOUR_OF_DAY);
-                    minute = cal.get(Calendar.MINUTE);
+                    this.time = FORMAT.parse(time);
                 } catch (ParseException e) {
                     e.printStackTrace();
+                    this.time = null;
                 }
             }
 
-            pickedTime = time;
             persistString(time == null ? "" : time);
 
             notifyChanged();
@@ -208,7 +253,7 @@ public class TimePickerPreference extends DialogPreference {
         if (summary == null) {
             return super.getSummary();
         } else {
-            if (TextUtils.isEmpty(pickedTime)) {
+            if (time == null) {
                 return summaryNotPicked;
             } else {
                 DateFormat simpleDateFormat;
@@ -220,8 +265,7 @@ public class TimePickerPreference extends DialogPreference {
                 }
 
                 Calendar cal = Calendar.getInstance();
-                cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                cal.set(Calendar.MINUTE, minute);
+                cal.setTime(time);
 
                 return String.format(summary.toString(), simpleDateFormat.format(cal.getTime()));
             }
@@ -247,6 +291,36 @@ public class TimePickerPreference extends DialogPreference {
         }
     }
 
+    /**
+     * Returns the date pattern that will be used in the summary to format the selected date. If not
+     * set, the default format will be used based on the current locale. It can contain the usual
+     * formatting characters. See {@link SimpleDateFormat} for more details.
+     *
+     * @return The date pattern that will be used in the summary to format the selected date.
+     */
+    public String getSummaryPattern() {
+        return summaryPattern;
+    }
+
+    /**
+     * Sets the date pattern that will be used in the summary to format the selected date. If not
+     * set, the default format will be used based on the current locale. It can contain the usual
+     * formatting characters. See {@link SimpleDateFormat} for more details.
+     *
+     * @param summaryPattern The date pattern that will be used in the summary to format the
+     *                       selected date.
+     */
+    public void setSummaryPattern(String summaryPattern) {
+        this.summaryPattern = summaryPattern;
+    }
+
+    /**
+     * Returns the not-picked summary for this Preference. This will be displayed if the preference
+     * has no persisted value yet and the default value is not set.
+     *
+     * @return The not-picked summary.
+     */
+    @Nullable
     public CharSequence getSummaryNotPicked() {
         return summaryNotPicked;
     }
