@@ -43,9 +43,7 @@ ext {
 }
 
 dependencies {
-    implementation "com.android.support:preference-v7:${rootProject.supportLibraryVersion}"
-    implementation "com.android.support:preference-v14:${rootProject.supportLibraryVersion}"
-    implementation project(':preference-v7')
+    compile project(':preference-v7')
 
     compile project(':preference-v7-datetimepicker')
     compile project(':preference-v7-ringtone')

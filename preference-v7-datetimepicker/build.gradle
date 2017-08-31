@@ -43,10 +43,8 @@ ext {
 }
 
 dependencies {
-    implementation project(':preference-v7')
-    implementation "com.android.support:preference-v7:${rootProject.supportLibraryVersion}"
-    implementation "com.android.support:preference-v14:${rootProject.supportLibraryVersion}"
-    compile 'com.takisoft.fix:datetimepicker:1.0.0' // I know 'compile' is deprecated, but the plugin doesn't know 'implementation'
+    compile project(':preference-v7')
+    compile 'com.takisoft.fix:datetimepicker:1.0.0'
 }
 
 apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'

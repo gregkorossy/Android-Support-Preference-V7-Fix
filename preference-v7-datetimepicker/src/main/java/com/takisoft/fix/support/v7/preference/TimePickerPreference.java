@@ -15,6 +15,8 @@ import android.util.AttributeSet;
 
 import com.takisoft.fix.support.v7.preference.datetimepicker.R;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -52,6 +54,7 @@ public class TimePickerPreference extends DialogPreference {
     public static final int FORMAT_24H = 2;
 
     @IntDef({FORMAT_AUTO, FORMAT_12H, FORMAT_24H})
+    @Retention(RetentionPolicy.SOURCE)
     @interface HourFormat {
     }
 
