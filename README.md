@@ -1,17 +1,27 @@
 # Android Support library - preference v7 bugfix
 
+This library is meant to fix some of the problems found in the official support preference-v7 library. Also, there are [new preference types](#extra-types) available, such as `RingtonePreference`, `DatePickerPreference`, and `TimePickerPreference`.
+
 [ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix%3Apreference-v7/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix%3Apreference-v7/_latestVersion)
+
+### Donation
+
+If you would like to support me, you may donate some small amount via PayPal.
+
+[ ![Buy me a coffee](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/donate.png)](https://www.paypal.me/korossyg/0eur)
+
+---
 
 ## How to use the library?
 ### 1. Add gradle dependency
 First, **remove** the unnecessary lines of preference-v7 and preference-v14 from your gradle file as the bugfix contains both of them:
 ```gradle
-compile 'com.android.support:preference-v7:26.0.1'
-compile 'com.android.support:preference-v14:26.0.1'
+compile 'com.android.support:preference-v7:26.0.2'
+compile 'com.android.support:preference-v14:26.0.2'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:26.0.1.0'
+compile 'com.takisoft.fix:preference-v7:26.0.2.0'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
@@ -75,6 +85,24 @@ Now you can enjoy using the support preferences API without losing all your hair
 
 ---
 
+## Extra types
+
+There are additional preferences not part of the official support library, but decided to add them to some extra libraries. You can add all of them to your project using
+
+```gradle
+compile 'com.takisoft.fix:preference-v7-extras:26.0.2.0'
+```
+
+or one or more groups:
+
+Preference | Dependency | Preview
+-|-|-
+[`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference) | `compile 'com.takisoft.fix:preference-v7-ringtone:26.0.2.0'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/ringtone_api26.png)
+[`DatePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#datepickerpreference) | `compile 'com.takisoft.fix:preference-v7-datetimepicker:26.0.2.0'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/datepicker_api26.png)
+[`TimePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#timepickerpreference) | `compile 'com.takisoft.fix:preference-v7-datetimepicker:26.0.2.0'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/timepicker_api26.png)
+
+---
+
 ## Custom solutions
 ### Dividers
 If you use `PreferenceFragmentCompatDividers` as your base class for the preference fragment, you can use 3 new methods to customize the dividers:
@@ -117,12 +145,36 @@ The original implementation uses `?attr/textAppearanceSmall` as the message styl
 ---
 
 ## Version
-The current stable version is **26.0.1.0**.
+The current stable version is **26.0.2.0**.
 
 ## Notes #
 This demo / bugfix is set to work on API level 14+.
 
+---
+
+## Sample
+
+_Material design - everywhere._
+
+API 15 | API 21 | API 26
+-|-|-
+![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/base_api15.png) | ![API 21](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/base_api21.png) | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/base_api26.png)
+
+---
+
 ### Changelog
+
+**2017-08-31**
+
+New version: 26.0.2.0 (based on v26.0.2)
+
+- No official support preferences related changes.
+- Added new preference types:
+  - [`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference)
+  - [`DatePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#datepickerpreference)
+  - [`TimePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#timepickerpreference)
+
+See the wiki / Preference types page for more details.
 
 **2017-08-09**
 

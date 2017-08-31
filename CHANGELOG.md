@@ -1,5 +1,17 @@
 # Changelog
 
+**2017-08-31**
+
+New version: 26.0.2.0 (based on v26.0.2)
+
+- No support preferences related changes.
+- Added new preference types:
+  - [`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference)
+  - [`DatePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#datepickerpreference)
+  - [`TimePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#timepickerpreference)
+
+See the wiki / Preference types page for more details.
+
 **2017-08-09**
 
 New version: 26.0.1.0 (based on v26.0.1)
