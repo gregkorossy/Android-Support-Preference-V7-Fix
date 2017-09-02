@@ -48,7 +48,7 @@ public class ColorPickerDialogFragment extends DialogFragment implements OnColor
 
     protected int mTitleResId = R.string.color_picker_default_title;
     protected int[] mColors = null;
-    protected String[] mColorContentDescriptions = null;
+    protected CharSequence[] mColorContentDescriptions = null;
     protected int mSelectedColor;
     protected int mColumns;
     protected int mSize;
@@ -99,7 +99,7 @@ public class ColorPickerDialogFragment extends DialogFragment implements OnColor
         if (savedInstanceState != null) {
             mColors = savedInstanceState.getIntArray(KEY_COLORS);
             mSelectedColor = (Integer) savedInstanceState.getSerializable(KEY_SELECTED_COLOR);
-            mColorContentDescriptions = savedInstanceState.getStringArray(
+            mColorContentDescriptions = savedInstanceState.getCharSequenceArray(
                     KEY_COLOR_CONTENT_DESCRIPTIONS);
         }
     }
@@ -183,7 +183,7 @@ public class ColorPickerDialogFragment extends DialogFragment implements OnColor
         }
     }
 
-    public void setColorContentDescriptions(String[] colorContentDescriptions) {
+    public void setColorContentDescriptions(CharSequence[] colorContentDescriptions) {
         if (mColorContentDescriptions != colorContentDescriptions) {
             mColorContentDescriptions = colorContentDescriptions;
             refreshPalette();
@@ -209,6 +209,6 @@ public class ColorPickerDialogFragment extends DialogFragment implements OnColor
         super.onSaveInstanceState(outState);
         outState.putIntArray(KEY_COLORS, mColors);
         outState.putSerializable(KEY_SELECTED_COLOR, mSelectedColor);
-        outState.putStringArray(KEY_COLOR_CONTENT_DESCRIPTIONS, mColorContentDescriptions);
+        outState.putCharSequenceArray(KEY_COLOR_CONTENT_DESCRIPTIONS, mColorContentDescriptions);
     }
 }

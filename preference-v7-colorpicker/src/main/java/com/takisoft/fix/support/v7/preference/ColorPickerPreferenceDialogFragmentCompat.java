@@ -16,7 +16,18 @@ public class ColorPickerPreferenceDialogFragmentCompat extends PreferenceDialogF
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        ColorPickerDialog dialog = new ColorPickerDialog(getActivity(), this, 0);
+        ColorPickerPreference pref = getColorPickerPreference();
+
+        ColorPickerDialog.Params params = new ColorPickerDialog.Params.Builder()
+                .setSelectedColor(pref.getColor())
+                .setColors(pref.getColors())
+                .setColorContentDescriptions(pref.getColorDescriptions())
+                .setSize(pref.getSize())
+                .setColumns(pref.getColumns())
+                .build();
+
+        ColorPickerDialog dialog = new ColorPickerDialog(getActivity(), this, params);
+        dialog.setTitle(pref.getDialogTitle());
 
         return dialog;
     }

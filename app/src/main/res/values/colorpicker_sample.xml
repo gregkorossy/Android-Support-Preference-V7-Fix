@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="colors">
+        <item>@color/primary</item>
+        <item>@color/primary_dark</item>
+        <item>@color/primary_light</item>
+        <item>@color/accent</item>
+        <item>@color/primary_text</item>
+        <item>@color/secondary_text</item>
+        <item>@color/icons</item>
+        <item>@color/divider</item>
+    </integer-array>
+</resources>

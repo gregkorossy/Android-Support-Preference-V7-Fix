@@ -58,7 +58,7 @@ public class ColorPickerPalette extends TableLayout {
     public void init(int size, int columns, OnColorSelectedListener listener) {
         mNumColumns = columns;
         Resources res = getResources();
-        if (size == ColorPickerDialogFragment.SIZE_LARGE) {
+        if (size == ColorPickerDialog.SIZE_LARGE) {
             mSwatchLength = res.getDimensionPixelSize(R.dimen.color_swatch_large);
             mMarginSize = res.getDimensionPixelSize(R.dimen.color_swatch_margins_large);
         } else {
@@ -89,7 +89,7 @@ public class ColorPickerPalette extends TableLayout {
     /**
      * Adds swatches to table in a serpentine format.
      */
-    public void drawPalette(int[] colors, int selectedColor, String[] colorContentDescriptions) {
+    public void drawPalette(int[] colors, int selectedColor, CharSequence[] colorContentDescriptions) {
         if (colors == null) {
             return;
         }
@@ -146,8 +146,8 @@ public class ColorPickerPalette extends TableLayout {
      * will arrange them for accessibility purposes.
      */
     private void setSwatchDescription(int rowNumber, int index, int rowElements, boolean selected,
-            View swatch, String[] contentDescriptions) {
-        String description;
+            View swatch, CharSequence[] contentDescriptions) {
+        CharSequence description;
         if (contentDescriptions != null && contentDescriptions.length > index) {
             description = contentDescriptions[index];
         } else {
