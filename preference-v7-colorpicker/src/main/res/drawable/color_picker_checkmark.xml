@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:bottom="@dimen/checkmark_base_padding"
+        android:drawable="@drawable/color_picker_check_base"
+        android:left="@dimen/checkmark_base_padding"
+        android:right="@dimen/checkmark_base_padding"
+        android:top="@dimen/checkmark_base_padding" />
+    <item
+        android:bottom="@dimen/checkmark_tick_padding"
+        android:drawable="@drawable/color_picker_check_tick"
+        android:left="@dimen/checkmark_tick_padding"
+        android:right="@dimen/checkmark_tick_padding"
+        android:top="@dimen/checkmark_tick_padding" />
+</layer-list>

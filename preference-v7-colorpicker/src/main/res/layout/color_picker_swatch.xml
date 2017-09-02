@@ -25,5 +25,5 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:visibility="gone"
-        app:srcCompat="@drawable/ic_check_circle" />
+        app:srcCompat="@drawable/color_picker_check_tick" />
 </merge>

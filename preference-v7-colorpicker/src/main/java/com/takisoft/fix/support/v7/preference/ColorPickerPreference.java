@@ -36,7 +36,7 @@ public class ColorPickerPreference extends DialogPreference {
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ColorPickerPreference, defStyleAttr, 0);
 
-        int colorsId = a.getResourceId(R.styleable.ColorPickerPreference_colors, 0); // TODO default 16-size array of colors
+        int colorsId = a.getResourceId(R.styleable.ColorPickerPreference_colors, R.array.color_picker_default_colors);
 
         if (colorsId != 0) {
             colors = context.getResources().getIntArray(colorsId);

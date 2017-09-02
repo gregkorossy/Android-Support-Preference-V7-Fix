@@ -18,6 +18,10 @@ package com.android.colorpicker;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.os.Build;
+import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -46,7 +50,7 @@ public class ColorPickerSwatch extends FrameLayout implements View.OnClickListen
     }
 
     public ColorPickerSwatch(Context context, int color, boolean checked,
-            OnColorSelectedListener listener) {
+                             OnColorSelectedListener listener) {
         super(context);
         mColor = color;
         mOnColorSelectedListener = listener;
@@ -54,9 +58,27 @@ public class ColorPickerSwatch extends FrameLayout implements View.OnClickListen
         LayoutInflater.from(context).inflate(R.layout.color_picker_swatch, this);
         mSwatchImage = (ImageView) findViewById(R.id.color_picker_swatch);
         mCheckmarkImage = (ImageView) findViewById(R.id.color_picker_checkmark);
+        mCheckmarkImage.setImageDrawable(getCheckmark(context));
         setColor(color);
         setChecked(checked);
         setOnClickListener(this);
+    }
+
+    private Drawable getCheckmark(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return AppCompatResources.getDrawable(context, R.drawable.color_picker_checkmark);
+        } else {
+            Drawable check = AppCompatResources.getDrawable(context, R.drawable.color_picker_check_tick);
+            Drawable base = AppCompatResources.getDrawable(context, R.drawable.color_picker_check_base);
+
+            int basePadding = context.getResources().getDimensionPixelSize(R.dimen.checkmark_base_padding);
+            int tickPadding = context.getResources().getDimensionPixelSize(R.dimen.checkmark_tick_padding);
+            LayerDrawable layerDrawable = new LayerDrawable(new Drawable[]{base, check});
+            layerDrawable.setLayerInset(0, basePadding, basePadding, basePadding, basePadding);
+            layerDrawable.setLayerInset(1, tickPadding, tickPadding, tickPadding, tickPadding);
+
+            return layerDrawable;
+        }
     }
 
     protected void setColor(int color) {

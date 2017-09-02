@@ -111,7 +111,6 @@
             android:persistent="false"
             android:summary="Very nice color"
             android:title="ColorPickerPreference"
-            app:colors="@array/colors"
             app:size="small"
             app:columns="4"/>
     </PreferenceCategory>
