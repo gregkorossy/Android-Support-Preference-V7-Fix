@@ -136,7 +136,9 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
                                     defaultRingtone.play();
                                 } else {
                                     defaultRingtone = RingtoneManager.getRingtone(context, defaultUri);
-                                    defaultRingtone.play();
+                                    if (defaultRingtone != null) {
+                                        defaultRingtone.play();
+                                    }
                                 }
                             } else if (((showDefault && i == 1) || (!showDefault && i == 0)) && showSilent) {
                                 ringtoneManager.stopPreviousRingtone(); // "playing" silence
