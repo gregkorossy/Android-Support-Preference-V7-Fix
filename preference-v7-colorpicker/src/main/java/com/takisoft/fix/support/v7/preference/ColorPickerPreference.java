@@ -4,12 +4,17 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.preference.DialogPreference;
+import android.support.v7.preference.PreferenceViewHolder;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 
 import com.android.colorpicker.ColorPickerDialog;
+import com.android.colorpicker.ColorStateDrawable;
 import com.takisoft.fix.support.v7.preference.colorpicker.R;
 
 public class ColorPickerPreference extends DialogPreference {
@@ -23,6 +28,8 @@ public class ColorPickerPreference extends DialogPreference {
     private int color;
     private int columns;
     private int size;
+
+    private ImageView colorWidget;
 
     public ColorPickerPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -41,6 +48,8 @@ public class ColorPickerPreference extends DialogPreference {
         size = a.getInt(R.styleable.ColorPickerPreference_size, 2);
 
         a.recycle();
+
+        setWidgetLayoutResource(R.layout.preference_widget_color_swatch);
     }
 
     public ColorPickerPreference(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -55,6 +64,24 @@ public class ColorPickerPreference extends DialogPreference {
 
     public ColorPickerPreference(Context context) {
         this(context, null);
+    }
+
+    @Override
+    public void onBindViewHolder(PreferenceViewHolder holder) {
+        super.onBindViewHolder(holder);
+
+        colorWidget = (ImageView) holder.findViewById(R.id.color_picker_widget);
+        setColorOnWidget(color);
+    }
+
+    private void setColorOnWidget(int color) {
+        if (colorWidget == null) {
+            return;
+        }
+
+        Drawable[] colorDrawable = new Drawable[]
+                {ContextCompat.getDrawable(getContext(), R.drawable.color_picker_swatch)};
+        colorWidget.setImageDrawable(new ColorStateDrawable(colorDrawable, color));
     }
 
     public int getColor() {
@@ -107,6 +134,8 @@ public class ColorPickerPreference extends DialogPreference {
             this.color = color;
 
             persistInt(color);
+
+            setColorOnWidget(color);
 
             notifyChanged();
         }

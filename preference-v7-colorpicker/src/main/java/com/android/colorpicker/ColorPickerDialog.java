@@ -90,7 +90,7 @@ public class ColorPickerDialog extends AlertDialog implements ColorPickerSwatch.
         dismiss();
     }
 
-    static int resolveDialogTheme(Context context, int resId) {
+    private static int resolveDialogTheme(Context context, int resId) {
         if (resId == 0) {
             final TypedValue outValue = new TypedValue();
             if (context.getTheme().resolveAttribute(R.attr.colorPickerDialogTheme, outValue, true)) {
