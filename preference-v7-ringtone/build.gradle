@@ -49,8 +49,10 @@ dependencies {
     compile "com.android.support:appcompat-v7:${rootProject.supportLibraryVersion}"
 }
 
-apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
-apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/bintrayv.gradle'
+//apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
+//apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/bintrayv.gradle'
+apply from: '../installv.gradle'
+apply from: '../bintrayv.gradle'
 
 javadoc.doFirst {
     failOnError false
