@@ -17,8 +17,8 @@
         -->
         <attr name="summaryTimePattern" format="string|reference" />
 
-        <!-- The summary to show if no time is selected -->
-        <attr name="summaryNoTime" format="string|reference" />
+        <!-- The summary to show if time is selected -->
+        <attr name="summaryHasTime" format="string|reference" />
     </declare-styleable>
 
     <declare-styleable name="DatePickerPreference">
@@ -28,7 +28,7 @@
 
         <attr name="summaryDatePattern" format="string|reference" />
 
-        <!-- The summary to show if no date is selected -->
-        <attr name="summaryNoDate" format="string|reference" />
+        <!-- The summary to show if date is selected -->
+        <attr name="summaryHasDate" format="string|reference" />
     </declare-styleable>
 </resources>

@@ -9,6 +9,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.database.Cursor;
+import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -18,6 +19,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.preference.DialogPreference;
+import android.support.v7.preference.Preference;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
@@ -26,6 +28,16 @@ import com.takisoft.fix.support.v7.preference.ringtone.R;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+/**
+ * A {@link Preference} that displays a ringtone picker as a dialog.
+ * <p>
+ * This preference will save the picked ringtone's URI as a string into the SharedPreferences. The
+ * saved URI can be fed directly into {@link RingtoneManager#getRingtone(Context, Uri)} to get the
+ * {@link Ringtone} instance that can be played.
+ *
+ * @see RingtoneManager
+ * @see Ringtone
+ */
 @SuppressWarnings("WeakerAccess,unused")
 public class RingtonePreference extends DialogPreference {
     private static final int CUSTOM_RINGTONE_REQUEST_CODE = 0x9000;
@@ -366,7 +378,7 @@ public class RingtonePreference extends DialogPreference {
      * marker in it (i.e. "%s" or "%1$s"), then the current ringtone's title
      * will be substituted in its place.
      *
-     * @return The not-picked summary.
+     * @return The picked summary.
      */
     @Nullable
     public CharSequence getSummaryHasRingtone() {

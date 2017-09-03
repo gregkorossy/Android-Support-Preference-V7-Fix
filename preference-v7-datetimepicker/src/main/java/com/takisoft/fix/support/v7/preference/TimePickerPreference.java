@@ -33,7 +33,7 @@ import java.util.Locale;
  * @see #PATTERN
  * @see #FORMAT
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings("WeakerAccess,unused")
 public class TimePickerPreference extends DialogPreference {
     /**
      * The pattern that is used for parsing the default value.
@@ -63,7 +63,7 @@ public class TimePickerPreference extends DialogPreference {
 
     private int hourFormat;
     private String summaryPattern;
-    private CharSequence summaryNotPicked;
+    private CharSequence summaryHasTime;
     private CharSequence summary;
 
     public TimePickerPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -72,7 +72,7 @@ public class TimePickerPreference extends DialogPreference {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TimePickerPreference, defStyleAttr, 0);
         hourFormat = a.getInt(R.styleable.TimePickerPreference_hourFormat, FORMAT_AUTO);
         summaryPattern = a.getString(R.styleable.TimePickerPreference_summaryTimePattern);
-        summaryNotPicked = a.getText(R.styleable.TimePickerPreference_summaryNoTime);
+        summaryHasTime = a.getText(R.styleable.TimePickerPreference_summaryHasTime);
 
         String pickerTime = a.getString(R.styleable.TimePickerPreference_pickerTime);
 
@@ -244,43 +244,42 @@ public class TimePickerPreference extends DialogPreference {
     }
 
     /**
-     * Returns the summary of this ListPreference. If the summary
-     * has a {@linkplain java.lang.String#format String formatting}
-     * marker in it (i.e. "%s" or "%1$s"), then the current formatted
-     * time will be substituted in its place.
+     * Returns the summary of this Preference. If no {@code summaryHasTime} is set, this will be
+     * displayed if no time is selected; otherwise the formatted time will be used.
      *
-     * @return The summary with appropriate string substitution.
+     * @return The summary.
      */
     @Override
     public CharSequence getSummary() {
-        if (summary == null) {
-            return super.getSummary();
+        if (time == null) {
+            return summary;
         } else {
-            if (time == null) {
-                return summaryNotPicked;
+            DateFormat simpleDateFormat;
+
+            if (summaryPattern == null) {
+                simpleDateFormat = android.text.format.DateFormat.getTimeFormat(getContext());
             } else {
-                DateFormat simpleDateFormat;
+                simpleDateFormat = new SimpleDateFormat(summaryPattern, Locale.getDefault());
+            }
 
-                if (summaryPattern == null) {
-                    simpleDateFormat = android.text.format.DateFormat.getTimeFormat(getContext());
-                } else {
-                    simpleDateFormat = new SimpleDateFormat(summaryPattern, Locale.getDefault());
-                }
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(time);
 
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(time);
-
-                return String.format(summary.toString(), simpleDateFormat.format(cal.getTime()));
+            String formattedDate = simpleDateFormat.format(cal.getTime());
+            if (summaryHasTime != null && formattedDate != null) {
+                return String.format(summaryHasTime.toString(), formattedDate);
+            } else if (formattedDate != null) {
+                return formattedDate;
+            } else {
+                return summary;
             }
         }
     }
 
     /**
-     * Sets the summary for this Preference with a CharSequence.
-     * If the summary has a
-     * {@linkplain java.lang.String#format String formatting}
-     * marker in it (i.e. "%s" or "%1$s"), then the current formatted
-     * time will be substituted in its place when it's retrieved.
+     * Sets the summary for this Preference with a CharSequence. If no {@code summaryHasTime} is
+     * set, this will be displayed if no time is selected; otherwise the formatted time will be
+     * used.
      *
      * @param summary The summary for the preference.
      */
@@ -295,64 +294,70 @@ public class TimePickerPreference extends DialogPreference {
     }
 
     /**
-     * Returns the date pattern that will be used in the summary to format the selected date. If not
+     * Returns the time pattern that will be used in the summary to format the selected time. If not
      * set, the default format will be used based on the current locale. It can contain the usual
      * formatting characters. See {@link SimpleDateFormat} for more details.
      *
-     * @return The date pattern that will be used in the summary to format the selected date.
+     * @return The time pattern that will be used in the summary to format the selected time.
      */
     public String getSummaryPattern() {
         return summaryPattern;
     }
 
     /**
-     * Sets the date pattern that will be used in the summary to format the selected date. If not
+     * Sets the time pattern that will be used in the summary to format the selected time. If not
      * set, the default format will be used based on the current locale. It can contain the usual
      * formatting characters. See {@link SimpleDateFormat} for more details.
      *
-     * @param summaryPattern The date pattern that will be used in the summary to format the
-     *                       selected date.
+     * @param summaryPattern The time pattern that will be used in the summary to format the
+     *                       selected time.
      */
     public void setSummaryPattern(String summaryPattern) {
         this.summaryPattern = summaryPattern;
     }
 
     /**
-     * Returns the not-picked summary for this Preference. This will be displayed if the preference
-     * has no persisted value yet and the default value is not set.
+     * Returns the picked summary for this Preference. This will be displayed if the preference
+     * has a persisted value or the default value is set. If the summary
+     * has a {@linkplain java.lang.String#format String formatting}
+     * marker in it (i.e. "%s" or "%1$s"), then the current formatted time
+     * will be substituted in its place.
      *
-     * @return The not-picked summary.
+     * @return The picked summary.
      */
     @Nullable
-    public CharSequence getSummaryNotPicked() {
-        return summaryNotPicked;
+    public CharSequence getSummaryHasTime() {
+        return summaryHasTime;
     }
 
     /**
-     * Sets the not-picked summary for this Preference with a resource ID. This will be displayed if
-     * the preference has no persisted value yet and the default value is not set.
+     * Sets the picked summary for this Preference with a resource ID. This will be displayed if the
+     * preference has a persisted value or the default value is set. If the summary
+     * has a {@linkplain java.lang.String#format String formatting}
+     * marker in it (i.e. "%s" or "%1$s"), then the current formatted time
+     * will be substituted in its place.
      *
      * @param resId The summary as a resource.
-     * @see #setSummaryNotPicked(CharSequence)
+     * @see #getSummaryHasTime(CharSequence)
      */
-    public void setSummaryNotPicked(@StringRes int resId) {
-        setSummaryNotPicked(getContext().getString(resId));
+    public void setSummaryHasTime(@StringRes int resId) {
+        getSummaryHasTime(getContext().getString(resId));
     }
 
     /**
-     * Sets the not-picked summary for this Preference with a CharSequence. This will be displayed
-     * if the preference has no persisted value yet and the default value is not set.
-     * If the summary has a {@linkplain java.lang.String#format String formatting}
-     * marker in it (i.e. "%s" or "%1$s"), then the current formatted
-     * date will be substituted in its place when it's retrieved.
+     * Sets the picked summary for this Preference with a CharSequence. This will be displayed if
+     * the preference has a persisted value or the default value is set. If the summary
+     * has a {@linkplain java.lang.String#format String formatting}
+     * marker in it (i.e. "%s" or "%1$s"), then the current formatted time
+     * will be substituted in its place.
      *
-     * @param summaryNotPicked The summary for the preference.
+     * @param summaryHasDate The summary for the preference.
      */
-    public void setSummaryNotPicked(CharSequence summaryNotPicked) {
-        if (summaryNotPicked == null && this.summaryNotPicked != null) {
-            this.summaryNotPicked = null;
-        } else if (summaryNotPicked != null && !summaryNotPicked.equals(this.summaryNotPicked)) {
-            this.summaryNotPicked = summaryNotPicked.toString();
+    public void getSummaryHasTime(@Nullable CharSequence summaryHasDate) {
+        if (summaryHasDate == null && this.summaryHasTime != null) {
+            this.summaryHasTime = null;
+        } else if (summaryHasDate != null && !summaryHasDate.equals(this.summaryHasTime)) {
+            this.summaryHasTime = summaryHasDate.toString();
         }
 
         notifyChanged();
