@@ -43,8 +43,8 @@ ext {
 }
 
 dependencies {
-    compile "com.android.support:preference-v7:${rootProject.supportLibraryVersion}"
-    compile "com.android.support:preference-v14:${rootProject.supportLibraryVersion}"
+    api "com.android.support:preference-v7:${rootProject.supportLibraryVersion}"
+    api "com.android.support:preference-v14:${rootProject.supportLibraryVersion}"
 }
 
 //apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'

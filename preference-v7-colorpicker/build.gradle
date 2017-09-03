@@ -45,8 +45,8 @@ ext {
 }
 
 dependencies {
-    compile project(':preference-v7')
-    compile "com.android.support:appcompat-v7:${rootProject.supportLibraryVersion}"
+    implementation project(':preference-v7')
+    implementation "com.android.support:appcompat-v7:${rootProject.supportLibraryVersion}"
 }
 
 //apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'

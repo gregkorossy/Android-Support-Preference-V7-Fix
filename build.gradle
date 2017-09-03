@@ -5,7 +5,7 @@ project.ext.sdkVersion = 26
 project.ext.supportLibraryVersion = '26.0.2'
 project.ext.supportLibraryVersionPrefix = '26.0.2'
 project.ext.supportLibraryVersionSuffix = ''
-project.ext.fixLibraryVersion = '0'
+project.ext.fixLibraryVersion = '1'
 
 project.ext.extrasLibraryVersionSuffix = ''
 

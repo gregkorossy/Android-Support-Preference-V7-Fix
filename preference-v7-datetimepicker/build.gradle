@@ -43,8 +43,8 @@ ext {
 }
 
 dependencies {
-    compile project(':preference-v7')
-    compile 'com.takisoft.fix:datetimepicker:1.0.0'
+    implementation project(':preference-v7')
+    api 'com.takisoft.fix:datetimepicker:1.0.1'
 }
 
 //apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
