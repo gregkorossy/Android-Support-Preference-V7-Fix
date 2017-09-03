@@ -90,6 +90,7 @@
             android:showSilent="true"
             android:summary="Select a nice ringtone"
             android:title="RingtonePreference"
+            app:summaryHasRingtone="The best ringtone: %s"
             app:showAdd="true" />
         <TimePickerPreference
             android:key="pref_time"

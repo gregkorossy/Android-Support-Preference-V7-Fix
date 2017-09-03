@@ -2,15 +2,20 @@ package com.takisoft.fix.support.v7.preference;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
+import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.annotation.IntDef;
+import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.preference.DialogPreference;
 import android.text.TextUtils;
@@ -21,6 +26,7 @@ import com.takisoft.fix.support.v7.preference.ringtone.R;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+@SuppressWarnings("WeakerAccess,unused")
 public class RingtonePreference extends DialogPreference {
     private static final int CUSTOM_RINGTONE_REQUEST_CODE = 0x9000;
     private static final int WRITE_FILES_PERMISSION_REQUEST_CODE = 0x9001;
@@ -31,6 +37,9 @@ public class RingtonePreference extends DialogPreference {
     private boolean showAdd;
 
     private Uri ringtoneUri;
+
+    private CharSequence summaryHasRingtone;
+    private CharSequence summary;
 
     private int miscCustomRingtoneRequestCode = CUSTOM_RINGTONE_REQUEST_CODE;
     private int miscPermissionRequestCode = WRITE_FILES_PERMISSION_REQUEST_CODE;
@@ -66,7 +75,10 @@ public class RingtonePreference extends DialogPreference {
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RingtonePreference, defStyleAttr, 0);
         showAdd = a.getBoolean(R.styleable.RingtonePreference_showAdd, true);
+        summaryHasRingtone = a.getText(R.styleable.RingtonePreference_summaryHasRingtone);
         a.recycle();
+
+        summary = super.getSummary();
     }
 
     public RingtonePreference(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -306,5 +318,135 @@ public class RingtonePreference extends DialogPreference {
     @Override
     public boolean shouldDisableDependents() {
         return super.shouldDisableDependents() || onRestoreRingtone() == null;
+    }
+
+    /**
+     * Returns the summary of this Preference. If no {@code summaryHasRingtone} is set, this will be
+     * displayed if no ringtone is selected; otherwise the ringtone title will be used.
+     *
+     * @return The summary.
+     */
+    @Override
+    public CharSequence getSummary() {
+        if (ringtoneUri == null) {
+            return summary;
+        } else {
+            String ringtoneTitle = getRingtoneTitle();
+            if (summaryHasRingtone != null && ringtoneTitle != null) {
+                return String.format(summaryHasRingtone.toString(), ringtoneTitle);
+            } else if (ringtoneTitle != null) {
+                return ringtoneTitle;
+            } else {
+                return summary;
+            }
+        }
+    }
+
+    /**
+     * Sets the summary for this Preference with a CharSequence. If no {@code summaryHasRingtone} is
+     * set, this will be displayed if no ringtone is selected; otherwise the ringtone title will be
+     * used.
+     *
+     * @param summary The summary for the preference.
+     */
+    @Override
+    public void setSummary(CharSequence summary) {
+        super.setSummary(summary);
+        if (summary == null && this.summary != null) {
+            this.summary = null;
+        } else if (summary != null && !summary.equals(this.summary)) {
+            this.summary = summary.toString();
+        }
+    }
+
+    /**
+     * Returns the picked summary for this Preference. This will be displayed if the preference
+     * has a persisted value or the default value is set. If the summary
+     * has a {@linkplain java.lang.String#format String formatting}
+     * marker in it (i.e. "%s" or "%1$s"), then the current ringtone's title
+     * will be substituted in its place.
+     *
+     * @return The not-picked summary.
+     */
+    @Nullable
+    public CharSequence getSummaryHasRingtone() {
+        return summaryHasRingtone;
+    }
+
+    /**
+     * Sets the picked summary for this Preference with a resource ID. This will be displayed if the
+     * preference has a persisted value or the default value is set. If the summary
+     * has a {@linkplain java.lang.String#format String formatting}
+     * marker in it (i.e. "%s" or "%1$s"), then the current ringtone's title
+     * will be substituted in its place.
+     *
+     * @param resId The summary as a resource.
+     * @see #setSummaryHasRingtone(CharSequence)
+     */
+    public void setSummaryHasRingtone(@StringRes int resId) {
+        setSummaryHasRingtone(getContext().getString(resId));
+    }
+
+    /**
+     * Sets the picked summary for this Preference with a CharSequence. This will be displayed if
+     * the preference has a persisted value or the default value is set. If the summary
+     * has a {@linkplain java.lang.String#format String formatting}
+     * marker in it (i.e. "%s" or "%1$s"), then the current ringtone's title
+     * will be substituted in its place.
+     *
+     * @param summaryHasRingtone The summary for the preference.
+     */
+    public void setSummaryHasRingtone(@Nullable CharSequence summaryHasRingtone) {
+        if (summaryHasRingtone == null && this.summaryHasRingtone != null) {
+            this.summaryHasRingtone = null;
+        } else if (summaryHasRingtone != null && !summaryHasRingtone.equals(this.summaryHasRingtone)) {
+            this.summaryHasRingtone = summaryHasRingtone.toString();
+        }
+
+        notifyChanged();
+    }
+
+    /**
+     * Returns the selected ringtone's title, or {@code null} if no ringtone is picked.
+     *
+     * @return The selected ringtone's title, or {@code null} if no ringtone is picked.
+     */
+    public String getRingtoneTitle() {
+        Context context = getContext();
+        ContentResolver cr = context.getContentResolver();
+        String[] projection = {MediaStore.MediaColumns.TITLE};
+
+        String ringtoneTitle = null;
+
+        if (ringtoneUri != null) {
+            int type = RingtoneManager.getDefaultType(ringtoneUri);
+
+            switch (type) {
+                case RingtoneManager.TYPE_ALL:
+                case RingtoneManager.TYPE_RINGTONE:
+                    ringtoneTitle = context.getString(R.string.ringtone_default);
+                    break;
+                case RingtoneManager.TYPE_ALARM:
+                    ringtoneTitle = context.getString(R.string.alarm_sound_default);
+                    break;
+                case RingtoneManager.TYPE_NOTIFICATION:
+                    ringtoneTitle = context.getString(R.string.notification_sound_default);
+                    break;
+                default:
+                    try {
+                        Cursor cursor = cr.query(ringtoneUri, projection, null, null, null);
+                        if (cursor != null) {
+                            if (cursor.moveToFirst()) {
+                                ringtoneTitle = cursor.getString(0);
+                            }
+
+                            cursor.close();
+                        }
+                    } catch (Exception ignore) {
+                    }
+            }
+        }
+
+        return ringtoneTitle;
     }
 }
