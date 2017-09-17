@@ -1,5 +1,18 @@
 # Changelog
 
+**2017-09-17**
+
+New version: 26.1.0.0 (based on v26.1.0)
+
+- No official support preferences related changes.
+- Added new preference type:
+  - [`ColorPickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#colorpickerpreference)
+- [`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference) has a new attribute: `app:summaryHasRingtone` that can be used to display the name of the selected ringone.
+
+- **BREAKING CHANGE** in attribute and method names (and behavior) for summary handling of `DatePickerPreference` and `TimePickerPreference`.
+  - The previous `summaryNoXXX` no longer exists. Use the normal `summary` instead for showing summary if no pick is made.
+  - The new attribute is `summaryHasXXX` which is going to be displayed if the picker has a picked value. If this is not set, the `summary` will be used instead.
+
 **2017-08-31**
 
 New version: 26.0.2.0 (based on v26.0.2)

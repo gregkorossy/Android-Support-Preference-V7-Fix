@@ -1,5 +1,7 @@
 # Android Support library - preference v7 bugfix
 
+> **BREAKING CHANGE** in attribute and method names (and behavior) for summary handling of `DatePickerPreference` and `TimePickerPreference`. See the changelog for more details.
+
 This library is meant to fix some of the problems found in the official support preference-v7 library. Also, there are [new preference types](#extra-types) available, such as `RingtonePreference`, `DatePickerPreference`, and `TimePickerPreference`.
 
 [ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix%3Apreference-v7/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix%3Apreference-v7/_latestVersion)
@@ -16,12 +18,12 @@ If you would like to support me, you may donate some small amount via PayPal.
 ### 1. Add gradle dependency
 First, **remove** the unnecessary lines of preference-v7 and preference-v14 from your gradle file as the bugfix contains both of them:
 ```gradle
-compile 'com.android.support:preference-v7:26.0.2'
-compile 'com.android.support:preference-v14:26.0.2'
+compile 'com.android.support:preference-v7:26.1.0'
+compile 'com.android.support:preference-v14:26.1.0'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:26.0.2.0'
+compile 'com.takisoft.fix:preference-v7:26.1.0.0'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
@@ -90,16 +92,17 @@ Now you can enjoy using the support preferences API without losing all your hair
 There are additional preferences not part of the official support library, but decided to add them to some extra libraries. You can add all of them to your project using
 
 ```gradle
-compile 'com.takisoft.fix:preference-v7-extras:26.0.2.0'
+compile 'com.takisoft.fix:preference-v7-extras:26.1.0.0'
 ```
 
 or one or more groups:
 
 Preference | Dependency | Preview
 -|-|-
-[`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference) | `compile 'com.takisoft.fix:preference-v7-ringtone:26.0.2.0'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/ringtone_api26.png)
-[`DatePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#datepickerpreference) | `compile 'com.takisoft.fix:preference-v7-datetimepicker:26.0.2.0'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/datepicker_api26.png)
-[`TimePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#timepickerpreference) | `compile 'com.takisoft.fix:preference-v7-datetimepicker:26.0.2.0'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/timepicker_api26.png)
+[`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference) | `compile 'com.takisoft.fix:preference-v7-ringtone:26.1.0.0'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/ringtone_api26.png)
+[`DatePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#datepickerpreference) | `compile 'com.takisoft.fix:preference-v7-datetimepicker:26.1.0.0'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/datepicker_api26.png)
+[`TimePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#timepickerpreference) | `compile 'com.takisoft.fix:preference-v7-datetimepicker:26.1.0.0'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/timepicker_api26.png)
+[`ColorPickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#colorpickerpreference) | `compile 'com.takisoft.fix:preference-v7-colorpicker:26.1.0.0'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/colorpicker_api26.png)
 
 ---
 
@@ -145,7 +148,7 @@ The original implementation uses `?attr/textAppearanceSmall` as the message styl
 ---
 
 ## Version
-The current stable version is **26.0.2.0**.
+The current stable version is **26.1.0.0**.
 
 ## Notes #
 This demo / bugfix is set to work on API level 14+.
@@ -164,6 +167,19 @@ API 15 | API 21 | API 26
 
 ### Changelog
 
+**2017-09-17**
+
+New version: 26.1.0.0 (based on v26.1.0)
+
+- No official support preferences related changes.
+- Added new preference type:
+  - [`ColorPickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#colorpickerpreference)
+- [`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference) has a new attribute: `app:summaryHasRingtone` that can be used to display the name of the selected ringone.
+
+- **BREAKING CHANGE** in attribute and method names (and behavior) for summary handling of `DatePickerPreference` and `TimePickerPreference`.
+  - The previous `summaryNoXXX` no longer exists. Use the normal `summary` instead for showing summary if no pick is made.
+  - The new attribute is `summaryHasXXX` which is going to be displayed if the picker has a picked value. If this is not set, the `summary` will be used instead.
+
 **2017-08-31**
 
 New version: 26.0.2.0 (based on v26.0.2)
@@ -175,20 +191,6 @@ New version: 26.0.2.0 (based on v26.0.2)
   - [`TimePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#timepickerpreference)
 
 See the wiki / Preference types page for more details.
-
-**2017-08-09**
-
-New version: 26.0.1.0 (based on v26.0.1)
-
-- No support preferences related changes.
-
-**2017-08-04**
-
-New version: 26.0.0.1 (based on v26.0.0)
-
-- Bug fix for "Cannot call this method while RecyclerView is computing a layout or scrolling" in caused by `SwitchPreferenceCompat`:
-  - removed `SwitchPreferenceCompat` because the official implementation fixed the problem of not animating the toggle on older platforms
-  - removed `SwitchPreferenceCompatViewHolder` as it's not needed anymore
 
 > For older changelogs, check out the [CHANGELOG](CHANGELOG.md) file.
 
