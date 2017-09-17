@@ -108,11 +108,11 @@
             app:minDate="08/31/2017"
             app:summaryHasDate="Selected date: %s" />
         <ColorPickerPreference
+            android:dialogTitle="@string/color_picker_default_title"
             android:key="pref_color"
             android:persistent="false"
             android:summary="Very nice color"
             android:title="ColorPickerPreference"
-            app:columns="4"
             app:size="small" />
     </PreferenceCategory>
     <PreferenceCategory

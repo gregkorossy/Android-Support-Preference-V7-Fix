@@ -33,14 +33,14 @@ public class ColorPickerPreferenceDialogFragmentCompat extends PreferenceDialogF
         return dialog;
     }
 
-    @Override
+    /*@Override
     public void onClick(DialogInterface dialog, int which) {
         super.onClick(dialog, which);
 
         if (which == DialogInterface.BUTTON_POSITIVE) {
             //((DatePickerDialog) getDialog()).onClick(dialog, which);
         }
-    }
+    }*/
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
