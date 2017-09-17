@@ -8,6 +8,8 @@
 
         <attr name="colors" format="reference" />
 
+        <attr name="sortColors" format="boolean|reference" />
+
         <attr name="colorDescriptions" format="reference" />
 
         <attr name="columns" format="integer|reference" />

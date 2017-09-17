@@ -13,8 +13,9 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import com.android.colorpicker.ColorPickerDialog;
-import com.android.colorpicker.ColorStateDrawable;
+import com.takisoft.colorpicker.ColorPickerDialog;
+import com.takisoft.colorpicker.ColorPickerDialog.Size;
+import com.takisoft.colorpicker.ColorStateDrawable;
 import com.takisoft.fix.support.v7.preference.colorpicker.R;
 
 public class ColorPickerPreference extends DialogPreference {
@@ -28,6 +29,7 @@ public class ColorPickerPreference extends DialogPreference {
     private int color;
     private int columns;
     private int size;
+    private boolean sortColors;
 
     private ImageView colorWidget;
 
@@ -46,6 +48,7 @@ public class ColorPickerPreference extends DialogPreference {
         color = a.getColor(R.styleable.ColorPickerPreference_currentColor, 0);
         columns = a.getInt(R.styleable.ColorPickerPreference_columns, 3);
         size = a.getInt(R.styleable.ColorPickerPreference_size, 2);
+        sortColors = a.getBoolean(R.styleable.ColorPickerPreference_sortColors, false);
 
         a.recycle();
 
@@ -80,48 +83,135 @@ public class ColorPickerPreference extends DialogPreference {
         }
 
         Drawable[] colorDrawable = new Drawable[]
-                {ContextCompat.getDrawable(getContext(), R.drawable.color_picker_swatch)};
+                {ContextCompat.getDrawable(getContext(), R.drawable.colorpickerpreference_pref_swatch)};
         colorWidget.setImageDrawable(new ColorStateDrawable(colorDrawable, color));
     }
 
+    /**
+     * Returns the current color.
+     *
+     * @return The current color.
+     */
     public int getColor() {
         return color;
     }
 
+    /**
+     * Sets the current color.
+     *
+     * @param color The current color.
+     */
     public void setColor(int color) {
         setInternalColor(color, false);
     }
 
+    /**
+     * Returns all of the available colors.
+     *
+     * @return The available colors.
+     */
     public int[] getColors() {
         return colors;
     }
 
+    /**
+     * Sets the available colors.
+     *
+     * @param colors The available colors.
+     */
     public void setColors(int[] colors) {
         this.colors = colors;
     }
 
+    /**
+     * Returns whether the available colors should be sorted automatically based on their HSV
+     * values.
+     *
+     * @return Whether the available colors should be sorted automatically based on their HSV
+     * values.
+     */
+    public boolean isSortColors() {
+        return sortColors;
+    }
+
+    /**
+     * Sets whether the available colors should be sorted automatically based on their HSV
+     * values. The sorting does not modify the order of the original colors supplied via
+     * {@link #setColors(int[])} or the XML attribute {@code app:colors}.
+     *
+     * @param sortColors Whether the available colors should be sorted automatically based on their
+     *                   HSV values.
+     */
+    public void setSortColors(boolean sortColors) {
+        this.sortColors = sortColors;
+    }
+
+    /**
+     * Returns the available colors' descriptions that can be used by accessibility services.
+     *
+     * @return The available colors' descriptions.
+     */
     public CharSequence[] getColorDescriptions() {
         return colorDescriptions;
     }
 
+    /**
+     * Sets the available colors' descriptions that can be used by accessibility services.
+     *
+     * @param colorDescriptions The available colors' descriptions.
+     */
     public void setColorDescriptions(CharSequence[] colorDescriptions) {
         this.colorDescriptions = colorDescriptions;
     }
 
+    /**
+     * Returns the number of columns to be used in the picker dialog for displaying the available
+     * colors. If the value is less than or equals to 0, the number of columns will be determined
+     * automatically by the system using FlexboxLayoutManager.
+     *
+     * @return The number of columns to be used in the picker dialog.
+     * @see com.google.android.flexbox.FlexboxLayoutManager
+     */
     public int getColumns() {
         return columns;
     }
 
+    /**
+     * Sets the number of columns to be used in the picker dialog for displaying the available
+     * colors. If the value is less than or equals to 0, the number of columns will be determined
+     * automatically by the system using FlexboxLayoutManager.
+     *
+     * @param columns The number of columns to be used in the picker dialog. Use 0 to set it to
+     *                'auto' mode.
+     * @see com.google.android.flexbox.FlexboxLayoutManager
+     */
     public void setColumns(int columns) {
         this.columns = columns;
     }
 
-    @ColorPickerDialog.Size
+    /**
+     * Returns the size of the color swatches in the dialog. It can be either
+     * {@link ColorPickerDialog#SIZE_SMALL} or {@link ColorPickerDialog#SIZE_LARGE}.
+     *
+     * @return The size of the color swatches in the dialog.
+     * @see ColorPickerDialog#SIZE_SMALL
+     * @see ColorPickerDialog#SIZE_LARGE
+     */
+    @Size
     public int getSize() {
         return size;
     }
 
-    public void setSize(@ColorPickerDialog.Size int size) {
+    /**
+     * Sets the size of the color swatches in the dialog. It can be either
+     * {@link ColorPickerDialog#SIZE_SMALL} or {@link ColorPickerDialog#SIZE_LARGE}.
+     *
+     * @param size The size of the color swatches in the dialog. It can be either
+     *             {@link ColorPickerDialog#SIZE_SMALL} or {@link ColorPickerDialog#SIZE_LARGE}.
+     * @see ColorPickerDialog#SIZE_SMALL
+     * @see ColorPickerDialog#SIZE_LARGE
+     */
+    public void setSize(@Size int size) {
         this.size = size;
     }
 

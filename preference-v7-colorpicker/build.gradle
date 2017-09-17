@@ -26,7 +26,7 @@ ext {
 
     publishedGroupId = 'com.takisoft.fix'
     libraryName = 'Preference v7 - ColorPickerPreference'
-    artifact = 'preference-v7-ringtone'
+    artifact = 'preference-v7-colorpicker'
 
     libraryDescription = 'Android Support Library Preference v7 - ColorPickerPreference. The original Support Library files are under Apache 2.0, the fixes and extras are unlicensed.'
 
@@ -47,6 +47,7 @@ ext {
 dependencies {
     implementation project(':preference-v7')
     implementation "com.android.support:appcompat-v7:${rootProject.supportLibraryVersion}"
+    api 'com.takisoft.fix:colorpicker:0.9.1'
 }
 
 //apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'

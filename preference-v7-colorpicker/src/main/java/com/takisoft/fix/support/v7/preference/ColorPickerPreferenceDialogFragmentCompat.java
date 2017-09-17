@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.preference.PreferenceDialogFragmentCompat;
 
-import com.android.colorpicker.ColorPickerDialog;
-import com.android.colorpicker.ColorPickerSwatch;
+import com.takisoft.colorpicker.ColorPickerDialog;
+import com.takisoft.colorpicker.OnColorSelectedListener;
 
-public class ColorPickerPreferenceDialogFragmentCompat extends PreferenceDialogFragmentCompat implements ColorPickerSwatch.OnColorSelectedListener {
+public class ColorPickerPreferenceDialogFragmentCompat extends PreferenceDialogFragmentCompat implements OnColorSelectedListener {
 
     private int pickedColor;
 
@@ -18,11 +18,12 @@ public class ColorPickerPreferenceDialogFragmentCompat extends PreferenceDialogF
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         ColorPickerPreference pref = getColorPickerPreference();
 
-        ColorPickerDialog.Params params = new ColorPickerDialog.Params.Builder()
+        ColorPickerDialog.Params params = new ColorPickerDialog.Params.Builder(getContext())
                 .setSelectedColor(pref.getColor())
                 .setColors(pref.getColors())
                 .setColorContentDescriptions(pref.getColorDescriptions())
                 .setSize(pref.getSize())
+                .setSortColors(pref.isSortColors())
                 .setColumns(pref.getColumns())
                 .build();
 
