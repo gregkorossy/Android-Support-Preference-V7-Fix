@@ -43,14 +43,17 @@ ext {
 }
 
 dependencies {
-    compile project(':preference-v7')
+    implementation project(':preference-v7')
 
-    compile project(':preference-v7-datetimepicker')
-    compile project(':preference-v7-ringtone')
+    api project(':preference-v7-datetimepicker')
+    api project(':preference-v7-ringtone')
+    api project(':preference-v7-colorpicker')
 }
 
-apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
-apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/bintrayv.gradle'
+//apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
+//apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/bintrayv.gradle'
+apply from: '../installv.gradle'
+apply from: '../bintrayv.gradle'
 
 javadoc.doFirst {
     failOnError false

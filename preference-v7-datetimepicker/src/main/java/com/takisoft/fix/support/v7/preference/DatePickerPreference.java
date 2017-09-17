@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.preference.DialogPreference;
+import android.support.v7.preference.Preference;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
@@ -20,7 +21,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-@SuppressWarnings("WeakerAccess")
+/**
+ * A {@link Preference} that displays a date picker as a dialog.
+ * <p>
+ * This preference will save the picked date as a string into the SharedPreferences.
+ * This string uses the {@code MM/dd/yyyy} format, formatted using {@link #FORMAT}.
+ *
+ * @see #PATTERN
+ * @see #FORMAT
+ */
+
+@SuppressWarnings("WeakerAccess,unused")
 public class DatePickerPreference extends DialogPreference {
     /**
      * The pattern that is used for parsing the default value.
@@ -37,7 +48,7 @@ public class DatePickerPreference extends DialogPreference {
     }
 
     private String summaryPattern;
-    private CharSequence summaryNotPicked;
+    private CharSequence summaryHasDate;
     private CharSequence summary;
 
     private Date date;
@@ -77,7 +88,7 @@ public class DatePickerPreference extends DialogPreference {
         }
 
         summaryPattern = a.getString(R.styleable.DatePickerPreference_summaryDatePattern);
-        summaryNotPicked = a.getText(R.styleable.DatePickerPreference_summaryNoDate);
+        summaryHasDate = a.getText(R.styleable.DatePickerPreference_summaryHasDate);
         a.recycle();
 
         summary = super.getSummary();
@@ -225,43 +236,42 @@ public class DatePickerPreference extends DialogPreference {
     }
 
     /**
-     * Returns the summary of this ListPreference. If the summary
-     * has a {@linkplain java.lang.String#format String formatting}
-     * marker in it (i.e. "%s" or "%1$s"), then the current formatted
-     * date will be substituted in its place.
+     * Returns the summary of this Preference. If no {@code summaryHasDate} is set, this will be
+     * displayed if no date is selected; otherwise the formatted date will be used.
      *
-     * @return The summary with appropriate string substitution.
+     * @return The summary.
      */
     @Override
     public CharSequence getSummary() {
-        if (summary == null) {
-            return super.getSummary();
+        if (date == null) {
+            return summary;
         } else {
-            if (date == null) {
-                return summaryNotPicked;
+            DateFormat simpleDateFormat;
+
+            if (summaryPattern == null) {
+                simpleDateFormat = android.text.format.DateFormat.getLongDateFormat(getContext());
             } else {
-                DateFormat simpleDateFormat;
+                simpleDateFormat = new SimpleDateFormat(summaryPattern, Locale.getDefault());
+            }
 
-                if (summaryPattern == null) {
-                    simpleDateFormat = android.text.format.DateFormat.getLongDateFormat(getContext());
-                } else {
-                    simpleDateFormat = new SimpleDateFormat(summaryPattern, Locale.getDefault());
-                }
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
 
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(date);
-
-                return String.format(summary.toString(), simpleDateFormat.format(cal.getTime()));
+            String formattedDate = simpleDateFormat.format(cal.getTime());
+            if (summaryHasDate != null && formattedDate != null) {
+                return String.format(summaryHasDate.toString(), formattedDate);
+            } else if (formattedDate != null) {
+                return formattedDate;
+            } else {
+                return summary;
             }
         }
     }
 
     /**
-     * Sets the summary for this Preference with a CharSequence.
-     * If the summary has a
-     * {@linkplain java.lang.String#format String formatting}
-     * marker in it (i.e. "%s" or "%1$s"), then the current formatted
-     * date will be substituted in its place when it's retrieved.
+     * Sets the summary for this Preference with a CharSequence. If no {@code summaryHasDate} is
+     * set, this will be displayed if no date is selected; otherwise the formatted date will be
+     * used.
      *
      * @param summary The summary for the preference.
      */
@@ -299,41 +309,47 @@ public class DatePickerPreference extends DialogPreference {
     }
 
     /**
-     * Returns the not-picked summary for this Preference. This will be displayed if the preference
-     * has no persisted value yet and the default value is not set.
+     * Returns the picked summary for this Preference. This will be displayed if the preference
+     * has a persisted value or the default value is set. If the summary
+     * has a {@linkplain java.lang.String#format String formatting}
+     * marker in it (i.e. "%s" or "%1$s"), then the current formatted date
+     * will be substituted in its place.
      *
-     * @return The not-picked summary.
+     * @return The picked summary.
      */
     @Nullable
-    public CharSequence getSummaryNotPicked() {
-        return summaryNotPicked;
+    public CharSequence getSummaryHasDate() {
+        return summaryHasDate;
     }
 
     /**
-     * Sets the not-picked summary for this Preference with a resource ID. This will be displayed if
-     * the preference has no persisted value yet and the default value is not set.
+     * Sets the picked summary for this Preference with a resource ID. This will be displayed if the
+     * preference has a persisted value or the default value is set. If the summary
+     * has a {@linkplain java.lang.String#format String formatting}
+     * marker in it (i.e. "%s" or "%1$s"), then the current formatted date
+     * will be substituted in its place.
      *
      * @param resId The summary as a resource.
-     * @see #setSummaryNotPicked(CharSequence)
+     * @see #setSummaryHasDate(CharSequence)
      */
-    public void setSummaryNotPicked(@StringRes int resId) {
-        setSummaryNotPicked(getContext().getString(resId));
+    public void setSummaryHasDate(@StringRes int resId) {
+        setSummaryHasDate(getContext().getString(resId));
     }
 
     /**
-     * Sets the not-picked summary for this Preference with a CharSequence. This will be displayed
-     * if the preference has no persisted value yet and the default value is not set.
-     * If the summary has a {@linkplain java.lang.String#format String formatting}
-     * marker in it (i.e. "%s" or "%1$s"), then the current formatted
-     * date will be substituted in its place when it's retrieved.
+     * Sets the picked summary for this Preference with a CharSequence. This will be displayed if
+     * the preference has a persisted value or the default value is set. If the summary
+     * has a {@linkplain java.lang.String#format String formatting}
+     * marker in it (i.e. "%s" or "%1$s"), then the current formatted date
+     * will be substituted in its place.
      *
-     * @param summaryNotPicked The summary for the preference.
+     * @param summaryHasDate The summary for the preference.
      */
-    public void setSummaryNotPicked(@Nullable CharSequence summaryNotPicked) {
-        if (summaryNotPicked == null && this.summaryNotPicked != null) {
-            this.summaryNotPicked = null;
-        } else if (summaryNotPicked != null && !summaryNotPicked.equals(this.summaryNotPicked)) {
-            this.summaryNotPicked = summaryNotPicked.toString();
+    public void setSummaryHasDate(@Nullable CharSequence summaryHasDate) {
+        if (summaryHasDate == null && this.summaryHasDate != null) {
+            this.summaryHasDate = null;
+        } else if (summaryHasDate != null && !summaryHasDate.equals(this.summaryHasDate)) {
+            this.summaryHasDate = summaryHasDate.toString();
         }
 
         notifyChanged();
