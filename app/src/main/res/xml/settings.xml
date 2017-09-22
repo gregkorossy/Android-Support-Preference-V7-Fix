@@ -116,6 +116,16 @@
             app:size="small" />
     </PreferenceCategory>
     <PreferenceCategory
+        android:key="pref_empty_categ"
+        android:title="">
+        <CheckBoxPreference
+            android:key="pref_empty_check"
+            android:persistent="false"
+            android:summaryOff="Category title is hidden :("
+            android:summaryOn="Category title is visible :)"
+            android:title="Show category title" />
+    </PreferenceCategory>
+    <PreferenceCategory
         android:key="pref_categ"
         android:title="Dynamic category">
         <Preference
