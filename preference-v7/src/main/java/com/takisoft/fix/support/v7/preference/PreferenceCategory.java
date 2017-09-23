@@ -21,7 +21,7 @@ import android.widget.TextView;
 public class PreferenceCategory extends android.support.v7.preference.PreferenceCategory {
     private static final int[] CATEGORY_ATTRS = new int[]{R.attr.colorAccent, R.attr.preferenceCategory_marginBottom};
 
-    protected TextView titleView;
+    protected View itemView;
 
     public PreferenceCategory(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -83,14 +83,16 @@ public class PreferenceCategory extends android.support.v7.preference.Preference
     public void setTitle(CharSequence title) {
         super.setTitle(title);
 
-        setTitleVisibility(titleView, !TextUtils.isEmpty(getTitle()));
+        setTitleVisibility(itemView, !TextUtils.isEmpty(getTitle()));
     }
 
     @Override
     public void onBindViewHolder(PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
 
-        titleView = (TextView) holder.findViewById(android.R.id.title);
+        itemView = holder.itemView;
+
+        TextView titleView = (TextView) holder.findViewById(android.R.id.title);
 
         if (titleView != null) {
             final TypedArray typedArray = getContext().obtainStyledAttributes(CATEGORY_ATTRS);
@@ -111,12 +113,12 @@ public class PreferenceCategory extends android.support.v7.preference.Preference
             }
 
             typedArray.recycle();
-
-            boolean isVisible = !TextUtils.isEmpty(getTitle());
-            setTitleVisibility(holder.itemView, isVisible);
-            /*if (!isVisible) {
-                return;
-            }*/
         }
+
+        boolean isVisible = !TextUtils.isEmpty(getTitle());
+        setTitleVisibility(holder.itemView, isVisible);
+        /*if (!isVisible) {
+            return;
+        }*/
     }
 }
