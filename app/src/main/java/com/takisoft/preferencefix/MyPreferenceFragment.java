@@ -27,6 +27,19 @@ public class MyPreferenceFragment extends PreferenceFragmentCompatDividers {
         if (etPref != null) {
             int inputType = etPref.getEditText().getInputType();
         }
+
+        findPreference("pref_empty_check").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                if (!(Boolean) newValue) {
+                    findPreference("pref_empty_categ").setTitle(null);
+                } else {
+                    findPreference("pref_empty_categ").setTitle("Now you see me");
+                }
+
+                return true;
+            }
+        });
     }
 
     @Override
@@ -34,8 +47,8 @@ public class MyPreferenceFragment extends PreferenceFragmentCompatDividers {
         try {
             return super.onCreateView(inflater, container, savedInstanceState);
         } finally {
-            // Uncomment this if you want to change the dividers' style
-            // setDividerPreferences(DIVIDER_PADDING_CHILD | DIVIDER_CATEGORY_AFTER_LAST | DIVIDER_CATEGORY_BETWEEN);
+            // Comment this out if you want to revert to the default divider style
+            setDividerPreferences(DIVIDER_CATEGORY_BEFORE_FIRST | DIVIDER_CATEGORY_BETWEEN | DIVIDER_NO_BEFORE_FIRST);
         }
     }
 

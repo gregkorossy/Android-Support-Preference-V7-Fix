@@ -3,8 +3,11 @@ package com.takisoft.fix.support.v7.preference;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v7.preference.PreferenceViewHolder;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -17,6 +20,8 @@ import android.widget.TextView;
  */
 public class PreferenceCategory extends android.support.v7.preference.PreferenceCategory {
     private static final int[] CATEGORY_ATTRS = new int[]{R.attr.colorAccent, R.attr.preferenceCategory_marginBottom};
+
+    protected View itemView;
 
     public PreferenceCategory(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -34,11 +39,60 @@ public class PreferenceCategory extends android.support.v7.preference.Preference
         super(context);
     }
 
+    private void setTitleVisibility(View itemView, boolean isVisible) {
+        if (itemView == null) {
+            return;
+        }
+
+        final RecyclerView.LayoutParams currentParams = (RecyclerView.LayoutParams) itemView.getLayoutParams();
+        final RecyclerView.LayoutParams param;
+
+        final boolean wasHidden = itemView.getTag() != null && currentParams.width == 0;
+
+        if (itemView.getTag() == null) {
+            param = new RecyclerView.LayoutParams((ViewGroup.MarginLayoutParams) currentParams);
+            itemView.setTag(param);
+        } else {
+            param = (RecyclerView.LayoutParams) itemView.getTag();
+        }
+
+        if (isVisible) {
+            if (itemView.getVisibility() == View.GONE || wasHidden) {
+                currentParams.width = param.width;
+                currentParams.height = param.height;
+                currentParams.leftMargin = param.leftMargin;
+                currentParams.rightMargin = param.rightMargin;
+                currentParams.topMargin = param.topMargin;
+                currentParams.bottomMargin = param.bottomMargin;
+                itemView.setVisibility(View.VISIBLE);
+            }
+        } else {
+            if (itemView.getVisibility() == View.VISIBLE || !wasHidden) {
+                currentParams.width = 0;
+                currentParams.height = 0;
+                currentParams.leftMargin = 0;
+                currentParams.rightMargin = 0;
+                currentParams.topMargin = 0;
+                currentParams.bottomMargin = 0;
+                itemView.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        super.setTitle(title);
+
+        setTitleVisibility(itemView, !TextUtils.isEmpty(getTitle()));
+    }
+
     @Override
     public void onBindViewHolder(PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
 
-        final TextView titleView = (TextView) holder.findViewById(android.R.id.title);
+        itemView = holder.itemView;
+
+        TextView titleView = (TextView) holder.findViewById(android.R.id.title);
 
         if (titleView != null) {
             final TypedArray typedArray = getContext().obtainStyledAttributes(CATEGORY_ATTRS);
@@ -60,5 +114,11 @@ public class PreferenceCategory extends android.support.v7.preference.Preference
 
             typedArray.recycle();
         }
+
+        boolean isVisible = !TextUtils.isEmpty(getTitle());
+        setTitleVisibility(holder.itemView, isVisible);
+        /*if (!isVisible) {
+            return;
+        }*/
     }
 }
