@@ -48,7 +48,7 @@ public class MyPreferenceFragment extends PreferenceFragmentCompatDividers {
             return super.onCreateView(inflater, container, savedInstanceState);
         } finally {
             // Comment this out if you want to revert to the default divider style
-            setDividerPreferences(DIVIDER_CATEGORY_BEFORE_FIRST | DIVIDER_CATEGORY_BETWEEN);
+            setDividerPreferences(DIVIDER_CATEGORY_BEFORE_FIRST | DIVIDER_CATEGORY_BETWEEN | DIVIDER_NO_BEFORE_FIRST);
         }
     }
 

@@ -79,6 +79,21 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
      */
     public static final int DIVIDER_PADDING_PARENT = 1 << 9;
 
+    /**
+     * Won't draw a divider before the very first item. This is useful in certain situations where
+     * there would be a divider before the first element of the list (for example when using
+     * {@link #DIVIDER_CATEGORY_BEFORE_FIRST} and the first item in the list is a preference
+     * category).
+     */
+    public static final int DIVIDER_NO_BEFORE_FIRST = 1 << 16;
+
+    /**
+     * Won't draw a divider after the very last item. This is useful in certain situations where
+     * there would be a divider after the last element of the list (for example when using
+     * {@link #DIVIDER_PREFERENCE_AFTER_LAST} and the last item in the list is a preference).
+     */
+    public static final int DIVIDER_NO_AFTER_LAST = 1 << 17;
+
     @IntDef(flag = true, value = {
             DIVIDER_DEFAULT, DIVIDER_NONE,
             DIVIDER_CATEGORY_BETWEEN,
@@ -88,7 +103,9 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
             DIVIDER_PREFERENCE_BEFORE_FIRST,
             DIVIDER_PREFERENCE_AFTER_LAST,
             DIVIDER_PADDING_CHILD,
-            DIVIDER_PADDING_PARENT
+            DIVIDER_PADDING_PARENT,
+            DIVIDER_NO_BEFORE_FIRST,
+            DIVIDER_NO_AFTER_LAST
     })
     @Retention(RetentionPolicy.SOURCE)
     protected @interface DividerPrefFlags {
@@ -242,6 +259,11 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
 
                 final int first = lm.findFirstVisibleItemPosition();
                 final int last = lm.findLastVisibleItemPosition();
+                final int lastInAdapter = parent.getAdapter().getItemCount() - 1;
+
+                if (first == RecyclerView.NO_POSITION || last == RecyclerView.NO_POSITION) {
+                    return;
+                }
 
                 final int left;
                 final int right;
@@ -266,6 +288,10 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
 
                     final View view = lm.findViewByPosition(i);
 
+                    if (view == null) {
+                        return;
+                    }
+
                     if ((divPrefFlags & DIVIDER_PADDING_CHILD) == DIVIDER_PADDING_CHILD) {
                         viewLeft = left + view.getPaddingLeft();
                         viewRight = right - view.getPaddingRight();
@@ -287,13 +313,16 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
 
                     baseY = (int) view.getY();
 
-                    if (i == 0 && hasDividerAbove(types[typePointer])) {
+                    if (i == 0 && hasDividerAbove(types[typePointer])
+                            && (divPrefFlags & DIVIDER_NO_BEFORE_FIRST) != DIVIDER_NO_BEFORE_FIRST) {
                         top = baseY;
                         divider.setBounds(viewLeft, top, viewRight, top + this.dividerHeight);
                         divider.draw(c);
                     }
 
-                    if (hasDividerBelow(types[typePointer], types[(typePointer + 1) % 2])) {
+                    if (hasDividerBelow(types[typePointer], types[(typePointer + 1) % 2])
+                            && !(i == lastInAdapter
+                            && (divPrefFlags & DIVIDER_NO_AFTER_LAST) == DIVIDER_NO_AFTER_LAST)) {
                         top = baseY + view.getHeight() + view.getPaddingBottom() + view.getPaddingTop();
                         divider.setBounds(viewLeft, top, viewRight, top + this.dividerHeight);
                         divider.draw(c);
@@ -318,11 +347,14 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
                 next = TYPE_UNKNOWN;
             }
 
-            if (parent.getChildAdapterPosition(view) == 0 && hasDividerAbove(current)) {
+            if (parent.getChildAdapterPosition(view) == 0 && hasDividerAbove(current)
+                    && (divPrefFlags & DIVIDER_NO_BEFORE_FIRST) != DIVIDER_NO_BEFORE_FIRST) {
                 outRect.top = dividerHeight;
             }
 
-            if (hasDividerBelow(current, next)) {
+            if (hasDividerBelow(current, next)
+                    && !(parent.getChildAdapterPosition(view) == parent.getAdapter().getItemCount() - 1
+                    && (divPrefFlags & DIVIDER_NO_AFTER_LAST) == DIVIDER_NO_AFTER_LAST)) {
                 outRect.bottom = dividerHeight;
             }
         }
