@@ -1,5 +1,14 @@
 # Changelog
 
+**2017-09-24**
+
+New version: 26.1.0.1 (based on v26.1.0)
+
+- Bug fix: crash on API 26 when using dividers and preferences with widgets together
+- Bug fix: `ColorPickerPreference`'s column number defaults to auto (0) instead of 3
+- `PreferenceCategory`'s title view gets hidden (including its dimensions) when the title is empty (the dividers will be drawn as if the title was not hidden)
+- Added 2 new flags to the custom dividers: `DIVIDER_NO_BEFORE_FIRST` and `DIVIDER_NO_AFTER_LAST`
+
 **2017-09-17**
 
 New version: 26.1.0.0 (based on v26.1.0)
