@@ -132,6 +132,8 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
      * <li>{@link #DIVIDER_PREFERENCE_AFTER_LAST}</li>
      * <li>{@link #DIVIDER_PADDING_CHILD}</li>
      * <li>{@link #DIVIDER_PADDING_PARENT}</li>
+     * <li>{@link #DIVIDER_NO_BEFORE_FIRST}</li>
+     * <li>{@link #DIVIDER_NO_AFTER_LAST}</li>
      * </ul>
      * </li>
      * </ul>
