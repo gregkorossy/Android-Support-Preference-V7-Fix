@@ -261,7 +261,8 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
 
                 final int first = lm.findFirstVisibleItemPosition();
                 final int last = lm.findLastVisibleItemPosition();
-                final int lastInAdapter = parent.getAdapter().getItemCount() - 1;
+
+                final int lastInAdapter = lm.getItemCount() - 1;
 
                 if (first == RecyclerView.NO_POSITION || last == RecyclerView.NO_POSITION) {
                     return;
@@ -341,6 +342,8 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
             final byte current = getViewType(view);
             final byte next;
 
+            final LinearLayoutManager lm = (LinearLayoutManager) parent.getLayoutManager();
+
             final int index = parent.indexOfChild(view);
             if (index < parent.getChildCount() - 1) {
                 View viewNext = parent.getChildAt(index + 1);
@@ -355,7 +358,7 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
             }
 
             if (hasDividerBelow(current, next)
-                    && !(parent.getChildAdapterPosition(view) == parent.getAdapter().getItemCount() - 1
+                    && !(parent.getChildAdapterPosition(view) == lm.getItemCount() - 1
                     && (divPrefFlags & DIVIDER_NO_AFTER_LAST) == DIVIDER_NO_AFTER_LAST)) {
                 outRect.bottom = dividerHeight;
             }
