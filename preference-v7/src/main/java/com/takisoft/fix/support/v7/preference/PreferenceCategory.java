@@ -47,7 +47,7 @@ public class PreferenceCategory extends android.support.v7.preference.Preference
         final RecyclerView.LayoutParams currentParams = (RecyclerView.LayoutParams) itemView.getLayoutParams();
         final RecyclerView.LayoutParams param;
 
-        //final boolean firstTime = itemView.getTag() == null;
+        final boolean wasHidden = itemView.getTag() != null && currentParams.width == 0;
 
         if (itemView.getTag() == null) {
             param = new RecyclerView.LayoutParams((ViewGroup.MarginLayoutParams) currentParams);
@@ -57,25 +57,25 @@ public class PreferenceCategory extends android.support.v7.preference.Preference
         }
 
         if (isVisible) {
-            //if (itemView.getVisibility() == View.GONE && !firstTime) {
-            currentParams.width = param.width;
-            currentParams.height = param.height;
-            currentParams.leftMargin = param.leftMargin;
-            currentParams.rightMargin = param.rightMargin;
-            currentParams.topMargin = param.topMargin;
-            currentParams.bottomMargin = param.bottomMargin;
-            itemView.setVisibility(View.VISIBLE);
-            //}
+            if (itemView.getVisibility() == View.GONE || wasHidden) {
+                currentParams.width = param.width;
+                currentParams.height = param.height;
+                currentParams.leftMargin = param.leftMargin;
+                currentParams.rightMargin = param.rightMargin;
+                currentParams.topMargin = param.topMargin;
+                currentParams.bottomMargin = param.bottomMargin;
+                itemView.setVisibility(View.VISIBLE);
+            }
         } else {
-            //if (itemView.getVisibility() == View.VISIBLE || firstTime) {
-            currentParams.width = 0;
-            currentParams.height = 0;
-            currentParams.leftMargin = 0;
-            currentParams.rightMargin = 0;
-            currentParams.topMargin = 0;
-            currentParams.bottomMargin = 0;
-            itemView.setVisibility(View.GONE);
-            //}
+            if (itemView.getVisibility() == View.VISIBLE || !wasHidden) {
+                currentParams.width = 0;
+                currentParams.height = 0;
+                currentParams.leftMargin = 0;
+                currentParams.rightMargin = 0;
+                currentParams.topMargin = 0;
+                currentParams.bottomMargin = 0;
+                itemView.setVisibility(View.GONE);
+            }
         }
     }
 
