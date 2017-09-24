@@ -2,6 +2,12 @@
 
 **2017-09-24**
 
+New version: 26.1.0.2 (based on v26.1.0)
+
+- Quick fix: the app won't crash if the preference XML couldn't be inflated (but it will still display as an empty screen)
+
+**2017-09-24**
+
 New version: 26.1.0.1 (based on v26.1.0)
 
 - Bug fix: crash on API 26 when using dividers and preferences with widgets together
