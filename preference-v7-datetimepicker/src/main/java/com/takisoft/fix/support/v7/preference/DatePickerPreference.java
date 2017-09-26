@@ -59,9 +59,9 @@ public class DatePickerPreference extends DialogPreference {
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DatePickerPreference, defStyleAttr, 0);
 
-        String pickerDate = a.getString(R.styleable.DatePickerPreference_pickerDate);
-        String minDate = a.getString(R.styleable.DatePickerPreference_minDate);
-        String maxDate = a.getString(R.styleable.DatePickerPreference_maxDate);
+        String pickerDate = a.getString(R.styleable.DatePickerPreference_pref_pickerDate);
+        String minDate = a.getString(R.styleable.DatePickerPreference_pref_minDate);
+        String maxDate = a.getString(R.styleable.DatePickerPreference_pref_maxDate);
 
         if (!TextUtils.isEmpty(pickerDate)) {
             try {
@@ -87,8 +87,8 @@ public class DatePickerPreference extends DialogPreference {
             }
         }
 
-        summaryPattern = a.getString(R.styleable.DatePickerPreference_summaryDatePattern);
-        summaryHasDate = a.getText(R.styleable.DatePickerPreference_summaryHasDate);
+        summaryPattern = a.getString(R.styleable.DatePickerPreference_pref_summaryDatePattern);
+        summaryHasDate = a.getText(R.styleable.DatePickerPreference_pref_summaryHasDate);
         a.recycle();
 
         summary = super.getSummary();
@@ -236,7 +236,7 @@ public class DatePickerPreference extends DialogPreference {
     }
 
     /**
-     * Returns the summary of this Preference. If no {@code summaryHasDate} is set, this will be
+     * Returns the summary of this Preference. If no {@code pref_summaryHasDate} is set, this will be
      * displayed if no date is selected; otherwise the formatted date will be used.
      *
      * @return The summary.
@@ -269,7 +269,7 @@ public class DatePickerPreference extends DialogPreference {
     }
 
     /**
-     * Sets the summary for this Preference with a CharSequence. If no {@code summaryHasDate} is
+     * Sets the summary for this Preference with a CharSequence. If no {@code pref_summaryHasDate} is
      * set, this will be displayed if no date is selected; otherwise the formatted date will be
      * used.
      *

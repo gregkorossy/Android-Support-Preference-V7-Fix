@@ -38,17 +38,17 @@ public class ColorPickerPreference extends DialogPreference {
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ColorPickerPreference, defStyleAttr, 0);
 
-        int colorsId = a.getResourceId(R.styleable.ColorPickerPreference_colors, R.array.color_picker_default_colors);
+        int colorsId = a.getResourceId(R.styleable.ColorPickerPreference_pref_colors, R.array.color_picker_default_colors);
 
         if (colorsId != 0) {
             colors = context.getResources().getIntArray(colorsId);
         }
 
-        colorDescriptions = a.getTextArray(R.styleable.ColorPickerPreference_colorDescriptions);
-        color = a.getColor(R.styleable.ColorPickerPreference_currentColor, 0);
-        columns = a.getInt(R.styleable.ColorPickerPreference_columns, 0);
-        size = a.getInt(R.styleable.ColorPickerPreference_size, ColorPickerDialog.SIZE_SMALL);
-        sortColors = a.getBoolean(R.styleable.ColorPickerPreference_sortColors, false);
+        colorDescriptions = a.getTextArray(R.styleable.ColorPickerPreference_pref_colorDescriptions);
+        color = a.getColor(R.styleable.ColorPickerPreference_pref_currentColor, 0);
+        columns = a.getInt(R.styleable.ColorPickerPreference_pref_columns, 0);
+        size = a.getInt(R.styleable.ColorPickerPreference_pref_size, ColorPickerDialog.SIZE_SMALL);
+        sortColors = a.getBoolean(R.styleable.ColorPickerPreference_pref_sortColors, false);
 
         a.recycle();
 
@@ -106,28 +106,28 @@ public class ColorPickerPreference extends DialogPreference {
     }
 
     /**
-     * Returns all of the available colors.
+     * Returns all of the available pref_colors.
      *
-     * @return The available colors.
+     * @return The available pref_colors.
      */
     public int[] getColors() {
         return colors;
     }
 
     /**
-     * Sets the available colors.
+     * Sets the available pref_colors.
      *
-     * @param colors The available colors.
+     * @param colors The available pref_colors.
      */
     public void setColors(int[] colors) {
         this.colors = colors;
     }
 
     /**
-     * Returns whether the available colors should be sorted automatically based on their HSV
+     * Returns whether the available pref_colors should be sorted automatically based on their HSV
      * values.
      *
-     * @return Whether the available colors should be sorted automatically based on their HSV
+     * @return Whether the available pref_colors should be sorted automatically based on their HSV
      * values.
      */
     public boolean isSortColors() {
@@ -135,11 +135,11 @@ public class ColorPickerPreference extends DialogPreference {
     }
 
     /**
-     * Sets whether the available colors should be sorted automatically based on their HSV
-     * values. The sorting does not modify the order of the original colors supplied via
-     * {@link #setColors(int[])} or the XML attribute {@code app:colors}.
+     * Sets whether the available pref_colors should be sorted automatically based on their HSV
+     * values. The sorting does not modify the order of the original pref_colors supplied via
+     * {@link #setColors(int[])} or the XML attribute {@code app:pref_colors}.
      *
-     * @param sortColors Whether the available colors should be sorted automatically based on their
+     * @param sortColors Whether the available pref_colors should be sorted automatically based on their
      *                   HSV values.
      */
     public void setSortColors(boolean sortColors) {
@@ -147,29 +147,29 @@ public class ColorPickerPreference extends DialogPreference {
     }
 
     /**
-     * Returns the available colors' descriptions that can be used by accessibility services.
+     * Returns the available pref_colors' descriptions that can be used by accessibility services.
      *
-     * @return The available colors' descriptions.
+     * @return The available pref_colors' descriptions.
      */
     public CharSequence[] getColorDescriptions() {
         return colorDescriptions;
     }
 
     /**
-     * Sets the available colors' descriptions that can be used by accessibility services.
+     * Sets the available pref_colors' descriptions that can be used by accessibility services.
      *
-     * @param colorDescriptions The available colors' descriptions.
+     * @param colorDescriptions The available pref_colors' descriptions.
      */
     public void setColorDescriptions(CharSequence[] colorDescriptions) {
         this.colorDescriptions = colorDescriptions;
     }
 
     /**
-     * Returns the number of columns to be used in the picker dialog for displaying the available
-     * colors. If the value is less than or equals to 0, the number of columns will be determined
+     * Returns the number of pref_columns to be used in the picker dialog for displaying the available
+     * pref_colors. If the value is less than or equals to 0, the number of pref_columns will be determined
      * automatically by the system using FlexboxLayoutManager.
      *
-     * @return The number of columns to be used in the picker dialog.
+     * @return The number of pref_columns to be used in the picker dialog.
      * @see com.google.android.flexbox.FlexboxLayoutManager
      */
     public int getColumns() {
@@ -177,11 +177,11 @@ public class ColorPickerPreference extends DialogPreference {
     }
 
     /**
-     * Sets the number of columns to be used in the picker dialog for displaying the available
-     * colors. If the value is less than or equals to 0, the number of columns will be determined
+     * Sets the number of pref_columns to be used in the picker dialog for displaying the available
+     * pref_colors. If the value is less than or equals to 0, the number of pref_columns will be determined
      * automatically by the system using FlexboxLayoutManager.
      *
-     * @param columns The number of columns to be used in the picker dialog. Use 0 to set it to
+     * @param columns The number of pref_columns to be used in the picker dialog. Use 0 to set it to
      *                'auto' mode.
      * @see com.google.android.flexbox.FlexboxLayoutManager
      */

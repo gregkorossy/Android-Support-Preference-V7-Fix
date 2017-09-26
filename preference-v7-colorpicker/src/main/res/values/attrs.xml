@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- The ColorPicker dialog theme. -->
-    <attr name="colorPickerDialogTheme" format="reference" />
-
     <declare-styleable name="ColorPickerPreference">
-        <attr name="currentColor" format="reference" />
+        <attr name="pref_currentColor" format="reference" />
 
-        <attr name="colors" format="reference" />
+        <attr name="pref_colors" format="reference" />
 
-        <attr name="sortColors" format="boolean|reference" />
+        <attr name="pref_sortColors" format="boolean|reference" />
 
-        <attr name="colorDescriptions" format="reference" />
+        <attr name="pref_colorDescriptions" format="reference" />
 
-        <attr name="columns" format="integer|reference" />
+        <attr name="pref_columns" format="integer|reference" />
 
-        <attr name="size" format="enum|reference">
+        <attr name="pref_size" format="enum|reference">
             <enum name="large" value="1" />
             <enum name="small" value="2" />
         </attr>

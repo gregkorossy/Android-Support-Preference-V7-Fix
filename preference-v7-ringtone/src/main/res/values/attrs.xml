@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="RingtonePreference">
-        <attr name="showAdd" format="boolean" />
-        <attr name="summaryHasRingtone" format="string|reference" />
+        <attr name="pref_showAdd" format="boolean" />
+        <attr name="pref_summaryHasRingtone" format="string|reference" />
     </declare-styleable>
 </resources>

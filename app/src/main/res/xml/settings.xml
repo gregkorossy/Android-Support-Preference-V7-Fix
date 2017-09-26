@@ -90,30 +90,30 @@
             android:showSilent="true"
             android:summary="Select a nice ringtone"
             android:title="RingtonePreference"
-            app:showAdd="true"
-            app:summaryHasRingtone="The best ringtone: %s" />
+            app:pref_showAdd="true"
+            app:pref_summaryHasRingtone="The best ringtone: %s" />
         <TimePickerPreference
             android:key="pref_time"
             android:persistent="false"
             android:summary="Select the perfect time"
             android:title="TimePickerPreference"
-            app:hourFormat="auto"
-            app:pickerTime="19:35"
-            app:summaryHasTime="Selected time: %s" />
+            app:pref_hourFormat="auto"
+            app:pref_pickerTime="19:35"
+            app:pref_summaryHasTime="Selected time: %s" />
         <DatePickerPreference
             android:key="pref_date"
             android:persistent="false"
             android:summary="Select a date"
             android:title="DatePickerPreference"
-            app:minDate="08/31/2017"
-            app:summaryHasDate="Selected date: %s" />
+            app:pref_minDate="08/31/2017"
+            app:pref_summaryHasDate="Selected date: %s" />
         <ColorPickerPreference
             android:dialogTitle="@string/color_picker_default_title"
             android:key="pref_color"
             android:persistent="false"
             android:summary="Very nice color"
             android:title="ColorPickerPreference"
-            app:size="small" />
+            app:pref_size="small" />
     </PreferenceCategory>
     <PreferenceCategory
         android:key="pref_empty_categ"

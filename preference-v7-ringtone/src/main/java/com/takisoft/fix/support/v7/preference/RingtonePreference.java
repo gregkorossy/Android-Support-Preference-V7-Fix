@@ -86,8 +86,8 @@ public class RingtonePreference extends DialogPreference {
         showSilent = proxyPreference.getShowSilent();
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RingtonePreference, defStyleAttr, 0);
-        showAdd = a.getBoolean(R.styleable.RingtonePreference_showAdd, true);
-        summaryHasRingtone = a.getText(R.styleable.RingtonePreference_summaryHasRingtone);
+        showAdd = a.getBoolean(R.styleable.RingtonePreference_pref_showAdd, true);
+        summaryHasRingtone = a.getText(R.styleable.RingtonePreference_pref_summaryHasRingtone);
         a.recycle();
 
         summary = super.getSummary();
@@ -333,7 +333,7 @@ public class RingtonePreference extends DialogPreference {
     }
 
     /**
-     * Returns the summary of this Preference. If no {@code summaryHasRingtone} is set, this will be
+     * Returns the summary of this Preference. If no {@code pref_summaryHasRingtone} is set, this will be
      * displayed if no ringtone is selected; otherwise the ringtone title will be used.
      *
      * @return The summary.
@@ -355,7 +355,7 @@ public class RingtonePreference extends DialogPreference {
     }
 
     /**
-     * Sets the summary for this Preference with a CharSequence. If no {@code summaryHasRingtone} is
+     * Sets the summary for this Preference with a CharSequence. If no {@code pref_summaryHasRingtone} is
      * set, this will be displayed if no ringtone is selected; otherwise the ringtone title will be
      * used.
      *

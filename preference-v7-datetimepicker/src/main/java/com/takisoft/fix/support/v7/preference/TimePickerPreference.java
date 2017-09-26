@@ -70,11 +70,11 @@ public class TimePickerPreference extends DialogPreference {
         super(context, attrs, defStyleAttr, defStyleRes);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TimePickerPreference, defStyleAttr, 0);
-        hourFormat = a.getInt(R.styleable.TimePickerPreference_hourFormat, FORMAT_AUTO);
-        summaryPattern = a.getString(R.styleable.TimePickerPreference_summaryTimePattern);
-        summaryHasTime = a.getText(R.styleable.TimePickerPreference_summaryHasTime);
+        hourFormat = a.getInt(R.styleable.TimePickerPreference_pref_hourFormat, FORMAT_AUTO);
+        summaryPattern = a.getString(R.styleable.TimePickerPreference_pref_summaryTimePattern);
+        summaryHasTime = a.getText(R.styleable.TimePickerPreference_pref_summaryHasTime);
 
-        String pickerTime = a.getString(R.styleable.TimePickerPreference_pickerTime);
+        String pickerTime = a.getString(R.styleable.TimePickerPreference_pref_pickerTime);
 
         if (!TextUtils.isEmpty(pickerTime)) {
             try {
@@ -244,7 +244,7 @@ public class TimePickerPreference extends DialogPreference {
     }
 
     /**
-     * Returns the summary of this Preference. If no {@code summaryHasTime} is set, this will be
+     * Returns the summary of this Preference. If no {@code pref_summaryHasTime} is set, this will be
      * displayed if no time is selected; otherwise the formatted time will be used.
      *
      * @return The summary.
@@ -277,7 +277,7 @@ public class TimePickerPreference extends DialogPreference {
     }
 
     /**
-     * Sets the summary for this Preference with a CharSequence. If no {@code summaryHasTime} is
+     * Sets the summary for this Preference with a CharSequence. If no {@code pref_summaryHasTime} is
      * set, this will be displayed if no time is selected; otherwise the formatted time will be
      * used.
      *
