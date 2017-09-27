@@ -57,7 +57,7 @@ public class TimePickerPreferenceDialogFragmentCompat extends PreferenceDialogFr
     public void onDialogClosed(boolean positiveResult) {
         TimePickerPreference preference = getTimePickerPreference();
 
-        if (positiveResult) {
+        if (positiveResult && preference.callChangeListener(new TimePickerPreference.TimeWrapper(pickedHour, pickedMinute))) {
             preference.setTime(pickedHour, pickedMinute);
         }
     }

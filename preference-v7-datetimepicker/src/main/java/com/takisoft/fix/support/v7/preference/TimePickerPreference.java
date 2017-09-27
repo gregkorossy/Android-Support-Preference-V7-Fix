@@ -373,4 +373,14 @@ public class TimePickerPreference extends DialogPreference {
         final String defaultValue = (String) defaultValueObj;
         setInternalTime(restoreValue ? getPersistedString(null) : (!TextUtils.isEmpty(defaultValue) ? defaultValue : null), true);
     }
+
+    public static class TimeWrapper {
+        public final int hour;
+        public final int minute;
+
+        public TimeWrapper(int hour, int minute) {
+            this.hour = hour;
+            this.minute = minute;
+        }
+    }
 }

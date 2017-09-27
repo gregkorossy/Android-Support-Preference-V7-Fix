@@ -365,4 +365,16 @@ public class DatePickerPreference extends DialogPreference {
         final String defaultValue = (String) defaultValueObj;
         setInternalDate(restoreValue ? getPersistedString(null) : (!TextUtils.isEmpty(defaultValue) ? defaultValue : null), true);
     }
+
+    public static class DateWrapper {
+        public final int year;
+        public final int month;
+        public final int day;
+
+        public DateWrapper(int year, int month, int day) {
+            this.year = year;
+            this.month = month;
+            this.day = day;
+        }
+    }
 }

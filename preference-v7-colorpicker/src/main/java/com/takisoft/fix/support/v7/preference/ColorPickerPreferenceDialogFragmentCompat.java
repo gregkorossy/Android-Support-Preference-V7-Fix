@@ -46,7 +46,7 @@ public class ColorPickerPreferenceDialogFragmentCompat extends PreferenceDialogF
     public void onDialogClosed(boolean positiveResult) {
         ColorPickerPreference preference = getColorPickerPreference();
 
-        if (positiveResult) {
+        if (positiveResult && preference.callChangeListener(pickedColor)) {
             preference.setColor(pickedColor);
         }
     }
