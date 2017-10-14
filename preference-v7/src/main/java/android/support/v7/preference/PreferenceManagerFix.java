@@ -3,7 +3,6 @@ package android.support.v7.preference;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v4.content.SharedPreferencesCompat;
-import android.util.Log;
 
 import java.lang.reflect.Field;
 
@@ -17,7 +16,7 @@ public class PreferenceManagerFix extends PreferenceManager {
     static {
         Field[] fields = android.support.v7.preference.PreferenceManager.class.getDeclaredFields();
         for (Field field : fields) {
-            Log.d("FIELD", field.toString());
+            //Log.d("FIELD", field.toString());
             if (field.getType() == SharedPreferences.Editor.class) {
                 editorField = field;
                 editorField.setAccessible(true);
