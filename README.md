@@ -1,6 +1,6 @@
 # Android Support library - preference v7 bugfix
 
-> **BREAKING CHANGE** in attribute and method names (and behavior) for summary handling of `DatePickerPreference` and `TimePickerPreference`. See the changelog for more details.
+> **BREAKING CHANGE** in 26.1.0.3: The custom attribute names for extra preference types use `pref_` prefix in order to avoid name collision with other libraries. See the changelog for more details.
 
 This library is meant to fix some of the problems found in the official support preference-v7 library. Also, there are [new preference types](#extra-types) available, such as `RingtonePreference`, `DatePickerPreference`, and `TimePickerPreference`.
 
