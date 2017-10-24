@@ -1,5 +1,13 @@
 # Changelog
 
+**2017-10-24**
+
+New version: 26.1.0.3 (based on v26.1.0)
+
+- The attribute names use the `pref_` prefix in order to avoid name collision with other libraries
+- The custom preferences call their change listeners
+- Custom preferences extending `DialogPreference` can be added using `PreferenceFragmentCompat.addDialogPreference(...)`
+
 **2017-09-24**
 
 New version: 26.1.0.2 (based on v26.1.0)
