@@ -75,7 +75,7 @@ public class DatePickerPreferenceDialogFragmentCompat extends PreferenceDialogFr
     public void onDialogClosed(boolean positiveResult) {
         DatePickerPreference preference = getDatePickerPreference();
 
-        if (positiveResult) {
+        if (positiveResult && preference.callChangeListener(new DatePickerPreference.DateWrapper(pickedYear, pickedMonth, pickedDay))) {
             preference.setDate(pickedYear, pickedMonth, pickedDay);
         }
     }

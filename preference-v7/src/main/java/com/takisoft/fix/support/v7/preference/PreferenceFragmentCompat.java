@@ -112,9 +112,9 @@ public abstract class PreferenceFragmentCompat extends android.support.v7.prefer
         }
     }
 
-    private static HashMap<Class<? extends DialogPreference>, Class<? extends PreferenceDialogFragmentCompat>> dialogPreferences = new HashMap<>();
+    private static HashMap<Class<? extends DialogPreference>, Class<? extends DialogFragment>> dialogPreferences = new HashMap<>();
 
-    public static void addDialogPreference(Class<? extends DialogPreference> dialogPrefClass, Class<? extends PreferenceDialogFragmentCompat> dialogFragmentClass) {
+    public static void addDialogPreference(Class<? extends DialogPreference> dialogPrefClass, Class<? extends DialogFragment> dialogFragmentClass) {
         dialogPreferences.put(dialogPrefClass, dialogFragmentClass);
     }
 }

@@ -13,6 +13,8 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
@@ -86,8 +88,8 @@ public class RingtonePreference extends DialogPreference {
         showSilent = proxyPreference.getShowSilent();
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RingtonePreference, defStyleAttr, 0);
-        showAdd = a.getBoolean(R.styleable.RingtonePreference_showAdd, true);
-        summaryHasRingtone = a.getText(R.styleable.RingtonePreference_summaryHasRingtone);
+        showAdd = a.getBoolean(R.styleable.RingtonePreference_pref_showAdd, true);
+        summaryHasRingtone = a.getText(R.styleable.RingtonePreference_pref_summaryHasRingtone);
         a.recycle();
 
         summary = super.getSummary();
@@ -333,7 +335,7 @@ public class RingtonePreference extends DialogPreference {
     }
 
     /**
-     * Returns the summary of this Preference. If no {@code summaryHasRingtone} is set, this will be
+     * Returns the summary of this Preference. If no {@code pref_summaryHasRingtone} is set, this will be
      * displayed if no ringtone is selected; otherwise the ringtone title will be used.
      *
      * @return The summary.
@@ -355,7 +357,7 @@ public class RingtonePreference extends DialogPreference {
     }
 
     /**
-     * Sets the summary for this Preference with a CharSequence. If no {@code summaryHasRingtone} is
+     * Sets the summary for this Preference with a CharSequence. If no {@code pref_summaryHasRingtone} is
      * set, this will be displayed if no ringtone is selected; otherwise the ringtone title will be
      * used.
      *
@@ -460,5 +462,63 @@ public class RingtonePreference extends DialogPreference {
         }
 
         return ringtoneTitle;
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        final Parcelable superState = super.onSaveInstanceState();
+        if (isPersistent()) {
+            // No need to save instance state since it's persistent
+            return superState;
+        }
+
+        final SavedState myState = new SavedState(superState);
+        myState.ringtoneUri = getRingtone();
+        return myState;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if (state == null || !state.getClass().equals(SavedState.class)) {
+            // Didn't save state for us in onSaveInstanceState
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        SavedState myState = (SavedState) state;
+        super.onRestoreInstanceState(myState.getSuperState());
+        setRingtone(myState.ringtoneUri);
+    }
+
+    private static class SavedState extends BaseSavedState {
+        private Uri ringtoneUri;
+
+        public SavedState(Parcel source) {
+            super(source);
+            ringtoneUri = source.readParcelable(Uri.class.getClassLoader());
+        }
+
+        public SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            super.writeToParcel(dest, flags);
+            dest.writeParcelable(ringtoneUri, flags);
+        }
+
+        public static final Parcelable.Creator<SavedState> CREATOR =
+                new Parcelable.Creator<SavedState>() {
+                    @Override
+                    public SavedState createFromParcel(Parcel in) {
+                        return new SavedState(in);
+                    }
+
+                    @Override
+                    public SavedState[] newArray(int size) {
+                        return new SavedState[size];
+                    }
+                };
     }
 }

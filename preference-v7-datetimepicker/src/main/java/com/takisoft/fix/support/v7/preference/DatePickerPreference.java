@@ -3,6 +3,8 @@ package com.takisoft.fix.support.v7.preference;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.IntRange;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -59,9 +61,9 @@ public class DatePickerPreference extends DialogPreference {
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DatePickerPreference, defStyleAttr, 0);
 
-        String pickerDate = a.getString(R.styleable.DatePickerPreference_pickerDate);
-        String minDate = a.getString(R.styleable.DatePickerPreference_minDate);
-        String maxDate = a.getString(R.styleable.DatePickerPreference_maxDate);
+        String pickerDate = a.getString(R.styleable.DatePickerPreference_pref_pickerDate);
+        String minDate = a.getString(R.styleable.DatePickerPreference_pref_minDate);
+        String maxDate = a.getString(R.styleable.DatePickerPreference_pref_maxDate);
 
         if (!TextUtils.isEmpty(pickerDate)) {
             try {
@@ -87,8 +89,8 @@ public class DatePickerPreference extends DialogPreference {
             }
         }
 
-        summaryPattern = a.getString(R.styleable.DatePickerPreference_summaryDatePattern);
-        summaryHasDate = a.getText(R.styleable.DatePickerPreference_summaryHasDate);
+        summaryPattern = a.getString(R.styleable.DatePickerPreference_pref_summaryDatePattern);
+        summaryHasDate = a.getText(R.styleable.DatePickerPreference_pref_summaryHasDate);
         a.recycle();
 
         summary = super.getSummary();
@@ -236,7 +238,7 @@ public class DatePickerPreference extends DialogPreference {
     }
 
     /**
-     * Returns the summary of this Preference. If no {@code summaryHasDate} is set, this will be
+     * Returns the summary of this Preference. If no {@code pref_summaryHasDate} is set, this will be
      * displayed if no date is selected; otherwise the formatted date will be used.
      *
      * @return The summary.
@@ -269,7 +271,7 @@ public class DatePickerPreference extends DialogPreference {
     }
 
     /**
-     * Sets the summary for this Preference with a CharSequence. If no {@code summaryHasDate} is
+     * Sets the summary for this Preference with a CharSequence. If no {@code pref_summaryHasDate} is
      * set, this will be displayed if no date is selected; otherwise the formatted date will be
      * used.
      *
@@ -364,5 +366,75 @@ public class DatePickerPreference extends DialogPreference {
     protected void onSetInitialValue(boolean restoreValue, Object defaultValueObj) {
         final String defaultValue = (String) defaultValueObj;
         setInternalDate(restoreValue ? getPersistedString(null) : (!TextUtils.isEmpty(defaultValue) ? defaultValue : null), true);
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        final Parcelable superState = super.onSaveInstanceState();
+        if (isPersistent()) {
+            // No need to save instance state since it's persistent
+            return superState;
+        }
+
+        final SavedState myState = new SavedState(superState);
+        myState.date = getDate();
+        return myState;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if (state == null || !state.getClass().equals(SavedState.class)) {
+            // Didn't save state for us in onSaveInstanceState
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        SavedState myState = (SavedState) state;
+        super.onRestoreInstanceState(myState.getSuperState());
+        setDate(myState.date);
+    }
+
+    private static class SavedState extends BaseSavedState {
+        private Date date;
+
+        public SavedState(Parcel source) {
+            super(source);
+            date = (Date) source.readSerializable();
+        }
+
+        public SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            super.writeToParcel(dest, flags);
+            dest.writeSerializable(date);
+        }
+
+        public static final Parcelable.Creator<SavedState> CREATOR =
+                new Parcelable.Creator<SavedState>() {
+                    @Override
+                    public SavedState createFromParcel(Parcel in) {
+                        return new SavedState(in);
+                    }
+
+                    @Override
+                    public SavedState[] newArray(int size) {
+                        return new SavedState[size];
+                    }
+                };
+    }
+
+    public static class DateWrapper {
+        public final int year;
+        public final int month;
+        public final int day;
+
+        public DateWrapper(int year, int month, int day) {
+            this.year = year;
+            this.month = month;
+            this.day = day;
+        }
     }
 }

@@ -3,6 +3,8 @@ package com.takisoft.fix.support.v7.preference;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.Nullable;
@@ -70,11 +72,11 @@ public class TimePickerPreference extends DialogPreference {
         super(context, attrs, defStyleAttr, defStyleRes);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TimePickerPreference, defStyleAttr, 0);
-        hourFormat = a.getInt(R.styleable.TimePickerPreference_hourFormat, FORMAT_AUTO);
-        summaryPattern = a.getString(R.styleable.TimePickerPreference_summaryTimePattern);
-        summaryHasTime = a.getText(R.styleable.TimePickerPreference_summaryHasTime);
+        hourFormat = a.getInt(R.styleable.TimePickerPreference_pref_hourFormat, FORMAT_AUTO);
+        summaryPattern = a.getString(R.styleable.TimePickerPreference_pref_summaryTimePattern);
+        summaryHasTime = a.getText(R.styleable.TimePickerPreference_pref_summaryHasTime);
 
-        String pickerTime = a.getString(R.styleable.TimePickerPreference_pickerTime);
+        String pickerTime = a.getString(R.styleable.TimePickerPreference_pref_pickerTime);
 
         if (!TextUtils.isEmpty(pickerTime)) {
             try {
@@ -244,7 +246,7 @@ public class TimePickerPreference extends DialogPreference {
     }
 
     /**
-     * Returns the summary of this Preference. If no {@code summaryHasTime} is set, this will be
+     * Returns the summary of this Preference. If no {@code pref_summaryHasTime} is set, this will be
      * displayed if no time is selected; otherwise the formatted time will be used.
      *
      * @return The summary.
@@ -277,7 +279,7 @@ public class TimePickerPreference extends DialogPreference {
     }
 
     /**
-     * Sets the summary for this Preference with a CharSequence. If no {@code summaryHasTime} is
+     * Sets the summary for this Preference with a CharSequence. If no {@code pref_summaryHasTime} is
      * set, this will be displayed if no time is selected; otherwise the formatted time will be
      * used.
      *
@@ -372,5 +374,73 @@ public class TimePickerPreference extends DialogPreference {
     protected void onSetInitialValue(boolean restoreValue, Object defaultValueObj) {
         final String defaultValue = (String) defaultValueObj;
         setInternalTime(restoreValue ? getPersistedString(null) : (!TextUtils.isEmpty(defaultValue) ? defaultValue : null), true);
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        final Parcelable superState = super.onSaveInstanceState();
+        if (isPersistent()) {
+            // No need to save instance state since it's persistent
+            return superState;
+        }
+
+        final SavedState myState = new SavedState(superState);
+        myState.time = getTime();
+        return myState;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if (state == null || !state.getClass().equals(SavedState.class)) {
+            // Didn't save state for us in onSaveInstanceState
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        SavedState myState = (SavedState) state;
+        super.onRestoreInstanceState(myState.getSuperState());
+        setTime(myState.time);
+    }
+
+    private static class SavedState extends BaseSavedState {
+        private Date time;
+
+        public SavedState(Parcel source) {
+            super(source);
+            time = (Date) source.readSerializable();
+        }
+
+        public SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            super.writeToParcel(dest, flags);
+            dest.writeSerializable(time);
+        }
+
+        public static final Parcelable.Creator<SavedState> CREATOR =
+                new Parcelable.Creator<SavedState>() {
+                    @Override
+                    public SavedState createFromParcel(Parcel in) {
+                        return new SavedState(in);
+                    }
+
+                    @Override
+                    public SavedState[] newArray(int size) {
+                        return new SavedState[size];
+                    }
+                };
+    }
+
+    public static class TimeWrapper {
+        public final int hour;
+        public final int minute;
+
+        public TimeWrapper(int hour, int minute) {
+            this.hour = hour;
+            this.minute = minute;
+        }
     }
 }

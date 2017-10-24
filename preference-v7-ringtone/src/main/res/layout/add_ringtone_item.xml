@@ -29,7 +29,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/ic_add" />
+        app:srcCompat="@drawable/ringtone_ic_add" />
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/add_ringtone_text"

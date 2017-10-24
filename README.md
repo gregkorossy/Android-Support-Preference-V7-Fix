@@ -1,6 +1,6 @@
 # Android Support library - preference v7 bugfix
 
-> **BREAKING CHANGE** in attribute and method names (and behavior) for summary handling of `DatePickerPreference` and `TimePickerPreference`. See the changelog for more details.
+> **BREAKING CHANGE** in 26.1.0.3: The custom attribute names for extra preference types use `pref_` prefix in order to avoid name collision with other libraries. See the changelog for more details.
 
 This library is meant to fix some of the problems found in the official support preference-v7 library. Also, there are [new preference types](#extra-types) available, such as `RingtonePreference`, `DatePickerPreference`, and `TimePickerPreference`.
 
@@ -23,12 +23,12 @@ compile 'com.android.support:preference-v14:26.1.0'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:26.1.0.2'
+compile 'com.takisoft.fix:preference-v7:26.1.0.3'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
 ### 2. Use the appropriate class as your fragment's base
-You can use either `PreferenceFragmentCompat` or `PreferenceFragmentCompatDividers`. The former is the fixed version of the original fragment while the latter is an extended one where you can set the dividers using the divider flags.
+You can use either `PreferenceFragmentCompat` or `PreferenceFragmentCompatDividers`. The former is the fixed version of the original fragment while the latter is an extended one where you can set the dividers using the divider flags. The `PreferenceFragmentCompatDividers` is the recommended approach as it uses the updated Material Design guidelines to create the appropriate divider config.
 
 #### Option 1 - `PreferenceFragmentCompat`
 ```java
@@ -92,17 +92,17 @@ Now you can enjoy using the support preferences API without losing all your hair
 There are additional preferences not part of the official support library, but decided to add them to some extra libraries. You can add all of them to your project using
 
 ```gradle
-compile 'com.takisoft.fix:preference-v7-extras:26.1.0.2'
+compile 'com.takisoft.fix:preference-v7-extras:26.1.0.3'
 ```
 
 or one or more groups:
 
 Preference | Dependency | Preview
 -|-|-
-[`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference) | `compile 'com.takisoft.fix:preference-v7-ringtone:26.1.0.2'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/ringtone_api26.png)
-[`DatePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#datepickerpreference) | `compile 'com.takisoft.fix:preference-v7-datetimepicker:26.1.0.2'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/datepicker_api26.png)
-[`TimePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#timepickerpreference) | `compile 'com.takisoft.fix:preference-v7-datetimepicker:26.1.0.2'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/timepicker_api26.png)
-[`ColorPickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#colorpickerpreference) | `compile 'com.takisoft.fix:preference-v7-colorpicker:26.1.0.2'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/colorpicker_api26_fixed.png)
+[`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference) | `compile 'com.takisoft.fix:preference-v7-ringtone:26.1.0.3'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/ringtone_api26.png)
+[`DatePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#datepickerpreference) | `compile 'com.takisoft.fix:preference-v7-datetimepicker:26.1.0.3'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/datepicker_api26.png)
+[`TimePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#timepickerpreference) | `compile 'com.takisoft.fix:preference-v7-datetimepicker:26.1.0.3'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/timepicker_api26.png)
+[`ColorPickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#colorpickerpreference) | `compile 'com.takisoft.fix:preference-v7-colorpicker:26.1.0.3'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/colorpicker_api26_fixed.png)
 
 ---
 
@@ -148,7 +148,7 @@ The original implementation uses `?attr/textAppearanceSmall` as the message styl
 ---
 
 ## Version
-The current stable version is **26.1.0.2**.
+The current stable version is **26.1.0.3**.
 
 ## Notes #
 This demo / bugfix is set to work on API level 14+.
@@ -167,45 +167,13 @@ API 15 | API 21 | API 26
 
 ### Changelog
 
-**2017-09-24**
+**2017-10-24**
 
-New version: 26.1.0.2 (based on v26.1.0)
+New version: 26.1.0.3 (based on v26.1.0)
 
-- Quick fix: the app won't crash if the preference XML couldn't be inflated (but it will still display as an empty screen)
-
-**2017-09-24**
-
-New version: 26.1.0.1 (based on v26.1.0)
-
-- Bug fix: crash on API 26 when using dividers and preferences with widgets together
-- Bug fix: `ColorPickerPreference`'s column number defaults to auto (0) instead of 3
-- `PreferenceCategory`'s title view gets hidden (including its dimensions) when the title is empty (the dividers will be drawn as if the title was not hidden)
-- Added 2 new flags to the custom dividers: `DIVIDER_NO_BEFORE_FIRST` and `DIVIDER_NO_AFTER_LAST`
-
-**2017-09-17**
-
-New version: 26.1.0.0 (based on v26.1.0)
-
-- No official support preferences related changes.
-- Added new preference type:
-  - [`ColorPickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#colorpickerpreference)
-- [`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference) has a new attribute: `app:summaryHasRingtone` that can be used to display the name of the selected ringone.
-
-- **BREAKING CHANGE** in attribute and method names (and behavior) for summary handling of `DatePickerPreference` and `TimePickerPreference`.
-  - The previous `summaryNoXXX` no longer exists. Use the normal `summary` instead for showing summary if no pick is made.
-  - The new attribute is `summaryHasXXX` which is going to be displayed if the picker has a picked value. If this is not set, the `summary` will be used instead.
-
-**2017-08-31**
-
-New version: 26.0.2.0 (based on v26.0.2)
-
-- No official support preferences related changes.
-- Added new preference types:
-  - [`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference)
-  - [`DatePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#datepickerpreference)
-  - [`TimePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#timepickerpreference)
-
-See the wiki / Preference types page for more details.
+- The attribute names use the `pref_` prefix in order to avoid name collision with other libraries
+- The custom preferences call their change listeners
+- Custom preferences extending `DialogPreference` can be added using `PreferenceFragmentCompat.addDialogPreference(...)`
 
 > For older changelogs, check out the [CHANGELOG](CHANGELOG.md) file.
 

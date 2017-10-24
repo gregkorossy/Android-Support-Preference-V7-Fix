@@ -22,9 +22,9 @@ import java.lang.annotation.RetentionPolicy;
  */
 abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmentCompat {
     /**
-     * Draws the default divider implementation.
+     * Draws the divider implementation of the official support library.
      */
-    public static final int DIVIDER_DEFAULT = -1;
+    public static final int DIVIDER_OFFICIAL = -1;
 
     /**
      * Draws no dividers.
@@ -94,8 +94,13 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
      */
     public static final int DIVIDER_NO_AFTER_LAST = 1 << 17;
 
+    /**
+     * Draws the material guidelines compatible divider implementation.
+     */
+    public static final int DIVIDER_DEFAULT = DIVIDER_CATEGORY_BEFORE_FIRST | DIVIDER_CATEGORY_BETWEEN | DIVIDER_NO_BEFORE_FIRST;
+
     @IntDef(flag = true, value = {
-            DIVIDER_DEFAULT, DIVIDER_NONE,
+            DIVIDER_OFFICIAL, DIVIDER_DEFAULT, DIVIDER_NONE,
             DIVIDER_CATEGORY_BETWEEN,
             DIVIDER_CATEGORY_BEFORE_FIRST,
             DIVIDER_CATEGORY_AFTER_LAST,
@@ -121,6 +126,7 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
      * Sets the divider decoration flags. The values can be either
      * <ul>
      * <li>{@link #DIVIDER_DEFAULT}</li>
+     * <li>{@link #DIVIDER_OFFICIAL}</li>
      * <li>{@link #DIVIDER_NONE}</li>
      * <li>or a combination of
      * <ul>
@@ -138,7 +144,7 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
      * </li>
      * </ul>
      * <p>
-     * Note that you <em>should not</em> combine {@linkplain #DIVIDER_DEFAULT} and {@linkplain #DIVIDER_NONE} with
+     * Note that you <em>should not</em> combine {@linkplain #DIVIDER_DEFAULT}, {@linkplain #DIVIDER_OFFICIAL}, and {@linkplain #DIVIDER_NONE} with
      * each other nor the other flags mentioned above.
      *
      * @param flags The preferred divider drawing flags. Check {@link PreferenceFragmentCompatDividers} for possible values.
@@ -173,7 +179,7 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
                 recyclerView.removeItemDecoration(divItemDecoration);
                 divItemDecoration = null;
             }
-        } else if (flags == DIVIDER_DEFAULT) {
+        } else if (flags == DIVIDER_OFFICIAL) {
             Drawable divider = getDividerDrawable();
             setDivider(divider);
 
@@ -210,6 +216,7 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        divPrefInvalid = true;
         setDividerPreferences(divPrefFlags);
     }
 
