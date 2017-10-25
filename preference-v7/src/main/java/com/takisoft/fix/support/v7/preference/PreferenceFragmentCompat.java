@@ -1,13 +1,15 @@
 package com.takisoft.fix.support.v7.preference;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.preference.DialogPreference;
 import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceDialogFragmentCompat;
+import android.support.v7.preference.PreferenceGroup;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.preference.PreferenceManagerFix;
 import android.support.v7.preference.PreferenceScreen;
@@ -62,8 +64,10 @@ public abstract class PreferenceFragmentCompat extends android.support.v7.prefer
     }
 
     /**
-     * @param savedInstanceState If the fragment is being re-created from a previous saved state, this is the state.
-     * @param rootKey            If non-null, this preference fragment should be rooted at the PreferenceScreen with this key.
+     * @param savedInstanceState If the fragment is being re-created from a previous saved state,
+     *                           this is the state.
+     * @param rootKey            If non-null, this preference fragment should be rooted at the
+     *                           PreferenceScreen with this key.
      * @deprecated Use {@link #onCreatePreferencesFix(Bundle, String)} instead.
      */
     @Override
@@ -73,10 +77,14 @@ public abstract class PreferenceFragmentCompat extends android.support.v7.prefer
     }
 
     /**
-     * Called during onCreate(Bundle) to supply the preferences for this fragment. Subclasses are expected to call setPreferenceScreen(PreferenceScreen) either directly or via helper methods such as addPreferencesFromResource(int).
+     * Called during onCreate(Bundle) to supply the preferences for this fragment. Subclasses are
+     * expected to call setPreferenceScreen(PreferenceScreen) either directly or via helper methods
+     * such as addPreferencesFromResource(int).
      *
-     * @param savedInstanceState If the fragment is being re-created from a previous saved state, this is the state.
-     * @param rootKey            If non-null, this preference fragment should be rooted at the PreferenceScreen with this key.
+     * @param savedInstanceState If the fragment is being re-created from a previous saved state,
+     *                           this is the state.
+     * @param rootKey            If non-null, this preference fragment should be rooted at the
+     *                           PreferenceScreen with this key.
      */
     public abstract void onCreatePreferencesFix(@Nullable Bundle savedInstanceState, String rootKey);
 
@@ -106,15 +114,84 @@ public abstract class PreferenceFragmentCompat extends android.support.v7.prefer
             }
 
             if (f != null) {
-                ((DialogFragment) f).setTargetFragment(this, 0);
-                ((DialogFragment) f).show(this.getFragmentManager(), FRAGMENT_DIALOG_TAG);
+                if (f instanceof DialogFragment) {
+                    ((DialogFragment) f).setTargetFragment(this, 0);
+                    ((DialogFragment) f).show(this.getFragmentManager(), FRAGMENT_DIALOG_TAG);
+                } else {
+                    this.getFragmentManager()
+                            .beginTransaction()
+                            .add((Fragment) f, FRAGMENT_DIALOG_TAG)
+                            .commit();
+                }
             }
         }
     }
 
-    private static HashMap<Class<? extends DialogPreference>, Class<? extends DialogFragment>> dialogPreferences = new HashMap<>();
+    @Override
+    public boolean onPreferenceTreeClick(Preference preference) {
+        boolean handled = super.onPreferenceTreeClick(preference);
 
-    public static void addDialogPreference(Class<? extends DialogPreference> dialogPrefClass, Class<? extends DialogFragment> dialogFragmentClass) {
-        dialogPreferences.put(dialogPrefClass, dialogFragmentClass);
+        if (!handled && preference instanceof PreferenceActivityResultListener) {
+            ((PreferenceActivityResultListener) preference).onPreferenceClick(this, preference);
+        }
+
+        return handled;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        onActivityResult(getPreferenceScreen(), requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * Traverses a {@code PreferenceGroup} to notify all eligible preferences about the results
+     * of a returning activity.
+     *
+     * @param group       The {@code PreferenceGroup} to traverse.
+     * @param requestCode The integer request code originally supplied to startActivityForResult(), allowing you to identify who this result came from.
+     * @param resultCode  The integer result code returned by the child activity through its setResult().
+     * @param data        An Intent, which can return result data to the caller (various data can be attached to Intent "extras").
+     */
+    protected void onActivityResult(PreferenceGroup group, int requestCode, int resultCode, Intent data) {
+        final int n = group.getPreferenceCount();
+
+        for (int i = 0; i < n; i++) {
+            Preference pref = group.getPreference(i);
+            if (pref instanceof PreferenceActivityResultListener) {
+                ((PreferenceActivityResultListener) pref).onActivityResult(requestCode, resultCode, data);
+            }
+
+            if (pref instanceof PreferenceGroup) {
+                onActivityResult((PreferenceGroup) pref, requestCode, resultCode, data);
+            }
+        }
+    }
+
+    protected static HashMap<Class<? extends Preference>, Class<? extends Fragment>> dialogPreferences = new HashMap<>();
+
+    /**
+     * Sets a {@link Preference} to use the supplied {@link Fragment} as a dialog.
+     * <p>
+     * <strong>NOTE</strong>
+     * If <var>prefClass</var> is not a subclass of {@link DialogPreference}, you must call
+     * {@link PreferenceManager#showDialog(Preference)} to execute the dialog showing logic when the
+     * user clicks on the preference.
+     * <p>
+     * <strong>WARNING</strong>
+     * If <var>fragmentClass</var> is not a subclass of {@link DialogFragment}, the fragment will be
+     * added to the fragment manager with the tag {@link #FRAGMENT_DIALOG_TAG} and using
+     * {@link FragmentTransaction#commit()}. You <em>must</em> ensure that the fragment is removed from the
+     * manager when it's done with its work.
+     * If you want to handle how the fragment is being added to the manager, implement
+     * {@link PreferenceActivityResultListener} instead and use the fragment from
+     * {@link PreferenceActivityResultListener#onPreferenceClick(PreferenceFragmentCompat, Preference)}
+     * to add it manually.
+     *
+     * @param prefClass     the {@link Preference} class to be used
+     * @param fragmentClass the {@link Preference} class to be instantiated and displayed / added
+     */
+    public static void registerPreferenceFragment(Class<? extends Preference> prefClass, Class<? extends Fragment> fragmentClass) {
+        dialogPreferences.put(prefClass, fragmentClass);
     }
 }

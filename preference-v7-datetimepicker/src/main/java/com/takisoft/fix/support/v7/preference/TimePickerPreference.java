@@ -48,7 +48,7 @@ public class TimePickerPreference extends DialogPreference {
     public static final SimpleDateFormat FORMAT = new SimpleDateFormat(PATTERN, Locale.US);
 
     static {
-        PreferenceFragmentCompat.addDialogPreference(TimePickerPreference.class, TimePickerPreferenceDialogFragmentCompat.class);
+        PreferenceFragmentCompat.registerPreferenceFragment(TimePickerPreference.class, TimePickerPreferenceDialogFragmentCompat.class);
     }
 
     public static final int FORMAT_AUTO = 0;
