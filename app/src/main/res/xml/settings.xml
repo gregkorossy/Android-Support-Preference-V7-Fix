@@ -39,9 +39,9 @@
             android:title="SeekBarPreference"
             app:showSeekBarValue="false" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="PreferenceCategory using preference_fallback_accent_color below API 21">
-
-    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="PreferenceCategory using different color"
+        app:pref_categoryColor="#2196f3" />
     <PreferenceCategory android:title="Another category">
         <EditTextPreference
             android:dialogMessage="This is the dialog\'s message"

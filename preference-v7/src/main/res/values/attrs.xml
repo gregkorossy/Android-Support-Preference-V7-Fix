@@ -4,4 +4,8 @@
         <attr name="preferenceCategory_marginBottom" format="dimension" />
         <attr name="preferenceDialog_messageAppearance" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="PreferenceCategory">
+        <attr name="pref_categoryColor" format="color|reference" />
+    </declare-styleable>
 </resources>
