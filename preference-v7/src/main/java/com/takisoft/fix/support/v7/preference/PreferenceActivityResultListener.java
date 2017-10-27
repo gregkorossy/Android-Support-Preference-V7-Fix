@@ -4,10 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.preference.Preference;
 
 /**
- *
+ * An interface for custom preferences that want to handle click events by either starting an
+ * {@link Activity} for results calling {@link Fragment#startActivityForResult(Intent, int)} or
+ * using the supplied {@link PreferenceFragmentCompat} fragment manually (e.g. adding a fragment to
+ * it).
  */
 public interface PreferenceActivityResultListener {
     /**
