@@ -69,7 +69,7 @@ public class RingtonePreference extends DialogPreference {
     }
 
     static {
-        PreferenceFragmentCompat.addDialogPreference(RingtonePreference.class, RingtonePreferenceDialogFragmentCompat.class);
+        PreferenceFragmentCompat.registerPreferenceFragment(RingtonePreference.class, RingtonePreferenceDialogFragmentCompat.class);
     }
 
     public RingtonePreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {

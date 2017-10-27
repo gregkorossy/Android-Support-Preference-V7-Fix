@@ -2,6 +2,10 @@ package com.takisoft.fix.support.v7.preference;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Build;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.preference.PreferenceViewHolder;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -21,22 +25,27 @@ import android.widget.TextView;
 public class PreferenceCategory extends android.support.v7.preference.PreferenceCategory {
     private static final int[] CATEGORY_ATTRS = new int[]{R.attr.colorAccent, R.attr.preferenceCategory_marginBottom};
 
+    protected int color;
     protected View itemView;
 
     public PreferenceCategory(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PreferenceCategory, defStyleAttr, 0);
+        color = a.getColor(R.styleable.PreferenceCategory_pref_categoryColor, 0);
+        a.recycle();
     }
 
     public PreferenceCategory(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+        this(context, attrs, defStyleAttr, 0);
     }
 
     public PreferenceCategory(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, TypedArrayUtils.getAttr(context, R.attr.preferenceCategoryStyle, android.R.attr.preferenceCategoryStyle));
     }
 
     public PreferenceCategory(Context context) {
-        super(context);
+        this(context, null);
     }
 
     private void setTitleVisibility(View itemView, boolean isVisible) {
@@ -86,6 +95,22 @@ public class PreferenceCategory extends android.support.v7.preference.Preference
         setTitleVisibility(itemView, !TextUtils.isEmpty(getTitle()));
     }
 
+    public void setColor(@ColorInt int color) {
+        this.color = color;
+    }
+
+    public void setColorResource(@ColorRes int resId) {
+        int color;
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            color = getContext().getResources().getColor(resId);
+        } else {
+            color = getContext().getColor(resId);
+        }
+
+        setColor(color);
+    }
+
     @Override
     public void onBindViewHolder(PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
@@ -99,7 +124,7 @@ public class PreferenceCategory extends android.support.v7.preference.Preference
 
             if (typedArray.length() > 0 && typedArray.getIndexCount() > 0) {
                 final int accentColor = typedArray.getColor(typedArray.getIndex(0), 0xff4081); // defaults to pink
-                titleView.setTextColor(accentColor);
+                titleView.setTextColor(color == 0 ? accentColor : color);
 
                 final int marginIdx = typedArray.getIndex(1);
                 final TypedValue marginValue = typedArray.peekValue(marginIdx);

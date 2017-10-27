@@ -1,5 +1,13 @@
 # Changelog
 
+**2017-10-27**
+
+New version: 27.0.0.0 (based on v27.0.0)
+
+- `PreferenceCategory`'s text color can be set from code (`setColor(...)` or `setColorResource(...)`) and XML (`app:pref_categoryColor` attribute)
+- Added `PreferenceActivityResultListener` that can be used for handling click events by starting an `Activity` for result and receiving the results
+- Enabled scrollbars on the preference list
+
 **2017-10-24**
 
 New version: 26.1.0.3 (based on v26.1.0)

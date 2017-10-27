@@ -46,7 +46,7 @@ public class DatePickerPreference extends DialogPreference {
     public static final SimpleDateFormat FORMAT = new SimpleDateFormat(PATTERN, Locale.US);
 
     static {
-        PreferenceFragmentCompat.addDialogPreference(DatePickerPreference.class, DatePickerPreferenceDialogFragmentCompat.class);
+        PreferenceFragmentCompat.registerPreferenceFragment(DatePickerPreference.class, DatePickerPreferenceDialogFragmentCompat.class);
     }
 
     private String summaryPattern;

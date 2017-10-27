@@ -23,7 +23,7 @@ import com.takisoft.fix.support.v7.preference.colorpicker.R;
 public class ColorPickerPreference extends DialogPreference {
 
     static {
-        PreferenceFragmentCompat.addDialogPreference(ColorPickerPreference.class, ColorPickerPreferenceDialogFragmentCompat.class);
+        PreferenceFragmentCompat.registerPreferenceFragment(ColorPickerPreference.class, ColorPickerPreferenceDialogFragmentCompat.class);
     }
 
     private int[] colors;
