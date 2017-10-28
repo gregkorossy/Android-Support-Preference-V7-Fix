@@ -121,7 +121,7 @@ public class TimePickerPreference extends DialogPreference {
         return hourFormat;
     }
 
-    boolean is24HourView() {
+    public boolean is24HourView() {
         return (hourFormat == FORMAT_AUTO) ? android.text.format.DateFormat.is24HourFormat(getContext()) : hourFormat == FORMAT_24H;
     }
 

@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import java.lang.reflect.Field;
 import java.util.List;
 
-class PreferenceGroupAdapter extends android.support.v7.preference.PreferenceGroupAdapter {
+public class PreferenceGroupAdapter extends android.support.v7.preference.PreferenceGroupAdapter {
 
     protected List mPreferenceLayouts;
 

@@ -179,7 +179,7 @@ public class RingtonePreference extends DialogPreference {
         return showAdd;
     }
 
-    boolean shouldShowAdd() {
+    public boolean shouldShowAdd() {
         if (showAdd) {
             try {
                 PackageInfo pInfo = getContext().getPackageManager().getPackageInfo(getContext().getPackageName(), PackageManager.GET_PERMISSIONS);
