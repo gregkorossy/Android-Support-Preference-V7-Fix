@@ -15,6 +15,8 @@ import android.support.v7.preference.Preference;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
+import com.takisoft.fix.support.v14.preference.PreferenceFragment;
+import com.takisoft.fix.support.v14.preference.TimePickerPreferenceDialogFragment;
 import com.takisoft.fix.support.v7.preference.datetimepicker.R;
 
 import java.lang.annotation.Retention;
@@ -49,6 +51,7 @@ public class TimePickerPreference extends DialogPreference {
 
     static {
         PreferenceFragmentCompat.registerPreferenceFragment(TimePickerPreference.class, TimePickerPreferenceDialogFragmentCompat.class);
+        PreferenceFragment.registerPreferenceFragment(DatePickerPreference.class, TimePickerPreferenceDialogFragment.class);
     }
 
     public static final int FORMAT_AUTO = 0;

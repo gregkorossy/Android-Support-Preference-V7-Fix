@@ -14,6 +14,8 @@ import android.support.v7.preference.Preference;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
+import com.takisoft.fix.support.v14.preference.DatePickerPreferenceDialogFragment;
+import com.takisoft.fix.support.v14.preference.PreferenceFragment;
 import com.takisoft.fix.support.v7.preference.datetimepicker.R;
 
 import java.text.DateFormat;
@@ -47,6 +49,7 @@ public class DatePickerPreference extends DialogPreference {
 
     static {
         PreferenceFragmentCompat.registerPreferenceFragment(DatePickerPreference.class, DatePickerPreferenceDialogFragmentCompat.class);
+        PreferenceFragment.registerPreferenceFragment(DatePickerPreference.class, DatePickerPreferenceDialogFragment.class);
     }
 
     private String summaryPattern;
