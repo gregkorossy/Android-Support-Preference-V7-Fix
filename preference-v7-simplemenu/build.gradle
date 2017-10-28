@@ -9,6 +9,8 @@ android {
         targetSdkVersion rootProject.sdkVersion
         versionCode 1
         versionName "1.0.0"
+
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -16,26 +18,27 @@ android {
             consumerProguardFiles 'proguard-rules.pro'
         }
     }
+
 }
 
 ext {
     bintrayRepo = 'maven'
-    bintrayName = 'com.takisoft.fix:preference-v7-extras'
+    bintrayName = 'com.takisoft.fix:preference-v7-colorpicker'
 
     publishedGroupId = 'com.takisoft.fix'
-    libraryName = 'Preference v7 - Fix'
-    artifact = 'preference-v7-extras'
+    libraryName = 'Preference v7 - ColorPickerPreference'
+    artifact = 'preference-v7-colorpicker'
 
-    libraryDescription = 'Android Support Library Preference v7 extra preference types . The original Support Library files are under Apache 2.0, the fixes and extras are unlicensed.'
+    libraryDescription = 'Android Support Library Preference v7 - ColorPickerPreference. The original Support Library files are under Apache 2.0, the fixes and extras are unlicensed.'
 
     siteUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix'
     gitUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix.git'
 
     libraryVersion = "${rootProject.supportLibraryVersionPrefix}.${fixLibraryVersion}${rootProject.supportLibraryVersionSuffix}${rootProject.extrasLibraryVersionSuffix}"
 
-    developerId = 'gericop'
-    developerName = 'Gergely Kőrössy'
-    developerEmail = 'korossyg@takisoft.com'
+    developerId = 'Mygod'
+    developerName = 'Mygod'
+    developerEmail = 'contact-preference@mygod.be'
 
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
@@ -44,11 +47,6 @@ ext {
 
 dependencies {
     implementation project(':preference-v7')
-
-    api project(':preference-v7-datetimepicker')
-    api project(':preference-v7-ringtone')
-    api project(':preference-v7-colorpicker')
-    api project(':preference-v7-simplemenu')
 }
 
 //apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
