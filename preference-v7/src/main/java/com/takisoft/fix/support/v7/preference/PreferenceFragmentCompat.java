@@ -116,6 +116,7 @@ public abstract class PreferenceFragmentCompat extends android.support.v7.prefer
         Bundle b = bundle == null ? new Bundle(1) : bundle;
         b.putString("key", key);
         if (fragment != null) {
+            fragment.setArguments(b);
             if (fragment instanceof DialogFragment) {
                 fragment.setTargetFragment(this, 0);
                 ((DialogFragment) fragment).show(this.getFragmentManager(), FRAGMENT_DIALOG_TAG);
