@@ -1,6 +1,7 @@
 package com.takisoft.fix.support.v7.preference;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -23,6 +24,7 @@ import com.takisoft.fix.support.v7.preference.widget.SimpleMenuPopupWindow;
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class SimpleMenuPreference extends ListPreference {
 
+    private View mAnchor;
     private View mItemView;
     private SimpleMenuPopupWindow mPopupWindow;
 
@@ -31,11 +33,11 @@ public class SimpleMenuPreference extends ListPreference {
     }
 
     public SimpleMenuPreference(Context context, AttributeSet attrs) {
-        this(context, attrs, Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP ? 0 : R.attr.dialogPreferenceStyle);
+        this(context, attrs, Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP ? 0 : R.attr.simpleMenuPreferenceStyle);
     }
 
     public SimpleMenuPreference(Context context, AttributeSet attrs, int defStyle) {
-        this(context, attrs, defStyle, 0);
+        this(context, attrs, defStyle, R.style.Preference_SimpleMenuPreference);
     }
 
     public SimpleMenuPreference(Context context, AttributeSet attrs, int defStyleAttr,
@@ -46,7 +48,10 @@ public class SimpleMenuPreference extends ListPreference {
             return;
         }
 
-        int popupStyle = R.style.Preference_SimpleMenuPreference_Popup; // TODO: hardcoded popupStyle
+        TypedArray a = context.obtainStyledAttributes(
+                attrs, R.styleable.SimpleMenuPreference, defStyleAttr, defStyleRes);
+
+        int popupStyle = a.getResourceId(R.styleable.SimpleMenuPreference_popupStyle, R.style.Preference_SimpleMenuPreference_Popup);
 
         mPopupWindow = new SimpleMenuPopupWindow(context, attrs, R.styleable.SimpleMenuPreference_popupStyle, popupStyle);
         mPopupWindow.setOnItemClickListener(new SimpleMenuPopupWindow.OnItemClickListener() {
@@ -58,6 +63,8 @@ public class SimpleMenuPreference extends ListPreference {
                 }
             }
         });
+
+        a.recycle();
     }
 
     @Override
@@ -77,7 +84,10 @@ public class SimpleMenuPreference extends ListPreference {
 
         mPopupWindow.setEntries(getEntries());
         mPopupWindow.setSelectedIndex(findIndexOfValue(getValue()));
-        mPopupWindow.show(mItemView);
+
+        View container = (View) mItemView   // itemView
+                .getParent();               // -> list (RecyclerView)
+        mPopupWindow.show(mItemView, container, (int) mAnchor.getX());
     }
 
     @Override
@@ -105,5 +115,11 @@ public class SimpleMenuPreference extends ListPreference {
         }
 
         mItemView = view.itemView;
+        mAnchor = view.itemView.findViewById(android.R.id.empty);
+
+        if (mAnchor == null) {
+            throw new IllegalStateException("SimpleMenuPreference item layout must contain" +
+                    "a view id is android.R.id.empty to support iconSpaceReserved");
+        }
     }
 }

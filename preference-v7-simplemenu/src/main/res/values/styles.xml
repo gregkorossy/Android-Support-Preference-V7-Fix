@@ -4,6 +4,7 @@
     </style>
 
     <style name="Preference.SimpleMenuPreference">
+        <item name="android:layout">@layout/preference_simplemenu</item>
         <item name="popupStyle">@style/Preference.SimpleMenuPreference.Popup</item>
     </style>
 

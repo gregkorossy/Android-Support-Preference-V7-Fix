@@ -179,12 +179,12 @@ public class SimpleMenuPopupWindow extends PopupWindow {
      * Show the PopupWindow
      *
      * @param anchor View that will be used to calc the position of windows
+     * @param container View that will be used to calc the position of windows
+     * @param extraMargin extra margin start
      */
-    public void show(View anchor) {
-        View container = (View) anchor  // itemView
-                .getParent();           // -> list (RecyclerView)
-
-        int measuredWidth = measureWidth(anchor, mEntries);
+    public void show(View anchor, View container, int extraMargin) {
+        int maxMaxWidth = container.getWidth() - margin[POPUP_MENU][HORIZONTAL] * 2;
+        int measuredWidth = measureWidth(maxMaxWidth, mEntries);
         if (measuredWidth == -1) {
             setMode(DIALOG);
         } else if (measuredWidth != 0) {
@@ -196,7 +196,7 @@ public class SimpleMenuPopupWindow extends PopupWindow {
         mAdapter.notifyDataSetChanged();
 
         if (mMode == POPUP_MENU) {
-            showPopupMenu(anchor, container, mMeasuredWidth);
+            showPopupMenu(anchor, container, mMeasuredWidth, extraMargin);
         } else {
             showDialog(anchor, container);
         }
@@ -205,10 +205,10 @@ public class SimpleMenuPopupWindow extends PopupWindow {
     /**
      * Show popup window in dialog mode
      *
-     * @param anchor View that will be used to calc the position of windows
-     * @param container Container view that holds preference list
+     * @param parent a parent view to get the {@link android.view.View#getWindowToken()} token from
+     * @param container Container view that holds preference list, also used to calc width
      */
-    private void showDialog(View anchor, View container) {
+    private void showDialog(View parent, View container) {
         final int index = Math.max(0, mSelectedIndex);
         final int count = mEntries.length;
 
@@ -221,7 +221,7 @@ public class SimpleMenuPopupWindow extends PopupWindow {
         setAnimationStyle(R.style.Animation_SimpleMenuCenter);
         setElevation(elevation[DIALOG]);
 
-        super.showAtLocation(anchor, Gravity.CENTER_VERTICAL, 0, 0);
+        super.showAtLocation(parent, Gravity.CENTER_VERTICAL, 0, 0);
 
         getContentView().post(new Runnable() {
             @Override
@@ -251,11 +251,11 @@ public class SimpleMenuPopupWindow extends PopupWindow {
     /**
      * Show popup window in popup mode
      *
-     * @param anchor View that will be used to calc the position of windows
-     * @param container Container view that holds preference list
+     * @param anchor View that will be used to calc the position of the window
+     * @param container Container view that holds preference list, also used to calc width
      * @param width Measured width of this window
      */
-    private void showPopupMenu(View anchor, View container, int width) {
+    private void showPopupMenu(View anchor, View container, int width, int extraMargin) {
         final boolean rtl = container.getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
 
         final int index = Math.max(0, mSelectedIndex);
@@ -278,15 +278,13 @@ public class SimpleMenuPopupWindow extends PopupWindow {
 
         int height = measuredHeight;
         int elevation = this.elevation[POPUP_MENU];
-        int centerX = listPadding[POPUP_MENU][HORIZONTAL];
+        int centerX = rtl
+                ? location[0] + extraMargin - width + listPadding[POPUP_MENU][HORIZONTAL]
+                : location[0] + extraMargin + listPadding[POPUP_MENU][HORIZONTAL];
         int centerY;
         int animItemHeight = itemHeight + listPadding[POPUP_MENU][VERTICAL] * 2;
         int animIndex = index;
         Rect animStartRect;
-
-        if (rtl) {
-            centerX = container.getWidth() - centerX - width;
-        }
 
         if (height > maxHeight) {
             // too high, use scroll
@@ -373,14 +371,13 @@ public class SimpleMenuPopupWindow extends PopupWindow {
     /**
      * Measure window width
      *
-     * @param parent PreferenceItemView, popup width (including margin) should not larger that its width
-     *               or we will use dialog
+     * @param maxWidth max width for popup
      * @param entries Entries of preference hold this window
      * @return  0: skip
      *          -1: use dialog
      *          other: measuredWidth
      */
-    public int measureWidth(View parent, CharSequence[] entries) {
+    private int measureWidth(int maxWidth, CharSequence[] entries) {
         // skip if should not measure
         if (!mRequestMeasure) {
             return 0;
@@ -397,11 +394,10 @@ public class SimpleMenuPopupWindow extends PopupWindow {
             }
         });
 
-        Context context = parent.getContext();
+        Context context = getContentView().getContext();
         int width = 0;
 
-        int maxWidth = Math.min(unit * maxUnits,
-                parent.getWidth() - margin[POPUP_MENU][HORIZONTAL] * 2);
+        maxWidth = Math.min(unit * maxUnits, maxWidth);
 
         Rect bounds = new Rect();
         Paint textPaint = new TextPaint();

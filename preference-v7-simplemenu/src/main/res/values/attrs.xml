@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="Theme">
+        <!-- Default style for simple menu preferences. -->
+        <attr name="simpleMenuPreferenceStyle" format="reference" />
+    </declare-styleable>
+
     <declare-styleable name="ForegroundCheckTextView">
         <attr name="android:foregroundGravity"/>
         <attr name="android:foreground"/>
