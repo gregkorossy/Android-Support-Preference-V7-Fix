@@ -52,7 +52,7 @@
             android:inputType="phone"
             android:key="edit_text_test"
             android:persistent="false"
-            android:summary="It should be a phone input (it is now!)"
+            android:summary="%s should be a phone input (it is now!)"
             android:title="EditTextPreference" />
         <ListPreference
             android:dialogTitle="ListPreference dialog"
