@@ -1,5 +1,9 @@
 # Changelog
 
+New version: 27.0.1.0 (based on v27.0.1)
+
+- No support preferences related changes.
+
 **2017-10-27**
 
 New version: 27.0.0.0 (based on v27.0.0)
