@@ -8,4 +8,9 @@
     <declare-styleable name="PreferenceCategory">
         <attr name="pref_categoryColor" format="color|reference" />
     </declare-styleable>
+
+    <declare-styleable name="EditTextPreference">
+        <attr name="pref_summaryHasText" format="string|reference" />
+        <attr name="pref_summaryPasswordSubstitute" format="string|reference" />
+    </declare-styleable>
 </resources>
