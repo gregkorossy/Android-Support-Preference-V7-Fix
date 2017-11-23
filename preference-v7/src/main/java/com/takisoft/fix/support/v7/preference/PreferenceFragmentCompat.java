@@ -92,18 +92,12 @@ public abstract class PreferenceFragmentCompat extends android.support.v7.prefer
     @Override
     public void onDisplayPreferenceDialog(Preference preference) {
         if (this.getFragmentManager().findFragmentByTag(FRAGMENT_DIALOG_TAG) == null) {
-            Object f = null;
-
             if (preference instanceof EditTextPreference) {
-                f = EditTextPreferenceDialogFragmentCompat.newInstance(preference.getKey());
+                displayPreferenceDialog(new EditTextPreferenceDialogFragmentCompat(), preference.getKey());
             } else if (dialogPreferences.containsKey(preference.getClass())) {
                 try {
-                    Fragment fragment = dialogPreferences.get(preference.getClass()).newInstance();
-                    Bundle b = new Bundle(1);
-                    b.putString("key", preference.getKey());
-                    fragment.setArguments(b);
-
-                    f = fragment;
+                    displayPreferenceDialog(dialogPreferences.get(preference.getClass()).newInstance(),
+                            preference.getKey());
                 } catch (java.lang.InstantiationException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {
@@ -112,17 +106,25 @@ public abstract class PreferenceFragmentCompat extends android.support.v7.prefer
             } else {
                 super.onDisplayPreferenceDialog(preference);
             }
+        }
+    }
 
-            if (f != null) {
-                if (f instanceof DialogFragment) {
-                    ((DialogFragment) f).setTargetFragment(this, 0);
-                    ((DialogFragment) f).show(this.getFragmentManager(), FRAGMENT_DIALOG_TAG);
-                } else {
-                    this.getFragmentManager()
-                            .beginTransaction()
-                            .add((Fragment) f, FRAGMENT_DIALOG_TAG)
-                            .commit();
-                }
+    protected void displayPreferenceDialog(Fragment fragment, String key) {
+        displayPreferenceDialog(fragment, key, null);
+    }
+    protected void displayPreferenceDialog(Fragment fragment, String key, Bundle bundle) {
+        Bundle b = bundle == null ? new Bundle(1) : bundle;
+        b.putString("key", key);
+        if (fragment != null) {
+            fragment.setArguments(b);
+            fragment.setTargetFragment(this, 0);
+            if (fragment instanceof DialogFragment) {
+                ((DialogFragment) fragment).show(this.getFragmentManager(), FRAGMENT_DIALOG_TAG);
+            } else {
+                this.getFragmentManager()
+                        .beginTransaction()
+                        .add(fragment, FRAGMENT_DIALOG_TAG)
+                        .commit();
             }
         }
     }
