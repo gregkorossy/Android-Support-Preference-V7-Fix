@@ -39,4 +39,10 @@ public class EditTextPreference extends android.support.v7.preference.EditTextPr
             notifyChanged();
         }
     }
+
+    @Override
+    public CharSequence getSummary() {
+        CharSequence summary = super.getSummary();
+        return summary == null ? null : String.format(summary.toString(), getText());   // TODO: formatting?
+    }
 }
