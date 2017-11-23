@@ -3,9 +3,11 @@ package com.takisoft.fix.support.v7.preference;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.preference.DialogPreference;
 import android.support.v7.preference.Preference;
@@ -109,23 +111,28 @@ public abstract class PreferenceFragmentCompat extends android.support.v7.prefer
         }
     }
 
-    protected void displayPreferenceDialog(Fragment fragment, String key) {
+    protected void displayPreferenceDialog(@NonNull Fragment fragment, @NonNull String key) {
         displayPreferenceDialog(fragment, key, null);
     }
-    protected void displayPreferenceDialog(Fragment fragment, String key, Bundle bundle) {
+
+    protected void displayPreferenceDialog(@NonNull Fragment fragment, @NonNull String key, @Nullable Bundle bundle) {
+        FragmentManager fragmentManager = this.getFragmentManager();
+
+        if (fragmentManager == null) {
+            return;
+        }
+
         Bundle b = bundle == null ? new Bundle(1) : bundle;
         b.putString("key", key);
-        if (fragment != null) {
-            fragment.setArguments(b);
-            fragment.setTargetFragment(this, 0);
-            if (fragment instanceof DialogFragment) {
-                ((DialogFragment) fragment).show(this.getFragmentManager(), FRAGMENT_DIALOG_TAG);
-            } else {
-                this.getFragmentManager()
-                        .beginTransaction()
-                        .add(fragment, FRAGMENT_DIALOG_TAG)
-                        .commit();
-            }
+        fragment.setArguments(b);
+        fragment.setTargetFragment(this, 0);
+        if (fragment instanceof DialogFragment) {
+            ((DialogFragment) fragment).show(fragmentManager, FRAGMENT_DIALOG_TAG);
+        } else {
+            fragmentManager
+                    .beginTransaction()
+                    .add(fragment, FRAGMENT_DIALOG_TAG)
+                    .commit();
         }
     }
 
