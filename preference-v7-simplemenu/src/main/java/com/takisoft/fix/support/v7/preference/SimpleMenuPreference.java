@@ -5,7 +5,7 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.v7.preference.DropDownPreference;
+import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.PreferenceViewHolder;
 import android.util.AttributeSet;
 import android.view.View;
@@ -14,15 +14,15 @@ import com.takisoft.fix.support.v7.preference.simplemenu.R;
 import com.takisoft.fix.support.v7.preference.widget.SimpleMenuPopupWindow;
 
 /**
- * A version of {@link DropDownPreference} that use
+ * A version of {@link ListPreference} that use
  * <a href="https://material.io/guidelines/components/menus.html#menus-simple-menus">Simple Menus</a>
  * in Material Design as drop down.
  *
- * On pre-Lollipop, it will fallback {@link DropDownPreference}.
+ * On pre-Lollipop, it will fallback {@link ListPreference}.
  */
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-public class SimpleMenuPreference extends DropDownPreference {
+public class SimpleMenuPreference extends ListPreference {
 
     private View mAnchor;
     private View mItemView;
@@ -33,7 +33,7 @@ public class SimpleMenuPreference extends DropDownPreference {
     }
 
     public SimpleMenuPreference(Context context, AttributeSet attrs) {
-        this(context, attrs, Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP ? R.attr.dropdownPreferenceStyle : R.attr.simpleMenuPreferenceStyle);
+        this(context, attrs, Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP ? 0 : R.attr.simpleMenuPreferenceStyle);
     }
 
     public SimpleMenuPreference(Context context, AttributeSet attrs, int defStyle) {
