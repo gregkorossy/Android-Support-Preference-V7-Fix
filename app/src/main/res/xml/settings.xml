@@ -118,6 +118,13 @@
             android:summary="Very nice color"
             android:title="ColorPickerPreference"
             app:pref_size="small" />
+        <SimpleMenuPreference
+            android:key="simple_menu"
+            android:title="SimpleMenuPreference"
+            android:summary="%s"
+            android:entries="@array/entries"
+            android:entryValues="@array/entries"
+            android:defaultValue="1"/>
     </PreferenceCategory>
     <PreferenceCategory
         android:key="pref_empty_categ"
