@@ -52,8 +52,18 @@
             android:inputType="phone"
             android:key="edit_text_test"
             android:persistent="false"
-            android:summary="It should be a phone input (it is now!)"
-            android:title="EditTextPreference" />
+            android:summary="Should be a phone input (it is now!)"
+            android:title="EditTextPreference"
+            app:pref_summaryHasText="%s is a nice phone number" />
+        <EditTextPreference
+            android:dialogMessage="This is the dialog\'s message"
+            android:inputType="numberPassword"
+            android:key="edit_text_test2"
+            android:persistent="false"
+            android:summary="Should be a number password input (it is now!)"
+            android:title="EditTextPreference"
+            app:pref_summaryHasText="%s is a secret number"
+            app:pref_summaryPasswordSubstitute="•••••" />
         <ListPreference
             android:dialogTitle="ListPreference dialog"
             android:entries="@array/pref_list_entries"
@@ -119,12 +129,13 @@
             android:title="ColorPickerPreference"
             app:pref_size="small" />
         <SimpleMenuPreference
-            android:key="simple_menu"
-            android:title="SimpleMenuPreference"
-            android:summary="%s"
+            android:defaultValue="1"
             android:entries="@array/entries"
             android:entryValues="@array/entries"
-            android:defaultValue="1"/>
+            android:key="simple_menu"
+            android:persistent="false"
+            android:summary="%s"
+            android:title="SimpleMenuPreference" />
     </PreferenceCategory>
     <PreferenceCategory
         android:key="pref_empty_categ"
