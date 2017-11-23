@@ -62,8 +62,7 @@
             android:persistent="false"
             android:summary="Should be a number password input (it is now!)"
             android:title="EditTextPreference"
-            app:pref_summaryHasText="%s is a secret number"
-            app:pref_summaryPasswordSubstitute="•••••" />
+            app:pref_summaryHasText="%s is a secret number" />
         <ListPreference
             android:dialogTitle="ListPreference dialog"
             android:entries="@array/pref_list_entries"

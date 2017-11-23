@@ -16,7 +16,7 @@ public class EditTextPreference extends android.support.v7.preference.EditTextPr
     private CharSequence summaryHasText;
     private CharSequence summary;
 
-    private CharSequence passwordSubstitute;
+    private String passwordSubstitute;
 
     public EditTextPreference(Context context) {
         this(context, null);
@@ -38,9 +38,9 @@ public class EditTextPreference extends android.support.v7.preference.EditTextPr
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.EditTextPreference, defStyleAttr, 0);
         summaryHasText = a.getText(R.styleable.EditTextPreference_pref_summaryHasText);
 
-        passwordSubstitute = a.getText(R.styleable.EditTextPreference_pref_summaryPasswordSubstitute);
+        passwordSubstitute = a.getString(R.styleable.EditTextPreference_pref_summaryPasswordSubstitute);
         if (passwordSubstitute == null) {
-            passwordSubstitute = "*****";
+            passwordSubstitute = "\u2022";
         }
 
         a.recycle();
@@ -80,7 +80,7 @@ public class EditTextPreference extends android.support.v7.preference.EditTextPr
             if ((inputType & InputType.TYPE_NUMBER_VARIATION_PASSWORD) == InputType.TYPE_NUMBER_VARIATION_PASSWORD ||
                     (inputType & InputType.TYPE_TEXT_VARIATION_PASSWORD) == InputType.TYPE_TEXT_VARIATION_PASSWORD ||
                     (inputType & InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD) == InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD) {
-                text = passwordSubstitute;
+                text = new String(new char[text.length()]).replaceAll("\0", passwordSubstitute);
             }
 
             if (summaryHasText != null) {
@@ -164,7 +164,7 @@ public class EditTextPreference extends android.support.v7.preference.EditTextPr
      * Sets the substitute characters to be used for displaying passwords in the summary.
      *
      * @param resId The substitute characters as a resource.
-     * @see #setPasswordSubstitute(CharSequence)
+     * @see #setPasswordSubstitute(String)
      */
     public void setPasswordSubstitute(@StringRes int resId) {
         setPasswordSubstitute(getContext().getString(resId));
@@ -176,7 +176,7 @@ public class EditTextPreference extends android.support.v7.preference.EditTextPr
      * @param passwordSubstitute The substitute characters to be used for displaying passwords in
      *                           the summary.
      */
-    public void setPasswordSubstitute(CharSequence passwordSubstitute) {
+    public void setPasswordSubstitute(String passwordSubstitute) {
         this.passwordSubstitute = passwordSubstitute;
     }
 }
