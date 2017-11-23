@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements PreferenceFragmen
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.fragment, fragment);
-            ft.commit();
+            ft.commitAllowingStateLoss();
         }
     }
 
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements PreferenceFragmen
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft.replace(R.id.fragment, fragment, preferenceScreen.getKey());
         ft.addToBackStack(preferenceScreen.getKey());
-        ft.commit();
+        ft.commitAllowingStateLoss();
 
         return true;
     }
