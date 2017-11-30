@@ -271,9 +271,6 @@ public class SimpleMenuPopupWindow extends PopupWindow {
         final int containerTopInWindow = location[1];
         final int containerHeight = container.getHeight();
 
-        // popup should looks it its container
-        final int maxHeight = containerHeight - margin[DIALOG][VERTICAL] * 2;
-
         int y;
 
         int height = measuredHeight;
@@ -286,7 +283,7 @@ public class SimpleMenuPopupWindow extends PopupWindow {
         int animIndex = index;
         Rect animStartRect;
 
-        if (height > maxHeight) {
+        if (height > containerHeight) {
             // too high, use scroll
             y = containerTopInWindow + margin[POPUP_MENU][VERTICAL];
 
