@@ -122,6 +122,7 @@
             app:pref_minDate="08/31/2017"
             app:pref_summaryHasDate="Selected date: %s" />
         <ColorPickerPreference
+            android:defaultValue="#88C440"
             android:dialogTitle="@string/color_picker_default_title"
             android:key="pref_color"
             android:persistent="false"
