@@ -53,17 +53,25 @@
             android:key="edit_text_test"
             android:persistent="false"
             android:summary="Should be a phone input (it is now!)"
-            android:title="EditTextPreference"
+            android:title="EditTextPreference" />
+        <AutoSummaryEditTextPreference
+            android:dialogMessage="This is the dialog\'s message"
+            android:inputType="phone"
+            android:key="auto_edit_text_test"
+            android:persistent="false"
+            android:summary="Should be a phone input (it is now!)"
+            android:title="AutoSummaryEditTextPreference"
             app:pref_summaryHasText="%s is a nice phone number" />
-        <EditTextPreference
+        <AutoSummaryEditTextPreference
             android:dialogMessage="This is the dialog\'s message"
             android:inputType="numberPassword"
-            android:key="edit_text_test2"
+            android:key="auto_edit_text_test2"
             android:persistent="false"
             android:summary="Should be a number password input (it is now!)"
-            android:title="EditTextPreference"
+            android:title="AutoSummaryEditTextPreference"
             app:pref_summaryHasText="%s is a secret number"
-            app:pref_summaryPasswordSubstitute="•••••" />
+            app:pref_summaryPasswordSubstitute="\u00A9"
+            app:pref_summaryPasswordSubstituteLength="0" />
         <ListPreference
             android:dialogTitle="ListPreference dialog"
             android:entries="@array/pref_list_entries"
@@ -122,6 +130,7 @@
             app:pref_minDate="08/31/2017"
             app:pref_summaryHasDate="Selected date: %s" />
         <ColorPickerPreference
+            android:defaultValue="#88C440"
             android:dialogTitle="@string/color_picker_default_title"
             android:key="pref_color"
             android:persistent="false"
@@ -130,9 +139,9 @@
             app:pref_size="small" />
         <SimpleMenuPreference
             android:defaultValue="1"
-            android:entries="@array/entries"
-            android:entryValues="@array/entries"
-            android:key="simple_menu"
+            android:entries="@array/pref_list_entries"
+            android:entryValues="@array/pref_list_values"
+            android:key="pref_simple_menu"
             android:persistent="false"
             android:summary="%s"
             android:title="SimpleMenuPreference" />

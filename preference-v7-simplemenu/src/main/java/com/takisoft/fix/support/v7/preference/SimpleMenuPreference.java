@@ -33,7 +33,7 @@ public class SimpleMenuPreference extends ListPreference {
     }
 
     public SimpleMenuPreference(Context context, AttributeSet attrs) {
-        this(context, attrs, Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP ? 0 : R.attr.simpleMenuPreferenceStyle);
+        this(context, attrs, Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP ? R.attr.dialogPreferenceStyle : R.attr.simpleMenuPreferenceStyle);
     }
 
     public SimpleMenuPreference(Context context, AttributeSet attrs, int defStyle) {
@@ -51,9 +51,9 @@ public class SimpleMenuPreference extends ListPreference {
         TypedArray a = context.obtainStyledAttributes(
                 attrs, R.styleable.SimpleMenuPreference, defStyleAttr, defStyleRes);
 
-        int popupStyle = a.getResourceId(R.styleable.SimpleMenuPreference_popupStyle, R.style.Preference_SimpleMenuPreference_Popup);
+        int popupStyle = a.getResourceId(R.styleable.SimpleMenuPreference_pref_popupStyle, R.style.Preference_SimpleMenuPreference_Popup);
 
-        mPopupWindow = new SimpleMenuPopupWindow(context, attrs, R.styleable.SimpleMenuPreference_popupStyle, popupStyle);
+        mPopupWindow = new SimpleMenuPopupWindow(context, attrs, R.styleable.SimpleMenuPreference_pref_popupStyle, popupStyle);
         mPopupWindow.setOnItemClickListener(new SimpleMenuPopupWindow.OnItemClickListener() {
             @Override
             public void onClick(int i) {

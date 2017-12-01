@@ -23,13 +23,13 @@ android {
 
 ext {
     bintrayRepo = 'maven'
-    bintrayName = 'com.takisoft.fix:preference-v7-colorpicker'
+    bintrayName = 'com.takisoft.fix:preference-v7-simplemenu'
 
     publishedGroupId = 'com.takisoft.fix'
-    libraryName = 'Preference v7 - ColorPickerPreference'
-    artifact = 'preference-v7-colorpicker'
+    libraryName = 'Preference v7 - SimpleMenuPreference'
+    artifact = 'preference-v7-simplemenu'
 
-    libraryDescription = 'Android Support Library Preference v7 - ColorPickerPreference. The original Support Library files are under Apache 2.0, the fixes and extras are unlicensed.'
+    libraryDescription = 'Android Support Library Preference v7 - SimpleMenuPreference. Displays a simple menu on API 21+ and a ListPreference on pre-Lollipop devices.'
 
     siteUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix'
     gitUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix.git'
@@ -42,7 +42,7 @@ ext {
 
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0", "Unlicense"]
+    allLicenses = ["Apache-2.0"]
 }
 
 dependencies {

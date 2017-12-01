@@ -18,12 +18,12 @@ If you would like to support me, you may donate some small amount via PayPal.
 ### 1. Add gradle dependency
 First, **remove** the unnecessary lines of preference-v7 and preference-v14 from your gradle file as the bugfix contains both of them:
 ```gradle
-compile 'com.android.support:preference-v7:27.0.1'
-compile 'com.android.support:preference-v14:27.0.1'
+compile 'com.android.support:preference-v7:27.0.2'
+compile 'com.android.support:preference-v14:27.0.2'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:27.0.1.0'
+compile 'com.takisoft.fix:preference-v7:27.0.2.0'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
@@ -92,17 +92,18 @@ Now you can enjoy using the support preferences API without losing all your hair
 There are additional preferences not part of the official support library, but decided to add them to some extra libraries. You can add all of them to your project using
 
 ```gradle
-compile 'com.takisoft.fix:preference-v7-extras:27.0.1.0'
+compile 'com.takisoft.fix:preference-v7-extras:27.0.2.0'
 ```
 
 or one or more groups:
 
 Preference | Dependency | Preview
 -|-|-
-[`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference) | `compile 'com.takisoft.fix:preference-v7-ringtone:27.0.1.0'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/ringtone_api26.png)
-[`DatePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#datepickerpreference) | `compile 'com.takisoft.fix:preference-v7-datetimepicker:27.0.1.0'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/datepicker_api26.png)
-[`TimePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#timepickerpreference) | `compile 'com.takisoft.fix:preference-v7-datetimepicker:27.0.1.0'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/timepicker_api26.png)
-[`ColorPickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#colorpickerpreference) | `compile 'com.takisoft.fix:preference-v7-colorpicker:27.0.1.0'` | ![API 15](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/colorpicker_api26_fixed.png)
+[`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference) | `compile 'com.takisoft.fix:preference-v7-ringtone:27.0.2.0'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/ringtone_api26.png)
+[`DatePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#datepickerpreference) | `compile 'com.takisoft.fix:preference-v7-datetimepicker:27.0.2.0'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/datepicker_api26.png)
+[`TimePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#timepickerpreference) | `compile 'com.takisoft.fix:preference-v7-datetimepicker:27.0.2.0'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/timepicker_api26.png)
+[`ColorPickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#colorpickerpreference) | `compile 'com.takisoft.fix:preference-v7-colorpicker:27.0.2.0'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/colorpicker_api26_fixed.png)
+[`SimpleMenuPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#simplemenupreference) | `compile 'com.takisoft.fix:preference-v7-simplemenu:27.0.2.0'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/simplemenu_api26.png)
 
 ---
 
@@ -148,7 +149,7 @@ The original implementation uses `?attr/textAppearanceSmall` as the message styl
 ---
 
 ## Version
-The current stable version is **27.0.1.0**.
+The current stable version is **27.0.2.0**.
 
 ## Notes #
 This demo / bugfix is set to work on API level 14+.
@@ -167,27 +168,14 @@ API 15 | API 21 | API 26
 
 ### Changelog
 
-**2017-11-13**
+**2017-12-01**
 
-New version: 27.0.1.0 (based on v27.0.1)
+New version: 27.0.2.0 (based on v27.0.2)
 
-- No support preferences related changes.
-
-**2017-10-27**
-
-New version: 27.0.0.0 (based on v27.0.0)
-
-- `PreferenceCategory`'s text color can be set from code (`setColor(...)` or `setColorResource(...)`) and XML (`app:pref_categoryColor` attribute)
-- Added `PreferenceActivityResultListener` that can be used for handling click events by starting an `Activity` for result and receiving the results
-- Enabled scrollbars on the preference list
-
-**2017-10-24**
-
-New version: 26.1.0.3 (based on v26.1.0)
-
-- The attribute names use the `pref_` prefix in order to avoid name collision with other libraries
-- The custom preferences call their change listeners
-- Custom preferences extending `DialogPreference` can be added using `PreferenceFragmentCompat.addDialogPreference(...)`
+- Added [`AutoSummaryEditTextPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#autosummaryedittextpreference) that shows the entered text automatically in the summary.
+- Added [`SimpleMenuPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#simplemenupreference) that shows a nicely animated popup menu for displaying entries on API 21+, and a `ListPreference` on pre-Lollipop devices.
+- Removed obsolete (pre-v14) resources.
+- Small bug fixes.
 
 > For older changelogs, check out the [CHANGELOG](CHANGELOG.md) file.
 
