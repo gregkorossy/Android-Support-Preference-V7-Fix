@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.PreferenceViewHolder;
 import android.util.AttributeSet;
@@ -52,9 +51,9 @@ public class SimpleMenuPreference extends ListPreference {
         TypedArray a = context.obtainStyledAttributes(
                 attrs, R.styleable.SimpleMenuPreference, defStyleAttr, defStyleRes);
 
-        int popupStyle = a.getResourceId(R.styleable.SimpleMenuPreference_popupStyle, R.style.Preference_SimpleMenuPreference_Popup);
+        int popupStyle = a.getResourceId(R.styleable.SimpleMenuPreference_pref_popupStyle, R.style.Preference_SimpleMenuPreference_Popup);
 
-        mPopupWindow = new SimpleMenuPopupWindow(context, attrs, R.styleable.SimpleMenuPreference_popupStyle, popupStyle);
+        mPopupWindow = new SimpleMenuPopupWindow(context, attrs, R.styleable.SimpleMenuPreference_pref_popupStyle, popupStyle);
         mPopupWindow.setOnItemClickListener(new SimpleMenuPopupWindow.OnItemClickListener() {
             @Override
             public void onClick(int i) {

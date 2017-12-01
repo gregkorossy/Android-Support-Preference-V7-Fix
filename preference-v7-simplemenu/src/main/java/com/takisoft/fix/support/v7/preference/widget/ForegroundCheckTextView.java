@@ -64,7 +64,7 @@ public class ForegroundCheckTextView extends AppCompatCheckedTextView {
         }
 
         mForegroundInPadding = a.getBoolean(
-                R.styleable.ForegroundCheckTextView_foregroundInsidePadding, true);
+                R.styleable.ForegroundCheckTextView_pref_foregroundInsidePadding, true);
 
         a.recycle();
     }

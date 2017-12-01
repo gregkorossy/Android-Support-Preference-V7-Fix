@@ -71,7 +71,7 @@ public class SimpleMenuPopupWindow extends PopupWindow {
     }
 
     public SimpleMenuPopupWindow(Context context, AttributeSet attrs) {
-        this(context, attrs, R.styleable.SimpleMenuPreference_popupStyle);
+        this(context, attrs, R.styleable.SimpleMenuPreference_pref_popupStyle);
     }
 
     public SimpleMenuPopupWindow(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -88,17 +88,17 @@ public class SimpleMenuPopupWindow extends PopupWindow {
         TypedArray a = context.obtainStyledAttributes(
                 attrs, R.styleable.SimpleMenuPopup, defStyleAttr, defStyleRes);
 
-        elevation[POPUP_MENU] = (int) a.getDimension(R.styleable.SimpleMenuPopup_listElevation, 4f);
-        elevation[DIALOG] = (int) a.getDimension(R.styleable.SimpleMenuPopup_dialogElevation, 48f);
-        margin[POPUP_MENU][HORIZONTAL] = (int) a.getDimension(R.styleable.SimpleMenuPopup_listMarginHorizontal, 0);
-        margin[POPUP_MENU][VERTICAL] = (int) a.getDimension(R.styleable.SimpleMenuPopup_listMarginVertical, 0);
-        margin[DIALOG][HORIZONTAL] = (int) a.getDimension(R.styleable.SimpleMenuPopup_dialogMarginHorizontal, 0);
-        margin[DIALOG][VERTICAL] = (int) a.getDimension(R.styleable.SimpleMenuPopup_dialogMarginVertical, 0);
-        listPadding[POPUP_MENU][HORIZONTAL] = (int) a.getDimension(R.styleable.SimpleMenuPopup_listItemPadding, 0);
-        listPadding[DIALOG][HORIZONTAL] = (int) a.getDimension(R.styleable.SimpleMenuPopup_dialogItemPadding, 0);
-        dialogMaxWidth  = (int) a.getDimension(R.styleable.SimpleMenuPopup_dialogMaxWidth, 0);
-        unit = (int) a.getDimension(R.styleable.SimpleMenuPopup_unit, 0);
-        maxUnits = a.getInteger(R.styleable.SimpleMenuPopup_maxUnits, 0);
+        elevation[POPUP_MENU] = (int) a.getDimension(R.styleable.SimpleMenuPopup_pref_listElevation, 4f);
+        elevation[DIALOG] = (int) a.getDimension(R.styleable.SimpleMenuPopup_pref_dialogElevation, 48f);
+        margin[POPUP_MENU][HORIZONTAL] = (int) a.getDimension(R.styleable.SimpleMenuPopup_pref_listMarginHorizontal, 0);
+        margin[POPUP_MENU][VERTICAL] = (int) a.getDimension(R.styleable.SimpleMenuPopup_pref_listMarginVertical, 0);
+        margin[DIALOG][HORIZONTAL] = (int) a.getDimension(R.styleable.SimpleMenuPopup_pref_dialogMarginHorizontal, 0);
+        margin[DIALOG][VERTICAL] = (int) a.getDimension(R.styleable.SimpleMenuPopup_pref_dialogMarginVertical, 0);
+        listPadding[POPUP_MENU][HORIZONTAL] = (int) a.getDimension(R.styleable.SimpleMenuPopup_pref_listItemPadding, 0);
+        listPadding[DIALOG][HORIZONTAL] = (int) a.getDimension(R.styleable.SimpleMenuPopup_pref_dialogItemPadding, 0);
+        dialogMaxWidth  = (int) a.getDimension(R.styleable.SimpleMenuPopup_pref_dialogMaxWidth, 0);
+        unit = (int) a.getDimension(R.styleable.SimpleMenuPopup_pref_unit, 0);
+        maxUnits = a.getInteger(R.styleable.SimpleMenuPopup_pref_maxUnits, 0);
 
         mList = (RecyclerView) LayoutInflater.from(context).inflate(R.layout.simple_menu_list, null);
         mList.setFocusable(true);
