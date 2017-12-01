@@ -70,7 +70,7 @@
             android:summary="Should be a number password input (it is now!)"
             android:title="AutoSummaryEditTextPreference"
             app:pref_summaryHasText="%s is a secret number"
-            app:pref_summaryPasswordSubstitute="\u2022"
+            app:pref_summaryPasswordSubstitute="\u00A9"
             app:pref_summaryPasswordSubstituteLength="0" />
         <ListPreference
             android:dialogTitle="ListPreference dialog"
@@ -139,9 +139,9 @@
             app:pref_size="small" />
         <SimpleMenuPreference
             android:defaultValue="1"
-            android:entries="@array/entries"
-            android:entryValues="@array/entries"
-            android:key="simple_menu"
+            android:entries="@array/pref_list_entries"
+            android:entryValues="@array/pref_list_values"
+            android:key="pref_simple_menu"
             android:persistent="false"
             android:summary="%s"
             android:title="SimpleMenuPreference" />

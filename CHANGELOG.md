@@ -1,5 +1,16 @@
 # Changelog
 
+**2017-12-01**
+
+New version: 27.0.2.0 (based on v27.0.2)
+
+- Added [`AutoSummaryEditTextPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#autosummaryedittextpreference) that shows the entered text automatically in the summary.
+- Added [`SimpleMenuPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#simplemenupreference) that shows a nicely animated popup menu for displaying entries on API 21+, and a `ListPreference` on pre-Lollipop devices.
+- Removed obsolete (pre-v14) resources.
+- Small bug fixes.
+
+**2017-11-13**
+
 New version: 27.0.1.0 (based on v27.0.1)
 
 - No support preferences related changes.
