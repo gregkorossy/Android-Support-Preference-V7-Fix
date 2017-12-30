@@ -38,26 +38,29 @@ public abstract class PreferenceFragmentCompat extends android.support.v7.prefer
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Context styledContext = getPreferenceManager().getContext();
+
+        PreferenceManager fixedManager = new PreferenceManagerFix(styledContext);
+        fixedManager.setOnNavigateToScreenListener(this);
+
         try {
-            Context styledContext = getPreferenceManager().getContext();
-
-            PreferenceManager fixedManager = new PreferenceManagerFix(styledContext);
-            fixedManager.setOnNavigateToScreenListener(this);
-
             preferenceManagerField.set(PreferenceFragmentCompat.this, fixedManager);
-
-            Bundle args = this.getArguments();
-            String rootKey;
-            if (args != null) {
-                rootKey = this.getArguments().getString("android.support.v7.preference.PreferenceFragmentCompat.PREFERENCE_ROOT");
-            } else {
-                rootKey = null;
-            }
-
-            this.onCreatePreferencesFix(savedInstanceState, rootKey);
-        } catch (Exception e) {
+        } catch (IllegalAccessException e) {
+            // we don't care since if the dev uses new preferences, it will crash the app anyways
             e.printStackTrace();
         }
+
+        Bundle args = this.getArguments();
+        String rootKey;
+        if (args != null) {
+            rootKey = this.getArguments().getString("android.support.v7.preference.PreferenceFragmentCompat.PREFERENCE_ROOT");
+        } else {
+            rootKey = null;
+        }
+
+        this.onCreatePreferencesFix(savedInstanceState, rootKey);
+
     }
 
     @Override
@@ -74,7 +77,7 @@ public abstract class PreferenceFragmentCompat extends android.support.v7.prefer
      */
     @Override
     @Deprecated
-    public void onCreatePreferences(@Nullable Bundle savedInstanceState, String rootKey) {
+    public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
 
     }
 
