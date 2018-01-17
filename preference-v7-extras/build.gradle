@@ -28,14 +28,14 @@ ext {
 
     libraryDescription = 'Android Support Library Preference v7 extra preference types . The original Support Library files are under Apache 2.0, the fixes and extras are unlicensed.'
 
-    siteUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix'
-    gitUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix.git'
+    siteUrl = 'https://github.com/TCQQ/Android-Support-Preference-V7-Fix'
+    gitUrl = 'https://github.com/TCQQ/Android-Support-Preference-V7-Fix.git'
 
     libraryVersion = "${rootProject.supportLibraryVersionPrefix}.${fixLibraryVersion}${rootProject.supportLibraryVersionSuffix}${rootProject.extrasLibraryVersionSuffix}"
 
-    developerId = 'gericop'
-    developerName = 'Gergely Kőrössy'
-    developerEmail = 'korossyg@takisoft.com'
+    developerId = 'TCQQ'
+    developerName = 'Alan'
+    developerEmail = 'peijiarui@outlook.com'
 
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
