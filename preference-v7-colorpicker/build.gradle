@@ -47,7 +47,7 @@ ext {
 dependencies {
     implementation project(':preference-v7')
     implementation "com.android.support:appcompat-v7:${rootProject.supportLibraryVersion}"
-    api 'com.takisoft.fix:colorpicker:1.0.3'
+    api 'com.github.TCQQ:ColorPicker:v1.0.3'
 }
 
 //apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
