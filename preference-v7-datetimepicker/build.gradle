@@ -18,40 +18,7 @@ android {
     }
 }
 
-ext {
-    bintrayRepo = 'maven'
-    bintrayName = 'com.takisoft.fix:preference-v7-datetimepicker'
-
-    publishedGroupId = 'com.takisoft.fix'
-    libraryName = 'Preference v7 - DateTimePickers'
-    artifact = 'preference-v7-datetimepicker'
-
-    libraryDescription = 'Android Support Library Preference v7 - DatePickerPreference and TimePickerPreference. The original Support Library files are under Apache 2.0, the fixes and extras are unlicensed.'
-
-    siteUrl = 'https://github.com/tcqq/Android-Support-Preference-V7-Fix'
-    gitUrl = 'https://github.com/tcqq/Android-Support-Preference-V7-Fix.git'
-
-    libraryVersion = "${rootProject.supportLibraryVersionPrefix}.${fixLibraryVersion}${rootProject.supportLibraryVersionSuffix}${rootProject.extrasLibraryVersionSuffix}"
-
-    developerId = 'tcqq'
-    developerName = 'peijiarui'
-    developerEmail = 'peijiarui@outlook.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0", "Unlicense"]
-}
-
 dependencies {
     implementation project(':preference-v7')
     api 'com.takisoft.fix:datetimepicker:1.0.5'
-}
-
-//apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
-//apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/bintrayv.gradle'
-apply from: '../installv.gradle'
-apply from: '../bintrayv.gradle'
-
-javadoc.doFirst {
-    failOnError false
 }
