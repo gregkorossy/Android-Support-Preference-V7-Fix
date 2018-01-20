@@ -20,5 +20,5 @@ android {
 
 dependencies {
     implementation project(':preference-v7')
-    api 'com.github.tcqq:datetimepicker:v1.0.6'
+    api 'com.github.tcqq:datetimepicker:1.0.7'
 }
