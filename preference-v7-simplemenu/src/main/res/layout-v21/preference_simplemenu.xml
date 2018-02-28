@@ -26,13 +26,13 @@
     android:minHeight="?android:listPreferredItemHeightSmall"
     android:background="?android:selectableItemBackground"
     android:gravity="center_vertical"
+    android:focusable="true"
     tools:ignore="RtlHardcoded">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
-        android:focusable="true"
+        android:gravity="center_vertical"
         android:baselineAligned="false">
 
         <LinearLayout
