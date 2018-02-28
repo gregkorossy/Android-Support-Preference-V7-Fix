@@ -1,5 +1,12 @@
 # Changelog
 
+**2018-02-28**
+
+New version: 27.1.0.0 (based on v27.1.0)
+
+- According to bug fixes section of the [changelog](https://developer.android.com/topic/libraries/support-library/revisions.html#27-1-0) of revision 27.1.0: _Preferences library uses attributes that will not work on old versions of Android_ has been fixed.
+- Some bug fixes.
+
 **2017-12-01**
 
 New version: 27.0.2.0 (based on v27.0.2)
