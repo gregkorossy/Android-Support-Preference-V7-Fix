@@ -20,41 +20,8 @@ android {
     }
 }
 
-ext {
-    bintrayRepo = 'maven'
-    bintrayName = 'com.takisoft.fix:preference-v7-colorpicker'
-
-    publishedGroupId = 'com.takisoft.fix'
-    libraryName = 'Preference v7 - ColorPickerPreference'
-    artifact = 'preference-v7-colorpicker'
-
-    libraryDescription = 'Android Support Library Preference v7 - ColorPickerPreference. The original Support Library files are under Apache 2.0, the fixes and extras are unlicensed.'
-
-    siteUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix'
-    gitUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix.git'
-
-    libraryVersion = "${rootProject.supportLibraryVersionPrefix}.${fixLibraryVersion}${rootProject.supportLibraryVersionSuffix}${rootProject.extrasLibraryVersionSuffix}"
-
-    developerId = 'gericop'
-    developerName = 'Gergely Kőrössy'
-    developerEmail = 'korossyg@takisoft.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0", "Unlicense"]
-}
-
 dependencies {
     implementation project(':preference-v7')
     implementation "com.android.support:appcompat-v7:${rootProject.supportLibraryVersion}"
     api 'com.takisoft.fix:colorpicker:1.0.4'
-}
-
-//apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
-//apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/bintrayv.gradle'
-apply from: '../installv.gradle'
-apply from: '../bintrayv.gradle'
-
-javadoc.doFirst {
-    failOnError false
 }
