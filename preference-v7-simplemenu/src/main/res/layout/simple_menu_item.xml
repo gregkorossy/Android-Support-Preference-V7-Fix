@@ -17,12 +17,11 @@
 ** limitations under the License.
 */
 -->
-<com.takisoft.fix.support.v7.preference.widget.ForegroundCheckTextView
+<CheckedTextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@android:id/text1"
     android:background="@drawable/simple_menu_item_background"
-    android:foreground="?android:selectableItemBackground"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="48dp"
