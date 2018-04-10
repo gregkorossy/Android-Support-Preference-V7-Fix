@@ -168,6 +168,13 @@ API 15 | API 21 | API 26
 
 ### Changelog
 
+**2018-04-10**
+
+New version: 27.1.1.0 (based on v27.1.1)
+
+- No support preferences related changes in the support library.
+- Some bug fixes (see #147 for more info).
+
 **2018-02-28**
 
 New version: 27.1.0.0 (based on v27.1.0)
