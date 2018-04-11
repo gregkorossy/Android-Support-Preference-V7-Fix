@@ -25,6 +25,8 @@ import android.support.v7.preference.Preference;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
+import com.takisoft.fix.support.v14.preference.PreferenceFragment;
+import com.takisoft.fix.support.v14.preference.RingtonePreferenceDialogFragment;
 import com.takisoft.fix.support.v7.preference.ringtone.R;
 
 import java.lang.annotation.Retention;
@@ -70,6 +72,7 @@ public class RingtonePreference extends DialogPreference {
 
     static {
         PreferenceFragmentCompat.registerPreferenceFragment(RingtonePreference.class, RingtonePreferenceDialogFragmentCompat.class);
+        PreferenceFragment.registerPreferenceFragment(RingtonePreference.class, RingtonePreferenceDialogFragment.class);
     }
 
     public RingtonePreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -179,7 +182,7 @@ public class RingtonePreference extends DialogPreference {
         return showAdd;
     }
 
-    boolean shouldShowAdd() {
+    public boolean shouldShowAdd() {
         if (showAdd) {
             try {
                 PackageInfo pInfo = getContext().getPackageManager().getPackageInfo(getContext().getPackageName(), PackageManager.GET_PERMISSIONS);

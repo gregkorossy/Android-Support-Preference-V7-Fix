@@ -18,12 +18,15 @@ import android.widget.ImageView;
 import com.takisoft.colorpicker.ColorPickerDialog;
 import com.takisoft.colorpicker.ColorPickerDialog.Size;
 import com.takisoft.colorpicker.ColorStateDrawable;
+import com.takisoft.fix.support.v14.preference.ColorPickerPreferenceDialogFragment;
+import com.takisoft.fix.support.v14.preference.PreferenceFragment;
 import com.takisoft.fix.support.v7.preference.colorpicker.R;
 
 public class ColorPickerPreference extends DialogPreference {
 
     static {
         PreferenceFragmentCompat.registerPreferenceFragment(ColorPickerPreference.class, ColorPickerPreferenceDialogFragmentCompat.class);
+        PreferenceFragment.registerPreferenceFragment(ColorPickerPreference.class, ColorPickerPreferenceDialogFragment.class);
     }
 
     private int[] colors;
