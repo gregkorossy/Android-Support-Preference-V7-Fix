@@ -18,12 +18,12 @@ If you would like to support me, you may donate some small amount via PayPal.
 ### 1. Add gradle dependency
 First, **remove** the unnecessary lines of preference-v7 and preference-v14 from your gradle file as the bugfix contains both of them:
 ```gradle
-compile 'com.android.support:preference-v7:27.1.1'
-compile 'com.android.support:preference-v14:27.1.1'
+implementation 'com.android.support:preference-v7:27.1.1'
+implementation 'com.android.support:preference-v14:27.1.1'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-compile 'com.takisoft.fix:preference-v7:27.1.1.0'
+implementation 'com.takisoft.fix:preference-v7:27.1.1.0'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
@@ -92,7 +92,7 @@ Now you can enjoy using the support preferences API without losing all your hair
 There are additional preferences not part of the official support library, but decided to add them to some extra libraries. You can add all of them to your project using
 
 ```gradle
-compile 'com.takisoft.fix:preference-v7-extras:27.1.1.0'
+implementation 'com.takisoft.fix:preference-v7-extras:27.1.1.0'
 ```
 
 or one or more groups:
