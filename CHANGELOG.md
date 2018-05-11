@@ -1,5 +1,12 @@
 # Changelog
 
+**2018-05-11**
+
+New version: 27.1.1.1 (based on v27.1.1)
+
+- No support preferences related changes in the support library.
+- Bug fixes (#153, #149, #155, #152).
+
 **2018-04-10**
 
 New version: 27.1.1.0 (based on v27.1.1)
