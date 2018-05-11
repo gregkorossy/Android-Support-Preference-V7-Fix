@@ -29,5 +29,6 @@
     android:textSize="16sp"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
+    android:focusable="true"
     android:gravity="center_vertical"
     tools:text="test\ntest\ntest\ntest" />
