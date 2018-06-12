@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.MyTheme" parent="@style/PreferenceFixTheme.Light.NoActionBar">
+    <style name="Theme.MyTheme" parent="@style/PreferenceFixTheme.MaterialComponents.Light.NoActionBar">
         <item name="colorAccent">@color/accent</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>

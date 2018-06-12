@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Base -->
-    <style name="PreferenceFixTheme" parent="@style/Theme.AppCompat">
+    <style name="PreferenceFixTheme.MaterialComponents" parent="@style/Theme.MaterialComponents">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
         <item name="preferenceDialog_messageAppearance">
             @style/PreferenceFixTheme.TextAppearanceDialogMessage
@@ -10,13 +11,13 @@
         <item name="android:listPreferredItemPaddingEnd">16dp</item>
     </style>
 
-    <style name="PreferenceFixTheme.NoActionBar">
+    <style name="PreferenceFixTheme.MaterialComponents.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
     <!-- Light -->
-    <style name="PreferenceFixTheme.Light" parent="@style/Theme.AppCompat.Light">
+    <style name="PreferenceFixTheme.MaterialComponents.Light" parent="@style/Theme.MaterialComponents.Light">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
         <item name="preferenceDialog_messageAppearance">
             @style/PreferenceFixTheme.TextAppearanceDialogMessage
@@ -26,38 +27,12 @@
         <item name="android:listPreferredItemPaddingEnd">16dp</item>
     </style>
 
-    <style name="PreferenceFixTheme.Light.NoActionBar">
+    <style name="PreferenceFixTheme.MaterialComponents.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="PreferenceFixTheme.Light.DarkActionBar" parent="@style/Theme.AppCompat.Light.DarkActionBar">
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
-        <item name="preferenceDialog_messageAppearance">
-            @style/PreferenceFixTheme.TextAppearanceDialogMessage
-        </item>
-        <!-- Padding fix -->
-        <item name="android:listPreferredItemPaddingStart">16dp</item>
-        <item name="android:listPreferredItemPaddingEnd">16dp</item>
-    </style>
-
-    <!-- DayNight -->
-    <style name="PreferenceFixTheme.DayNight" parent="@style/Theme.AppCompat.DayNight">
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
-        <item name="preferenceDialog_messageAppearance">
-            @style/PreferenceFixTheme.TextAppearanceDialogMessage
-        </item>
-        <!-- Padding fix -->
-        <item name="android:listPreferredItemPaddingStart">16dp</item>
-        <item name="android:listPreferredItemPaddingEnd">16dp</item>
-    </style>
-
-    <style name="PreferenceFixTheme.DayNight.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="PreferenceFixTheme.DayNight.DarkActionBar" parent="@style/Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="PreferenceFixTheme.MaterialComponents.Light.DarkActionBar" parent="@style/Theme.MaterialComponents.Light.DarkActionBar">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
         <item name="preferenceDialog_messageAppearance">
             @style/PreferenceFixTheme.TextAppearanceDialogMessage
