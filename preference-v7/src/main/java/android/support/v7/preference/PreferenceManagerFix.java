@@ -1,7 +1,9 @@
 package android.support.v7.preference;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v4.content.SharedPreferencesCompat;
 
 import java.lang.reflect.Field;
@@ -100,4 +102,25 @@ public class PreferenceManagerFix extends PreferenceManager {
 
         this.noCommit = noCommit;
     }
+
+    @SuppressLint("RestrictedApi")
+    public static void setDefaultValues(@NonNull Context context, int resId, boolean readAgain) {
+
+        final String sharedPreferencesName = context.getPackageName() + "_preferences";  // PreferenceManager.getDefaultSharedPreferencesName()
+        final int sharedPreferencesMode = Context.MODE_PRIVATE;                          // PreferenceManager.getDefaultSharedPreferencesMode()
+
+        final SharedPreferences defaultValueSp = context.getSharedPreferences(KEY_HAS_SET_DEFAULT_VALUES, Context.MODE_PRIVATE);
+
+        if (readAgain || !defaultValueSp.getBoolean(KEY_HAS_SET_DEFAULT_VALUES, false)) {
+            final PreferenceManagerFix pm = new PreferenceManagerFix(context);
+            pm.setSharedPreferencesName(sharedPreferencesName);
+            pm.setSharedPreferencesMode(sharedPreferencesMode);
+            pm.inflateFromResource(context, resId, null);
+
+            defaultValueSp.edit()
+                    .putBoolean(PreferenceManager.KEY_HAS_SET_DEFAULT_VALUES, true)
+                    .apply();
+        }
+    }
+
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceCategory;
+import android.support.v7.preference.PreferenceManagerFix;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ public class MyPreferenceFragment extends PreferenceFragmentCompatDividers {
 
     @Override
     public void onCreatePreferencesFix(@Nullable Bundle savedInstanceState, String rootKey) {
+        PreferenceManagerFix.setDefaultValues(getPreferenceManager().getContext(), R.xml.settings, false);
         setPreferencesFromResource(R.xml.settings, rootKey);
 
         testDynamicPrefs();
@@ -30,7 +32,7 @@ public class MyPreferenceFragment extends PreferenceFragmentCompatDividers {
 
         Preference prefEmptyCheck = findPreference("pref_empty_check");
 
-        if(prefEmptyCheck != null) {
+        if (prefEmptyCheck != null) {
             prefEmptyCheck.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
