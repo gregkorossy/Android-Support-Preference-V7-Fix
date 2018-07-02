@@ -105,8 +105,6 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
 
         createCursor(ringtonePreference.getRingtone());
 
-        String colTitle = cursor.getColumnName(RingtoneManager.TITLE_COLUMN_INDEX);
-
         final Context context = getContext();
 
         final int ringtoneType = ringtonePreference.getRingtoneType();
@@ -119,9 +117,16 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
         } else {
             defaultUri = null;
         }
+        
+        String[] titles = new String[cursor.getCount()];
+        if (cursor.moveToFirst()){
+            do{
+                titles[cursor.getPosition()] = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
+            }while(cursor.moveToNext());
+        }
 
         builder
-                .setSingleChoiceItems(cursor, selectedIndex, colTitle, new DialogInterface.OnClickListener() {
+                .setSingleChoiceItems(titles, selectedIndex, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (i < cursor.getCount()) {
