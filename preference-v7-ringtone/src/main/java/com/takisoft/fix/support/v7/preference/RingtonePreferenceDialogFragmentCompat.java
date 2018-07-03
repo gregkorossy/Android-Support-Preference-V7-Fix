@@ -126,6 +126,13 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
         } else {
             defaultUri = null;
         }
+        
+        String[] titles = new String[cursor.getCount()];
+        if (cursor.moveToFirst()){
+            do{
+                titles[cursor.getPosition()] = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
+            }while(cursor.moveToNext());
+        }
 
         builder
                 .setSingleChoiceItems(buildAdapter(context, cursor), selectedIndex, new DialogInterface.OnClickListener() {
