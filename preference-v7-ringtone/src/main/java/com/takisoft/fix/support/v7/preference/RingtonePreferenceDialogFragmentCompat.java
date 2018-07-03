@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.database.MergeCursor;
@@ -30,10 +31,16 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.CheckedTextView;
 import android.widget.CursorAdapter;
 import android.widget.HeaderViewListAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import com.takisoft.fix.support.v7.preference.ringtone.R;
@@ -46,7 +53,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.zip.Inflater;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -117,16 +126,9 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
         } else {
             defaultUri = null;
         }
-        
-        String[] titles = new String[cursor.getCount()];
-        if (cursor.moveToFirst()){
-            do{
-                titles[cursor.getPosition()] = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
-            }while(cursor.moveToNext());
-        }
 
         builder
-                .setSingleChoiceItems(titles, selectedIndex, new DialogInterface.OnClickListener() {
+                .setSingleChoiceItems(buildAdapter(context, cursor), selectedIndex, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (i < cursor.getCount()) {
@@ -297,8 +299,7 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
                     protected void onPostExecute(final Cursor newCursor) {
                         if (newCursor != null) {
                             final ListView listView = ((AlertDialog) getDialog()).getListView();
-                            final CursorAdapter adapter = ((CursorAdapter) ((HeaderViewListAdapter) listView.getAdapter()).getWrappedAdapter());
-                            adapter.changeCursor(newCursor);
+                            listView.setAdapter(buildAdapter(context, newCursor));
 
                             listView.setItemChecked(selectedIndex, true);
                             listView.setSelection(selectedIndex);
@@ -537,6 +538,20 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
         return new String[]{name, ext};
     }
 
+    private CheckedItemAdapter buildAdapter (Context context, Cursor cursor){
+        String[] titles = new String[cursor.getCount()];
+        if (cursor.moveToFirst()){
+            do{
+                titles[cursor.getPosition()] = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
+            }while(cursor.moveToNext());
+        }
+
+        final TypedArray a = context.obtainStyledAttributes(null, android.support.v7.appcompat.R.styleable.AlertDialog,
+                android.support.v7.appcompat.R.attr.alertDialogStyle, 0);
+        int layout = a.getResourceId(android.support.v7.appcompat.R.styleable.AlertDialog_singleChoiceItemLayout, 0);
+        return new CheckedItemAdapter(context, layout, android.R.id.text1, titles);
+    }
+
     /**
      * Creates a {@link android.media.MediaScannerConnection} to scan a ringtone file and add its
      * information to the internal database.
@@ -582,6 +597,23 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
 
         private Uri take() throws InterruptedException {
             return mQueue.take();
+        }
+    }
+
+    private static class CheckedItemAdapter extends ArrayAdapter<CharSequence> {
+        public CheckedItemAdapter(Context context, int resource, int textViewResourceId,
+                                  CharSequence[] objects) {
+            super(context, resource, textViewResourceId, objects);
+        }
+
+        @Override
+        public boolean hasStableIds() {
+            return true;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
         }
     }
 }
