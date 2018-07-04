@@ -138,7 +138,7 @@
             android:title="ColorPickerPreference"
             app:pref_size="small" />
         <SimpleMenuPreference
-            android:defaultValue="1"
+            android:defaultValue="@string/pref_list_default_value"
             android:entries="@array/pref_list_entries"
             android:entryValues="@array/pref_list_values"
             android:key="pref_simple_menu"
