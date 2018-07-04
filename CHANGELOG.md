@@ -1,5 +1,12 @@
 # Changelog
 
+**2018-07-04**
+
+New version: 27.1.1.2 (based on v27.1.1)
+
+- No support preferences related changes in the support library.
+- RingtonePreference bug fixes(#164, #165, #167).
+
 **2018-05-11**
 
 New version: 27.1.1.1 (based on v27.1.1)
