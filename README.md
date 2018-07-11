@@ -74,7 +74,7 @@ public class MyPreferenceFragment extends PreferenceFragmentCompatDividers {
 ```xml
 <style name="Theme.MyTheme" parent="@style/Whatever">
     <!-- [...] -->
-    <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
+    <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
 </style>
 ```
 

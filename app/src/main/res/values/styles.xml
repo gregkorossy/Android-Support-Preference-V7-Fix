@@ -6,7 +6,7 @@
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="drawerArrowStyle">@style/Theme.MyTheme.DrawerArrowStyle</item>
         <item name="toolbarStyle">@style/Theme.MyTheme.Toolbar</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
         <!-- If you find the preference categories' bottom margin too big, uncomment this -->
         <!--<item name="preferenceCategory_marginBottom">0dp</item>-->
     </style>

@@ -9,19 +9,4 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
-
-    <!-- Temporary SeekBarPreference fixes, don't rely on these -->
-    <style name="PreferenceThemeOverlay.v14.Material.Fix">
-        <item name="seekBarPreferenceStyle">@style/Preference.SeekBarPreference.Material.Fix</item>
-        <item name="preferenceFragmentListStyle">@style/PreferenceFragmentList.Material.Fix</item>
-    </style>
-
-    <style name="Preference.SeekBarPreference.Material.Fix">
-        <item name="android:layout">@layout/preference_widget_seekbar_material</item>
-    </style>
-
-    <style name="PreferenceFragmentList.Material.Fix">
-        <item name="android:fadeScrollbars">true</item>
-        <item name="android:scrollbars">vertical</item>
-    </style>
 </resources>
