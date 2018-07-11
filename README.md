@@ -130,12 +130,6 @@ if (etPref != null) {
 > **Note!** Watch out for the correct package name when importing `EditTextPreference`, it should come from `com.takisoft.fix.support.v7.preference`. If you import from the wrong package (i.e. `android.support.v7.preference`), the `getEditText()` method will not be available, however, the XML attributes will still be forwarded and processed by the `EditText`.
 
 
-### PreferenceCategory's bottom margin reduce
-Some people found the preference category's bottom margin too big, so now you can change it from the styles by setting the `preferenceCategory_marginBottom` value in your theme, for example:
-```xml
-<item name="preferenceCategory_marginBottom">0dp</item>
-```
-
 ---
 
 ## Version

@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="PreferenceFixTheme">
-        <attr name="preferenceCategory_marginBottom" format="dimension" />
-    </declare-styleable>
-
     <declare-styleable name="PreferenceCategory">
         <attr name="pref_categoryColor" format="color|reference" />
     </declare-styleable>

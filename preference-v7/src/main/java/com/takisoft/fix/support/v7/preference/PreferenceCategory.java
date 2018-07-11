@@ -3,17 +3,17 @@ package com.takisoft.fix.support.v7.preference;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
+import android.text.TextUtils;
+import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.core.content.res.TypedArrayUtils;
 import androidx.preference.PreferenceViewHolder;
 import androidx.recyclerview.widget.RecyclerView;
-import android.text.TextUtils;
-import android.util.AttributeSet;
-import android.util.TypedValue;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 /**
  * PreferenceCategory fix which allows one to use multiple themes. The original
@@ -23,7 +23,7 @@ import android.widget.TextView;
  * "preference_fallback_accent_color". Read the README.md for more info.
  */
 public class PreferenceCategory extends androidx.preference.PreferenceCategory {
-    private static final int[] CATEGORY_ATTRS = new int[]{R.attr.colorAccent, R.attr.preferenceCategory_marginBottom};
+    private static final int[] CATEGORY_ATTRS = new int[]{R.attr.colorAccent};
 
     protected int color;
     protected View itemView;
@@ -125,16 +125,6 @@ public class PreferenceCategory extends androidx.preference.PreferenceCategory {
             if (typedArray.length() > 0 && typedArray.getIndexCount() > 0) {
                 final int accentColor = typedArray.getColor(typedArray.getIndex(0), 0xff4081); // defaults to pink
                 titleView.setTextColor(color == 0 ? accentColor : color);
-
-                final int marginIdx = typedArray.getIndex(1);
-                final TypedValue marginValue = typedArray.peekValue(marginIdx);
-
-                if (typedArray.hasValue(marginIdx) && marginValue != null && marginValue.type == TypedValue.TYPE_DIMENSION) {
-                    int bottomMargin = typedArray.getDimensionPixelSize(marginIdx, -1);
-                    if (bottomMargin > -1) {
-                        ((ViewGroup.MarginLayoutParams) titleView.getLayoutParams()).bottomMargin = bottomMargin;
-                    }
-                }
             }
 
             typedArray.recycle();
