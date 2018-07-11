@@ -43,7 +43,7 @@ ext {
 }
 
 dependencies {
-    api project(':preference-v7')
+    api "com.android.support:preference-v7:${rootProject.supportLibraryVersion}"
     api "com.android.support:design:${rootProject.supportLibraryVersion}"
 }
 

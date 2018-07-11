@@ -43,8 +43,6 @@ ext {
 }
 
 dependencies {
-    implementation project(':preference-v7')
-
     api project(':preference-v7-datetimepicker')
     api project(':preference-v7-ringtone')
     api project(':preference-v7-colorpicker')
