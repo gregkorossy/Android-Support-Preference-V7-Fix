@@ -63,11 +63,6 @@ public abstract class PreferenceFragmentCompat extends androidx.preference.Prefe
 
     }
 
-    @Override
-    protected RecyclerView.Adapter onCreateAdapter(PreferenceScreen preferenceScreen) {
-        return new PreferenceGroupAdapter(preferenceScreen);
-    }
-
     /**
      * @param savedInstanceState If the fragment is being re-created from a previous saved state,
      *                           this is the state.
