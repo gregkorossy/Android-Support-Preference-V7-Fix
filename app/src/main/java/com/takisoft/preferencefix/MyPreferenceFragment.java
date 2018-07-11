@@ -10,12 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.takisoft.fix.support.v7.preference.EditTextPreference;
-import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompatDividers;
+import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MyPreferenceFragment extends PreferenceFragmentCompatDividers {
+public class MyPreferenceFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferencesFix(@Nullable Bundle savedInstanceState, String rootKey) {
