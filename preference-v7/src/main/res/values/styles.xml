@@ -3,7 +3,7 @@
     <style name="PreferenceFixTheme" parent="@style/Theme.AppCompat">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
         <item name="preferenceDialog_messageAppearance">
-            @style/PreferenceFixTheme.TextAppearanceDialogMessage
+            @style/TextAppearance.AppCompat.Subhead
         </item>
     </style>
 
@@ -16,7 +16,7 @@
     <style name="PreferenceFixTheme.Light" parent="@style/Theme.AppCompat.Light">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
         <item name="preferenceDialog_messageAppearance">
-            @style/PreferenceFixTheme.TextAppearanceDialogMessage
+            @style/TextAppearance.AppCompat.Subhead
         </item>
     </style>
 
@@ -28,7 +28,7 @@
     <style name="PreferenceFixTheme.Light.DarkActionBar" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
         <item name="preferenceDialog_messageAppearance">
-            @style/PreferenceFixTheme.TextAppearanceDialogMessage
+            @style/TextAppearance.AppCompat.Subhead
         </item>
     </style>
 
@@ -36,7 +36,7 @@
     <style name="PreferenceFixTheme.DayNight" parent="@style/Theme.AppCompat.DayNight">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
         <item name="preferenceDialog_messageAppearance">
-            @style/PreferenceFixTheme.TextAppearanceDialogMessage
+            @style/TextAppearance.AppCompat.Subhead
         </item>
     </style>
 
@@ -48,7 +48,7 @@
     <style name="PreferenceFixTheme.DayNight.DarkActionBar" parent="@style/Theme.AppCompat.DayNight.DarkActionBar">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
         <item name="preferenceDialog_messageAppearance">
-            @style/PreferenceFixTheme.TextAppearanceDialogMessage
+            @style/TextAppearance.AppCompat.Subhead
         </item>
     </style>
 
@@ -61,8 +61,6 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
-
-    <style name="PreferenceFixTheme.TextAppearanceDialogMessage" parent="@style/TextAppearance.AppCompat.Subhead" />
 
     <!-- Temporary SeekBarPreference fixes, don't rely on these -->
     <style name="PreferenceThemeOverlay.v14.Material.Fix">

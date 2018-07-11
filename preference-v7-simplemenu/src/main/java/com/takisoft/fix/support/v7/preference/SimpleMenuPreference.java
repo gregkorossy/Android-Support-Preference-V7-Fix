@@ -3,10 +3,10 @@ package com.takisoft.fix.support.v7.preference;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.v7.preference.ListPreference;
-import android.support.v7.preference.PreferenceViewHolder;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.preference.ListPreference;
+import androidx.preference.PreferenceViewHolder;
 import android.util.AttributeSet;
 import android.view.View;
 

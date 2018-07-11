@@ -34,7 +34,7 @@ ext {
     siteUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix'
     gitUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix.git'
 
-    libraryVersion = "${rootProject.supportLibraryVersionPrefix}.${fixLibraryVersion}${rootProject.supportLibraryVersionSuffix}${rootProject.extrasLibraryVersionSuffix}"
+    libraryVersion = '1.0.0-alpha1'
 
     developerId = 'Mygod'
     developerName = 'Mygod'
@@ -46,7 +46,7 @@ ext {
 }
 
 dependencies {
-    api "com.android.support:preference-v7:${rootProject.supportLibraryVersion}"
+    api "androidx.preference:preference:$androidxVersion"
 }
 
 //apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'

@@ -1,8 +1,8 @@
-package android.support.v7.preference;
+package androidx.preference;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v4.content.SharedPreferencesCompat;
+import androidx.core.content.SharedPreferencesCompat;
 
 import java.lang.reflect.Field;
 
@@ -14,7 +14,7 @@ public class PreferenceManagerFix extends PreferenceManager {
     private boolean inflateInProgress;
 
     static {
-        Field[] fields = android.support.v7.preference.PreferenceManager.class.getDeclaredFields();
+        Field[] fields = androidx.preference.PreferenceManager.class.getDeclaredFields();
         for (Field field : fields) {
             //Log.d("FIELD", field.toString());
             if (field.getType() == SharedPreferences.Editor.class) {

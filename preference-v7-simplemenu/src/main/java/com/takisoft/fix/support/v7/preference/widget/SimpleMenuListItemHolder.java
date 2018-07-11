@@ -1,8 +1,8 @@
 package com.takisoft.fix.support.v7.preference.widget;
 
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckedTextView;
 

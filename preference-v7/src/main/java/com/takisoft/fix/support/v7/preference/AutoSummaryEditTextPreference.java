@@ -2,11 +2,11 @@ package com.takisoft.fix.support.v7.preference;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 
 public class AutoSummaryEditTextPreference extends EditTextPreference {
     private CharSequence summaryHasText;

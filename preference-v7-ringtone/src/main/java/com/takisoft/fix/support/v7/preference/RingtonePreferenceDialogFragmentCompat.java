@@ -21,12 +21,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.OpenableColumns;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.WorkerThread;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.preference.PreferenceDialogFragmentCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AlertDialog;
+import androidx.preference.PreferenceDialogFragmentCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -553,9 +553,9 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
             }while(cursor.moveToNext());
         }
 
-        final TypedArray a = context.obtainStyledAttributes(null, android.support.v7.appcompat.R.styleable.AlertDialog,
-                android.support.v7.appcompat.R.attr.alertDialogStyle, 0);
-        int layout = a.getResourceId(android.support.v7.appcompat.R.styleable.AlertDialog_singleChoiceItemLayout, 0);
+        final TypedArray a = context.obtainStyledAttributes(null, androidx.appcompat.R.styleable.AlertDialog,
+                androidx.appcompat.R.attr.alertDialogStyle, 0);
+        int layout = a.getResourceId(androidx.appcompat.R.styleable.AlertDialog_singleChoiceItemLayout, 0);
         return new CheckedItemAdapter(context, layout, android.R.id.text1, titles);
     }
 

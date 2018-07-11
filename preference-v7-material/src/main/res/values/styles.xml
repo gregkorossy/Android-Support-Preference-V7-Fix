@@ -4,7 +4,7 @@
     <style name="PreferenceFixTheme.MaterialComponents" parent="@style/Theme.MaterialComponents">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
         <item name="preferenceDialog_messageAppearance">
-            @style/PreferenceFixTheme.TextAppearanceDialogMessage
+            @style/TextAppearance.AppCompat.Subhead
         </item>
     </style>
 
@@ -17,7 +17,7 @@
     <style name="PreferenceFixTheme.MaterialComponents.Light" parent="@style/Theme.MaterialComponents.Light">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
         <item name="preferenceDialog_messageAppearance">
-            @style/PreferenceFixTheme.TextAppearanceDialogMessage
+            @style/TextAppearance.AppCompat.Subhead
         </item>
     </style>
 
@@ -29,7 +29,7 @@
     <style name="PreferenceFixTheme.MaterialComponents.Light.DarkActionBar" parent="@style/Theme.MaterialComponents.Light.DarkActionBar">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
         <item name="preferenceDialog_messageAppearance">
-            @style/PreferenceFixTheme.TextAppearanceDialogMessage
+            @style/TextAppearance.AppCompat.Subhead
         </item>
     </style>
 </resources>

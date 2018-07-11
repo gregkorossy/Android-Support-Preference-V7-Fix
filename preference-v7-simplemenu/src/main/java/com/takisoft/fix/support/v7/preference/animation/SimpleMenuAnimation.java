@@ -8,7 +8,7 @@ import android.animation.TypeEvaluator;
 import android.annotation.TargetApi;
 import android.graphics.Rect;
 import android.os.Build;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;

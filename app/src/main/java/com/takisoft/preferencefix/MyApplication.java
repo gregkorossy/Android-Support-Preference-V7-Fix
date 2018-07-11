@@ -1,6 +1,6 @@
 package com.takisoft.preferencefix;
 
-import android.support.multidex.MultiDexApplication;
+import androidx.multidex.MultiDexApplication;
 
 public class MyApplication extends MultiDexApplication {
 }

@@ -3,8 +3,8 @@ package com.takisoft.fix.support.v7.preference;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.preference.PreferenceDialogFragmentCompat;
+import androidx.annotation.NonNull;
+import androidx.preference.PreferenceDialogFragmentCompat;
 
 import com.takisoft.datetimepicker.DatePickerDialog;
 import com.takisoft.datetimepicker.widget.DatePicker;

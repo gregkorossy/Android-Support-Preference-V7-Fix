@@ -3,30 +3,30 @@ package com.takisoft.fix.support.v7.preference;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.preference.DialogPreference;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceGroup;
-import android.support.v7.preference.PreferenceManager;
-import android.support.v7.preference.PreferenceManagerFix;
-import android.support.v7.preference.PreferenceScreen;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.preference.DialogPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceGroup;
+import androidx.preference.PreferenceManager;
+import androidx.preference.PreferenceManagerFix;
+import androidx.preference.PreferenceScreen;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
-public abstract class PreferenceFragmentCompat extends android.support.v7.preference.PreferenceFragmentCompat {
+public abstract class PreferenceFragmentCompat extends androidx.preference.PreferenceFragmentCompat {
     private static final String FRAGMENT_DIALOG_TAG = "android.support.v7.preference.PreferenceFragment.DIALOG";
 
     private static Field preferenceManagerField;
 
     static {
-        Field[] fields = android.support.v7.preference.PreferenceFragmentCompat.class.getDeclaredFields();
+        Field[] fields = androidx.preference.PreferenceFragmentCompat.class.getDeclaredFields();
         for (Field field : fields) {
             if (field.getType() == PreferenceManager.class) {
                 preferenceManagerField = field;

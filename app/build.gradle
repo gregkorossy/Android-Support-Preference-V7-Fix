@@ -21,8 +21,9 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:multidex:1.0.3'
-    implementation "com.android.support:appcompat-v7:${rootProject.supportLibraryVersion}"
-    implementation project(':preference-v7-material')
+    implementation 'androidx.multidex:multidex:2.0.0'
+    implementation "androidx.appcompat:appcompat:$androidxVersion"
+    implementation project(':preference-v7')
     implementation project(':preference-v7-extras')
+    implementation project(':preference-v7-material')
 }

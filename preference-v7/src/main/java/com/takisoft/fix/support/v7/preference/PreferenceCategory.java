@@ -3,11 +3,11 @@ package com.takisoft.fix.support.v7.preference;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.v4.content.res.TypedArrayUtils;
-import android.support.v7.preference.PreferenceViewHolder;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.core.content.res.TypedArrayUtils;
+import androidx.preference.PreferenceViewHolder;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -22,7 +22,7 @@ import android.widget.TextView;
  * If you use this class in your preference XML, you don't have to redefine
  * "preference_fallback_accent_color". Read the README.md for more info.
  */
-public class PreferenceCategory extends android.support.v7.preference.PreferenceCategory {
+public class PreferenceCategory extends androidx.preference.PreferenceCategory {
     private static final int[] CATEGORY_ATTRS = new int[]{R.attr.colorAccent, R.attr.preferenceCategory_marginBottom};
 
     protected int color;

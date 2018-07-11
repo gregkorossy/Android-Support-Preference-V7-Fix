@@ -3,11 +3,11 @@ package com.takisoft.fix.support.v7.preference;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.preference.PreferenceGroup;
-import android.support.v7.preference.PreferenceViewHolder;
-import android.support.v7.preference.PreferenceViewHolderProxy;
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
+import androidx.preference.PreferenceGroup;
+import androidx.preference.PreferenceViewHolder;
+import androidx.preference.PreferenceViewHolderProxy;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import java.lang.reflect.Field;
 import java.util.List;
 
-class PreferenceGroupAdapter extends android.support.v7.preference.PreferenceGroupAdapter {
+class PreferenceGroupAdapter extends androidx.preference.PreferenceGroupAdapter {
 
     protected List mPreferenceLayouts;
 
@@ -26,7 +26,7 @@ class PreferenceGroupAdapter extends android.support.v7.preference.PreferenceGro
         super(preferenceGroup);
 
         try {
-            Field preferenceLayoutsField = android.support.v7.preference.PreferenceGroupAdapter.class.getDeclaredField("mPreferenceLayouts");
+            Field preferenceLayoutsField = androidx.preference.PreferenceGroupAdapter.class.getDeclaredField("mPreferenceLayouts");
             preferenceLayoutsField.setAccessible(true);
             mPreferenceLayouts = (List) preferenceLayoutsField.get(this);
 
