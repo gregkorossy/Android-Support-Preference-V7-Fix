@@ -1,11 +1,12 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.MyTheme" parent="@style/PreferenceFixTheme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.MyTheme" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorAccent">@color/accent</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="drawerArrowStyle">@style/Theme.MyTheme.DrawerArrowStyle</item>
         <item name="toolbarStyle">@style/Theme.MyTheme.Toolbar</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
         <!-- If you find the preference categories' bottom margin too big, uncomment this -->
         <!--<item name="preferenceCategory_marginBottom">0dp</item>-->
     </style>

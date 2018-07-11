@@ -1,1 +1,1 @@
-include ':app', ':preference-v7', ':preference-v7-extras', ':preference-v7-datetimepicker', ':preference-v7-ringtone', ':preference-v7-colorpicker', ':preference-v7-simplemenu', ':preference-v7-material'
+include ':app', ':preference-v7', ':preference-v7-extras', ':preference-v7-datetimepicker', ':preference-v7-ringtone', ':preference-v7-colorpicker', ':preference-v7-simplemenu'

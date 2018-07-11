@@ -70,15 +70,11 @@ public class MyPreferenceFragment extends PreferenceFragmentCompatDividers {
 }
 ```
 
-### 3. Use the appropriate theme
-You should set your containing `Activity`'s theme to either a variant of `@style/PreferenceFixTheme` or create your own and use it as the parent theme. `PreferenceFixTheme` is based on `Theme.AppCompat` and contains the required attribute `preferenceTheme`. The fix theme is available for all `Theme.AppCompat` variants, such as `NoActionBar`, `Light`, etc.
-For example, the sample app uses `PreferenceFixTheme.Light.NoActionBar` as the parent theme:
+### 3. Add preferenceTheme
 ```xml
-<style name="Theme.MyTheme" parent="@style/PreferenceFixTheme.Light.NoActionBar">
-    <item name="colorAccent">@color/accent</item>
-    <item name="colorPrimary">@color/primary</item>
-    <item name="colorPrimaryDark">@color/primary_dark</item>
+<style name="Theme.MyTheme" parent="@style/Whatever">
     <!-- [...] -->
+    <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
 </style>
 ```
 
@@ -138,12 +134,6 @@ if (etPref != null) {
 Some people found the preference category's bottom margin too big, so now you can change it from the styles by setting the `preferenceCategory_marginBottom` value in your theme, for example:
 ```xml
 <item name="preferenceCategory_marginBottom">0dp</item>
-```
-
-### Preference dialog's message style
-The original implementation uses `?attr/textAppearanceSmall` as the message style in the popup dialog (the one you find when clicking on an `EditTextPreference` with a set `android:dialogMessage` attribute), but it seems really small and might be hard to read. In order to fix that, a new attribute has been introduced to the `PreferenceFixTheme`: `preferenceDialog_messageAppearance`. This attribute controls the appearance of the message in the dialog and is set to `@style/TextAppearance.AppCompat.Subhead` by default. If you wish to change this, you'll just have to add the following line to your theme:
-```xml
-<item name="preferenceDialog_messageAppearance">@style/YourTextAppearance</item>
 ```
 
 ---

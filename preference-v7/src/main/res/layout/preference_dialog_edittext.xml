@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Copyright (C) 2015 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,35 +16,31 @@
   -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginBottom="48dp"
-    android:layout_marginTop="48dp"
-    android:overScrollMode="ifContentScrolls"
-    android:paddingBottom="20dp"
-    android:paddingTop="20dp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="48dp"
+            android:overScrollMode="ifContentScrolls">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingEnd="?attr/dialogPreferredPadding"
-        android:paddingLeft="?attr/dialogPreferredPadding"
-        android:paddingRight="?attr/dialogPreferredPadding"
-        android:paddingStart="?attr/dialogPreferredPadding">
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@android:id/message"
-            style="?attr/preferenceDialog_messageAppearance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:textColor="?android:attr/textColorSecondary" />
+        <TextView android:id="@android:id/message"
+                  style="?android:attr/textAppearanceSmall"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:textColor="?android:attr/textColorSecondary" />
 
         <EditText
             android:id="@android:id/edit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-4dp"
+            android:layout_marginEnd="-4dp" />
 
     </LinearLayout>
 
