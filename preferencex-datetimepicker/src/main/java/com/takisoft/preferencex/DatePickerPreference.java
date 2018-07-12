@@ -363,9 +363,8 @@ public class DatePickerPreference extends DialogPreference {
     }
 
     @Override
-    protected void onSetInitialValue(boolean restoreValue, Object defaultValueObj) {
-        final String defaultValue = (String) defaultValueObj;
-        setInternalDate(restoreValue ? getPersistedString(null) : (!TextUtils.isEmpty(defaultValue) ? defaultValue : null), true);
+    protected void onSetInitialValue(Object defaultValueObj) {
+        setInternalDate(getPersistedString((String) defaultValueObj), true);
     }
 
     @Override

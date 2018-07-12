@@ -240,9 +240,9 @@ public class ColorPickerPreference extends DialogPreference {
     }
 
     @Override
-    protected void onSetInitialValue(boolean restoreValue, Object defaultValueObj) {
+    protected void onSetInitialValue(Object defaultValueObj) {
         final String defaultValue = (String) defaultValueObj;
-        setInternalColor(restoreValue ? getPersistedInt(0) : (!TextUtils.isEmpty(defaultValue) ? Color.parseColor(defaultValue) : 0), true);
+        setInternalColor(getPersistedInt(!TextUtils.isEmpty(defaultValue) ? Color.parseColor(defaultValue) : 0), true);
     }
 
     @Override
