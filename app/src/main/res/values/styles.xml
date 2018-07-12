@@ -6,7 +6,6 @@
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="drawerArrowStyle">@style/Theme.MyTheme.DrawerArrowStyle</item>
         <item name="toolbarStyle">@style/Theme.MyTheme.Toolbar</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
     <style name="Theme.MyTheme.DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">

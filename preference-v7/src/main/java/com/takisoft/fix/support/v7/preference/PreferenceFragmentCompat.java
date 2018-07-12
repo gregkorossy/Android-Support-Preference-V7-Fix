@@ -3,6 +3,8 @@ package com.takisoft.fix.support.v7.preference;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -37,8 +39,14 @@ public abstract class PreferenceFragmentCompat extends androidx.preference.Prefe
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Context styledContext = getPreferenceManager().getContext();
+        final TypedValue tv = new TypedValue();
+        getActivity().getTheme().resolveAttribute(R.attr.preferenceTheme, tv, true);
+        int theme = tv.resourceId;
+        if (theme == 0) {
+            // Fallback to default theme.
+            theme = R.style.PreferenceThemeOverlay;
+        }
+        Context styledContext = new ContextThemeWrapper(getActivity(), theme);
 
         PreferenceManager fixedManager = new PreferenceManagerFix(styledContext);
         fixedManager.setOnNavigateToScreenListener(this);

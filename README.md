@@ -28,9 +28,7 @@ implementation 'com.takisoft.fix:preference-v7:27.1.1.1'
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
 ### 2. Use the appropriate class as your fragment's base
-You can use either `PreferenceFragmentCompat` or `PreferenceFragmentCompatDividers`. The former is the fixed version of the original fragment while the latter is an extended one where you can set the dividers using the divider flags. The `PreferenceFragmentCompatDividers` is the recommended approach as it uses the updated Material Design guidelines to create the appropriate divider config.
 
-#### Option 1 - `PreferenceFragmentCompat`
 ```java
 import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
 
@@ -45,40 +43,7 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat {
 }
 ```
 > **Warning!** Watch out for the correct package name when importing `PreferenceFragmentCompat`, it should come from `com.takisoft.fix.support.v7.preference`.
----
-#### Option 2 - `PreferenceFragmentCompatDividers`
-```java
-import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompatDividers;
 
-public class MyPreferenceFragment extends PreferenceFragmentCompatDividers {
-
-    @Override
-    public void onCreatePreferencesFix(@Nullable Bundle savedInstanceState, String rootKey) {
-        setPreferencesFromResource(R.xml.settings, rootKey);
-
-	// additional setup
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, @Nullable Bundle savedInstanceState) {
-        try {
-            return super.onCreateView(inflater, container, savedInstanceState);
-        } finally {
-            setDividerPreferences(DIVIDER_PADDING_CHILD | DIVIDER_CATEGORY_AFTER_LAST | DIVIDER_CATEGORY_BETWEEN);
-        }
-    }
-}
-```
-
-### 3. Add preferenceTheme
-```xml
-<style name="Theme.MyTheme" parent="@style/Whatever">
-    <!-- [...] -->
-    <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
-</style>
-```
-
-### 4. That's it!
 Now you can enjoy using the support preferences API without losing all your hair.
 
 ---
