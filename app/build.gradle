@@ -24,6 +24,9 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.0'
     implementation "androidx.appcompat:appcompat:$androidxVersion"
     implementation "com.google.android.material:material:$androidxVersion"
-    implementation project(':preference-v7')
-    implementation project(':preference-v7-extras')
+    implementation project(':preferencex')
+    implementation project(':preferencex-colorpicker')
+    implementation project(':preferencex-datetimepicker')
+    implementation project(':preferencex-ringtone')
+    implementation project(':preferencex-simplemenu')
 }

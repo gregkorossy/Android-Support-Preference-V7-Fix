@@ -1,8 +1,8 @@
-# Android Support library - preference v7 bugfix
+# AndroidX Preference eXtended
 
 > **BREAKING CHANGE** in 26.1.0.3: The custom attribute names for extra preference types use `pref_` prefix in order to avoid name collision with other libraries. See the changelog for more details.
 
-This library is meant to fix some of the problems found in the official support preference-v7 library. Also, there are [new preference types](#extra-types) available, such as `RingtonePreference`, `DatePickerPreference`, and `TimePickerPreference`.
+This library is meant to fix some of the problems found in the official AndroidX preference library. Also, there are [new preference types](#extra-types) available, such as `RingtonePreference`, `DatePickerPreference`, and `TimePickerPreference`.
 
 [ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix%3Apreference-v7/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix%3Apreference-v7/_latestVersion)
 
@@ -16,21 +16,16 @@ If you would like to support me, you may donate some small amount via PayPal.
 
 ## How to use the library?
 ### 1. Add gradle dependency
-First, **remove** the unnecessary lines of preference-v7 and preference-v14 from your gradle file as the bugfix contains both of them:
+**Add** this single line to your gradle file:
 ```gradle
-implementation 'com.android.support:preference-v7:27.1.1'
-implementation 'com.android.support:preference-v14:27.1.1'
+implementation "androidx.preference:preference:$androidxVersion"
+implementation 'com.takisoft.preferencex:preferencex:1.0.0-alpha1'
 ```
-And **add** this single line to your gradle file:
-```gradle
-implementation 'com.takisoft.fix:preference-v7:27.1.1.1'
-```
-> Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
 ### 2. Use the appropriate class as your fragment's base
 
 ```java
-import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
+import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 public class MyPreferenceFragment extends PreferenceFragmentCompat {
 
@@ -42,7 +37,7 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat {
     }
 }
 ```
-> **Warning!** Watch out for the correct package name when importing `PreferenceFragmentCompat`, it should come from `com.takisoft.fix.support.v7.preference`.
+> **Warning!** Watch out for the correct package name when importing `PreferenceFragmentCompat`, it should come from `com.takisoft.preferencex`.
 
 Now you can enjoy using the support preferences API without losing all your hair.
 
@@ -50,21 +45,15 @@ Now you can enjoy using the support preferences API without losing all your hair
 
 ## Extra types
 
-There are additional preferences not part of the official support library, but decided to add them to some extra libraries. You can add all of them to your project using
-
-```gradle
-implementation 'com.takisoft.fix:preference-v7-extras:27.1.1.1'
-```
-
-or one or more groups:
+There are additional preferences not part of the official support library, but decided to add them to some extra libraries. You can add them to your project using Gradle.
 
 Preference | Dependency | Preview
 -|-|-
-[`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference) | `compile 'com.takisoft.fix:preference-v7-ringtone:27.1.1.1'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/ringtone_api26.png)
-[`DatePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#datepickerpreference) | `compile 'com.takisoft.fix:preference-v7-datetimepicker:27.1.1.1'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/datepicker_api26.png)
-[`TimePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#timepickerpreference) | `compile 'com.takisoft.fix:preference-v7-datetimepicker:27.1.1.1'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/timepicker_api26.png)
-[`ColorPickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#colorpickerpreference) | `compile 'com.takisoft.fix:preference-v7-colorpicker:27.1.1.1'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/colorpicker_api26_fixed.png)
-[`SimpleMenuPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#simplemenupreference) | `compile 'com.takisoft.fix:preference-v7-simplemenu:27.1.1.1'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/simplemenu_api26.png)
+[`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference) | `implementation 'com.takisoft.preferencex:preferencex-ringtone:1.0.0-alpha1'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/ringtone_api26.png)
+[`DatePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#datepickerpreference) | `implementation 'com.takisoft.preferencex:preferencex-datetimepicker:1.0.0-alpha1'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/datepicker_api26.png)
+[`TimePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#timepickerpreference) | `implementation 'com.takisoft.preferencex:preferencex-datetimepicker:1.0.0-alpha1'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/timepicker_api26.png)
+[`ColorPickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#colorpickerpreference) | `implementation 'com.takisoft.preferencex:preferencex-colorpicker:1.0.0-alpha1'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/colorpicker_api26_fixed.png)
+[`SimpleMenuPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#simplemenupreference) | `implementation 'com.takisoft.preferencex:preferencex-simplemenu:1.0.0-alpha1'` (can be used independent of `preferencex`) | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/simplemenu_api26.png)
 
 ---
 
@@ -92,13 +81,13 @@ if (etPref != null) {
     // do something with inputType
 }
 ```
-> **Note!** Watch out for the correct package name when importing `EditTextPreference`, it should come from `com.takisoft.fix.support.v7.preference`. If you import from the wrong package (i.e. `android.support.v7.preference`), the `getEditText()` method will not be available, however, the XML attributes will still be forwarded and processed by the `EditText`.
+> **Note!** Watch out for the correct package name when importing `EditTextPreference`, it should come from `com.takisoft.preferencex`. If you import from the wrong package (i.e. `androidx.preference`), the `getEditText()` method will not be available, however, the XML attributes will still be forwarded and processed by the `EditText`.
 
 
 ---
 
 ## Version
-The current stable version is **27.1.1.1**.
+The current stable version is **1.0.0-alpha1**.
 
 ## Notes #
 This demo / bugfix is set to work on API level 14+.
@@ -119,7 +108,7 @@ API 15 | API 21 | API 26
 
 **2018-05-11**
 
-New version: 27.1.1.1 (based on v27.1.1)
+New version: 1.0.0-alpha1 (based on v27.1.1)
 
 - No support preferences related changes in the support library.
 - Bug fixes (#153, #149, #155, #152).

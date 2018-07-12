@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.takisoft.preferencefix">
-
-    <uses-sdk xmlns:tools="http://schemas.android.com/tools"
-        tools:overrideLibrary="android.support.v14.preference,android.support.v7.appcompat,android.support.v7.preference,android.support.graphics.drawable,android.support.compat,android.support.v4,android.support.coreutils,android.support.mediacompat,android.support.coreui,android.support.fragment,android.support.v7.recyclerview" />
+    package="com.takisoft.preferencex.demo">
 
     <!-- Used by RingtonePreference to allow adding custom ringtones -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

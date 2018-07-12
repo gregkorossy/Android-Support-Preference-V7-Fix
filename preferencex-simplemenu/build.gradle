@@ -1,0 +1,59 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.sdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.sdkVersion
+        versionCode 1
+        versionName "1.0.0"
+
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            consumerProguardFiles 'proguard-rules.pro'
+        }
+    }
+
+}
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'com.takisoft.preferencex:preferencex-simplemenu'
+
+    publishedGroupId = 'com.takisoft.preferencex'
+    libraryName = 'Preference X - SimpleMenuPreference'
+    artifact = 'preferencex-simplemenu'
+
+    libraryDescription = 'AndroidX Preference - SimpleMenuPreference. Displays a simple menu on API 21+ and a ListPreference on pre-Lollipop devices.'
+
+    siteUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix'
+    gitUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix.git'
+
+    libraryVersion = '1.0.0-alpha1'
+
+    developerId = 'Mygod'
+    developerName = 'Mygod'
+    developerEmail = 'contact-preference@mygod.be'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+dependencies {
+    api "androidx.preference:preference:$androidxVersion"
+}
+
+//apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
+//apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/bintrayv.gradle'
+apply from: '../installv.gradle'
+apply from: '../bintrayv.gradle'
+
+javadoc.doFirst {
+    failOnError false
+}
