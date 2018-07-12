@@ -3,6 +3,10 @@ package com.takisoft.fix.support.v7.preference;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import java.lang.reflect.Field;
+import java.util.HashMap;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -14,11 +18,6 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceManagerFix;
-import androidx.preference.PreferenceScreen;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.lang.reflect.Field;
-import java.util.HashMap;
 
 public abstract class PreferenceFragmentCompat extends androidx.preference.PreferenceFragmentCompat {
     private static final String FRAGMENT_DIALOG_TAG = "android.support.v7.preference.PreferenceFragment.DIALOG";

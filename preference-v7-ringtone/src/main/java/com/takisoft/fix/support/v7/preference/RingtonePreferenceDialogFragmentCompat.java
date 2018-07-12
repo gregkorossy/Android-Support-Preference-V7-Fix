@@ -469,20 +469,12 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
         //noinspection ResultOfMethodCallIgnored
         externalStorage.mkdirs();
 
-        File outFile;
-        try {
-            // Ensure the file has a unique name, as to not override any existing file
-            outFile = buildUniqueFile(externalStorage, mimeType, fileName);
-        } catch (FileNotFoundException e) {
-            // This might also be reached if the number of repeated files gets too high
-            Log.e(TAG, "Unable to get a unique file name: " + e);
-            return null;
-        }
-        return outFile;
+        // Ensure the file has a unique name, as to not override any existing file
+        return buildUniqueFile(externalStorage, mimeType, fileName);
     }
 
     @NonNull
-    private static File buildUniqueFile(File externalStorage, String mimeType, String fileName) throws FileNotFoundException {
+    private static File buildUniqueFile(File externalStorage, String mimeType, String fileName) {
         final String[] parts = splitFileName(mimeType, fileName);
 
         String name = parts[0];
