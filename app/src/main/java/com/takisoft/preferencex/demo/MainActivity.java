@@ -1,27 +1,28 @@
 package com.takisoft.preferencex.demo;
 
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
-import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.takisoft.preferencefix.R.layout.activity_main);
+        setContentView(R.layout.activity_main);
 
-        setSupportActionBar((Toolbar) findViewById(com.takisoft.preferencefix.R.id.toolbar));
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         if (savedInstanceState == null) {
             MyPreferenceFragment fragment = new MyPreferenceFragment();
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(com.takisoft.preferencefix.R.id.fragment, fragment);
+            ft.replace(R.id.fragment, fragment);
             ft.commitAllowingStateLoss();
         }
     }
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements PreferenceFragmen
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        ft.replace(com.takisoft.preferencefix.R.id.fragment, fragment, preferenceScreen.getKey());
+        ft.replace(R.id.fragment, fragment, preferenceScreen.getKey());
         ft.addToBackStack(preferenceScreen.getKey());
         ft.commitAllowingStateLoss();
 
