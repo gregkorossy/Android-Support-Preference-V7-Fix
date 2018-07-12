@@ -1,7 +1,5 @@
 # AndroidX Preference eXtended
 
-> **BREAKING CHANGE** in 26.1.0.3: The custom attribute names for extra preference types use `pref_` prefix in order to avoid name collision with other libraries. See the changelog for more details.
-
 This library is meant to fix some of the problems found in the official AndroidX preference library. Also, there are [new preference types](#extra-types) available, such as `RingtonePreference`, `DatePickerPreference`, and `TimePickerPreference`.
 
 [ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix%3Apreference-v7/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix%3Apreference-v7/_latestVersion)
@@ -16,7 +14,7 @@ If you would like to support me, you may donate some small amount via PayPal.
 
 ## How to use the library?
 ### 1. Add gradle dependency
-**Add** this single line to your gradle file:
+**Add** this to your gradle file:
 ```gradle
 implementation "androidx.preference:preference:$androidxVersion"
 implementation 'com.takisoft.preferencex:preferencex:1.0.0-alpha1'
@@ -39,7 +37,7 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat {
 ```
 > **Warning!** Watch out for the correct package name when importing `PreferenceFragmentCompat`, it should come from `com.takisoft.preferencex`.
 
-Now you can enjoy using the support preferences API without losing all your hair.
+Now you can enjoy using preferenceX.
 
 ---
 
@@ -58,11 +56,6 @@ Preference | Dependency | Preview
 ---
 
 ## Custom solutions
-### Dividers
-If you use `PreferenceFragmentCompatDividers` as your base class for the preference fragment, you can use 3 new methods to customize the dividers:
-- `setDivider(Drawable drawable)`: Sets a custom `Drawable` as the divider.
-- `setDividerHeight(int height)`: Sets the height of the drawable; useful for XML resources.
-- `setDividerPreferences(int flags)`: Sets where the dividers should appear. Check the documentation of the method for more details about the available flags.
 
 ### Hijacked `EditTextPreference`
 The support implementation of `EditTextPreference` ignores many of the basic yet very important attributes as it doesn't forward them to the underlying `EditText` widget. In my opinion this is a result of some twisted thinking which would require someone to create custom dialog layouts for some simple tasks, like showing a numbers-only dialog. This is the main reason why the `EditTextPreference` gets hijacked by this lib: it replaces certain aspects of the original class in order to forward all the XML attributes set (such as `inputType`) on the `EditTextPreference` to the `EditText`, and also provides a `getEditText()` method so it can be manipulated directly.
@@ -82,6 +75,14 @@ if (etPref != null) {
 }
 ```
 > **Note!** Watch out for the correct package name when importing `EditTextPreference`, it should come from `com.takisoft.preferencex`. If you import from the wrong package (i.e. `androidx.preference`), the `getEditText()` method will not be available, however, the XML attributes will still be forwarded and processed by the `EditText`.
+
+### Others
+
+* Convenience methods in `PreferenceFragmentCompat`;
+* `PreferenceCategory` with different colors;
+* `AutoSummaryEditTextPreference`;
+* `PreferenceActivityResultListener`;
+* `EditTextPreference` correctly calls `notifyChange`. ([#66](https://github.com/Gericop/Android-Support-Preference-V7-Fix/pull/66))
 
 
 ---
