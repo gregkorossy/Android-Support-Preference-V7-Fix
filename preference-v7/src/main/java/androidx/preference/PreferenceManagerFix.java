@@ -2,7 +2,6 @@ package androidx.preference;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import androidx.core.content.SharedPreferencesCompat;
 
 import java.lang.reflect.Field;
 
@@ -95,7 +94,7 @@ public class PreferenceManagerFix extends PreferenceManager {
         SharedPreferences.Editor editor = (SharedPreferences.Editor) editorField.get(this);
 
         if (!noCommit && editor != null) {
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+            editor.apply();
         }
 
         this.noCommit = noCommit;
