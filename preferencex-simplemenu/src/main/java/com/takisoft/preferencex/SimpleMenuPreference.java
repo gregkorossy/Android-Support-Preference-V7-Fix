@@ -102,11 +102,6 @@ public class SimpleMenuPreference extends ListPreference {
     }
 
     @Override
-    public void setValue(String value) {
-        super.setValue(value);
-    }
-
-    @Override
     public void onBindViewHolder(PreferenceViewHolder view) {
         super.onBindViewHolder(view);
 

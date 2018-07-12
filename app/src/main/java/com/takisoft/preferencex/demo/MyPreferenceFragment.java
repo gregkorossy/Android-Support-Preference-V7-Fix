@@ -2,15 +2,13 @@ package com.takisoft.preferencex.demo;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceCategory;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.takisoft.preferencex.EditTextPreference;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
+
+import androidx.annotation.Nullable;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -19,7 +17,7 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferencesFix(@Nullable Bundle savedInstanceState, String rootKey) {
-        setPreferencesFromResource(com.takisoft.preferencefix.R.xml.settings, rootKey);
+        setPreferencesFromResource(R.xml.settings, rootKey);
 
         testDynamicPrefs();
 
@@ -43,16 +41,6 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat {
                     return true;
                 }
             });
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, @Nullable Bundle savedInstanceState) {
-        try {
-            return super.onCreateView(inflater, container, savedInstanceState);
-        } finally {
-            // Uncomment this if you want to change the divider style
-            // setDividerPreferences(DIVIDER_OFFICIAL);
         }
     }
 

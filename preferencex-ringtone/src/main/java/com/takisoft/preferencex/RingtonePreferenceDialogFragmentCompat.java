@@ -74,11 +74,6 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
     public void onPause() {
         super.onPause();
 
@@ -538,6 +533,7 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
         final TypedArray a = context.obtainStyledAttributes(null, androidx.appcompat.R.styleable.AlertDialog,
                 androidx.appcompat.R.attr.alertDialogStyle, 0);
         int layout = a.getResourceId(androidx.appcompat.R.styleable.AlertDialog_singleChoiceItemLayout, 0);
+        a.recycle();
         return new CheckedItemAdapter(context, layout, android.R.id.text1, titles);
     }
 
