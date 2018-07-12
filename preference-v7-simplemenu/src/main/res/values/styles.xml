@@ -25,6 +25,6 @@
 
     <style name="Animation.SimpleMenuCenter" parent="android:Animation">
         <item name="android:windowEnterAnimation">@null</item>
-        <item name="android:windowExitAnimation">@anim/shrink_fade_out_center</item>
+        <item name="android:windowExitAnimation">@anim/abc_shrink_fade_out_center</item>
     </style>
 </resources>
