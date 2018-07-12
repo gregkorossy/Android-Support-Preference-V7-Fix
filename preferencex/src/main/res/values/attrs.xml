@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PreferenceCategory">
+        <attr name="pref_categoryColor" format="color|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="AutoSummaryEditTextPreference">
+        <attr name="pref_summaryHasText" format="string|reference" />
+        <attr name="pref_summaryPasswordSubstitute" format="string|reference" />
+        <attr name="pref_summaryPasswordSubstituteLength" format="integer|reference" />
+    </declare-styleable>
+</resources>

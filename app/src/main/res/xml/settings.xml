@@ -42,7 +42,7 @@
     <PreferenceCategory
         android:title="PreferenceCategory using different color"
         app:pref_categoryColor="#2196f3">
-        <com.takisoft.preferencefix.ActivityResultTestPreference
+        <com.takisoft.preferencex.demo.ActivityResultTestPreference
             android:summary="Click on this, it will launch a content picker Activity"
             android:title="ActivityResultTestPreference" />
     </PreferenceCategory>
