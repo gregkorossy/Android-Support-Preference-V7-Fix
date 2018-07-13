@@ -5,7 +5,7 @@ android {
     buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.takisoft.preferencefix"
+        applicationId "com.takisoft.preferencex.demo"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.sdkVersion
         versionCode 1
