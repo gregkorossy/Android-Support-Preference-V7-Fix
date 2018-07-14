@@ -21,7 +21,8 @@ android {
 }
 
 ext {
-    bintrayRepo = 'maven'
+    bintrayUserOrg = 'takisoft'
+    bintrayRepo = 'android'
     bintrayName = 'com.takisoft.preferencex:preferencex-colorpicker'
 
     publishedGroupId = 'com.takisoft.preferencex'
@@ -41,7 +42,7 @@ ext {
 
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0", "Unlicense"]
+    allLicenses = ["Apache-2.0"]
 }
 
 dependencies {

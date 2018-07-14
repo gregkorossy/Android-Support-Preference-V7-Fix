@@ -22,7 +22,8 @@ android {
 }
 
 ext {
-    bintrayRepo = 'maven'
+    bintrayUserOrg = 'takisoft'
+    bintrayRepo = 'android'
     bintrayName = 'com.takisoft.preferencex:preferencex-simplemenu'
 
     publishedGroupId = 'com.takisoft.preferencex'
