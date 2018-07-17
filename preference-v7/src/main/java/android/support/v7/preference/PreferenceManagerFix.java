@@ -100,4 +100,94 @@ public class PreferenceManagerFix extends PreferenceManager {
 
         this.noCommit = noCommit;
     }
+
+    /**
+     * Returns the name of the {@link SharedPreferences} file that preferences will use.
+     *
+     * @param context the context to be used
+     * @return the name of the {@link SharedPreferences} file
+     */
+    public static String getDefaultSharedPreferencesName(Context context) {
+        return context.getPackageName() + "_preferences";
+    }
+
+    /**
+     * Returns the mode of the {@link SharedPreferences} file that preferences will use.
+     *
+     * @return the mode of the {@link SharedPreferences} file
+     */
+    public static int getDefaultSharedPreferencesMode() {
+        return Context.MODE_PRIVATE;
+    }
+
+    /**
+     * Sets the default values from an XML preference file by reading the values defined
+     * by each {@link Preference} item's {@code android:defaultValue} attribute. This should
+     * be called by the application's main activity.
+     * <p>
+     *
+     * @param context   The context of the shared preferences.
+     * @param resId     The resource ID of the preference XML file.
+     * @param readAgain Whether to re-read the default values.
+     *                  If false, this method sets the default values only if this
+     *                  method has never been called in the past (or if the
+     *                  {@link #KEY_HAS_SET_DEFAULT_VALUES} in the default value shared
+     *                  preferences file is false). To attempt to set the default values again
+     *                  bypassing this check, set {@code readAgain} to true.
+     *                  <p class="note">
+     *                  Note: this will NOT reset preferences back to their default
+     *                  values. For that functionality, use
+     *                  {@link PreferenceManager#getDefaultSharedPreferences(Context)}
+     *                  and clear it followed by a call to this method with this
+     *                  parameter set to true.
+     */
+    public static void setDefaultValues(Context context, int resId, boolean readAgain) {
+        // Use the default shared preferences name and mode
+        setDefaultValues(context, getDefaultSharedPreferencesName(context),
+                getDefaultSharedPreferencesMode(), resId, readAgain);
+    }
+
+    /**
+     * Similar to {@link #setDefaultValues(Context, int, boolean)} but allows
+     * the client to provide the filename and mode of the shared preferences
+     * file.
+     *
+     * @param context               The context of the shared preferences.
+     * @param sharedPreferencesName A custom name for the shared preferences file.
+     * @param sharedPreferencesMode The file creation mode for the shared preferences file, such
+     *                              as {@link android.content.Context#MODE_PRIVATE} or {@link
+     *                              android.content.Context#MODE_PRIVATE}
+     * @param resId                 The resource ID of the preference XML file.
+     * @param readAgain             Whether to re-read the default values.
+     *                              If false, this method will set the default values only if this
+     *                              method has never been called in the past (or if the
+     *                              {@link #KEY_HAS_SET_DEFAULT_VALUES} in the default value shared
+     *                              preferences file is false). To attempt to set the default values again
+     *                              bypassing this check, set {@code readAgain} to true.
+     *                              <p class="note">
+     *                              Note: this will NOT reset preferences back to their default
+     *                              values. For that functionality, use
+     *                              {@link PreferenceManager#getDefaultSharedPreferences(Context)}
+     *                              and clear it followed by a call to this method with this
+     *                              parameter set to true.
+     * @see #setDefaultValues(Context, int, boolean)
+     * @see #setSharedPreferencesName(String)
+     * @see #setSharedPreferencesMode(int)
+     */
+    public static void setDefaultValues(Context context, String sharedPreferencesName,
+                                        int sharedPreferencesMode, int resId, boolean readAgain) {
+        final SharedPreferences defaultValueSp = context.getSharedPreferences(
+                KEY_HAS_SET_DEFAULT_VALUES, Context.MODE_PRIVATE);
+
+        if (readAgain || !defaultValueSp.getBoolean(KEY_HAS_SET_DEFAULT_VALUES, false)) {
+            final PreferenceManagerFix pm = new PreferenceManagerFix(context);
+            pm.setSharedPreferencesName(sharedPreferencesName);
+            pm.setSharedPreferencesMode(sharedPreferencesMode);
+            pm.inflateFromResource(context, resId, null);
+
+            defaultValueSp.edit()
+                    .putBoolean(KEY_HAS_SET_DEFAULT_VALUES, true)
+                    .apply();
+        }
+    }
 }
