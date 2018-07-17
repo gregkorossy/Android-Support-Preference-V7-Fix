@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.lang.reflect.Field;
+import java.util.Set;
+
+import androidx.annotation.NonNull;
+import androidx.collection.ArraySet;
 
 public class PreferenceManagerFix extends PreferenceManager {
 
@@ -11,6 +15,8 @@ public class PreferenceManagerFix extends PreferenceManager {
     private boolean noCommit;
 
     private boolean inflateInProgress;
+
+    private static Set<String> packages = new ArraySet<>();
 
     static {
         Field[] fields = androidx.preference.PreferenceManager.class.getDeclaredFields();
@@ -22,6 +28,8 @@ public class PreferenceManagerFix extends PreferenceManager {
                 break;
             }
         }
+
+        registerPreferencePackage("com.takisoft.preferencex");
     }
 
     public PreferenceManagerFix(Context context) {
@@ -37,9 +45,13 @@ public class PreferenceManagerFix extends PreferenceManager {
 
             String[] defPacks = inflater.getDefaultPackages();
 
-            String[] newDefPacks = new String[defPacks.length + 1];
+            /*String[] newDefPacks = new String[defPacks.length + 1];
             newDefPacks[0] = "com.takisoft.preferencex.";
-            System.arraycopy(defPacks, 0, newDefPacks, 1, defPacks.length);
+            System.arraycopy(defPacks, 0, newDefPacks, 1, defPacks.length);*/
+
+            String[] newDefPacks = new String[defPacks.length + packages.size()];
+            packages.toArray(newDefPacks);
+            System.arraycopy(defPacks, 0, newDefPacks, packages.size(), defPacks.length);
 
             inflater.setDefaultPackages(newDefPacks);
 
@@ -98,5 +110,25 @@ public class PreferenceManagerFix extends PreferenceManager {
         }
 
         this.noCommit = noCommit;
+    }
+
+    /**
+     * Registers a {@link Preference}'s package so the users don't need to supply fully-qualified
+     * names in the XML files. Only the package part of the class will be used.
+     *
+     * @param preferenceClass the {@link Preference} to be registered
+     */
+    public static void registerPreferencePackage(@NonNull Class<Preference> preferenceClass) {
+        registerPreferencePackage(preferenceClass.getPackage().getName());
+    }
+
+    /**
+     * Registers a {@link Preference}'s package so the users don't need to supply fully-qualified
+     * names in the XML files.
+     *
+     * @param preferencePackage the {@link Preference}'s package name to be registered
+     */
+    public static void registerPreferencePackage(@NonNull String preferencePackage) {
+        packages.add(preferencePackage + (preferencePackage.endsWith(".") ? "" : "."));
     }
 }
