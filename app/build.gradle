@@ -10,6 +10,7 @@ android {
         targetSdkVersion rootProject.sdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -20,7 +21,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support:multidex:1.0.3'
     implementation "com.android.support:appcompat-v7:${rootProject.supportLibraryVersion}"
-    implementation project(':preference-v7')
+    implementation project(':preference-v7-material')
     implementation project(':preference-v7-extras')
 }
