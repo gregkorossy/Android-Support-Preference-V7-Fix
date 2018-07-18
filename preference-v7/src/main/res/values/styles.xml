@@ -1,8 +1,9 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base -->
     <style name="PreferenceFixTheme" parent="@style/Theme.AppCompat">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
-        <item name="preferenceDialog_messageAppearance">@style/PreferenceFixTheme.TextAppearanceDialogMessage
+        <item name="preferenceDialog_messageAppearance">
+            @style/PreferenceFixTheme.TextAppearanceDialogMessage
         </item>
     </style>
 
@@ -14,7 +15,8 @@
     <!-- Light -->
     <style name="PreferenceFixTheme.Light" parent="@style/Theme.AppCompat.Light">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
-        <item name="preferenceDialog_messageAppearance">@style/PreferenceFixTheme.TextAppearanceDialogMessage
+        <item name="preferenceDialog_messageAppearance">
+            @style/PreferenceFixTheme.TextAppearanceDialogMessage
         </item>
     </style>
 
@@ -25,14 +27,16 @@
 
     <style name="PreferenceFixTheme.Light.DarkActionBar" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
-        <item name="preferenceDialog_messageAppearance">@style/PreferenceFixTheme.TextAppearanceDialogMessage
+        <item name="preferenceDialog_messageAppearance">
+            @style/PreferenceFixTheme.TextAppearanceDialogMessage
         </item>
     </style>
 
     <!-- DayNight -->
     <style name="PreferenceFixTheme.DayNight" parent="@style/Theme.AppCompat.DayNight">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
-        <item name="preferenceDialog_messageAppearance">@style/PreferenceFixTheme.TextAppearanceDialogMessage
+        <item name="preferenceDialog_messageAppearance">
+            @style/PreferenceFixTheme.TextAppearanceDialogMessage
         </item>
     </style>
 
@@ -43,7 +47,8 @@
 
     <style name="PreferenceFixTheme.DayNight.DarkActionBar" parent="@style/Theme.AppCompat.DayNight.DarkActionBar">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material.Fix</item>
-        <item name="preferenceDialog_messageAppearance">@style/PreferenceFixTheme.TextAppearanceDialogMessage
+        <item name="preferenceDialog_messageAppearance">
+            @style/PreferenceFixTheme.TextAppearanceDialogMessage
         </item>
     </style>
 
@@ -52,7 +57,7 @@
         <item name="android:textSize">14sp</item>
         <!-- fontFamily is only supported from API level 16, using typeFace on 14-15 -->
         <item name="android:typeface">sans</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-medium</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>

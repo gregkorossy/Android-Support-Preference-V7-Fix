@@ -1,9 +1,6 @@
 <resources>
 
-    <style name="Preference">
-    </style>
-
-    <style name="Preference.SimpleMenuPreference">
+    <style name="Preference.SimpleMenuPreference" parent="@style/Preference.Material">
         <item name="android:layout">@layout/preference_simplemenu</item>
         <item name="pref_popupStyle">@style/Preference.SimpleMenuPreference.Popup</item>
     </style>

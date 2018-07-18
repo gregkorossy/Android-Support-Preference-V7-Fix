@@ -1,5 +1,14 @@
 # Changelog
 
+**2018-07-18**
+
+New version: 28.0.0.0-alpha3 (based on v28.0.0-alpha3)
+
+- No support preferences related changes in the support library.
+- `PreferenceFragmentCompatDividers` is now deprecated. Use `PreferenceFragmentCompat` instead.
+- Added `preference-v7-material` module which provides `Theme.MaterialComponents` related themes.
+- Bug fixes #166, #169, #173
+
 **2018-07-04**
 
 New version: 27.1.1.2 (based on v27.1.1)

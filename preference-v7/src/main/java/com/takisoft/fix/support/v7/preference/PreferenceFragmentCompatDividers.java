@@ -17,9 +17,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
+ * @deprecated Use {@link PreferenceFragmentCompat} instead as it provides the official (and fixed)
+ * divider settings. If you want to customize dividers, use the hidden API attributes
+ * {@code app:allowDividerAbove} and {@code app:allowDividerBelow} on the preferences in the XML.
+ * <p/>
  * As a user requested, here's a variant of PreferenceFragmentCompatFix that allows one to fully
  * customize the dividers between categories and items.
  */
+@Deprecated
 abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmentCompat {
     /**
      * Draws the divider implementation of the official support library.
@@ -118,7 +123,7 @@ abstract public class PreferenceFragmentCompatDividers extends PreferenceFragmen
 
     private boolean divPrefInvalid = false;
     @DividerPrefFlags
-    private int divPrefFlags = DIVIDER_DEFAULT;
+    private int divPrefFlags = DIVIDER_OFFICIAL;
 
     private DividerItemDecoration divItemDecoration;
 

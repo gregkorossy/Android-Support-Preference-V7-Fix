@@ -20,18 +20,18 @@ android {
 
 ext {
     bintrayRepo = 'maven'
-    bintrayName = 'com.takisoft.fix:preference-v7-extras'
+    bintrayName = 'com.takisoft.fix:preference-v7-material'
 
     publishedGroupId = 'com.takisoft.fix'
-    libraryName = 'Preference v7 - Fix'
-    artifact = 'preference-v7-extras'
+    libraryName = 'Preference v7 - Fix with Material Components'
+    artifact = 'preference-v7-material'
 
-    libraryDescription = 'Android Support Library Preference v7 extra preference types . The original Support Library files are under Apache 2.0, the fixes and extras are unlicensed.'
+    libraryDescription = 'Android Support Library Preference v7 is full of bugs. This library tries to overcome some of the basic problems. The original Support Library files are under Apache 2.0, the fixes are unlicensed.'
 
     siteUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix'
     gitUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix.git'
 
-    libraryVersion = "${rootProject.supportLibraryVersionPrefix}.${fixLibraryVersion}${rootProject.supportLibraryVersionSuffix}${rootProject.extrasLibraryVersionSuffix}"
+    libraryVersion = "${rootProject.supportLibraryVersionPrefix}.${fixLibraryVersion}${rootProject.supportLibraryVersionSuffix}"
 
     developerId = 'gericop'
     developerName = 'Gergely Kőrössy'
@@ -43,10 +43,8 @@ ext {
 }
 
 dependencies {
-    api project(':preference-v7-datetimepicker')
-    api project(':preference-v7-ringtone')
-    api project(':preference-v7-colorpicker')
-    api project(':preference-v7-simplemenu')
+    api project(':preference-v7')
+    api "com.android.support:design:${rootProject.supportLibraryVersion}"
 }
 
 //apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
