@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceCategory;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.takisoft.fix.support.v7.preference.EditTextPreference;
 import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
@@ -30,7 +27,7 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat {
 
         Preference prefEmptyCheck = findPreference("pref_empty_check");
 
-        if(prefEmptyCheck != null) {
+        if (prefEmptyCheck != null) {
             prefEmptyCheck.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -43,16 +40,6 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat {
                     return true;
                 }
             });
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, @Nullable Bundle savedInstanceState) {
-        try {
-            return super.onCreateView(inflater, container, savedInstanceState);
-        } finally {
-            // Uncomment this if you want to change the divider style
-            // setDividerPreferences(DIVIDER_OFFICIAL);
         }
     }
 
