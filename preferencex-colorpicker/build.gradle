@@ -34,7 +34,7 @@ ext {
     siteUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix'
     gitUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix.git'
 
-    libraryVersion = "1.0.0-alpha1"
+    libraryVersion = rootProject.libVersion
 
     developerId = 'gericop'
     developerName = 'Gergely Kőrössy'
@@ -48,7 +48,7 @@ ext {
 dependencies {
     implementation project(':preferencex')
     implementation "androidx.appcompat:appcompat:$androidxVersion"
-    api 'com.takisoft.fix:colorpicker:1.0.4'
+    api 'com.takisoft.fix:colorpicker:1.0.5-alpha3'
 }
 
 //apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'

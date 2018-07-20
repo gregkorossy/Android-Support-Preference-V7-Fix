@@ -32,7 +32,7 @@ ext {
     siteUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix'
     gitUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix.git'
 
-    libraryVersion = "1.0.0-alpha1"
+    libraryVersion = rootProject.libVersion
 
     developerId = 'gericop'
     developerName = 'Gergely Kőrössy'
@@ -45,7 +45,7 @@ ext {
 
 dependencies {
     implementation project(':preferencex')
-    api 'com.takisoft.fix:datetimepicker:1.0.7-alpha1'
+    api 'com.takisoft.fix:datetimepicker:1.0.7-alpha3'
 }
 
 //apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'

@@ -35,7 +35,7 @@ ext {
     siteUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix'
     gitUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix.git'
 
-    libraryVersion = '1.0.0-alpha1'
+    libraryVersion = rootProject.libVersion
 
     developerId = 'Mygod'
     developerName = 'Mygod'

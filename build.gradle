@@ -8,6 +8,7 @@ buildscript {
         minSdkVersion = 14
         sdkVersion = 28
         androidxVersion = '1.0.0-beta01'
+        libVersion = '1.0.0-alpha2'
     }
     repositories {
         jcenter()
