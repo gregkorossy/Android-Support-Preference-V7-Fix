@@ -2,7 +2,7 @@
 
 This library is meant to fix some of the problems found in the official AndroidX preference library. Also, there are [new preference types](#extra-types) available, such as `RingtonePreference`, `DatePickerPreference`, and `TimePickerPreference`.
 
-[ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix%3Apreference-v7/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix%3Apreference-v7/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/takisoft/android/com.takisoft.preferencex%3Apreferencex/images/download.svg) ](https://bintray.com/takisoft/android/com.takisoft.preferencex%3Apreferencex/_latestVersion)
 
 ### Donation
 
@@ -17,7 +17,7 @@ If you would like to support me, you may donate some small amount via PayPal.
 **Add** this to your gradle file:
 ```gradle
 implementation "androidx.preference:preference:$androidxVersion"
-implementation 'com.takisoft.preferencex:preferencex:1.0.0-alpha1'
+implementation 'com.takisoft.preferencex:preferencex:1.0.0-alpha2'
 ```
 
 ### 2. Use the appropriate class as your fragment's base
@@ -47,11 +47,11 @@ There are additional preferences not part of the official support library, but d
 
 Preference | Dependency | Preview
 -|-|-
-[`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference) | `implementation 'com.takisoft.preferencex:preferencex-ringtone:1.0.0-alpha1'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/ringtone_api26.png)
-[`DatePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#datepickerpreference) | `implementation 'com.takisoft.preferencex:preferencex-datetimepicker:1.0.0-alpha1'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/datepicker_api26.png)
-[`TimePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#timepickerpreference) | `implementation 'com.takisoft.preferencex:preferencex-datetimepicker:1.0.0-alpha1'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/timepicker_api26.png)
-[`ColorPickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#colorpickerpreference) | `implementation 'com.takisoft.preferencex:preferencex-colorpicker:1.0.0-alpha1'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/colorpicker_api26_fixed.png)
-[`SimpleMenuPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#simplemenupreference) | `implementation 'com.takisoft.preferencex:preferencex-simplemenu:1.0.0-alpha1'` (can be used independent of `preferencex`) | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/simplemenu_api26.png)
+[`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference) | `implementation 'com.takisoft.preferencex:preferencex-ringtone:1.0.0-alpha2'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/ringtone_api26.png)
+[`DatePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#datepickerpreference) | `implementation 'com.takisoft.preferencex:preferencex-datetimepicker:1.0.0-alpha2'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/datepicker_api26.png)
+[`TimePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#timepickerpreference) | `implementation 'com.takisoft.preferencex:preferencex-datetimepicker:1.0.0-alpha2'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/timepicker_api26.png)
+[`ColorPickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#colorpickerpreference) | `implementation 'com.takisoft.preferencex:preferencex-colorpicker:1.0.0-alpha2'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/colorpicker_api26_fixed.png)
+[`SimpleMenuPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#simplemenupreference) | `implementation 'com.takisoft.preferencex:preferencex-simplemenu:1.0.0-alpha2'` (can be used independent of `preferencex`) | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/simplemenu_api26.png)
 
 ---
 
@@ -88,7 +88,7 @@ if (etPref != null) {
 ---
 
 ## Version
-The current stable version is **1.0.0-alpha1**.
+The current stable version is **1.0.0-alpha2**.
 
 ## Notes #
 This demo / bugfix is set to work on API level 14+.
@@ -126,4 +126,4 @@ New version: 27.1.1.0 (based on v27.1.1)
 Feel free to ask / suggest anything on this page by creating a ticket (*issues*)!
 
 # License notes #
-You can do whatever you want except where noted.
+Apache v2
