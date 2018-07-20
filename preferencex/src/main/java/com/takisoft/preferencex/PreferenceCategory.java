@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.core.content.res.TypedArrayUtils;
+import androidx.core.view.ViewCompat;
 import androidx.preference.PreferenceViewHolder;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -128,6 +129,14 @@ public class PreferenceCategory extends androidx.preference.PreferenceCategory {
             }
 
             typedArray.recycle();
+
+            // FIXME  PreferenceCategory doesn't respect iconSpaceReserved set to false
+            // https://issuetracker.google.com/issues/111662669
+            // https://github.com/Gericop/Android-Support-Preference-V7-Fix/issues/132
+            if (!isIconSpaceReserved()) {
+                ViewGroup parent = (ViewGroup) titleView.getParent();
+                ViewCompat.setPaddingRelative(parent, 0, parent.getPaddingTop(), 0, parent.getPaddingBottom());
+            }
         }
 
         boolean isVisible = !TextUtils.isEmpty(getTitle());

@@ -40,6 +40,15 @@
             app:showSeekBarValue="false" />
     </PreferenceCategory>
     <PreferenceCategory
+        android:title="Icon space not reserved category"
+        app:iconSpaceReserved="false">
+        <Preference
+            android:persistent="false"
+            android:summary="This is just a preference with its icon space unreserved"
+            android:title="Preference (unreserved)"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+    <PreferenceCategory
         android:title="PreferenceCategory using different color"
         app:pref_categoryColor="#2196f3">
         <com.takisoft.preferencex.demo.ActivityResultTestPreference
