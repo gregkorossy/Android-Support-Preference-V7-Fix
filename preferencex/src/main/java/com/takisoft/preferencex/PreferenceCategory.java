@@ -121,6 +121,11 @@ public class PreferenceCategory extends androidx.preference.PreferenceCategory {
         TextView titleView = (TextView) holder.findViewById(android.R.id.title);
 
         if (titleView != null) {
+            // FIXME https://android-review.googlesource.com/c/platform/frameworks/support/+/720306
+            //  if (color != 0) {
+            //      titleView.setTextColor(color);
+            //  }
+
             final TypedArray typedArray = getContext().obtainStyledAttributes(CATEGORY_ATTRS);
 
             if (typedArray.length() > 0 && typedArray.getIndexCount() > 0) {
