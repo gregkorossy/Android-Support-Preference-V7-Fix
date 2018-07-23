@@ -29,6 +29,8 @@ public class PreferenceCategory extends androidx.preference.PreferenceCategory {
     protected int color;
     protected View itemView;
 
+    private static int originalStartPadding = Integer.MIN_VALUE;
+
     public PreferenceCategory(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
@@ -138,9 +140,16 @@ public class PreferenceCategory extends androidx.preference.PreferenceCategory {
             // FIXME  PreferenceCategory doesn't respect iconSpaceReserved set to false
             // https://issuetracker.google.com/issues/111662669
             // https://github.com/Gericop/Android-Support-Preference-V7-Fix/issues/132
+            ViewGroup parent = (ViewGroup) titleView.getParent();
+
+            if (originalStartPadding == Integer.MIN_VALUE) {
+                originalStartPadding = ViewCompat.getPaddingStart(parent);
+            }
+
             if (!isIconSpaceReserved()) {
-                ViewGroup parent = (ViewGroup) titleView.getParent();
                 ViewCompat.setPaddingRelative(parent, 0, parent.getPaddingTop(), 0, parent.getPaddingBottom());
+            } else {
+                ViewCompat.setPaddingRelative(parent, originalStartPadding, parent.getPaddingTop(), 0, parent.getPaddingBottom());
             }
         }
 
