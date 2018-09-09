@@ -35,7 +35,7 @@ public class AutoSummaryEditTextPreference extends EditTextPreference {
         summaryHasText = a.getText(R.styleable.AutoSummaryEditTextPreference_pref_summaryHasText);
 
         passwordSubstitute = a.getString(R.styleable.AutoSummaryEditTextPreference_pref_summaryPasswordSubstitute);
-        passwordSubstituteLength = a.getInt(R.styleable.AutoSummaryEditTextPreference_pref_summaryPasswordSubstituteLength, 5);
+        passwordSubstituteLength = a.getInt(R.styleable.AutoSummaryEditTextPreference_pref_summaryPasswordSubstituteLength, -1);
 
         if (passwordSubstitute == null) {
             passwordSubstitute = "\u2022";
@@ -60,11 +60,7 @@ public class AutoSummaryEditTextPreference extends EditTextPreference {
         if (!hasText) {
             return summary;
         } else {
-            int inputType = getEditText().getInputType();
-
-            if ((inputType & InputType.TYPE_NUMBER_VARIATION_PASSWORD) == InputType.TYPE_NUMBER_VARIATION_PASSWORD ||
-                    (inputType & InputType.TYPE_TEXT_VARIATION_PASSWORD) == InputType.TYPE_TEXT_VARIATION_PASSWORD ||
-                    (inputType & InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD) == InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD) {
+            if (passwordSubstituteLength >= 0) {
                 text = new String(new char[passwordSubstituteLength > 0 ? passwordSubstituteLength : text.length()]).replaceAll("\0", passwordSubstitute);
             }
 

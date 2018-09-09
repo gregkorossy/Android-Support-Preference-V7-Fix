@@ -73,12 +73,13 @@
             app:pref_summaryHasText="%s is a nice phone number" />
         <AutoSummaryEditTextPreference
             android:dialogMessage="This is the dialog\'s message"
-            android:inputType="numberPassword"
+            android:imeOptions="flagForceAscii"
+            android:typeface="monospace"
             android:key="auto_edit_text_test2"
             android:persistent="false"
             android:summary="Should be a number password input (it is now!)"
             android:title="AutoSummaryEditTextPreference"
-            app:pref_summaryHasText="%s is a secret number"
+            app:pref_summaryHasText="%s is a secret password"
             app:pref_summaryPasswordSubstitute="\u00A9"
             app:pref_summaryPasswordSubstituteLength="0" />
         <ListPreference
