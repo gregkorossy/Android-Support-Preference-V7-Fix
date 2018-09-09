@@ -78,7 +78,7 @@ public class EditTextPreferenceDialogFragmentCompat extends PreferenceDialogFrag
             ViewGroup container = (ViewGroup) (oldEditText.getParent());
             if (container != null) {
                 container.removeView(oldEditText);
-                container.addView(editText, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                container.addView(editText, oldEditText.getLayoutParams());
             }
         }
     }
