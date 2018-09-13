@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.preference.DialogPreference;
@@ -239,9 +240,9 @@ public class ColorPickerPreference extends DialogPreference {
     }
 
     @Override
-    protected void onSetInitialValue(boolean restoreValue, Object defaultValueObj) {
+    protected void onSetInitialValue(@Nullable Object defaultValueObj) {
         final String defaultValue = (String) defaultValueObj;
-        setInternalColor(restoreValue ? getPersistedInt(0) : (!TextUtils.isEmpty(defaultValue) ? Color.parseColor(defaultValue) : 0), true);
+        setInternalColor(getPersistedInt(!TextUtils.isEmpty(defaultValue) ? Color.parseColor(defaultValue) : 0), true);
     }
 
     @Override

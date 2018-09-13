@@ -371,9 +371,9 @@ public class TimePickerPreference extends DialogPreference {
     }
 
     @Override
-    protected void onSetInitialValue(boolean restoreValue, Object defaultValueObj) {
+    protected void onSetInitialValue(@Nullable Object defaultValueObj) {
         final String defaultValue = (String) defaultValueObj;
-        setInternalTime(restoreValue ? getPersistedString(null) : (!TextUtils.isEmpty(defaultValue) ? defaultValue : null), true);
+        setInternalTime(getPersistedString(!TextUtils.isEmpty(defaultValue) ? defaultValue : null), true);
     }
 
     @Override

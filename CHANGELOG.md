@@ -1,5 +1,16 @@
 # Changelog
 
+**2018-09-13**
+
+New version: 28.0.0.0-rc01 (based on v28.0.0-rc01)
+
+- Official lib bug fixes
+  - `PreferenceThemeOverlay` has been updated to the latest material theme. If no custom theme is provided, `PreferenceThemeOverlay` is used as the default theme.
+  - `PreferenceThemeOverlay.v14` and `PreferenceThemeOverlay.v14.Material` themes have been deprecated in favour of `PreferenceThemeOverlay`.
+  - `PreferenceGroup` visibility is now tied to its children - hiding a parent group will also prevent its children from being shown in the hierarchy. Use `Preference.isShown()` to get whether a `Preference` is actually displayed to the user in the hierarchy.
+  - `Preference.onSetInitialValue(boolean, Object)` has been deprecated and replaced with `onSetInitialValue(Object)`. PreferenceDataStore now also correctly restores default values.
+- added `onSetInitialValue(Object)` implementation and removed the deprecated `onSetInitialValue(boolean, Object)`
+
 **2018-07-18**
 
 New version: 28.0.0.0-alpha3 (based on v28.0.0-alpha3)
