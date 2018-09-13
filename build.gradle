@@ -2,9 +2,9 @@
 project.ext.buildToolsVersion = '28.0.2'
 project.ext.minSdkVersion = 14
 project.ext.sdkVersion = 28
-project.ext.supportLibraryVersion = '28.0.0-rc01'
+project.ext.supportLibraryVersion = '28.0.0-rc02'
 project.ext.supportLibraryVersionPrefix = '28.0.0'
-project.ext.supportLibraryVersionSuffix = '-rc01'
+project.ext.supportLibraryVersionSuffix = '-rc02'
 project.ext.fixLibraryVersion = '0'
 
 project.ext.extrasLibraryVersionSuffix = ''

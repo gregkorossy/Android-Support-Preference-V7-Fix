@@ -2,6 +2,12 @@
 
 **2018-09-13**
 
+New version: 28.0.0.0-rc02 (based on v28.0.0-rc02)
+
+- No support preferences related changes in the support library.
+
+**2018-09-13**
+
 New version: 28.0.0.0-rc01 (based on v28.0.0-rc01)
 
 - Official lib bug fixes
