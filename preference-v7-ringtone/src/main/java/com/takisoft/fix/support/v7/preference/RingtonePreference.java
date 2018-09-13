@@ -324,9 +324,9 @@ public class RingtonePreference extends DialogPreference {
     }
 
     @Override
-    protected void onSetInitialValue(boolean restoreValue, Object defaultValueObj) {
-        final String defaultValue = (String) defaultValueObj;
-        setInternalRingtone(restoreValue ? onRestoreRingtone() : (!TextUtils.isEmpty(defaultValue) ? Uri.parse(defaultValue) : null), true);
+    protected void onSetInitialValue(@Nullable Object defaultValueObj) {
+        final String uriString = getPersistedString((String) defaultValueObj);
+        setInternalRingtone(!TextUtils.isEmpty(uriString) ? Uri.parse(uriString) : null, true);
     }
 
     @Override
