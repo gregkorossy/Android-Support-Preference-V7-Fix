@@ -20,9 +20,11 @@
 
 package com.takisoft.preferencex;
 
+import android.content.Context;
 import android.os.Bundle;
 import androidx.preference.PreferenceDialogFragmentCompat;
 import android.text.Editable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -42,10 +44,19 @@ public class EditTextPreferenceDialogFragmentCompat extends PreferenceDialogFrag
         return fragment;
     }
 
-    protected void onBindDialogView(View view) {
-        super.onBindDialogView(view);
+    @Override
+    protected View onCreateDialogView(Context context) {
+        View view = super.onCreateDialogView(context), oldChild = view.findViewById(android.R.id.edit);
+        if (oldChild == null) {
+            throw new IllegalStateException("Dialog view must contain an EditText with id" +
+                    " @android:id/edit");
+        }
 
-        this.mEditText = getEditTextPreference().getEditText();
+        ViewGroup container = (ViewGroup) oldChild.getParent();
+        int layout = getEditTextPreference().getEditLayout();
+        View newChild = layout == 0 ? getEditTextPreference().getEditText()
+                : LayoutInflater.from(context).inflate(layout, container, false);
+        this.mEditText = newChild.findViewById(android.R.id.edit);
         this.mEditText.setText(this.getEditTextPreference().getText());
 
         Editable text = mEditText.getText();
@@ -53,14 +64,18 @@ public class EditTextPreferenceDialogFragmentCompat extends PreferenceDialogFrag
             mEditText.setSelection(text.length(), text.length());
         }
 
-        ViewParent oldParent = this.mEditText.getParent();
+        ViewParent oldParent = newChild.getParent();
         if (oldParent != view) {
             if (oldParent != null) {
-                ((ViewGroup) oldParent).removeView(this.mEditText);
+                ((ViewGroup) oldParent).removeView(newChild);
             }
 
-            this.onAddEditTextToDialogView(view, this.mEditText);
+            if (container != null) {
+                container.removeView(oldChild);
+                container.addView(newChild, oldChild.getLayoutParams());
+            }
         }
+        return view;
     }
 
     private EditTextPreference getEditTextPreference() {
@@ -69,18 +84,6 @@ public class EditTextPreferenceDialogFragmentCompat extends PreferenceDialogFrag
 
     protected boolean needInputMethod() {
         return true;
-    }
-
-    protected void onAddEditTextToDialogView(View dialogView, EditText editText) {
-        //ViewGroup container = (ViewGroup) dialogView.findViewById(androidx.preference.R.id.edittext_container);
-        View oldEditText = dialogView.findViewById(android.R.id.edit);
-        if (oldEditText != null) {
-            ViewGroup container = (ViewGroup) (oldEditText.getParent());
-            if (container != null) {
-                container.removeView(oldEditText);
-                container.addView(editText, oldEditText.getLayoutParams());
-            }
-        }
     }
 
     public void onDialogClosed(boolean positiveResult) {

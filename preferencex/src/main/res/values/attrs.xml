@@ -4,6 +4,10 @@
         <attr name="pref_categoryColor" format="color|reference" />
     </declare-styleable>
 
+    <declare-styleable name="EditTextPreference">
+        <attr name="pref_editLayout" format="reference" />
+    </declare-styleable>
+
     <declare-styleable name="AutoSummaryEditTextPreference">
         <attr name="pref_summaryHasText" format="string|reference" />
         <attr name="pref_summaryPasswordSubstitute" format="string|reference" />

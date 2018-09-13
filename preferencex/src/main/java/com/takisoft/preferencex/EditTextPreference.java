@@ -1,12 +1,19 @@
 package com.takisoft.preferencex;
 
 import android.content.Context;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
+
+import android.content.res.TypedArray;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
 public class EditTextPreference extends androidx.preference.EditTextPreference {
+    @LayoutRes
+    private int editLayout;
     private EditText editText;
 
     public EditTextPreference(Context context) {
@@ -23,10 +30,23 @@ public class EditTextPreference extends androidx.preference.EditTextPreference {
 
     public EditTextPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        editText = new AppCompatEditText(context, attrs);
-        editText.setId(android.R.id.edit);
+
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.EditTextPreference, defStyleAttr, 0);
+        editLayout = a.getResourceId(R.styleable.EditTextPreference_pref_editLayout, 0);
+        a.recycle();
+
+        if (editLayout == 0) {
+            editText = new AppCompatEditText(context, attrs);
+            editText.setId(android.R.id.edit);
+        }
     }
 
+    @LayoutRes
+    public int getEditLayout() {
+        return editLayout;
+    }
+
+    @Nullable
     public EditText getEditText() {
         return editText;
     }
