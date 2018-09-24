@@ -4,7 +4,7 @@
 
 This library is meant to fix some of the problems found in the official support preference-v7 library. Also, there are [new preference types](#extra-types) available, such as `RingtonePreference`, `DatePickerPreference`, and `TimePickerPreference`.
 
-Support Library (28.0.0-rc02):
+Support Library (28.0.0):
 [ ![Download](https://api.bintray.com/packages/gericop/maven/com.takisoft.fix%3Apreference-v7/images/download.svg) ](https://bintray.com/gericop/maven/com.takisoft.fix%3Apreference-v7/_latestVersion)
 
 AndroidX (1.0.0-beta01):
@@ -23,12 +23,12 @@ If you would like to support me, you may donate some small amount via PayPal.
 ### 1. Add gradle dependency
 First, **remove** the unnecessary lines of preference-v7 and preference-v14 from your gradle file as the bugfix contains both of them:
 ```gradle
-implementation 'com.android.support:preference-v7:28.0.0-rc02'
-implementation 'com.android.support:preference-v14:28.0.0-rc02'
+implementation 'com.android.support:preference-v7:28.0.0'
+implementation 'com.android.support:preference-v14:28.0.0'
 ```
 And **add** this single line to your gradle file:
 ```gradle
-implementation 'com.takisoft.fix:preference-v7:28.0.0.0-rc02'
+implementation 'com.takisoft.fix:preference-v7:28.0.0.0'
 ```
 > Notice the versioning: the first three numbers are *always* the same as the latest official library while the last number is for own updates. I try to keep it up-to-date but if, for whatever reasons, I wouldn't notice the new support library versions, just issue a ticket.
 
@@ -91,7 +91,7 @@ For example, the sample app uses `PreferenceFixTheme.Light.NoActionBar` as the p
 **Theme.MaterialComponents**
 There's a NEW module called `preference-v7-material` that provides the new `Theme.MaterialComponents` related themes. You can add it to your project like this:
 ```gradle
-implementation 'com.takisoft.fix:preference-v7-material:28.0.0.0-rc02'
+implementation 'com.takisoft.fix:preference-v7-material:28.0.0.0'
 ```
 
 > Note that you may need to use multidexing after this because it uses the support design library which is a huge codebase.
@@ -106,18 +106,18 @@ Now you can enjoy using the support preferences API without losing all your hair
 There are additional preferences not part of the official support library, but decided to add them to some extra libraries. You can add all of them to your project using
 
 ```gradle
-implementation 'com.takisoft.fix:preference-v7-extras:28.0.0.0-rc02'
+implementation 'com.takisoft.fix:preference-v7-extras:28.0.0.0'
 ```
 
 or one or more groups:
 
 Preference | Dependency | Preview
 -|-|-
-[`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference) | `compile 'com.takisoft.fix:preference-v7-ringtone:28.0.0.0-rc02'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/ringtone_api26.png)
-[`DatePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#datepickerpreference) | `compile 'com.takisoft.fix:preference-v7-datetimepicker:28.0.0.0-rc02'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/datepicker_api26.png)
-[`TimePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#timepickerpreference) | `compile 'com.takisoft.fix:preference-v7-datetimepicker:28.0.0.0-rc02'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/timepicker_api26.png)
-[`ColorPickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#colorpickerpreference) | `compile 'com.takisoft.fix:preference-v7-colorpicker:28.0.0.0-rc02'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/colorpicker_api26_fixed.png)
-[`SimpleMenuPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#simplemenupreference) | `compile 'com.takisoft.fix:preference-v7-simplemenu:28.0.0.0-rc02'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/simplemenu_api26.png)
+[`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference) | `compile 'com.takisoft.fix:preference-v7-ringtone:28.0.0.0'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/ringtone_api26.png)
+[`DatePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#datepickerpreference) | `compile 'com.takisoft.fix:preference-v7-datetimepicker:28.0.0.0'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/datepicker_api26.png)
+[`TimePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#timepickerpreference) | `compile 'com.takisoft.fix:preference-v7-datetimepicker:28.0.0.0'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/timepicker_api26.png)
+[`ColorPickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#colorpickerpreference) | `compile 'com.takisoft.fix:preference-v7-colorpicker:28.0.0.0'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/colorpicker_api26_fixed.png)
+[`SimpleMenuPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#simplemenupreference) | `compile 'com.takisoft.fix:preference-v7-simplemenu:28.0.0.0'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/simplemenu_api26.png)
 
 ---
 
@@ -163,7 +163,7 @@ The original implementation uses `?attr/textAppearanceSmall` as the message styl
 ---
 
 ## Version
-The current stable version is **28.0.0.0-rc02**.
+The current stable version is **28.0.0.0**.
 
 ## Notes #
 This demo / bugfix is set to work on API level 14+.
@@ -181,6 +181,13 @@ API 15 | API 21 | API 26
 ---
 
 ### Changelog
+
+**2018-09-24**
+
+New version: 28.0.0.0 (based on v28.0.0)
+
+- No support preferences related changes in the support library.
+- Fixed issues #174 and #175
 
 **2018-09-13**
 

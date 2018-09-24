@@ -39,8 +39,8 @@ class PreferenceGroupAdapter extends android.support.v7.preference.PreferenceGro
     private void getReflectionFields() {
         try {
             Class<?> aClass = Class.forName("android.support.v7.preference.PreferenceGroupAdapter$PreferenceLayout");
-            fieldResId = aClass.getDeclaredField("resId");
-            fieldWidgetResId = aClass.getDeclaredField("widgetResId");
+            fieldResId = aClass.getDeclaredField("mResId");
+            fieldWidgetResId = aClass.getDeclaredField("mWidgetResId");
 
             fieldResId.setAccessible(true);
             fieldWidgetResId.setAccessible(true);
