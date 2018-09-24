@@ -12,7 +12,6 @@ project.ext.extrasLibraryVersionSuffix = ''
 buildscript {
     repositories {
         jcenter()
-        maven { url "https://maven.google.com" }
         google()
     }
     dependencies {
@@ -28,7 +27,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven { url "https://maven.google.com" }
+        google()
         maven { url "https://dl.bintray.com/gericop/maven" }
     }
 }
