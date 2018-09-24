@@ -1,5 +1,12 @@
 # Changelog
 
+**2018-09-24**
+
+New version: 28.0.0.0 (based on v28.0.0)
+
+- No support preferences related changes in the support library.
+- Fixed issues #174 and #175
+
 **2018-09-13**
 
 New version: 28.0.0.0-rc02 (based on v28.0.0-rc02)
