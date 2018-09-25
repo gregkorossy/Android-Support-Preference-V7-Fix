@@ -48,7 +48,7 @@ ext {
 dependencies {
     implementation project(':preferencex')
     implementation "androidx.appcompat:appcompat:$androidxVersion"
-    api 'com.takisoft.fix:colorpicker:1.0.5-alpha3'
+    api 'com.takisoft.colorpicker:colorpicker:1.0.0'
 }
 
 //apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'

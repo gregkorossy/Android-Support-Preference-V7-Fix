@@ -4,19 +4,18 @@ project.ext.extrasLibraryVersionSuffix = ''
 
 buildscript {
     ext {
-        buildToolsVersion = '28.0.1'
+        buildToolsVersion = '28.0.3'
         minSdkVersion = 14
         sdkVersion = 28
-        androidxVersion = '1.0.0-beta01'
-        libVersion = '1.0.0-alpha2'
+        androidxVersion = '1.0.0'
+        libVersion = '1.0.0'
     }
     repositories {
         jcenter()
-        maven { url "https://maven.google.com" }
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0-beta04'
+        classpath 'com.android.tools.build:gradle:3.2.0'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
 
@@ -28,7 +27,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven { url "https://maven.google.com" }
-        maven { url "https://dl.bintray.com/gericop/maven" }
+        google()
+        maven { url "https://dl.bintray.com/takisoft/android" }
     }
 }
