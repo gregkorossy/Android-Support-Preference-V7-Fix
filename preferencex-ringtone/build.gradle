@@ -47,7 +47,7 @@ ext {
 
 dependencies {
     implementation project(':preferencex')
-    implementation "androidx.appcompat:appcompat:$androidxVersion"
+    implementation "androidx.appcompat:appcompat:$androidxAppcompatVersion"
 }
 
 //apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'

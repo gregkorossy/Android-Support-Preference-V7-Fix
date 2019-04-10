@@ -44,7 +44,7 @@ ext {
 }
 
 dependencies {
-    api "androidx.preference:preference:$androidxVersion"
+    api "androidx.preference:preference:$androidxPreferenceVersion"
 }
 
 //apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'

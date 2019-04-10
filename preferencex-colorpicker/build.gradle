@@ -47,7 +47,7 @@ ext {
 
 dependencies {
     implementation project(':preferencex')
-    implementation "androidx.appcompat:appcompat:$androidxVersion"
+    implementation "androidx.appcompat:appcompat:$androidxAppcompatVersion"
     api 'com.takisoft.colorpicker:colorpicker:1.0.0'
 }
 
