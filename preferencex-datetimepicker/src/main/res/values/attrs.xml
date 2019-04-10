@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr xmlns:tools="http://schemas.android.com/tools" name="useSimpleSummaryProvider" format="boolean" tools:override="true" />
+
     <declare-styleable name="TimePickerPreference">
         <!-- The time to be used by the picker if no saved value is present, in 24-hour format.-->
         <attr name="pref_pickerTime" format="string|reference" />
@@ -19,6 +21,8 @@
 
         <!-- The summary to show if time is selected -->
         <attr name="pref_summaryHasTime" format="string|reference" />
+
+        <attr name="useSimpleSummaryProvider" />
     </declare-styleable>
 
     <declare-styleable name="DatePickerPreference">
@@ -30,5 +34,7 @@
 
         <!-- The summary to show if date is selected -->
         <attr name="pref_summaryHasDate" format="string|reference" />
+
+        <attr name="useSimpleSummaryProvider" />
     </declare-styleable>
 </resources>

@@ -5,13 +5,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
-import androidx.annotation.IntDef;
-import androidx.annotation.IntRange;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.core.content.res.TypedArrayUtils;
-import androidx.preference.DialogPreference;
-import androidx.preference.Preference;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
@@ -25,6 +18,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import androidx.annotation.IntDef;
+import androidx.annotation.IntRange;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.core.content.res.TypedArrayUtils;
+import androidx.preference.DialogPreference;
+import androidx.preference.Preference;
 
 /**
  * A {@link Preference} that displays a time picker as a dialog.
@@ -71,10 +72,16 @@ public class TimePickerPreference extends DialogPreference {
     public TimePickerPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
+        summary = super.getSummary();
+
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TimePickerPreference, defStyleAttr, 0);
         hourFormat = a.getInt(R.styleable.TimePickerPreference_pref_hourFormat, FORMAT_AUTO);
         summaryPattern = a.getString(R.styleable.TimePickerPreference_pref_summaryTimePattern);
         summaryHasTime = a.getText(R.styleable.TimePickerPreference_pref_summaryHasTime);
+
+        if (a.getBoolean(R.styleable.TimePickerPreference_useSimpleSummaryProvider, false)) {
+            setSummaryProvider(TimePickerPreference.SimpleSummaryProvider.getInstance());
+        }
 
         String pickerTime = a.getString(R.styleable.TimePickerPreference_pref_pickerTime);
 
@@ -87,8 +94,6 @@ public class TimePickerPreference extends DialogPreference {
         }
 
         a.recycle();
-
-        summary = super.getSummary();
     }
 
     public TimePickerPreference(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -252,7 +257,12 @@ public class TimePickerPreference extends DialogPreference {
      * @return The summary.
      */
     @Override
+    @SuppressWarnings("unchecked")
     public CharSequence getSummary() {
+        if (getSummaryProvider() != null) {
+            return getSummaryProvider().provideSummary(this);
+        }
+
         if (time == null) {
             return summary;
         } else {
@@ -440,6 +450,37 @@ public class TimePickerPreference extends DialogPreference {
         public TimeWrapper(int hour, int minute) {
             this.hour = hour;
             this.minute = minute;
+        }
+    }
+
+    public static final class SimpleSummaryProvider implements SummaryProvider<TimePickerPreference> {
+        private static TimePickerPreference.SimpleSummaryProvider instance;
+
+        private SimpleSummaryProvider() {
+        }
+
+        /**
+         * Retrieve a singleton instance of this simple
+         * {@link androidx.preference.Preference.SummaryProvider} implementation.
+         *
+         * @return a singleton instance of this simple
+         * {@link androidx.preference.Preference.SummaryProvider} implementation
+         */
+        public static TimePickerPreference.SimpleSummaryProvider getInstance() {
+            if (instance == null) {
+                instance = new TimePickerPreference.SimpleSummaryProvider();
+            }
+            return instance;
+        }
+
+        @Override
+        public CharSequence provideSummary(TimePickerPreference preference) {
+            if (preference.time == null) {
+                return preference.getContext().getString(androidx.preference.R.string.not_set);
+            } else {
+                DateFormat formatter = android.text.format.DateFormat.getTimeFormat(preference.getContext());
+                return formatter.format(preference.time);
+            }
         }
     }
 }

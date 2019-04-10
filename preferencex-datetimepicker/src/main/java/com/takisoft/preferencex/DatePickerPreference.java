@@ -5,12 +5,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
-import androidx.annotation.IntRange;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.core.content.res.TypedArrayUtils;
-import androidx.preference.DialogPreference;
-import androidx.preference.Preference;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
@@ -22,6 +16,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import androidx.annotation.IntRange;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.core.content.res.TypedArrayUtils;
+import androidx.preference.DialogPreference;
+import androidx.preference.Preference;
 
 /**
  * A {@link Preference} that displays a date picker as a dialog.
@@ -59,11 +60,17 @@ public class DatePickerPreference extends DialogPreference {
     public DatePickerPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
+        summary = super.getSummary();
+
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DatePickerPreference, defStyleAttr, 0);
 
         String pickerDate = a.getString(R.styleable.DatePickerPreference_pref_pickerDate);
         String minDate = a.getString(R.styleable.DatePickerPreference_pref_minDate);
         String maxDate = a.getString(R.styleable.DatePickerPreference_pref_maxDate);
+
+        if (a.getBoolean(R.styleable.DatePickerPreference_useSimpleSummaryProvider, false)) {
+            setSummaryProvider(SimpleSummaryProvider.getInstance());
+        }
 
         if (!TextUtils.isEmpty(pickerDate)) {
             try {
@@ -92,8 +99,6 @@ public class DatePickerPreference extends DialogPreference {
         summaryPattern = a.getString(R.styleable.DatePickerPreference_pref_summaryDatePattern);
         summaryHasDate = a.getText(R.styleable.DatePickerPreference_pref_summaryHasDate);
         a.recycle();
-
-        summary = super.getSummary();
     }
 
     public DatePickerPreference(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -244,7 +249,12 @@ public class DatePickerPreference extends DialogPreference {
      * @return The summary.
      */
     @Override
+    @SuppressWarnings("unchecked")
     public CharSequence getSummary() {
+        if (getSummaryProvider() != null) {
+            return getSummaryProvider().provideSummary(this);
+        }
+
         if (date == null) {
             return summary;
         } else {
@@ -434,6 +444,37 @@ public class DatePickerPreference extends DialogPreference {
             this.year = year;
             this.month = month;
             this.day = day;
+        }
+    }
+
+    public static final class SimpleSummaryProvider implements SummaryProvider<DatePickerPreference> {
+        private static SimpleSummaryProvider instance;
+
+        private SimpleSummaryProvider() {
+        }
+
+        /**
+         * Retrieve a singleton instance of this simple
+         * {@link androidx.preference.Preference.SummaryProvider} implementation.
+         *
+         * @return a singleton instance of this simple
+         * {@link androidx.preference.Preference.SummaryProvider} implementation
+         */
+        public static SimpleSummaryProvider getInstance() {
+            if (instance == null) {
+                instance = new SimpleSummaryProvider();
+            }
+            return instance;
+        }
+
+        @Override
+        public CharSequence provideSummary(DatePickerPreference preference) {
+            if (preference.date == null) {
+                return preference.getContext().getString(androidx.preference.R.string.not_set);
+            } else {
+                DateFormat formatter = android.text.format.DateFormat.getLongDateFormat(preference.getContext());
+                return formatter.format(preference.date);
+            }
         }
     }
 }
