@@ -3,5 +3,6 @@
     <declare-styleable name="RingtonePreference">
         <attr name="pref_showAdd" format="boolean" />
         <attr name="pref_summaryHasRingtone" format="string|reference" />
+        <attr name="useSimpleSummaryProvider" format="boolean" />
     </declare-styleable>
 </resources>

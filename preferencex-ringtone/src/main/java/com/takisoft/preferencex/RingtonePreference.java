@@ -16,12 +16,6 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.MediaStore;
-import androidx.annotation.IntDef;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.core.content.res.TypedArrayUtils;
-import androidx.preference.DialogPreference;
-import androidx.preference.Preference;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
@@ -29,6 +23,13 @@ import com.takisoft.preferencex.ringtone.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.core.content.res.TypedArrayUtils;
+import androidx.preference.DialogPreference;
+import androidx.preference.Preference;
 
 /**
  * A {@link Preference} that displays a ringtone picker as a dialog.
@@ -87,12 +88,16 @@ public class RingtonePreference extends DialogPreference {
         showDefault = proxyPreference.getShowDefault();
         showSilent = proxyPreference.getShowSilent();
 
+        summary = super.getSummary();
+
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RingtonePreference, defStyleAttr, 0);
         showAdd = a.getBoolean(R.styleable.RingtonePreference_pref_showAdd, true);
         summaryHasRingtone = a.getText(R.styleable.RingtonePreference_pref_summaryHasRingtone);
-        a.recycle();
 
-        summary = super.getSummary();
+        if (a.getBoolean(R.styleable.RingtonePreference_useSimpleSummaryProvider, false)) {
+            setSummaryProvider(SimpleSummaryProvider.getInstance());
+        }
+        a.recycle();
     }
 
     public RingtonePreference(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -341,7 +346,12 @@ public class RingtonePreference extends DialogPreference {
      * @return The summary.
      */
     @Override
+    @SuppressWarnings("unchecked")
     public CharSequence getSummary() {
+        if (getSummaryProvider() != null) {
+            return getSummaryProvider().provideSummary(this);
+        }
+
         if (ringtoneUri == null) {
             return summary;
         } else {
@@ -520,5 +530,47 @@ public class RingtonePreference extends DialogPreference {
                         return new SavedState[size];
                     }
                 };
+    }
+
+    public static final class SimpleSummaryProvider implements SummaryProvider<RingtonePreference> {
+        private static SimpleSummaryProvider instance;
+
+        private SimpleSummaryProvider() {
+        }
+
+        /**
+         * Retrieve a singleton instance of this simple
+         * {@link androidx.preference.Preference.SummaryProvider} implementation.
+         *
+         * @return a singleton instance of this simple
+         * {@link androidx.preference.Preference.SummaryProvider} implementation
+         */
+        public static SimpleSummaryProvider getInstance() {
+            if (instance == null) {
+                instance = new SimpleSummaryProvider();
+            }
+            return instance;
+        }
+
+        @Override
+        public CharSequence provideSummary(RingtonePreference preference) {
+            if (preference.ringtoneUri == null) {
+                return preference.getContext().getString(androidx.preference.R.string.not_set);
+            } else {
+                return preference.getRingtoneTitle();
+            }
+            /*if (preference.ringtoneUri == null) {
+                return preference.summary;
+            } else {
+                String ringtoneTitle = preference.getRingtoneTitle();
+                if (preference.summaryHasRingtone != null && ringtoneTitle != null) {
+                    return String.format(preference.summaryHasRingtone.toString(), ringtoneTitle);
+                } else if (ringtoneTitle != null) {
+                    return ringtoneTitle;
+                } else {
+                    return preference.summary;
+                }
+            }*/
+        }
     }
 }
