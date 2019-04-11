@@ -12,24 +12,18 @@ import android.widget.TextView;
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.core.content.res.TypedArrayUtils;
-import androidx.core.view.ViewCompat;
 import androidx.preference.PreferenceViewHolder;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * PreferenceCategory fix which allows one to use multiple themes. The original
- * "preference_fallback_accent_color" override would not allow this as it is not modifiable during
- * runtime.
- * If you use this class in your preference XML, you don't have to redefine
- * "preference_fallback_accent_color". Read the README.md for more info.
+ * An extended {@link androidx.preference.PreferenceCategory} that allows the user to set the color
+ * and the visibility of the title.
  */
 public class PreferenceCategory extends androidx.preference.PreferenceCategory {
     private static final int[] CATEGORY_ATTRS = new int[]{R.attr.colorAccent};
 
     protected int color;
     protected View itemView;
-
-    private static int originalStartPadding = Integer.MIN_VALUE;
 
     public PreferenceCategory(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -123,11 +117,6 @@ public class PreferenceCategory extends androidx.preference.PreferenceCategory {
         TextView titleView = (TextView) holder.findViewById(android.R.id.title);
 
         if (titleView != null) {
-            // FIXME https://android-review.googlesource.com/c/platform/frameworks/support/+/720306
-            //  if (color != 0) {
-            //      titleView.setTextColor(color);
-            //  }
-
             final TypedArray typedArray = getContext().obtainStyledAttributes(CATEGORY_ATTRS);
 
             if (typedArray.length() > 0 && typedArray.getIndexCount() > 0) {
@@ -136,21 +125,6 @@ public class PreferenceCategory extends androidx.preference.PreferenceCategory {
             }
 
             typedArray.recycle();
-
-            // FIXME  PreferenceCategory doesn't respect iconSpaceReserved set to false
-            // https://issuetracker.google.com/issues/111662669
-            // https://github.com/Gericop/Android-Support-Preference-V7-Fix/issues/132
-            ViewGroup parent = (ViewGroup) titleView.getParent();
-
-            if (originalStartPadding == Integer.MIN_VALUE) {
-                originalStartPadding = ViewCompat.getPaddingStart(parent);
-            }
-
-            if (!isIconSpaceReserved()) {
-                ViewCompat.setPaddingRelative(parent, 0, parent.getPaddingTop(), 0, parent.getPaddingBottom());
-            } else {
-                ViewCompat.setPaddingRelative(parent, originalStartPadding, parent.getPaddingTop(), 0, parent.getPaddingBottom());
-            }
         }
 
         boolean isVisible = !TextUtils.isEmpty(getTitle());
