@@ -3,7 +3,6 @@ package com.takisoft.preferencex.demo;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.takisoft.preferencex.EditTextPreference;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import androidx.annotation.Nullable;
@@ -21,14 +20,9 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat {
 
         testDynamicPrefs();
 
-        EditTextPreference etPref = (EditTextPreference) findPreference("edit_text_test");
-        if (etPref != null) {
-            int inputType = etPref.getEditText().getInputType();
-        }
-
         Preference prefEmptyCheck = findPreference("pref_empty_check");
 
-        if(prefEmptyCheck != null) {
+        if (prefEmptyCheck != null) {
             prefEmptyCheck.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {

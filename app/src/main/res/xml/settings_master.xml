@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="master_switch_key"
+    android:title="MasterSwitch sample">
+    <Preference
+        android:persistent="false"
+        android:title="This is a master switch demo" />
+    <SwitchPreferenceCompat
+        android:persistent="false"
+        android:summary="Like backup with details"
+        android:title="You can use it for complex settings" />
+</PreferenceScreen>

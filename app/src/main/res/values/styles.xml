@@ -1,11 +1,17 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.MyTheme" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorAccent">@color/accent</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
         <item name="drawerArrowStyle">@style/Theme.MyTheme.DrawerArrowStyle</item>
         <item name="toolbarStyle">@style/Theme.MyTheme.Toolbar</item>
+        <item name="pref_masterSwitchStyle">@style/Theme.MyTheme.MasterSwitchStyle</item>
+    </style>
+
+    <style name="Theme.MyTheme.MasterSwitchStyle" parent="@style/PreferenceMasterSwitch">
+        <item name="pref_masterSwitchBackgroundOn">@color/preference_fallback_accent_color</item>
     </style>
 
     <style name="Theme.MyTheme.DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">

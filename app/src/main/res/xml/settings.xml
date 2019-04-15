@@ -12,7 +12,7 @@
             android:summary="This is just a disabled preference"
             android:title="Preference 2" />
         <Preference
-            android:icon="@drawable/ic_battery_std_black_24dp"
+            android:icon="@drawable/ic_lock_outline_24dp"
             android:persistent="false"
             android:summary="This is a preference with icon"
             android:title="Preference 3" />
@@ -29,15 +29,21 @@
             android:persistent="false"
             android:summary="It\'s a switch"
             android:title="SwitchPreference" />
+        <SwitchPreferenceCompat
+            android:key="master_switch_key"
+            android:summaryOn="Master switch activated"
+            android:summaryOff="You can change wonderful settings here, just enable me"
+            android:title="SwitchPreference"
+            app:fragment="com.takisoft.preferencex.demo.MyMasterSwitchFragment" />
         <SeekBarPreference
             android:persistent="false"
             android:summary="It\'s a seek bar"
-            android:title="SeekBarPreference" />
+            android:title="SeekBarPreference"
+            app:showSeekBarValue="true" />
         <SeekBarPreference
             android:persistent="false"
             android:summary="It\'s a seek bar without value"
-            android:title="SeekBarPreference"
-            app:showSeekBarValue="false" />
+            android:title="SeekBarPreference" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="Icon space not reserved category"
@@ -73,7 +79,8 @@
             app:pref_summaryHasText="%s is a nice phone number" />
         <AutoSummaryEditTextPreference
             android:dialogMessage="This is the dialog\'s message"
-            android:inputType="numberPassword"
+            android:inputType="text"
+            android:textStyle="bold"
             android:key="auto_edit_text_test2"
             android:persistent="false"
             android:summary="Should be a number password input (it is now!)"
