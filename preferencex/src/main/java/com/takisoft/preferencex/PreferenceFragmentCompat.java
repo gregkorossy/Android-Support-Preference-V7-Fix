@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
+import android.view.View;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.DialogPreference;
+import androidx.preference.EditTextPreferenceDialogFragmentCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 import androidx.preference.PreferenceManager;
@@ -58,16 +60,15 @@ public abstract class PreferenceFragmentCompat extends androidx.preference.Prefe
             e.printStackTrace();
         }
 
-        Bundle args = this.getArguments();
+        Bundle args = getArguments();
         String rootKey;
         if (args != null) {
-            rootKey = this.getArguments().getString("androidx.preference.PreferenceFragmentCompat.PREFERENCE_ROOT");
+            rootKey = getArguments().getString("androidx.preference.PreferenceFragmentCompat.PREFERENCE_ROOT");
         } else {
             rootKey = null;
         }
 
-        this.onCreatePreferencesFix(savedInstanceState, rootKey);
-
+        onCreatePreferencesFix(savedInstanceState, rootKey);
     }
 
     /**
@@ -95,10 +96,29 @@ public abstract class PreferenceFragmentCompat extends androidx.preference.Prefe
      */
     public abstract void onCreatePreferencesFix(@Nullable Bundle savedInstanceState, String rootKey);
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        traverseAndRefreshPrefs(getPreferenceScreen());
+    }
+
+    private void traverseAndRefreshPrefs(PreferenceGroup preferenceGroup) {
+        final int n = preferenceGroup.getPreferenceCount();
+
+        for (int i = 0; i < n; i++) {
+            Preference pref = preferenceGroup.getPreference(i);
+            if (pref instanceof SwitchPreferenceCompat) {
+                ((SwitchPreferenceCompat) pref).refresh();
+            } else if (pref instanceof PreferenceGroup) {
+                traverseAndRefreshPrefs((PreferenceGroup) pref);
+            }
+        }
+    }
+
     @SuppressWarnings("SuspiciousMethodCalls")
     @Override
     public void onDisplayPreferenceDialog(Preference preference) {
-        if (this.getFragmentManager().findFragmentByTag(FRAGMENT_DIALOG_TAG) == null) {
+        if (requireFragmentManager().findFragmentByTag(FRAGMENT_DIALOG_TAG) == null) {
             if (preference instanceof EditTextPreference) {
                 displayPreferenceDialog(new EditTextPreferenceDialogFragmentCompat(), preference.getKey());
             } else if (dialogPreferences.containsKey(preference.getClass())) {
@@ -121,7 +141,7 @@ public abstract class PreferenceFragmentCompat extends androidx.preference.Prefe
     }
 
     protected void displayPreferenceDialog(@NonNull Fragment fragment, @NonNull String key, @Nullable Bundle bundle) {
-        FragmentManager fragmentManager = this.getFragmentManager();
+        FragmentManager fragmentManager = getFragmentManager();
 
         if (fragmentManager == null) {
             return;
@@ -143,13 +163,46 @@ public abstract class PreferenceFragmentCompat extends androidx.preference.Prefe
 
     @Override
     public boolean onPreferenceTreeClick(Preference preference) {
-        boolean handled = super.onPreferenceTreeClick(preference);
+        boolean handled = false;
+
+        if (preference.getFragment() != null) {
+            if (getCallbackFragment() instanceof OnPreferenceStartFragmentCallback) {
+                handled = ((OnPreferenceStartFragmentCallback) getCallbackFragment())
+                        .onPreferenceStartFragment(this, preference);
+            }
+            if (!handled && getActivity() instanceof OnPreferenceStartFragmentCallback) {
+                handled = ((OnPreferenceStartFragmentCallback) getActivity())
+                        .onPreferenceStartFragment(this, preference);
+            }
+            if (!handled) {
+                handled = onPreferenceStartFragment(this, preference);
+            }
+        }
+
+        if (!handled) {
+            handled = super.onPreferenceTreeClick(preference);
+        }
 
         if (!handled && preference instanceof PreferenceActivityResultListener) {
             ((PreferenceActivityResultListener) preference).onPreferenceClick(this, preference);
         }
 
         return handled;
+    }
+
+    protected boolean onPreferenceStartFragment(PreferenceFragmentCompat caller, Preference preference) {
+        final FragmentManager fragmentManager = caller.requireFragmentManager();
+        final Bundle args = preference.getExtras();
+        final Fragment fragment = fragmentManager.getFragmentFactory().instantiate(
+                requireActivity().getClassLoader(), preference.getFragment(), args);
+        fragment.setArguments(args);
+        fragment.setTargetFragment(this, 0);
+        fragmentManager.beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .replace((((View) getView().getParent()).getId()), fragment)
+                .addToBackStack(preference.getKey())
+                .commit();
+        return true;
     }
 
     @Override
