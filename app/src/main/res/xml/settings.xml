@@ -78,6 +78,7 @@
             android:persistent="false"
             android:summary="Should be a number password input (it is now!)"
             android:title="AutoSummaryEditTextPreference"
+            app:pref_editLayout="@layout/edit_password"
             app:pref_summaryHasText="%s is a secret number"
             app:pref_summaryPasswordSubstitute="\u00A9"
             app:pref_summaryPasswordSubstituteLength="0" />
