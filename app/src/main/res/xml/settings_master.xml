@@ -1,12 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:key="master_switch_key"
     android:title="MasterSwitch sample">
-    <Preference
-        android:persistent="false"
-        android:title="This is a master switch demo" />
-    <SwitchPreferenceCompat
-        android:persistent="false"
-        android:summary="Like backup with details"
-        android:title="You can use it for complex settings" />
+
+    <PreferenceCategory android:key="cat_enabled">
+        <Preference android:title="This is shown if the master switch is ON" />
+        <ListPreference
+            android:dialogTitle="ListPreference shown on the MasterSwitch page"
+            android:entries="@array/pref_list_entries"
+            android:entryValues="@array/pref_list_values"
+            android:key="pref_some_list"
+            android:persistent="false"
+            android:summary="%s"
+            android:title="ListPreference" />
+    </PreferenceCategory>
+    <PreferenceCategory android:key="cat_disabled">
+        <Preference
+            android:icon="@drawable/ic_info_outline_24dp"
+            android:shouldDisableView="false"
+            android:title="Enable the master switch to access more settings." />
+    </PreferenceCategory>
+    <PreferenceCategory>
+        <Preference
+            android:persistent="false"
+            android:title="This is a master switch demo" />
+        <SwitchPreferenceCompat
+            android:persistent="false"
+            android:summary="Like backup with details"
+            android:title="You can use it for complex settings"
+            app:fragment="com.takisoft.preferencex.demo.MyMasterSwitchFragment" />
+    </PreferenceCategory>
 </PreferenceScreen>

@@ -15,6 +15,7 @@
   -->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/pref_master_switch_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
@@ -65,12 +66,11 @@
 
             <!--<include layout="@layout/preference_widget_switch_compat" />-->
             <androidx.appcompat.widget.SwitchCompat
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@id/switchWidget"
+                android:id="@+id/switchWidget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:focusable="false"
-                android:clickable="false" />
+                android:clickable="false"
+                android:focusable="false" />
         </LinearLayout>
 
     </LinearLayout>

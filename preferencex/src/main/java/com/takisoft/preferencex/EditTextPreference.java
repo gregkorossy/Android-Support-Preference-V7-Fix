@@ -10,13 +10,9 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatEditText;
 import androidx.collection.SparseArrayCompat;
 
 public class EditTextPreference extends androidx.preference.EditTextPreference {
-    @NonNull
-    private AppCompatEditText proxyEditText;
-
     @Nullable
     private OnBindEditTextListener onBindEditTextListener;
 
@@ -41,7 +37,6 @@ public class EditTextPreference extends androidx.preference.EditTextPreference {
         super.setOnBindEditTextListener(new OnBindEditTextListener() {
             @Override
             public void onBindEditText(@NonNull EditText editText) {
-
                 int n = editTextAttributes.size();
                 for (int i = 0; i < n; i++) {
                     int attr = editTextAttributes.keyAt(i);
