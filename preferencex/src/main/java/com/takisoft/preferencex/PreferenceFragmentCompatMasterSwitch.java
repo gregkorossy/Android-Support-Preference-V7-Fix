@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -174,14 +176,18 @@ public abstract class PreferenceFragmentCompatMasterSwitch extends PreferenceFra
         }
 
         private void updateViews() {
-            // TODO add icon support maybe ?
-
             if (masterView != null && getPreferenceScreen() != null) {
                 masterView.findViewById(androidx.preference.R.id.icon_frame).setVisibility(getPreferenceScreen().isIconSpaceReserved() ? View.VISIBLE : View.GONE);
             }
 
             if (masterTitle != null) {
                 masterTitle.setText(getTitle());
+                masterTitle.setSingleLine(isSingleLineTitle());
+            }
+
+            if (masterView != null) {
+                ImageView iconView = masterView.findViewById(android.R.id.icon);
+                iconView.setImageDrawable(getIcon());
             }
 
             if (masterView != null && switchCompat != null) {
@@ -348,6 +354,16 @@ public abstract class PreferenceFragmentCompatMasterSwitch extends PreferenceFra
         @Nullable
         public CharSequence getTitle() {
             return getPreferenceScreen() != null ? getPreferenceScreen().getTitle() : null;
+        }
+
+        @Nullable
+        public Drawable getIcon() {
+
+            return getPreferenceScreen() != null ? getPreferenceScreen().getIcon() : null;
+        }
+
+        public boolean isSingleLineTitle() {
+            return getPreferenceScreen() != null && getPreferenceScreen().isSingleLineTitle();
         }
     }
 
