@@ -25,10 +25,9 @@
         <Preference
             android:persistent="false"
             android:title="This is a master switch demo" />
-        <SwitchPreferenceCompat
+        <CheckBoxPreference
             android:persistent="false"
             android:summary="Like backup with details"
-            android:title="You can use it for complex settings"
-            app:fragment="com.takisoft.preferencex.demo.MyMasterSwitchFragment" />
+            android:title="You can use it for complex settings" />
     </PreferenceCategory>
 </PreferenceScreen>
