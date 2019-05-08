@@ -7,11 +7,11 @@ buildscript {
         buildToolsVersion = '28.0.3'
         minSdkVersion = 14
         sdkVersion = 28
-        materialVersion = '1.1.0-alpha05'
-        androidxAppcompatVersion = '1.1.0-alpha04'
-        androidxPreferenceVersion = '1.1.0-alpha04'
+        materialVersion = '1.1.0-alpha06'
+        androidxAppcompatVersion = '1.1.0-alpha05'
+        androidxPreferenceVersion = '1.1.0-alpha05'
 
-        libVersion = '1.1.0-alpha04'
+        libVersion = '1.1.0-alpha05'
     }
     repositories {
         jcenter()
@@ -20,7 +20,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.0'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

@@ -194,7 +194,7 @@ public abstract class PreferenceFragmentCompat extends androidx.preference.Prefe
         final FragmentManager fragmentManager = caller.requireFragmentManager();
         final Bundle args = preference.getExtras();
         final Fragment fragment = fragmentManager.getFragmentFactory().instantiate(
-                requireActivity().getClassLoader(), preference.getFragment(), args);
+                requireActivity().getClassLoader(), preference.getFragment());
         fragment.setArguments(args);
         fragment.setTargetFragment(this, 0);
         fragmentManager.beginTransaction()

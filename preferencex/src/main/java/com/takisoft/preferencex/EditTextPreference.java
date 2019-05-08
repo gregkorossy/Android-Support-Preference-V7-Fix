@@ -4,7 +4,6 @@ import android.content.Context;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.widget.EditText;
 
@@ -81,19 +80,15 @@ public class EditTextPreference extends androidx.preference.EditTextPreference {
     }
 
     private void processAttrs(AttributeSet attributeSet) {
-        Log.d("LayoutInflater", "attributeSet: " + attributeSet);
         if (attributeSet == null) {
             return;
         }
 
         int n = attributeSet.getAttributeCount();
-        Log.d("LayoutInflater", "attribute count: " + n);
 
         for (int i = 0; i < n; i++) {
             int nameRes = attributeSet.getAttributeNameResource(i);
-            String name = attributeSet.getAttributeName(i);
             int resId = attributeSet.getAttributeResourceValue(i, 0);
-            Log.d("LayoutInflater", "name: " + name + ", nameRes: " + nameRes + ", val: " + attributeSet.getAttributeValue(i));
 
             TypedValue value = null;
 

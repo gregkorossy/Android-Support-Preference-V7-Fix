@@ -9,12 +9,15 @@ import android.util.AttributeSet;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
+@Deprecated
 public class AutoSummaryEditTextPreference extends EditTextPreference {
     private CharSequence summaryHasText;
     private CharSequence summary;
 
     private String passwordSubstitute;
     private int passwordSubstituteLength;
+
+    private int inputType = InputType.TYPE_CLASS_TEXT;
 
     public AutoSummaryEditTextPreference(Context context) {
         this(context, null);
@@ -44,6 +47,15 @@ public class AutoSummaryEditTextPreference extends EditTextPreference {
         a.recycle();
 
         summary = super.getSummary();
+
+        // temporary fix for the inputType attribute until this class is removed
+        for (int i = 0; i < attrs.getAttributeCount(); i++) {
+            int nameRes = attrs.getAttributeNameResource(i);
+            if (android.R.attr.inputType == nameRes) {
+                inputType = attrs.getAttributeIntValue(i, InputType.TYPE_CLASS_TEXT);
+                break;
+            }
+        }
     }
 
     /**
@@ -60,8 +72,6 @@ public class AutoSummaryEditTextPreference extends EditTextPreference {
         if (!hasText) {
             return summary;
         } else {
-            int inputType = getEditText().getInputType();
-
             if ((inputType & InputType.TYPE_NUMBER_VARIATION_PASSWORD) == InputType.TYPE_NUMBER_VARIATION_PASSWORD ||
                     (inputType & InputType.TYPE_TEXT_VARIATION_PASSWORD) == InputType.TYPE_TEXT_VARIATION_PASSWORD ||
                     (inputType & InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD) == InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD) {

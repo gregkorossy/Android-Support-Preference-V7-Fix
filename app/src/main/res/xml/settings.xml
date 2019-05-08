@@ -72,15 +72,15 @@
             android:inputType="phone"
             android:key="auto_edit_text_test"
             android:persistent="false"
-            android:summary="Should be a phone input (it is now!)"
+            android:summary="This type is DEPRECATED and will be removed"
             android:title="AutoSummaryEditTextPreference"
             app:pref_summaryHasText="%s is a nice phone number" />
         <AutoSummaryEditTextPreference
             android:dialogMessage="This is the dialog\'s message"
-            android:inputType="text"
+            android:inputType="numberPassword"
             android:key="auto_edit_text_test2"
             android:persistent="false"
-            android:summary="Should be a number password input (it is now!)"
+            android:summary="This type is DEPRECATED and will be removed"
             android:textStyle="bold"
             android:title="AutoSummaryEditTextPreference"
             app:pref_summaryHasText="%s is a secret number"
