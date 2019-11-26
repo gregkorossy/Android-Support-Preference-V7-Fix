@@ -21,12 +21,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.OpenableColumns;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.WorkerThread;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AlertDialog;
-import androidx.preference.PreferenceDialogFragmentCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +29,13 @@ import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceDialogFragmentCompat;
 
 import com.takisoft.preferencex.ringtone.R;
 
@@ -111,12 +112,12 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
         } else {
             defaultUri = null;
         }
-        
+
         String[] titles = new String[cursor.getCount()];
-        if (cursor.moveToFirst()){
-            do{
+        if (cursor.moveToFirst()) {
+            do {
                 titles[cursor.getPosition()] = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
-            }while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
         builder
@@ -522,12 +523,12 @@ public class RingtonePreferenceDialogFragmentCompat extends PreferenceDialogFrag
         return new String[]{name, ext};
     }
 
-    private CheckedItemAdapter buildAdapter (Context context, Cursor cursor){
+    private CheckedItemAdapter buildAdapter(Context context, Cursor cursor) {
         String[] titles = new String[cursor.getCount()];
-        if (cursor.moveToFirst()){
-            do{
+        if (cursor.moveToFirst()) {
+            do {
                 titles[cursor.getPosition()] = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
-            }while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
         final TypedArray a = context.obtainStyledAttributes(null, androidx.appcompat.R.styleable.AlertDialog,

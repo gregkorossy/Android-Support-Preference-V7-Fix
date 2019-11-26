@@ -27,8 +27,8 @@
 
     <declare-styleable name="DatePickerPreference">
         <attr name="pref_pickerDate" format="string|reference" />
-        <attr name="pref_minDate" />
-        <attr name="pref_maxDate" />
+        <attr name="pref_minDate" format="string|reference" />
+        <attr name="pref_maxDate" format="string|reference" />
 
         <attr name="pref_summaryDatePattern" format="string|reference" />
 

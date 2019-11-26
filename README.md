@@ -17,7 +17,7 @@ If you would like to support me, you may donate some small amount via PayPal.
 **Add** this to your gradle file:
 ```gradle
 implementation "androidx.preference:preference:$androidxVersion"
-implementation 'com.takisoft.preferencex:preferencex:1.0.0-alpha2'
+implementation 'com.takisoft.preferencex:preferencex:1.1.0'
 ```
 
 ### 2. Use the appropriate class as your fragment's base
@@ -47,11 +47,11 @@ There are additional preferences not part of the official support library, but d
 
 Preference | Dependency | Preview
 -|-|-
-[`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference) | `implementation 'com.takisoft.preferencex:preferencex-ringtone:1.0.0-alpha2'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/ringtone_api26.png)
-[`DatePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#datepickerpreference) | `implementation 'com.takisoft.preferencex:preferencex-datetimepicker:1.0.0-alpha2'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/datepicker_api26.png)
-[`TimePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#timepickerpreference) | `implementation 'com.takisoft.preferencex:preferencex-datetimepicker:1.0.0-alpha2'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/timepicker_api26.png)
-[`ColorPickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#colorpickerpreference) | `implementation 'com.takisoft.preferencex:preferencex-colorpicker:1.0.0-alpha2'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/colorpicker_api26_fixed.png)
-[`SimpleMenuPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#simplemenupreference) | `implementation 'com.takisoft.preferencex:preferencex-simplemenu:1.0.0-alpha2'` (can be used independent of `preferencex`) | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/simplemenu_api26.png)
+[`RingtonePreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#ringtonepreference) | `implementation 'com.takisoft.preferencex:preferencex-ringtone:1.1.0'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/ringtone_api26.png)
+[`DatePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#datepickerpreference) | `implementation 'com.takisoft.preferencex:preferencex-datetimepicker:1.1.0'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/datepicker_api26.png)
+[`TimePickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#timepickerpreference) | `implementation 'com.takisoft.preferencex:preferencex-datetimepicker:1.1.0'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/timepicker_api26.png)
+[`ColorPickerPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#colorpickerpreference) | `implementation 'com.takisoft.preferencex:preferencex-colorpicker:1.1.0'` | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/colorpicker_api26_fixed.png)
+[`SimpleMenuPreference`](https://github.com/Gericop/Android-Support-Preference-V7-Fix/wiki/Preference-types#simplemenupreference) | `implementation 'com.takisoft.preferencex:preferencex-simplemenu:1.1.0'` (can be used independent of `preferencex`) | ![API 26](https://raw.githubusercontent.com/Gericop/Android-Support-Preference-V7-Fix/master/images/simplemenu_api26.png)
 
 ---
 
@@ -88,7 +88,7 @@ if (etPref != null) {
 ---
 
 ## Version
-The current stable version is **1.0.0-alpha2**.
+The current stable version is **1.1.0**.
 
 ## Notes #
 This demo / bugfix is set to work on API level 14+.
@@ -107,19 +107,16 @@ API 15 | API 21 | API 26
 
 ### Changelog
 
-**2018-05-11**
+See the separate CHANGELOG.md file.
 
-New version: 1.0.0-alpha1 (based on v27.1.1)
+**2019-11-26**
 
-- No support preferences related changes in the support library.
-- Bug fixes (#153, #149, #155, #152).
+New version: 1.1.0 (based on v1.1.0)
 
-**2018-04-10**
-
-New version: 27.1.1.0 (based on v27.1.1)
-
-- No support preferences related changes in the support library.
-- Some bug fixes (see #147 for more info).
+- introduced `PreferenceFragmentCompatMasterSwitch` that can be used as a switch's additional screen for settings; see the sample for details
+- Added `pref_disableMessagePaddingFix` attribute to the `EditTextPreference` that can be used to disable the dialog message padding fix.
+- `EditText` does not receive all attributes from `EditTextPreference` from now, only the following: `inputType`, `textAllCaps`, `lines`, `minLines`, `maxLines`, `ems`, `minEms`, `maxEms`
+- `AutoSummaryEditTextPreference` is now deprecated, use an appropriate `SummaryProvider` with the `EditTextPreference`
 
 > For older changelogs, check out the [CHANGELOG](CHANGELOG.md) file.
 

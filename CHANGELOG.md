@@ -1,5 +1,14 @@
 # Changelog
 
+**2019-11-26**
+
+New version: 1.1.0 (based on v1.1.0)
+
+- introduced `PreferenceFragmentCompatMasterSwitch` that can be used as a switch's additional screen for settings; see the sample for details
+- Added `pref_disableMessagePaddingFix` attribute to the `EditTextPreference` that can be used to disable the dialog message padding fix.
+- `EditText` does not receive all attributes from `EditTextPreference` from now, only the following: `inputType`, `textAllCaps`, `lines`, `minLines`, `maxLines`, `ems`, `minEms`, `maxEms`
+- `AutoSummaryEditTextPreference` is now deprecated, use an appropriate `SummaryProvider` with the `EditTextPreference`
+
 **2018-05-11**
 
 New version: 27.1.1.1 (based on v27.1.1)

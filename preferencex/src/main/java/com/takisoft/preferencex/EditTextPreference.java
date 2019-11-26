@@ -1,10 +1,14 @@
 package com.takisoft.preferencex;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -17,25 +21,41 @@ public class EditTextPreference extends androidx.preference.EditTextPreference {
 
     private SparseArrayCompat<TypedValue> editTextAttributes = new SparseArrayCompat<>();
 
+    private boolean disableMessagePaddingFix;
+
+    @SuppressWarnings("unused")
     public EditTextPreference(Context context) {
         this(context, null);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public EditTextPreference(Context context, AttributeSet attrs) {
         this(context, attrs, R.attr.editTextPreferenceStyle);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public EditTextPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         this(context, attrs, defStyleAttr, 0);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public EditTextPreference(Context context, final AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+
+        TypedArray a = getContext().obtainStyledAttributes(
+                attrs, R.styleable.EditTextPreference, defStyleAttr, defStyleRes);
+        disableMessagePaddingFix = a.getBoolean(R.styleable.EditTextPreference_pref_disableMessagePaddingFix, false);
+        a.recycle();
+
         processAttrs(attrs);
 
         super.setOnBindEditTextListener(new OnBindEditTextListener() {
             @Override
             public void onBindEditText(@NonNull EditText editText) {
+                if (!disableMessagePaddingFix) {
+                    fixMessagePadding(editText);
+                }
+
                 int n = editTextAttributes.size();
                 for (int i = 0; i < n; i++) {
                     int attr = editTextAttributes.keyAt(i);
@@ -77,6 +97,23 @@ public class EditTextPreference extends androidx.preference.EditTextPreference {
                 }
             }
         });
+    }
+
+    private void fixMessagePadding(@NonNull View view) {
+        ViewParent parent = view.getParent();
+        if (parent instanceof ViewGroup) {
+            View msgView = ((ViewGroup) parent).findViewById(android.R.id.message);
+
+            if (msgView != null) {
+                ViewGroup.LayoutParams layoutParams = msgView.getLayoutParams();
+
+                if (layoutParams instanceof ViewGroup.MarginLayoutParams) {
+                    ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) layoutParams;
+                    marginLayoutParams.bottomMargin = 0;
+                    msgView.setLayoutParams(marginLayoutParams);
+                }
+            }
+        }
     }
 
     private void processAttrs(AttributeSet attributeSet) {
@@ -136,9 +173,10 @@ public class EditTextPreference extends androidx.preference.EditTextPreference {
      * @see OnBindEditTextListener
      */
     @Nullable
-    @Override
+    //@Override
     public OnBindEditTextListener getOnBindEditTextListener() {
-        return super.getOnBindEditTextListener();
+        return this.onBindEditTextListener;
+        //return super.getOnBindEditTextListener();
     }
 
     @Override

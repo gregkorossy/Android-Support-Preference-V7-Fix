@@ -65,27 +65,16 @@
             android:inputType="phone"
             android:key="edit_text_test"
             android:persistent="false"
-            android:summary="Should be a phone input (it is now!)"
+            android:summary="Phone input with the message padding fix enabled"
             android:title="EditTextPreference" />
-        <AutoSummaryEditTextPreference
+        <EditTextPreference
             android:dialogMessage="This is the dialog\'s message"
             android:inputType="phone"
-            android:key="auto_edit_text_test"
+            android:key="edit_text_test2"
             android:persistent="false"
-            android:summary="This type is DEPRECATED and will be removed"
-            android:title="AutoSummaryEditTextPreference"
-            app:pref_summaryHasText="%s is a nice phone number" />
-        <AutoSummaryEditTextPreference
-            android:dialogMessage="This is the dialog\'s message"
-            android:inputType="numberPassword"
-            android:key="auto_edit_text_test2"
-            android:persistent="false"
-            android:summary="This type is DEPRECATED and will be removed"
-            android:textStyle="bold"
-            android:title="AutoSummaryEditTextPreference"
-            app:pref_summaryHasText="%s is a secret number"
-            app:pref_summaryPasswordSubstitute="\u00A9"
-            app:pref_summaryPasswordSubstituteLength="0" />
+            android:summary="Phone input with the message padding fix disabled"
+            android:title="EditTextPreference"
+            app:pref_disableMessagePaddingFix="true" />
         <ListPreference
             android:dialogTitle="ListPreference dialog"
             android:entries="@array/pref_list_entries"
