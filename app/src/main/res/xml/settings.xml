@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<PreferenceScreen android:key="root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <PreferenceCategory android:title="First category">
+    <PreferenceCategory android:key="first"
+        android:title="First category">
         <Preference
             android:persistent="false"
             android:summary="This is just a normal preference"
@@ -43,7 +45,8 @@
             android:persistent="false"
             android:title="SeekBarPreference without value" />
     </PreferenceCategory>
-    <PreferenceCategory
+
+    <PreferenceCategory android:key="unreserved"
         android:title="Icon space not reserved category"
         app:iconSpaceReserved="false">
         <Preference
@@ -52,14 +55,17 @@
             android:title="Preference (unreserved)"
             app:iconSpaceReserved="false" />
     </PreferenceCategory>
-    <PreferenceCategory
+
+    <PreferenceCategory android:key="diffCol"
         android:title="PreferenceCategory using different color"
         app:pref_categoryColor="#2196f3">
         <com.takisoft.preferencex.demo.ActivityResultTestPreference
             android:summary="Click on this, it will launch a content picker Activity"
             android:title="ActivityResultTestPreference" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Another category">
+
+    <PreferenceCategory android:key="another"
+        android:title="Another category. Contains nested PreferenceScreen!">
         <EditTextPreference
             android:dialogMessage="This is the dialog\'s message"
             android:inputType="phone"
@@ -103,10 +109,10 @@
                 android:title="Another one" />
         </PreferenceScreen>
     </PreferenceCategory>
-    <PreferenceCategory
-        android:key="pref_extras"
+
+    <PreferenceCategory android:key="pref_extras"
         android:title="Extra preferences (available separately)">
-        <RingtonePreference
+        <com.takisoft.preferencex.RingtonePreference
             android:dialogTitle="@string/ringtone_picker_title"
             android:key="pref_ringtone"
             android:persistent="false"
@@ -117,7 +123,7 @@
             android:title="RingtonePreference"
             app:pref_showAdd="true"
             app:pref_summaryHasRingtone="The best ringtone: %s" />
-        <TimePickerPreference
+        <com.takisoft.preferencex.TimePickerPreference
             android:key="pref_time"
             android:persistent="false"
             android:summary="Select the perfect time"
@@ -125,14 +131,14 @@
             app:pref_hourFormat="auto"
             app:pref_pickerTime="19:35"
             app:pref_summaryHasTime="Selected time: %s" />
-        <DatePickerPreference
+        <com.takisoft.preferencex.DatePickerPreference
             android:key="pref_date"
             android:persistent="false"
             android:summary="Select a date"
             android:title="DatePickerPreference"
             app:pref_minDate="08/31/2017"
             app:pref_summaryHasDate="Selected date: %s" />
-        <ColorPickerPreference
+        <com.takisoft.preferencex.ColorPickerPreference
             android:defaultValue="#88C440"
             android:dialogTitle="@string/color_picker_default_title"
             android:key="pref_color"
@@ -140,7 +146,7 @@
             android:summary="Very nice color"
             android:title="ColorPickerPreference"
             app:pref_size="small" />
-        <SimpleMenuPreference
+        <com.takisoft.preferencex.SimpleMenuPreference
             android:defaultValue="1"
             android:entries="@array/pref_list_entries"
             android:entryValues="@array/pref_list_values"
@@ -149,8 +155,8 @@
             android:summary="%s"
             android:title="SimpleMenuPreference" />
     </PreferenceCategory>
-    <PreferenceCategory
-        android:key="pref_empty_categ"
+
+    <PreferenceCategory android:key="pref_empty_categ"
         android:title="">
         <CheckBoxPreference
             android:key="pref_empty_check"
@@ -159,8 +165,8 @@
             android:summaryOn="Category title is visible :)"
             android:title="Show category title" />
     </PreferenceCategory>
-    <PreferenceCategory
-        android:key="pref_categ"
+
+    <PreferenceCategory android:key="pref_categ"
         android:title="Dynamic category">
         <Preference
             android:key="pref_add"
