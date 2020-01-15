@@ -4,15 +4,19 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 import com.takisoft.preferencex.PreferenceShowHide;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.recyclerview.widget.RecyclerView;
+
+import static java.lang.String.format;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -30,10 +34,13 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat {
 
         testDynamicPrefs();
 
+        String specPref = null;                     // View all categories
+        if (false) specPref = "pref_extras";        // Specific category only
         // Collapse the UI so the user sees only the PreferenceCategory titles.
         // Tapping the title toggles visibility of the actual Preferences.
         // Exception: If PreferenceCategory title 'isEmpty()' children are not hidden.
-        showHide = new PreferenceShowHide(this, null, true);
+        // [ NB: Does NOT collapse when a specific category or preference is requested. ]
+        showHide = new PreferenceShowHide(this, specPref, true);
 
         Preference prefEmptyCheck = findPreference("pref_empty_check");
 
@@ -96,4 +103,18 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat {
         return RV;
     }
 
+    /** Specific Preference requested: Remove all other preferences */
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        String title = showHide.isSpecific() ? showHide.getSpecPref() : "All preferences";
+
+        // It's OK to always make this call, which has no effect unless a specific preference
+        // was requested. (ie when constructor parameter 2 'specPref' is neither null nor empty)
+        showHide.removeAllButPreviouslySpecifiedPreference();
+
+        Log.d("onStart()", format("Processing %d preferences for PreferenceScreen key='%s': %s",
+                RV.getAdapter().getItemCount(), showHide.getRoot(), title));
+    }
 }

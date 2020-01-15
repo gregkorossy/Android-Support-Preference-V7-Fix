@@ -47,7 +47,7 @@ public class PreferenceShowHide {
     private String specPref;                    // Named PreferenceCategory or Preference
     public String getSpecPref() { return specPref; }
     private boolean specific;                   // Handy flag for above
-    public boolean isSpecific(){ return specific; };
+    public boolean isSpecific(){ return specific; }
     private boolean debug;                      // Request/suppress logging
     private RecyclerView RV = null;
     /** User responsibility to supply RecyclerView! See 'onCreateRecyclerView()' */
@@ -144,6 +144,7 @@ public class PreferenceShowHide {
         int ix = categories.indexOf(cat);
         log(format("Clicked category '%s' [%d] collapsed=%b", cat, ix, collapsed.get(ix)));
         for (String key : preferences.get(ix)) {
+            if (pfc.findPreference(key)==null) continue;    // Normal for non-category subset
             pfc.findPreference(key).setVisible(collapsed.get(ix));
         }
         collapsed.set(ix, !(collapsed.get(ix)));
@@ -173,12 +174,13 @@ public class PreferenceShowHide {
 
     /** Remove all preferences except the one specified during construction.<br>
     If that was a PreferenceCategory retain visibility of the entire category. <br>
-    Tip: Call this from your PreferenceFragmentCompat 'onStart()' override. */
+    Tip: Call this from your PreferenceFragmentCompat 'onStart()' override. It is never unsafe
+    to make this call as no action is performed when all preferences were requested. */
     @SuppressLint("RestrictedApi")
     public void removeAllButPreviouslySpecifiedPreference() {
-        if (!isInitOK()) return;
+        if (!isInitOK() || !specific || RV == null) return;
         Preference keepPref = pfc.findPreference(specPref);
-        if (keepPref == null || RV == null) { return;}
+        if (keepPref == null) { return; }
         PreferenceGroup keepParent = getParent(keepPref);
         boolean keepCategory = (root.equals(keepParent.getKey()));
         log(format("Removing all preferences except '%s/%s'", keepParent.getKey(), specPref));
@@ -198,21 +200,25 @@ public class PreferenceShowHide {
         log(format("remaining=%d", RV.getAdapter().getItemCount()));
     }
 
-    // Obtain the parent of a Preference [ PreferenceScreen OR PreferenceCategory ]
-    private PreferenceGroup getParent(Preference pref) {
-        return getParent(pfc.getPreferenceScreen(), pref);
+    /** Obtain the parent of specified child
+     @param      child Preference (ie: PreferenceCategory OR specific Preference)
+     @return     Parent PreferenceGroup (ie: PreferenceScreen OR PreferenceCategory */
+    private PreferenceGroup getParent(Preference child) {
+        PreferenceGroup parent = getParent(pfc.getPreferenceScreen(), child);
+        if (parent!=null) log(format("Found child '%s' within parent '%s'", child.getKey(), parent.getKey()));
+        return parent;
     }
-    private PreferenceGroup getParent(PreferenceGroup root, Preference pref) {
-        for (int i = 0; i < root.getPreferenceCount(); i++)  {
-            Preference p = root.getPreference(i);
-            if (p == pref) return root;
-            if (PreferenceGroup.class.isInstance(p)) {
-                PreferenceGroup parent = getParent((PreferenceGroup)p, pref);
+    /** Recursively locate parent of specified child */
+    private PreferenceGroup getParent(PreferenceGroup group, Preference child) {
+        for (int i = 0; i < group.getPreferenceCount(); i++)  {
+            Preference p = group.getPreference(i);
+            if (p == child) return group;
+            if (p instanceof PreferenceGroup) {     // ie: PreferenceScreen/PreferenceCategory
+                PreferenceGroup parent = getParent((PreferenceGroup)p, child);
                 if (parent != null) return parent;
             }
         }
-        log("Could not find parent for " + pref.getKey());
-        return null;
+        return null;                    // Not here OR previously removed
     }
 
     // ---------------------------------------------------------------------------------------------
