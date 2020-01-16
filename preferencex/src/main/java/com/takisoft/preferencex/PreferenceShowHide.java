@@ -2,6 +2,7 @@ package com.takisoft.preferencex;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -19,27 +20,36 @@ import androidx.preference.PreferenceScreen;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.takisoft.preferencex.PreferenceFragmentCompat;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.String.format;
 
-// Author: Matt Arnold (GitHub user MPArnold)
 /** Expand/collapse <b>PreferenceCategory</b> by tapping it's title ...<br>
  <ul>Edit your sub-classed <b>PreferenceFragmentCompat</b> as follows: </ul>
- <li>Instantiate this class in <i>onCreatePreferencesFix()</i> </li>
- <li>Supply <i>RecyclerView</i> by overriding <i>onCreateRecyclerView()</i> </li>
- Refer to the sample app {@link com.takisoft.preferencex.demo.MyPreferenceFragment} <br>
- <ul>Additionally ...
+ <li>Instantiate this class in <i>onCreatePreferencesFix()</i> <b>after</b> xml expansion and all
+ dynamic modifications have taken place</li>
+ <li>Supply <i>RecyclerView</i> by overriding <i>onCreateRecyclerView()</i> </li> <br>
+ Refer to: PreferenceFragmentCompat.onCreatePreferencesFix() <br>
+
+ <ul><b>Additionally ...</b>
  <li>Your PreferenceScreen must have a key (eg: "root")</li>
  <li>Every PreferenceCategory AND Preference will ideally have a unique key</li>
  <li>Every PreferenceCategory probably should have a title. (Otherwise there is nothing for the user to
  tap and thereby toggle child Preference visibility)</li>
  <li>If a PreferenceCategory has an empty title it's children will not be hidden.</li>
- <li>If a child Preference has no key, one will be assigned.</li>
+ <li>If a child Preference has no key, one will be generated.</li>
  <li>Keys are generally required for internal use by this program but vital should your
  application wish to display only a specific PreferenceCategory or Preference.</li>
- </ul> */
+ <li>Nested <i>PreferenceScreen</i> is tolerated but otherwise unsupported.</li></ul>
+
+ <ul><b>Scrolling</b>
+ <li>Default action is to smooth scroll newly-expanded category to top of View.</li>
+ <li>User may suppress scrolling by issuing <i>setScroll(false).</i></li>
+ <li>User may override scrolling. See {@link #setCustomScrollInterface(CustomScroll)}</li></ul>
+ <b>Author:</b> Matt Arnold (GitHub user MPArnold)*/
 public class PreferenceShowHide {
     PreferenceFragmentCompat pfc;               // References to caller
     private String root;                        // PreferenceScreen name.
@@ -68,13 +78,14 @@ public class PreferenceShowHide {
     public boolean isInitOK() { return initOK; }
     private boolean scroll=true;
     public void setScroll(boolean scroll) { this.scroll = scroll; }
+    private CustomScroll customScrollInterface = null;
+    public void setCustomScrollInterface(CustomScroll iFace) { customScrollInterface = iFace; }
 
     /** Constructor. (Caller may issue isInitOK() to test for success.)
-    @param pfc          Your PreferenceFragmentCompat
-    @param specPref     Key of specific PreferenceCategory OR specific Preference OR null/empty
-    @param debug        true: log messages
-    @see #removeAllButPreviouslySpecifiedPreference()
-    @see #isInitOK() */
+     @param pfc          Your PreferenceFragmentCompat
+     @param specPref     Key of specific PreferenceCategory OR specific Preference OR null/empty
+     @param debug        true: log messages
+     @see #isInitOK() */
     public PreferenceShowHide(PreferenceFragmentCompat pfc, String specPref, boolean debug) {
         this.pfc = pfc;
         this.specPref = specPref;
@@ -84,7 +95,7 @@ public class PreferenceShowHide {
     }
 
     /** Analyze XML / Collapse all categories.
-    @return false Exception described in 'lastLogged'  */
+     @return false Exception described in 'lastLogged'  */
     private boolean analyzeXML() {
         PreferenceScreen ps = pfc.getPreferenceScreen();
         root = ps.getKey();
@@ -138,7 +149,7 @@ public class PreferenceShowHide {
     /** Toggle visibility of all children in the category */
     @SuppressLint("RestrictedApi")
     private void clicked(View v, int position) {
-         Preference pref = ((PreferenceGroupAdapter) RV.getAdapter()).getItem(position);
+        Preference pref = ((PreferenceGroupAdapter) RV.getAdapter()).getItem(position);
         if (!(pref instanceof PreferenceCategory)) return;
         String cat = pref.getKey();
         int ix = categories.indexOf(cat);
@@ -150,8 +161,13 @@ public class PreferenceShowHide {
         collapsed.set(ix, !(collapsed.get(ix)));
         if (collapsed.get(ix)) return;
 
-        // Smoothly scroll tapped category to top of screen at 1/4 speed
-        if (scroll) scroll(RV, position);
+        // Scroll tapped category to top of screen
+        if (!scroll) return;                            // User has issued 'setScroll(false)'
+        if (customScrollInterface != null) {
+            customScrollInterface.scroll(RV, position); // User-defined scrolling
+            return;
+        }
+        smoothScrollQ(RV, position);                    // Default scrolling
 
     }
 
@@ -171,11 +187,10 @@ public class PreferenceShowHide {
     }
 
     //----------------------------------------------------------------------------------------------
-
     /** Remove all preferences except the one specified during construction.<br>
-    If that was a PreferenceCategory retain visibility of the entire category. <br>
-    Tip: Call this from your PreferenceFragmentCompat 'onStart()' override. It is never unsafe
-    to make this call as no action is performed when all preferences were requested. */
+     If that was a PreferenceCategory retain visibility of the entire category. <br>
+     Tip: Call this from your PreferenceFragmentCompat 'onStart()' override. It is never unsafe
+     to make this call as no action is performed when all preferences were requested. */
     @SuppressLint("RestrictedApi")
     public void removeAllButPreviouslySpecifiedPreference() {
         if (!isInitOK() || !specific || RV == null) return;
@@ -222,9 +237,10 @@ public class PreferenceShowHide {
     }
 
     // ---------------------------------------------------------------------------------------------
+
     /** Smoothly scroll to specified position at 1/4 speed <br>
-     Extremely primitive but OK for short things like Preferences */
-    private void scroll(RecyclerView rv, int position) throws IllegalArgumentException {
+     This default scroller is extremely primitive but OK for short things like Preferences */
+    private void smoothScrollQ(RecyclerView rv, int position) throws IllegalArgumentException {
         RecyclerView.SmoothScroller smoothScroller = new LinearSmoothScroller(pfc.getContext()) {
             @Override protected int getVerticalSnapPreference() {
                 return LinearSmoothScroller.SNAP_TO_START;
@@ -272,7 +288,14 @@ public class PreferenceShowHide {
 
     /** Interface supplying RecyclerView item position */
     public interface CategoryListener {
-        public void onItemClick(View view, int position);
+        void onItemClick(View view, int position);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /** Custom scroll Interface */
+    public interface CustomScroll {
+        void scroll(RecyclerView rv, int targetPosition);
     }
 
     // ---------------------------------------------------------------------------------------------
