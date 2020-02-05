@@ -1,4 +1,4 @@
-package com.takisoft.preferencex.animation;
+package com.takisoft.preferencex.simplemenu;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -8,45 +8,23 @@ import android.animation.TypeEvaluator;
 import android.annotation.TargetApi;
 import android.graphics.Rect;
 import android.os.Build;
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
-import com.takisoft.preferencex.drawable.FixedBoundsDrawable;
-import com.takisoft.preferencex.widget.SimpleMenuPopupWindow;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
 /**
  * Helper class to create and start animation of Simple Menu.
- *
+ * <p>
  * TODO let params styleable
  */
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-public class SimpleMenuAnimation {
+class SimpleMenuAnimation {
 
-    public static void postStartEnterAnimation(final SimpleMenuPopupWindow popupWindow, final FixedBoundsDrawable background,
-                                               final int width, final int height,
-                                               final int startX, final int startY, final Rect start,
-                                               final int itemHeight, final int elevation, final int selectedIndex) {
-        popupWindow.getBackground().setFixedBounds(new Rect());
-        popupWindow.getContentView().setClipBounds(new Rect());
-
-        popupWindow.getContentView().post(new Runnable() {
-            @Override
-            public void run() {
-                // return if already dismissed
-                if (popupWindow.getContentView().getParent() == null) {
-                    return;
-                }
-                startEnterAnimation(popupWindow.getContentView(), background, width, height, startX, startY, start, itemHeight, elevation, selectedIndex);
-            }
-        });
-    }
-
-    public static void startEnterAnimation(final View view, final FixedBoundsDrawable background,
-                                           int width, int height,
+    public static void startEnterAnimation(final CustomBoundsDrawable background, final View view, int width, int height,
                                            int centerX, int centerY, Rect start,
                                            int itemHeight, int elevation, int selectedIndex) {
         PropertyHolder holder = new PropertyHolder(background, view);
@@ -56,7 +34,7 @@ public class SimpleMenuAnimation {
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(
                 backgroundAnimator,
-                createElevationAnimator((View) view.getParent(), elevation));
+                createElevationAnimator(view, elevation));
         animatorSet.setDuration(backgroundAnimator.getDuration());
         animatorSet.start();
 

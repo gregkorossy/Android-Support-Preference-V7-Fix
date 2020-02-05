@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
+    android:scrollbarStyle="outsideOverlay"
     android:clipToPadding="false"
-    android:scrollbars="vertical">
-
-</androidx.recyclerview.widget.RecyclerView>
+    android:scrollbars="vertical" />

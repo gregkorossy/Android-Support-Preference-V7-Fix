@@ -3,35 +3,36 @@ package com.takisoft.preferencex;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
+import android.util.AttributeSet;
+import android.view.ContextThemeWrapper;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.preference.ListPreference;
 import androidx.preference.PreferenceViewHolder;
-import android.util.AttributeSet;
-import android.view.View;
 
 import com.takisoft.preferencex.simplemenu.R;
-import com.takisoft.preferencex.widget.SimpleMenuPopupWindow;
+import com.takisoft.preferencex.simplemenu.SimpleMenuPopupWindow;
 
 /**
  * A version of {@link ListPreference} that use
  * <a href="https://material.io/guidelines/components/menus.html#menus-simple-menus">Simple Menus</a>
  * in Material Design as drop down.
- *
+ * <p>
  * On pre-Lollipop, it will fallback {@link ListPreference}.
  */
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class SimpleMenuPreference extends ListPreference {
 
+    private static boolean sLightFixEnabled = false;
     private View mAnchor;
     private View mItemView;
     private SimpleMenuPopupWindow mPopupWindow;
-
     public SimpleMenuPreference(Context context) {
         this(context, null);
     }
-
     public SimpleMenuPreference(Context context, AttributeSet attrs) {
         this(context, attrs, Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP ? R.attr.dialogPreferenceStyle : R.attr.simpleMenuPreferenceStyle);
     }
@@ -51,9 +52,16 @@ public class SimpleMenuPreference extends ListPreference {
         TypedArray a = context.obtainStyledAttributes(
                 attrs, R.styleable.SimpleMenuPreference, defStyleAttr, defStyleRes);
 
-        int popupStyle = a.getResourceId(R.styleable.SimpleMenuPreference_pref_popupStyle, R.style.Preference_SimpleMenuPreference_Popup);
+        int popupStyle = a.getResourceId(R.styleable.SimpleMenuPreference_pref_popupMenuStyle, R.style.Widget_Preference_SimpleMenuPreference_PopupMenu);
+        int popupTheme = a.getResourceId(R.styleable.SimpleMenuPreference_pref_popupTheme, R.style.ThemeOverlay_Preference_SimpleMenuPreference_PopupMenu);
+        Context popupContext;
+        if (popupTheme != 0) {
+            popupContext = new ContextThemeWrapper(context, popupTheme);
+        } else {
+            popupContext = context;
+        }
 
-        mPopupWindow = new SimpleMenuPopupWindow(context, attrs, R.styleable.SimpleMenuPreference_pref_popupStyle, popupStyle);
+        mPopupWindow = new SimpleMenuPopupWindow(popupContext, attrs, R.styleable.SimpleMenuPreference_pref_popupMenuStyle, popupStyle);
         mPopupWindow.setOnItemClickListener(new SimpleMenuPopupWindow.OnItemClickListener() {
             @Override
             public void onClick(int i) {
@@ -65,6 +73,14 @@ public class SimpleMenuPreference extends ListPreference {
         });
 
         a.recycle();
+    }
+
+    public static boolean isLightFixEnabled() {
+        return sLightFixEnabled;
+    }
+
+    public static void setLightFixEnabled(boolean lightFixEnabled) {
+        sLightFixEnabled = lightFixEnabled;
     }
 
     @Override
@@ -87,6 +103,7 @@ public class SimpleMenuPreference extends ListPreference {
 
         View container = (View) mItemView   // itemView
                 .getParent();               // -> list (RecyclerView)
+
         mPopupWindow.show(mItemView, container, (int) mAnchor.getX());
     }
 
@@ -99,6 +116,11 @@ public class SimpleMenuPreference extends ListPreference {
         }
 
         mPopupWindow.requestMeasure();
+    }
+
+    @Override
+    public void setValue(String value) {
+        super.setValue(value);
     }
 
     @Override
