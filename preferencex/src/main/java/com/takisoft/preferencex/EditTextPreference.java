@@ -89,6 +89,9 @@ public class EditTextPreference extends androidx.preference.EditTextPreference {
                         case android.R.attr.maxEms:
                             editText.setMaxEms(data);
                             break;
+                        case android.R.attr.maxLength:
+                            editText.setFilters(new InputFilter[] {new InputFilter.LengthFilter(data)});
+                            break;
                     }
                 }
 
