@@ -146,6 +146,7 @@ public class EditTextPreference extends androidx.preference.EditTextPreference {
                 case android.R.attr.minLines:
                 case android.R.attr.maxLines:
                 case android.R.attr.lines:
+                case android.R.attr.maxLength:
                     value = new TypedValue();
                     value.resourceId = resId;
                     value.data = attributeSet.getAttributeIntValue(i, -1);
