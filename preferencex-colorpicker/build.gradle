@@ -6,8 +6,6 @@ android {
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.sdkVersion
-        versionCode 1
-        versionName "1.0.0"
 
         vectorDrawables.useSupportLibrary = true
     }
@@ -17,44 +15,35 @@ android {
             consumerProguardFiles 'proguard-rules.pro'
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 ext {
-    bintrayUserOrg = 'takisoft'
-    bintrayRepo = 'android'
-    bintrayName = 'com.takisoft.preferencex:preferencex-colorpicker'
-
-    publishedGroupId = 'com.takisoft.preferencex'
-    libraryName = 'Preference X - ColorPickerPreference'
-    artifact = 'preferencex-colorpicker'
-
-    libraryDescription = 'AndroidX Preference - ColorPickerPreference.'
-
-    siteUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix'
-    gitUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix.git'
-
-    libraryVersion = rootProject.libVersion
-
-    developerId = 'gericop'
-    developerName = 'Gergely Kőrössy'
-    developerEmail = 'korossyg@takisoft.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
+    PUBLISH_GROUP_ID = 'com.takisoft.preferencex'
+    PUBLISH_VERSION = rootProject.libVersion
+    PUBLISH_ARTIFACT_ID = 'preferencex-colorpicker'
+    PUBLISH_DESCRIPTION = 'AndroidX Preference - ColorPickerPreference'
+    PUBLISH_URL = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix'
+    PUBLISH_LICENSE_NAME = 'The Apache Software License, Version 2.0'
+    PUBLISH_LICENSE_URL = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    PUBLISH_DEVELOPER_ID = 'gericop'
+    PUBLISH_DEVELOPER_NAME = 'Gergely Kőrössy'
+    PUBLISH_DEVELOPER_EMAIL = 'korossyg@takisoft.com'
+    PUBLISH_SCM_CONNECTION =
+            'scm:git:github.com/Gericop/Android-Support-Preference-V7-Fix.git'
+    PUBLISH_SCM_DEVELOPER_CONNECTION =
+            'scm:git:ssh://github.com/Gericop/Android-Support-Preference-V7-Fix.git'
+    PUBLISH_SCM_URL =
+            'https://github.com/Gericop/Android-Support-Preference-V7-Fix/tree/master'
 }
+
+apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
 
 dependencies {
     implementation project(':preferencex')
     implementation "androidx.appcompat:appcompat:$androidxAppcompatVersion"
     api 'com.takisoft.colorpicker:colorpicker:1.0.0'
-}
-
-//apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
-//apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/bintrayv.gradle'
-apply from: '../installv.gradle'
-apply from: '../bintrayv.gradle'
-
-javadoc.doFirst {
-    failOnError false
 }

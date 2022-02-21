@@ -1,7 +1,4 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
-project.ext.extrasLibraryVersionSuffix = ''
-
 buildscript {
     ext {
         minSdkVersion = 14
@@ -13,23 +10,32 @@ buildscript {
         libVersion = '1.1.0'
     }
     repositories {
-        jcenter()
         google()
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.0-beta04'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-
+        classpath 'com.android.tools.build:gradle:7.3.0-alpha03'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
+plugins {
+    id "io.github.gradle-nexus.publish-plugin" version "1.1.0"
+}
+
 allprojects {
     repositories {
-        jcenter()
         google()
-        maven { url "https://dl.bintray.com/takisoft/android" }
+        mavenCentral()
     }
 }
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+apply from: "${rootDir}/scripts/publish-root.gradle"

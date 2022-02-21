@@ -6,8 +6,6 @@ android {
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.sdkVersion
-        versionCode 1
-        versionName "1.0.0"
 
         vectorDrawables.useSupportLibrary = true
     }
@@ -18,42 +16,32 @@ android {
         }
     }
 
+    lintOptions {
+        abortOnError false
+    }
 }
 
 ext {
-    bintrayUserOrg = 'takisoft'
-    bintrayRepo = 'android'
-    bintrayName = 'com.takisoft.preferencex:preferencex-simplemenu'
-
-    publishedGroupId = 'com.takisoft.preferencex'
-    libraryName = 'Preference X - SimpleMenuPreference'
-    artifact = 'preferencex-simplemenu'
-
-    libraryDescription = 'AndroidX Preference - SimpleMenuPreference. Displays a simple menu on API 21+ and a ListPreference on pre-Lollipop devices.'
-
-    siteUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix'
-    gitUrl = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix.git'
-
-    libraryVersion = rootProject.libVersion
-
-    developerId = 'Mygod'
-    developerName = 'Mygod'
-    developerEmail = 'contact-preference@mygod.be'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
+    PUBLISH_GROUP_ID = 'com.takisoft.preferencex'
+    PUBLISH_VERSION = rootProject.libVersion
+    PUBLISH_ARTIFACT_ID = 'preferencex-simplemenu'
+    PUBLISH_DESCRIPTION = 'AndroidX Preference - SimpleMenuPreference. Displays a simple menu on API 21+ and a ListPreference on pre-Lollipop devices.'
+    PUBLISH_URL = 'https://github.com/Gericop/Android-Support-Preference-V7-Fix'
+    PUBLISH_LICENSE_NAME = 'The Apache Software License, Version 2.0'
+    PUBLISH_LICENSE_URL = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    PUBLISH_DEVELOPER_ID = 'Mygod'
+    PUBLISH_DEVELOPER_NAME = 'Mygod'
+    PUBLISH_DEVELOPER_EMAIL = 'contact-preference@mygod.be'
+    PUBLISH_SCM_CONNECTION =
+            'scm:git:github.com/Gericop/Android-Support-Preference-V7-Fix.git'
+    PUBLISH_SCM_DEVELOPER_CONNECTION =
+            'scm:git:ssh://github.com/Gericop/Android-Support-Preference-V7-Fix.git'
+    PUBLISH_SCM_URL =
+            'https://github.com/Gericop/Android-Support-Preference-V7-Fix/tree/master'
 }
+
+apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
 
 dependencies {
     api "androidx.preference:preference:$androidxPreferenceVersion"
-}
-
-//apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
-//apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/bintrayv.gradle'
-apply from: '../installv.gradle'
-apply from: '../bintrayv.gradle'
-
-javadoc.doFirst {
-    failOnError false
 }
