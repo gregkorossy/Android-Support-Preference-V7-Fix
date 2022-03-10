@@ -2,6 +2,7 @@ package com.takisoft.preferencex;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -89,6 +90,9 @@ public class EditTextPreference extends androidx.preference.EditTextPreference {
                         case android.R.attr.maxEms:
                             editText.setMaxEms(data);
                             break;
+                        case android.R.attr.maxLength:
+                            editText.setFilters(new InputFilter[] {new InputFilter.LengthFilter(data)});
+                            break;
                     }
                 }
 
@@ -142,6 +146,7 @@ public class EditTextPreference extends androidx.preference.EditTextPreference {
                 case android.R.attr.minLines:
                 case android.R.attr.maxLines:
                 case android.R.attr.lines:
+                case android.R.attr.maxLength:
                     value = new TypedValue();
                     value.resourceId = resId;
                     value.data = attributeSet.getAttributeIntValue(i, -1);
