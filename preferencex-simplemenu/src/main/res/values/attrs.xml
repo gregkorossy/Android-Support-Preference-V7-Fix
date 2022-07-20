@@ -5,8 +5,16 @@
         <attr name="simpleMenuPreferenceStyle" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="ForegroundCheckTextView">
+        <attr name="android:foregroundGravity" />
+        <attr name="android:foreground" />
+        <attr name="foregroundInsidePadding" format="boolean" />
+    </declare-styleable>
+
     <declare-styleable name="SimpleMenuPreference">
-        <attr name="pref_popupStyle" format="reference"/>
+        <attr name="pref_popupMenuStyle" />
+        <attr name="pref_popupTheme" />
+        <attr name="pref_popupBackgroundRadius" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="SimpleMenuPopup">
